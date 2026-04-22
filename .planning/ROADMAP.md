@@ -39,7 +39,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Rough shape**: GitHub repo + branch protection + required CI checks, `.env.example` + `.env.local` pattern, secrets in Vercel env dashboard (manual load for solo dev — 1Password Business sync comes in Phase 10), Sentry project + DSN wired frontend-side with release tagging, Vercel project created and linked to the GitHub repo.
 **Plans**: 6 plans
   - [x] 00-01-PLAN.md — Repo scaffold: minimal Next.js 15 App Router + TS + Tailwind + ESLint via create-next-app, Node/pnpm pinning, `.env.example` + `.gitignore` discipline, GitHub meta files (README, PR template, CODEOWNERS, dependabot)
-  - [ ] 00-02-PLAN.md — Pre-commit hooks: lefthook + gitleaks (secret scan, layer 1) + commitlint (Conventional Commits) + lint-staged; hook smoke-test checkpoint
+  - [x] 00-02-PLAN.md — Pre-commit hooks: lefthook + gitleaks (secret scan, layer 1) + commitlint (Conventional Commits) + lint-staged; hook smoke-test checkpoint
   - [ ] 00-03-PLAN.md — Vercel link + Deployment Protection (Vercel Authentication) + X-Robots-Tag `noindex, nofollow` on non-production via next.config.js
   - [ ] 00-04-PLAN.md — GitHub Actions CI (`typecheck + lint + build + gitleaks` required checks) + branch protection on `main` + GH native secret scanning / push protection
   - [ ] 00-05-PLAN.md — Sentry wizard (@sentry/nextjs client + server + edge) + VERCEL_ENV tagging + gated `/api/sentry-smoke` route + conservative PII scrubbing (sendDefaultPii: false + beforeSend)
@@ -215,7 +215,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Local foundation | 1/6 | In Progress|  |
+| 0. Local foundation | 2/6 | In Progress|  |
 | 1. Next.js foundation + subdomain middleware + Sanity scaffold + Vercel previews | 0/TBD | Not started | - |
 | 2. Design system + component gallery + media pipeline | 0/TBD | Not started | - |
 | 3. Root gateway + supporting root pages | 0/TBD | Not started | - |
