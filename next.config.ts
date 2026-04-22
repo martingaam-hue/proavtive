@@ -6,6 +6,15 @@ import { withSentryConfig } from "@sentry/nextjs";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
+  // Phase 1 / Plan 01-03 — transpile Sanity packages so Next.js's transformer
+  // handles `import { useEffectEvent } from 'react'` through its CJS-interop
+  // layer. React 19.2's `useEffectEvent` is exposed only via React's conditional
+  // CJS stub (`index.js` re-exports from `cjs/react.production.js`), which
+  // webpack's static analyzer cannot trace through — it reports "attempted
+  // import error" even though the symbol exists at runtime. Transpiling the
+  // consuming packages rewrites the named imports to use proper CJS interop.
+  transpilePackages: ["sanity", "@sanity/vision", "@sanity/visual-editing"],
+
   async headers() {
     // VERCEL_ENV is auto-injected by Vercel at runtime:
     //   'production'  — the live custom domain (Phase 10)

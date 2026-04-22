@@ -1,3 +1,4 @@
+"use client";
 // Phase 1 / Plan 01-03 — Embedded Studio configuration (D-06).
 // D-07: /studio is reachable on any host — middleware passes it through (see middleware.ts config.matcher).
 // D-09: env contract is NEXT_PUBLIC_SANITY_PROJECT_ID / NEXT_PUBLIC_SANITY_DATASET (client-safe).

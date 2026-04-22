@@ -5,7 +5,9 @@
 //
 // Catch-all [[...tool]] is required — Sanity's Studio uses client-side routing for its sub-paths
 // (/studio/structure/siteSettings, /studio/vision, /studio/presentation, etc.).
-"use client";
+//
+// Server Component: metadata/viewport must be re-exported from a server module. The client
+// boundary is drawn by <NextStudio> (and by sanity.config.ts's own 'use client'), not here.
 
 import { NextStudio } from "next-sanity/studio";
 import config from "@/sanity.config";
