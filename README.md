@@ -54,3 +54,33 @@ Plan 00-05 adds `GET /api/sentry-smoke?token=$SENTRY_SMOKE_TOKEN` — throws a d
 ## GSD workflow
 
 All repo edits go through GSD commands per [`CLAUDE.md`](./CLAUDE.md). Use `/gsd-quick` for small fixes, `/gsd-execute-phase` for planned work, and `/gsd-debug` for investigation.
+
+## Preview testing recipe
+
+Phase 1 routes requests into three route trees (`app/root/`, `app/hk/`, `app/sg/`) via `middleware.ts` using the precedence `Host > cookie > query > default root` (see [CONTEXT D-01](.planning/phases/01-next-js-foundation-subdomain-middleware-sanity-studio-scaffold-vercel-previews/01-CONTEXT.md#decisions)).
+
+### Local dev
+
+Chrome and Safari resolve `*.localhost` natively (no /etc/hosts edit needed):
+
+- `http://root.localhost:3000/` — root gateway placeholder (slate stripe)
+- `http://hk.localhost:3000/` — HK placeholder (amber stripe)
+- `http://sg.localhost:3000/` — SG placeholder (teal stripe)
+- `http://localhost:3000/` — falls through to root (D-03 unknown-host default)
+
+### Vercel preview URLs
+
+`*.vercel.app` does not give wildcard subdomains on Hobby plan, so switch markets on a preview via the query bridge:
+
+- Append `?__market=hk` or `?__market=sg` or `?__market=root` to ANY preview URL — middleware sets the `x-market` cookie for subsequent requests on that preview.
+- To reset, append `?__market=root` or clear the `x-market` cookie in DevTools → Application → Cookies.
+
+### Sanity Studio
+
+- Local: `http://localhost:3000/studio` (any host works — /studio bypasses the market middleware per D-07)
+- Login: Sanity's OAuth (Google/GitHub/email) against the project configured in `.env.local`.
+- First-time setup: copy `.env.example` → `.env.local` and fill in the three `SANITY_*` / `NEXT_PUBLIC_SANITY_*` values from the Sanity dashboard.
+
+### Environment variables
+
+See `.env.example` for the full contract. **Never commit `.env.local`** — it's in `.gitignore`. Values for preview and production live in the Vercel project env dashboard.
