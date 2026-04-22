@@ -1,0 +1,32 @@
+# Defense-in-depth layer 1 (D-05) and commit discipline (D-11).
+# Hooks can be bypassed with `git commit --no-verify` — CI gitleaks (Plan 04) is the ultimate catch (D-07).
+
+pre-commit:
+  parallel: true
+  commands:
+    gitleaks-check:
+      # Scans staged content only. --redact hides secret values in log output.
+      run: |
+        if ! command -v gitleaks >/dev/null 2>&1; then
+          echo "ERROR: gitleaks not installed. Install via: brew install gitleaks (macOS) or https://github.com/gitleaks/gitleaks"
+          exit 1
+        fi
+        gitleaks protect --staged --redact --verbose --config .gitleaks.toml
+    lint-staged:
+      run: pnpm exec lint-staged
+
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm exec commitlint --edit {1}
+
+pre-push:
+  commands:
+    gitleaks-full:
+      # Defensive — scans the full diff being pushed, catches anything committed with --no-verify.
+      run: |
+        if ! command -v gitleaks >/dev/null 2>&1; then
+          echo "WARN: gitleaks not installed — skipping pre-push scan. CI will catch anything that slips through."
+          exit 0
+        fi
+        gitleaks detect --redact --verbose --config .gitleaks.toml

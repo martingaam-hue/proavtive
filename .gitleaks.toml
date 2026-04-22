@@ -1,0 +1,15 @@
+# gitleaks config — extends default rules only.
+# Extend the `[allowlist]` block when a Phase 0 scan turns up a confirmed false-positive.
+title = "proactive-gitleaks"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Files where high-entropy strings are expected (lockfiles, planning docs)"
+paths = [
+  '''pnpm-lock\.yaml''',
+  '''package-lock\.json''',
+  '''yarn\.lock''',
+  '''\.planning/.*\.md''',
+]
