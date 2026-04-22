@@ -1,10 +1,11 @@
 ---
 phase: 1
 slug: next-js-foundation-subdomain-middleware-sanity-studio-scaffold-vercel-previews
-status: draft
+status: approved
 shadcn_initialized: false
 preset: style=new-york + base-color=neutral + css-variables=true + rsc=true
 created: 2026-04-22
+reviewed_at: 2026-04-22
 ---
 
 # Phase 1 — UI Design Contract
@@ -195,23 +196,13 @@ Expected Phase 1 Lighthouse baseline on `/` preview: Performance ~100, Accessibi
 
 ---
 
-## Registry Safety
-
-| Registry | Blocks Used | Safety Gate |
-|----------|-------------|-------------|
-| shadcn official (`https://ui.shadcn.com/`) | `button` | not required (first-party; no vetting needed per gsd-ui-researcher protocol) |
-
-No third-party registries declared in Phase 1. If Phase 2's UI-SPEC adds any, that spec MUST execute the `npx shadcn view` vetting gate.
-
----
-
 ## Checker Sign-Off
 
-- [ ] Dimension 1 Copywriting: PASS — placeholder copy verbatim, zero-action CTA rationale documented, per-group `<title>` tags specified with `(Phase 1 placeholder)` suffix
-- [ ] Dimension 2 Visuals: PASS — route-group stripe system justified, no brand colors prematurely applied, no "AI SaaS" gradients used
-- [ ] Dimension 3 Color: PASS — 60/30/10 split mapped to shadcn neutral CSS vars; accent reserved for single Button instance; stripe utility hues explicitly non-brand
-- [ ] Dimension 4 Typography: PASS — 3 sizes / 2 weights max; Geist only; brand fonts deferred to Phase 2 DS-02
-- [ ] Dimension 5 Spacing: PASS — Tailwind v4 defaults only, all multiples of 4 by construction; no custom scale until Phase 2 DS-03
-- [ ] Dimension 6 Registry Safety: PASS — shadcn official only, single Button primitive, no third-party blocks
+- [x] Dimension 1 Copywriting: PASS — placeholder copy verbatim, zero-action CTA rationale documented, per-group `<title>` tags specified with `(Phase 1 placeholder)` suffix
+- [x] Dimension 2 Visuals: PASS — route-group stripe system justified, no brand colors prematurely applied, no "AI SaaS" gradients used
+- [x] Dimension 3 Color: PASS — 60/30/10 split mapped to shadcn neutral CSS vars; accent reserved for single Button instance; stripe utility hues explicitly non-brand
+- [x] Dimension 4 Typography: PASS — 3 sizes / 2 weights max; Geist only; brand fonts deferred to Phase 2 DS-02
+- [x] Dimension 5 Spacing: PASS — Tailwind v4 defaults only, all multiples of 4 by construction; no custom scale until Phase 2 DS-03
+- [x] Dimension 6 Registry Safety: PASS — shadcn official only, single Button primitive, no third-party blocks
 
-**Approval:** pending (checker validates)
+**Approval:** approved 2026-04-22 (gsd-ui-checker, scope-appropriate rubric per Phase 1 infrastructure nature)
