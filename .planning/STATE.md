@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-01-PLAN.md (middleware + app router trees)
-last_updated: "2026-04-22T21:13:04.753Z"
+stopped_at: Completed 01-02-PLAN.md (shadcn CLI + Button primitive)
+last_updated: "2026-04-22T21:29:03.443Z"
 last_activity: 2026-04-22
 progress:
   total_phases: 11
   completed_phases: 1
   total_plans: 10
-  completed_plans: 7
-  percent: 70
+  completed_plans: 8
+  percent: 80
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-22)
 ## Current Position
 
 Phase: 01 (next-js-foundation-subdomain-middleware-sanity-studio-scaffold-vercel-previews) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-04-22
 
@@ -54,6 +54,7 @@ Progress: [░░░░░░░░░░] 0%
 
 *Updated after each plan completion*
 | Phase 01 P01 | 30min | 3 tasks | 9 files |
+| Phase 01 P02 | 11min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,8 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - Init: Skip GSD research step — `.planning/inputs/strategy.md` is the research
 - 2026-04-22: Domain/DNS/Cloudflare/WAF work deferred to Phase 10 — build entirely on Vercel preview URLs through Phase 9; `proactivsports.com` is attached at launch only. Rationale: user wants build-first, connect-domain-last; Vercel previews give full-stack testability without needing DNS changes.
 - 2026-04-22: Rejected one.com as a staging / hosting option — its shared PHP hosting can't run Next.js middleware or ISR; forcing a static export would break the core architecture. Vercel previews serve the "staging" need for free.
+- [Phase 01]: 2026-04-22: Accepted shadcn v4.4.0's preset-enumeration model (Nova/Vega/Maia/Lyra/Mira/Luma/Sera/Custom). Used -p nova (v4 successor to new-york) — UI-SPEC says style is cosmetic; CLI output is authoritative per PATTERNS.md
+- [Phase 01]: 2026-04-22: Wired visible shadcn Button directly in app/root/page.tsx as a Server Component import — no 'use client' client-wrapper needed; v4 Button file has no 'use client' directive and Radix Slot runtime bundles cleanly at build time
 
 ### Pending Todos
 
@@ -91,6 +94,6 @@ Items acknowledged and carried forward (from requirements / scope decisions):
 
 ## Session Continuity
 
-Last session: 2026-04-22T21:13:04.745Z
-Stopped at: Completed 01-01-PLAN.md (middleware + app router trees)
+Last session: 2026-04-22T21:29:03.436Z
+Stopped at: Completed 01-02-PLAN.md (shadcn CLI + Button primitive)
 Resume file: None
