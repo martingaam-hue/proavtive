@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 01-03-PLAN.md (embedded Sanity Studio + 8 schema stubs)
-last_updated: "2026-04-22T23:59:00.000Z"
+status: verifying
+stopped_at: Completed 01-04-PLAN.md (Vitest middleware regression tests + 5th CI check — Phase 1 scope closed)
+last_updated: "2026-04-22T22:28:53.475Z"
 last_activity: 2026-04-22
 progress:
   total_phases: 11
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 10
-  completed_plans: 9
-  percent: 90
+  completed_plans: 10
+  percent: 100
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-22)
 
 Phase: 01 (next-js-foundation-subdomain-middleware-sanity-studio-scaffold-vercel-previews) — EXECUTING
 Plan: 4 of 4
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-22
 
 Progress: [░░░░░░░░░░] 0%
@@ -56,6 +56,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01 P01 | 30min | 3 tasks | 9 files |
 | Phase 01 P02 | 11min | 2 tasks | 7 files |
 | Phase 01 P03 | multi-session | 4 tasks | 18 files |
+| Phase 01 P04 | 10min | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,8 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 01 / Plan 01-03]: 2026-04-22: presentationTool registered with previewUrl:"/" stub instead of empty config — Sanity v5.22.0 TypeScript makes previewUrl non-optional. User-approved Rule 1 adaptation; Phase 6 CMS-05 swaps in real previewUrl resolver. D-14 install-only posture preserved
 - [Phase 01 / Plan 01-03]: 2026-04-22: Build toolchain switched from webpack to Turbopack (dev + build scripts) — React 19.2 exposes useEffectEvent via a conditional CJS stub that webpack's static named-export analyzer can't trace; sanity v5 PresentationToolGrantsCheck + LiveQueries hit that interop failure. Turbopack handles it natively. transpilePackages in next.config.ts kept as defensive config. User-approved
 - [Phase 01 / Plan 01-03]: 2026-04-22: Corrected client/server boundary for embedded Studio — 'use client' at top of sanity.config.ts (v11 canonical); app/studio/[[...tool]]/page.tsx is a Server Component re-exporting metadata+viewport from next-sanity/studio. Per next-sanity@11 README lines 1044–1099
+- [Phase 01]: Plan 01-04: installed Vitest 4.1.5 (current stable, not the ^2 suggested in context note) scoped to middleware + pure-TS tests; 11-test middleware.test.ts encodes D-02/D-16 host authority + D-04 internal-rewrite + D-07 studio pass-through as CI regression gates. Helper uses Variant A (explicit host header) per Task 1 probe finding: req.headers.get('host') is null without explicit RequestInit.headers.host.
+- [Phase 01]: Plan 01-04: added NEXT_PUBLIC_SANITY_PROJECT_ID/DATASET=build-placeholder to ci.yml Build step env. sanity.config.ts throws at module-eval if missing (Plan 01-03 fail-fast); Vercel injects real values at deploy time; CI just needs build compile. Studio runs client-side only — placeholders are safe.
 
 ### Pending Todos
 
@@ -99,6 +102,6 @@ Items acknowledged and carried forward (from requirements / scope decisions):
 
 ## Session Continuity
 
-Last session: 2026-04-22T23:59:00.000Z
-Stopped at: Completed 01-03-PLAN.md (embedded Sanity Studio + 8 schema stubs)
+Last session: 2026-04-22T22:28:53.470Z
+Stopped at: Completed 01-04-PLAN.md (Vitest middleware regression tests + 5th CI check — Phase 1 scope closed)
 Resume file: None
