@@ -1,7 +1,8 @@
 name: ci
 # Required status check for branch protection on `main`.
-# Enforces D-02: typecheck + lint + format:check + build + gitleaks must all pass.
-# Deferred (per D-03 / D-04): unit tests (Phase 2), axe a11y (Phase 7), Lighthouse CI (Phase 7).
+# Enforces D-02 (Phase 0): typecheck + lint + format:check + build + gitleaks must all pass.
+# Enforces D-17 (Phase 1 / Plan 01-04): unit tests (Vitest, middleware-scope) must pass.
+# Deferred (per D-04 Phase 0): axe a11y (Phase 7), Lighthouse CI (Phase 7).
 
 on:
   pull_request:
@@ -65,8 +66,20 @@ jobs:
         run: pnpm build
         env:
           NEXT_TELEMETRY_DISABLED: "1"
+          # Plan 01-03 deferred env wiring: Sanity config fails fast at module-eval if
+          # NEXT_PUBLIC_SANITY_* vars are missing. Production/Preview env comes from
+          # Vercel dashboard at deploy time; CI just needs the build to compile, so we
+          # pass placeholder values here. Studio never runs at build — only client-side.
+          NEXT_PUBLIC_SANITY_PROJECT_ID: "build-placeholder"
+          NEXT_PUBLIC_SANITY_DATASET: "build-placeholder"
 
-      # --- Required check 4 (D-02 / D-07): gitleaks — layer 3 of the four-layer defense ---
+      # --- Required check 4 (Phase 1 / D-17): unit tests (Vitest, middleware-scope) ---
+      # Regression gate for the D-02 host-authority invariant, the D-04 internal-rewrite
+      # invariant, and the D-07 /studio pass-through invariant — see middleware.test.ts.
+      - name: Unit tests
+        run: pnpm test:unit
+
+      # --- Required check 5 (D-02 / D-07): gitleaks — layer 3 of the four-layer defense ---
       - name: Gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
