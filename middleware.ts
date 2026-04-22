@@ -104,13 +104,18 @@ function rewriteToMarket(req: NextRequest, market: Market): NextResponse {
 
 // --- Matcher (Claude's Discretion — exclude non-routable paths) ---
 // Excludes: _next/* (Next internals), api/health (future health-check route — not created yet, but reserved),
-//           favicon.ico, monitoring (Sentry tunnel per next.config.ts line 45), static assets by extension.
+//           favicon.ico, monitoring (Sentry tunnel per next.config.ts line 45), studio (embedded Sanity
+//           Studio — D-07 reachable-on-any-host invariant), static assets by extension.
 // Rationale: these paths must NEVER route into a market-specific tree even if the Host matches — they are
-// either Next internals, Sentry's tunnel (T-MIDDLEWARE-BYPASS mitigation), or static assets.
-// NOTE: /studio is NOT excluded here — Plan 01-03 Task 2 patches this matcher to add `studio` per D-07
-// (Studio reachable on any host). The Plan 01-04 Vitest test asserts /studio pass-through as a regression gate.
+// either Next internals, Sentry's tunnel (T-MIDDLEWARE-BYPASS mitigation), Sanity Studio's own routing
+// surface (D-07: /studio is reachable on any host; middleware passes it through unchanged), or static assets.
+// D-07 NOTE (Plan 01-03 Task 2): `studio` was added to this negative-lookahead because Studio's client-side
+// router (NextStudio) requires /studio and /studio/* to reach its own catch-all route at app/studio/[[...tool]]/.
+// Rewriting /studio into /<market>/studio would 404 Studio on every load. Plan 01-04 Task 2 will add a Vitest
+// regression assertion so any future refactor that accidentally removes `studio` from this list fails CI
+// immediately — this preserves the D-07 invariant permanently.
 export const config = {
   matcher: [
-    "/((?!_next/|api/health|favicon\\.ico|monitoring|.*\\.(?:svg|png|jpg|jpeg|webp|avif|ico|gif|woff2?)).*)",
+    "/((?!_next/|api/health|favicon\\.ico|monitoring|studio|.*\\.(?:svg|png|jpg|jpeg|webp|avif|ico|gif|woff2?)).*)",
   ],
 };
