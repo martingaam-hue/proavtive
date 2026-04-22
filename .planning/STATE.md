@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 1 UI-SPEC approved
-last_updated: "2026-04-22T20:37:29.715Z"
-last_activity: 2026-04-22 -- Phase 1 planning complete
+stopped_at: Completed 01-01-PLAN.md (middleware + app router trees)
+last_updated: "2026-04-22T21:13:04.753Z"
+last_activity: 2026-04-22
 progress:
   total_phases: 11
   completed_phases: 1
   total_plans: 10
-  completed_plans: 6
-  percent: 60
+  completed_plans: 7
+  percent: 70
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-22)
 
 **Core value:** Convert affluent parents into trial bookings and enquiries; SEO + LLM visibility serve that goal.
-**Current focus:** Phase 0 — Local foundation
+**Current focus:** Phase 01 — next-js-foundation-subdomain-middleware-sanity-studio-scaffold-vercel-previews
 
 ## Current Position
 
-Phase: 1
-Plan: Not started
+Phase: 01 (next-js-foundation-subdomain-middleware-sanity-studio-scaffold-vercel-previews) — EXECUTING
+Plan: 2 of 4
 Status: Ready to execute
-Last activity: 2026-04-22 -- Phase 1 planning complete
+Last activity: 2026-04-22
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -53,6 +53,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 01 P01 | 30min | 3 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -90,6 +91,6 @@ Items acknowledged and carried forward (from requirements / scope decisions):
 
 ## Session Continuity
 
-Last session: 2026-04-22T19:43:57.309Z
-Stopped at: Phase 1 UI-SPEC approved
-Resume file: .planning/phases/01-next-js-foundation-subdomain-middleware-sanity-studio-scaffold-vercel-previews/01-UI-SPEC.md
+Last session: 2026-04-22T21:13:04.745Z
+Stopped at: Completed 01-01-PLAN.md (middleware + app router trees)
+Resume file: None

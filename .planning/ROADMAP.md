@@ -60,7 +60,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Strategy anchors**: PART 2 (site architecture), PART 13.1 (stack), PART 15.4 Weeks 0–2
 **Rough shape**: Next.js 15 App Router project scaffold, Tailwind + shadcn base, `middleware.ts` rewriting by `Host` header into route groups with dev-mode `localhost` handling, Sanity project created and Studio scaffold deployed with seed schema stubs and auth configured, route-guard test.
 **Plans**: 4 plans
-  - [ ] 01-01-PLAN.md — middleware.ts (D-01 precedence ladder) + 3 route-group placeholder trees (app/root, app/hk, app/sg) with distinguisher stripes + verbatim UI-SPEC copy; deletes create-next-app boilerplate
+  - [x] 01-01-PLAN.md — middleware.ts (D-01 precedence ladder) + 3 route-group placeholder trees (app/root, app/hk, app/sg) with distinguisher stripes + verbatim UI-SPEC copy; deletes create-next-app boilerplate
   - [ ] 01-02-PLAN.md — shadcn/ui CLI init (style=new-york, baseColor=neutral, cssVariables=true) + Button primitive + cn() helper; proves the registry pipe for Phase 2's DS-03
   - [ ] 01-03-PLAN.md — Sanity runtime deps + 8 empty schema stubs (D-11) with siteSettings singleton (D-12) + embedded Studio at /studio (D-06) with Structure+Vision+Presentation plugins (D-14, install-only) + .env.example contract + README preview recipe + middleware /studio pass-through (D-07); HUMAN-ACTION checkpoint for Martin to drop credentials per D-09
   - [ ] 01-04-PLAN.md — Vitest (D-15, middleware-scope only) + middleware.test.ts (D-16 hostile-request invariant, 7+ tests) + CI integration as 5th required check (D-17)
