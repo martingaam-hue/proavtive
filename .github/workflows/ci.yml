@@ -1,0 +1,75 @@
+name: ci
+# Required status check for branch protection on `main`.
+# Enforces D-02: typecheck + lint + format:check + build + gitleaks must all pass.
+# Deferred (per D-03 / D-04): unit tests (Phase 2), axe a11y (Phase 7), Lighthouse CI (Phase 7).
+
+on:
+  pull_request:
+    branches: [main]
+  # Also run on pushes to main (belt-and-braces — branch protection should block direct pushes,
+  # but this catches any admin-override bypass).
+  push:
+    branches: [main]
+
+# Cancel superseded runs on the same ref to save minutes.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      # Required so gitleaks-action can post a redacted finding summary as a check-run annotation.
+      checks: write
+      # Allow the workflow to read secret-scanning alerts (D-07 context — not required, but useful).
+      security-events: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Fetch full history so gitleaks can scan the entire PR diff range.
+          fetch-depth: 0
+
+      # Corepack activates the exact pnpm version from package.json `packageManager`.
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # --- Required check 1 (D-02): typecheck ---
+      - name: Typecheck
+        run: pnpm typecheck
+
+      # --- Required check 2 (D-02): lint (ESLint) ---
+      - name: Lint
+        run: pnpm lint
+
+      # --- Required check 2b (D-02): Prettier format check ---
+      - name: Format check
+        run: pnpm format:check
+
+      # --- Required check 3 (D-02): build ---
+      - name: Build
+        run: pnpm build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+
+      # --- Required check 4 (D-02 / D-07): gitleaks — layer 3 of the four-layer defense ---
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          config-path: .gitleaks.toml
