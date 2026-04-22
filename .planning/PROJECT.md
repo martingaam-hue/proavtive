@@ -20,7 +20,14 @@ This `PROJECT.md` does not duplicate it. Phase plans cite specific PART/section 
 
 ### Validated
 
-(None yet — ship to validate)
+**Phase 1 (Foundation) — 2026-04-23:**
+- Next.js 15 App Router + three-market subdomain middleware (`root.localhost` / `hk.localhost` / `sg.localhost`) with Host-authoritative routing (D-02) verified against hostile-request invariant (CI-enforced)
+- shadcn/ui primitive registry initialized (radix-nova + neutral baseColor); Button primitive shipping
+- Embedded Sanity Studio at `/studio` against project `zs77se7r`, 8-stub schema skeleton ready for Phase 6 CMS population, `siteSettings` singleton pinned
+- Vitest pure-TS test runner wired as 5th CI check; 11 middleware regression tests cover D-02/D-04/D-07/D-16 invariants
+- Build toolchain standardized on Turbopack (required for Sanity v5 + React 19.2 interop)
+
+Business-facing requirements below remain Active until their respective layer phases ship.
 
 ### Active
 
@@ -156,4 +163,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-22 after initialization. Strategy doc is canonical at `.planning/inputs/strategy.md`.*
+*Last updated: 2026-04-23 after Phase 1 completion. Strategy doc is canonical at `.planning/inputs/strategy.md`.*
