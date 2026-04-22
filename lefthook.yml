@@ -11,7 +11,7 @@ pre-commit:
           echo "ERROR: gitleaks not installed. Install via: brew install gitleaks (macOS) or https://github.com/gitleaks/gitleaks"
           exit 1
         fi
-        gitleaks protect --staged --redact --verbose --config .gitleaks.toml
+        gitleaks git --staged --redact --verbose --config .gitleaks.toml
     lint-staged:
       run: pnpm exec lint-staged
 
@@ -29,4 +29,4 @@ pre-push:
           echo "WARN: gitleaks not installed — skipping pre-push scan. CI will catch anything that slips through."
           exit 0
         fi
-        gitleaks detect --redact --verbose --config .gitleaks.toml
+        gitleaks git --redact --verbose --config .gitleaks.toml
