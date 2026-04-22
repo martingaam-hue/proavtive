@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-04-22)
 
 **Core value:** Convert affluent parents into trial bookings and enquiries; SEO + LLM visibility serve that goal.
-**Current focus:** Phase 0 — Domain, DNS, and environments
+**Current focus:** Phase 0 — Local foundation (GitHub repo, CI, secrets, Sentry, Vercel project for previews)
 
 ## Current Position
 
-Phase: 0 of 10 (Domain, DNS, and environments)
+Phase: 0 of 10 (Local foundation)
 Plan: 0 of TBD in current phase
 Status: Ready to plan
-Last activity: 2026-04-22 — Roadmap created, 66/66 v1.0 requirements mapped across 11 phases
+Last activity: 2026-04-22 — Roadmap revised: domain/DNS/Cloudflare work moved to Phase 10; build happens against Vercel preview URLs through Phase 9
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -46,6 +46,8 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - Init: Single Next.js 15 app with subdomain middleware — not three separate apps
 - Init: Quality model profile (opus on planning agents) — long-lived client production site
 - Init: Skip GSD research step — `.planning/inputs/strategy.md` is the research
+- 2026-04-22: Domain/DNS/Cloudflare/WAF work deferred to Phase 10 — build entirely on Vercel preview URLs through Phase 9; `proactivsports.com` is attached at launch only. Rationale: user wants build-first, connect-domain-last; Vercel previews give full-stack testability without needing DNS changes.
+- 2026-04-22: Rejected one.com as a staging / hosting option — its shared PHP hosting can't run Next.js middleware or ISR; forcing a static export would break the core architecture. Vercel previews serve the "staging" need for free.
 
 ### Pending Todos
 
@@ -53,7 +55,7 @@ None yet.
 
 ### Blockers/Concerns
 
-None yet. Note for Phase 0: domain `proactivsports.com` is owned but not at Cloudflare — transfer is the first Phase 0 task.
+None blocking Phase 0. Note for Phase 10: `proactivsports.com` transfer prep — gather registrar auth code / EPP code closer to Phase 10 start.
 
 ## Deferred Items
 
@@ -70,5 +72,5 @@ Items acknowledged and carried forward (from requirements / scope decisions):
 ## Session Continuity
 
 Last session: 2026-04-22
-Stopped at: Roadmap + STATE + REQUIREMENTS traceability written; awaiting user approval and `/gsd-plan-phase 0`
+Stopped at: Roadmap revised (domain→Phase 10); awaiting user approval and `/gsd-plan-phase 0`
 Resume file: None

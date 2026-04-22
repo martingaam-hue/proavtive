@@ -117,8 +117,8 @@ Grouped by the strategy doc's three layers + cross-cutting concerns. Each is a h
 
 - **Tech stack:** Next.js 15 (App Router, RSC) + Tailwind + shadcn/ui pattern + **Sanity CMS** + Vercel + Cloudflare (CDN/WAF) + Mux (video). Stack chosen by client decision; not open for re-debate without explicit re-discussion.
 - **Repo shape:** **Single Next.js app** with subdomain middleware routing root / hk / sg to different page trees. Not three separate apps.
-- **Domain:** `proactivsports.com` is owned but needs DNS transfer to Cloudflare → adds Phase 0 work before Phase 1.
-- **Hosting:** Vercel (frontend) + Cloudflare (DNS, WAF, CDN). Sanity hosted.
+- **Domain:** `proactivsports.com` is owned but deliberately not at Cloudflare yet — DNS transfer + WAF are Phase 10 work. Development uses Vercel preview URLs (`*.vercel.app`) through Phase 9.
+- **Hosting:** Vercel (frontend, preview + production) + Cloudflare (DNS, WAF, CDN — attached at Phase 10). Sanity hosted. one.com rejected for staging — incompatible with Next.js middleware + ISR.
 - **CMS independence:** non-technical client team must be able to manage homepage visuals + publish blog without developer involvement. This is a hard requirement — anything that fails this is a v1.0 blocker.
 - **Security:** Cloudflare WAF + bot management + rate limiting + secrets in Vercel env / 1Password Business. Sentry for runtime monitoring. No `.env` in git, ever.
 - **Performance budget:** LCP < 2.5s, INP < 200ms, CLS < 0.1 on homepage and pillar pages (mobile, throttled). Lighthouse 95+ on the same set.
@@ -135,6 +135,8 @@ Grouped by the strategy doc's three layers + cross-cutting concerns. Each is a h
 | Quality model profile (opus on planning agents) | Long-lived client production site; cost of bad planning >> cost of opus tokens | — Pending |
 | Skip GSD research step | Strategy doc is the research; running 4 parallel domain researchers would duplicate work | ✓ Good |
 | Project-scoped skill kit (32 skills) | frontend-design, lp-editor, page-cro, ai-seo, schema-markup, seo-audit, geo-fix-llmstxt + claude-seo suite — directly relevant to the build, scoped so they don't pollute other projects | ✓ Good (committed `4c451ae`) |
+| Defer domain/DNS/Cloudflare to Phase 10 | Build entirely on Vercel preview URLs through Phase 9; attach `proactivsports.com` at launch. Lets build proceed without DNS coordination; Vercel previews give full-stack testability for free | — Pending |
+| Reject one.com for staging | Shared PHP hosting incompatible with Next.js App Router middleware + ISR — static export would break subdomain routing + Sanity webhook revalidation | ✓ Good |
 
 ## Evolution
 

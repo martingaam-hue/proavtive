@@ -123,17 +123,17 @@
 
 ## Traceability
 
-Populated 2026-04-22 by gsd-roadmapper. Full phase detail in `.planning/ROADMAP.md`.
+Populated 2026-04-22 by gsd-roadmapper; revised 2026-04-22 (domain/DNS/Cloudflare moved to Phase 10). Full phase detail in `.planning/ROADMAP.md`.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 0 | Pending |
+| FOUND-01 | Phase 10 | Pending |
 | FOUND-02 | Phase 1 | Pending |
 | FOUND-03 | Phase 1 | Pending |
 | FOUND-04 | Phase 1 | Pending |
 | FOUND-05 | Phase 0 | Pending |
 | FOUND-06 | Phase 0 | Pending |
-| FOUND-07 | Phase 0 | Pending |
+| FOUND-07 | Phase 10 | Pending |
 | FOUND-08 | Phase 0 | Pending |
 | DS-01 | Phase 2 | Pending |
 | DS-02 | Phase 2 | Pending |
@@ -178,7 +178,7 @@ Populated 2026-04-22 by gsd-roadmapper. Full phase detail in `.planning/ROADMAP.
 | CMS-05 | Phase 6 | Pending |
 | CMS-06 | Phase 6 | Pending |
 | CMS-07 | Phase 6 | Pending |
-| CMS-08 | Phase 9 | Pending |
+| CMS-08 | Phase 10 | Pending |
 | SEO-01 | Phase 7 | Pending |
 | SEO-02 | Phase 7 | Pending |
 | SEO-03 | Phase 7 | Pending |
@@ -189,7 +189,7 @@ Populated 2026-04-22 by gsd-roadmapper. Full phase detail in `.planning/ROADMAP.
 | SEO-08 | Phase 7 | Pending |
 | SEO-09 | Phase 8 | Pending |
 | SEO-10 | Phase 8 | Pending |
-| MIG-01 | Phase 0 | Pending |
+| MIG-01 | Phase 10 | Pending |
 | MIG-02 | Phase 9 | Pending |
 | MIG-03 | Phase 9 | Pending |
 | MIG-04 | Phase 10 | Pending |
@@ -204,7 +204,7 @@ Populated 2026-04-22 by gsd-roadmapper. Full phase detail in `.planning/ROADMAP.
 
 | Phase | Requirements | Count |
 |-------|--------------|-------|
-| 0  | FOUND-01, FOUND-05, FOUND-06, FOUND-07, FOUND-08, MIG-01 | 6 |
+| 0  | FOUND-05, FOUND-06, FOUND-08 | 3 |
 | 1  | FOUND-02, FOUND-03, FOUND-04 | 3 |
 | 2  | DS-01 … DS-06 | 6 |
 | 3  | GW-01 … GW-07 | 7 |
@@ -213,10 +213,10 @@ Populated 2026-04-22 by gsd-roadmapper. Full phase detail in `.planning/ROADMAP.
 | 6  | CMS-01 … CMS-07 | 7 |
 | 7  | SEO-01 … SEO-08 | 8 |
 | 8  | SEO-09, SEO-10 | 2 |
-| 9  | CMS-08, MIG-02, MIG-03 | 3 |
-| 10 | MIG-04 | 1 |
+| 9  | MIG-02, MIG-03 | 2 |
+| 10 | FOUND-01, FOUND-07, CMS-08, MIG-01, MIG-04 | 5 |
 | **Total** | | **66** |
 
 ---
 *Requirements defined: 2026-04-22 from `.planning/inputs/strategy.md`.*
-*Traceability populated: 2026-04-22 by gsd-roadmapper.*
+*Traceability populated: 2026-04-22 by gsd-roadmapper; revised same day (Phase 0 trimmed to local-only; FOUND-01, FOUND-07, CMS-08, MIG-01 moved to Phase 10).*
