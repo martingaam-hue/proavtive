@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-02-PLAN.md (shadcn CLI + Button primitive)
-last_updated: "2026-04-22T21:29:03.443Z"
+stopped_at: Completed 01-03-PLAN.md (embedded Sanity Studio + 8 schema stubs)
+last_updated: "2026-04-22T23:59:00.000Z"
 last_activity: 2026-04-22
 progress:
   total_phases: 11
   completed_phases: 1
   total_plans: 10
-  completed_plans: 8
-  percent: 80
+  completed_plans: 9
+  percent: 90
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-22)
 ## Current Position
 
 Phase: 01 (next-js-foundation-subdomain-middleware-sanity-studio-scaffold-vercel-previews) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-04-22
 
@@ -36,7 +36,7 @@ Progress: [░░░░░░░░░░] 0%
 
 **Velocity:**
 
-- Total plans completed: 6
+- Total plans completed: 9
 - Average duration: —
 - Total execution time: 0.0 hours
 
@@ -55,6 +55,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 01 P01 | 30min | 3 tasks | 9 files |
 | Phase 01 P02 | 11min | 2 tasks | 7 files |
+| Phase 01 P03 | multi-session | 4 tasks | 18 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,10 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - 2026-04-22: Rejected one.com as a staging / hosting option — its shared PHP hosting can't run Next.js middleware or ISR; forcing a static export would break the core architecture. Vercel previews serve the "staging" need for free.
 - [Phase 01]: 2026-04-22: Accepted shadcn v4.4.0's preset-enumeration model (Nova/Vega/Maia/Lyra/Mira/Luma/Sera/Custom). Used -p nova (v4 successor to new-york) — UI-SPEC says style is cosmetic; CLI output is authoritative per PATTERNS.md
 - [Phase 01]: 2026-04-22: Wired visible shadcn Button directly in app/root/page.tsx as a Server Component import — no 'use client' client-wrapper needed; v4 Button file has no 'use client' directive and Radix Slot runtime bundles cleanly at build time
+- [Phase 01 / Plan 01-03]: 2026-04-22: next-sanity pinned to ^11.6.13 (not v12) — v12 requires Next 16; repo is on Next 15.5.15. Rule 1 library-version adaptation, no user approval needed
+- [Phase 01 / Plan 01-03]: 2026-04-22: presentationTool registered with previewUrl:"/" stub instead of empty config — Sanity v5.22.0 TypeScript makes previewUrl non-optional. User-approved Rule 1 adaptation; Phase 6 CMS-05 swaps in real previewUrl resolver. D-14 install-only posture preserved
+- [Phase 01 / Plan 01-03]: 2026-04-22: Build toolchain switched from webpack to Turbopack (dev + build scripts) — React 19.2 exposes useEffectEvent via a conditional CJS stub that webpack's static named-export analyzer can't trace; sanity v5 PresentationToolGrantsCheck + LiveQueries hit that interop failure. Turbopack handles it natively. transpilePackages in next.config.ts kept as defensive config. User-approved
+- [Phase 01 / Plan 01-03]: 2026-04-22: Corrected client/server boundary for embedded Studio — 'use client' at top of sanity.config.ts (v11 canonical); app/studio/[[...tool]]/page.tsx is a Server Component re-exporting metadata+viewport from next-sanity/studio. Per next-sanity@11 README lines 1044–1099
 
 ### Pending Todos
 
@@ -94,6 +99,6 @@ Items acknowledged and carried forward (from requirements / scope decisions):
 
 ## Session Continuity
 
-Last session: 2026-04-22T21:29:03.436Z
-Stopped at: Completed 01-02-PLAN.md (shadcn CLI + Button primitive)
+Last session: 2026-04-22T23:59:00.000Z
+Stopped at: Completed 01-03-PLAN.md (embedded Sanity Studio + 8 schema stubs)
 Resume file: None

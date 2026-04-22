@@ -12,7 +12,7 @@
 - [ ] **FOUND-01**: Domain `proactivsports.com` is on Cloudflare DNS with valid certs across `*.proactivsports.com`
 - [x] **FOUND-02**: Single Next.js 15 (App Router, RSC) project boots with Tailwind + shadcn pattern, deployed to Vercel
 - [x] **FOUND-03**: Subdomain middleware routes `proactivsports.com` → `app/(root)/`, `hk.proactivsports.com` → `app/(hk)/`, `sg.proactivsports.com` → `app/(sg)/`
-- [ ] **FOUND-04**: Sanity Studio scaffolds at `studio.proactivsports.com` (or admin route) with seed content models
+- [x] **FOUND-04**: Sanity Studio scaffolds at `studio.proactivsports.com` (or admin route) with seed content models
 - [ ] **FOUND-05**: GitHub repo with branch protection on `main`, PR-required CI (typecheck + lint + Lighthouse on PR previews)
 - [ ] **FOUND-06**: Vercel env secrets wired from 1Password / secrets manager — no secrets in git
 - [ ] **FOUND-07**: Cloudflare WAF + bot management + rate limiting active before any public traffic
@@ -130,7 +130,7 @@ Populated 2026-04-22 by gsd-roadmapper; revised 2026-04-22 (domain/DNS/Cloudflar
 | FOUND-01 | Phase 10 | Pending |
 | FOUND-02 | Phase 1 | Complete |
 | FOUND-03 | Phase 1 | Complete |
-| FOUND-04 | Phase 1 | Pending |
+| FOUND-04 | Phase 1 | Complete |
 | FOUND-05 | Phase 0 | Pending |
 | FOUND-06 | Phase 0 | Pending |
 | FOUND-07 | Phase 10 | Pending |
