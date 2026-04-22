@@ -42,7 +42,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   - [x] 00-02-PLAN.md — Pre-commit hooks: lefthook + gitleaks (secret scan, layer 1) + commitlint (Conventional Commits) + lint-staged; hook smoke-test checkpoint
   - [x] 00-03-PLAN.md — Vercel link + Deployment Protection (Vercel Authentication) + X-Robots-Tag `noindex, nofollow` on non-production via next.config.js
   - [x] 00-04-PLAN.md — GitHub Actions CI (`typecheck + lint + build + gitleaks` required checks) + branch protection on `main` + GH native secret scanning / push protection
-  - [ ] 00-05-PLAN.md — Sentry wizard (@sentry/nextjs client + server + edge) + VERCEL_ENV tagging + gated `/api/sentry-smoke` route + conservative PII scrubbing (sendDefaultPii: false + beforeSend)
+  - [x] 00-05-PLAN.md — Sentry wizard (@sentry/nextjs client + server + edge) + VERCEL_ENV tagging + gated `/api/sentry-smoke` route + conservative PII scrubbing (sendDefaultPii: false + beforeSend)
   - [ ] 00-06-PLAN.md — End-to-end verification: D-08 negative secret-scan test (fake AWS key → CI must fail), Sentry smoke verification on live preview, `X-Robots-Tag` + branch protection audit, `docs/phase-0-verification.md` audit artifact
 
 ---
@@ -215,7 +215,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 0. Local foundation | 4/6 | In Progress|  |
+| 0. Local foundation | 5/6 | In Progress|  |
 | 1. Next.js foundation + subdomain middleware + Sanity scaffold + Vercel previews | 0/TBD | Not started | - |
 | 2. Design system + component gallery + media pipeline | 0/TBD | Not started | - |
 | 3. Root gateway + supporting root pages | 0/TBD | Not started | - |
