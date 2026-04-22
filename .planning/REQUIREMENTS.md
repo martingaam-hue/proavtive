@@ -123,16 +123,100 @@
 
 ## Traceability
 
-Populated by gsd-roadmapper / phase planning. See `.planning/ROADMAP.md` for phase-by-requirement mapping.
+Populated 2026-04-22 by gsd-roadmapper. Full phase detail in `.planning/ROADMAP.md`.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (filled by ROADMAP.md) | | |
+| FOUND-01 | Phase 0 | Pending |
+| FOUND-02 | Phase 1 | Pending |
+| FOUND-03 | Phase 1 | Pending |
+| FOUND-04 | Phase 1 | Pending |
+| FOUND-05 | Phase 0 | Pending |
+| FOUND-06 | Phase 0 | Pending |
+| FOUND-07 | Phase 0 | Pending |
+| FOUND-08 | Phase 0 | Pending |
+| DS-01 | Phase 2 | Pending |
+| DS-02 | Phase 2 | Pending |
+| DS-03 | Phase 2 | Pending |
+| DS-04 | Phase 2 | Pending |
+| DS-05 | Phase 2 | Pending |
+| DS-06 | Phase 2 | Pending |
+| GW-01 | Phase 3 | Pending |
+| GW-02 | Phase 3 | Pending |
+| GW-03 | Phase 3 | Pending |
+| GW-04 | Phase 3 | Pending |
+| GW-05 | Phase 3 | Pending |
+| GW-06 | Phase 3 | Pending |
+| GW-07 | Phase 3 | Pending |
+| HK-01 | Phase 4 | Pending |
+| HK-02 | Phase 4 | Pending |
+| HK-03 | Phase 4 | Pending |
+| HK-04 | Phase 4 | Pending |
+| HK-05 | Phase 4 | Pending |
+| HK-06 | Phase 4 | Pending |
+| HK-07 | Phase 4 | Pending |
+| HK-08 | Phase 4 | Pending |
+| HK-09 | Phase 4 | Pending |
+| HK-10 | Phase 4 | Pending |
+| HK-11 | Phase 4 | Pending |
+| HK-12 | Phase 4 | Pending |
+| SG-01 | Phase 5 | Pending |
+| SG-02 | Phase 5 | Pending |
+| SG-03 | Phase 5 | Pending |
+| SG-04 | Phase 5 | Pending |
+| SG-05 | Phase 5 | Pending |
+| SG-06 | Phase 5 | Pending |
+| SG-07 | Phase 5 | Pending |
+| SG-08 | Phase 5 | Pending |
+| SG-09 | Phase 5 | Pending |
+| SG-10 | Phase 5 | Pending |
+| SG-11 | Phase 5 | Pending |
+| CMS-01 | Phase 6 | Pending |
+| CMS-02 | Phase 6 | Pending |
+| CMS-03 | Phase 6 | Pending |
+| CMS-04 | Phase 6 | Pending |
+| CMS-05 | Phase 6 | Pending |
+| CMS-06 | Phase 6 | Pending |
+| CMS-07 | Phase 6 | Pending |
+| CMS-08 | Phase 9 | Pending |
+| SEO-01 | Phase 7 | Pending |
+| SEO-02 | Phase 7 | Pending |
+| SEO-03 | Phase 7 | Pending |
+| SEO-04 | Phase 7 | Pending |
+| SEO-05 | Phase 7 | Pending |
+| SEO-06 | Phase 7 | Pending |
+| SEO-07 | Phase 7 | Pending |
+| SEO-08 | Phase 7 | Pending |
+| SEO-09 | Phase 8 | Pending |
+| SEO-10 | Phase 8 | Pending |
+| MIG-01 | Phase 0 | Pending |
+| MIG-02 | Phase 9 | Pending |
+| MIG-03 | Phase 9 | Pending |
+| MIG-04 | Phase 10 | Pending |
 
 **Coverage:**
-- v1.0 requirements: 60+ total
-- Mapped to phases: TBD
-- Unmapped: TBD
+- v1.0 requirements: 66 total
+- Mapped to phases: 66 (100%)
+- Unmapped: 0
+- Duplicated across phases: 0
+
+**Phase distribution:**
+
+| Phase | Requirements | Count |
+|-------|--------------|-------|
+| 0  | FOUND-01, FOUND-05, FOUND-06, FOUND-07, FOUND-08, MIG-01 | 6 |
+| 1  | FOUND-02, FOUND-03, FOUND-04 | 3 |
+| 2  | DS-01 … DS-06 | 6 |
+| 3  | GW-01 … GW-07 | 7 |
+| 4  | HK-01 … HK-12 | 12 |
+| 5  | SG-01 … SG-11 | 11 |
+| 6  | CMS-01 … CMS-07 | 7 |
+| 7  | SEO-01 … SEO-08 | 8 |
+| 8  | SEO-09, SEO-10 | 2 |
+| 9  | CMS-08, MIG-02, MIG-03 | 3 |
+| 10 | MIG-04 | 1 |
+| **Total** | | **66** |
 
 ---
 *Requirements defined: 2026-04-22 from `.planning/inputs/strategy.md`.*
+*Traceability populated: 2026-04-22 by gsd-roadmapper.*
