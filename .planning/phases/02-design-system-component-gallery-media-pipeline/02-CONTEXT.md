@@ -39,8 +39,8 @@ Phase 2 delivers the visual and media foundation that every page built after thi
   - **Stock shadcn adds** (via `pnpm dlx shadcn@latest add ...`): Card, Accordion (→ FAQItem composition), Badge, Avatar, Separator. Button is already installed (Plan 01-02).
   - **Custom ProActiv components** (composed on shadcn/Radix primitives + brand tokens): MarketCard, ProgrammeTile, TestimonialCard, StatStrip, LogoWall. Each lives at `components/ui/<name>.tsx` and uses brand tokens (not raw hex) so Phase 3+ inherits automatically.
   - **Thin typed wrappers**: Section (semantic `<section>` with configurable spacing via `--spacing-section-{sm,md,lg}` tokens) and ContainerEditorial (editorial-asymmetric content container — width + horizontal padding + max-width variants). Both typed React components, NOT just Tailwind utility class collections. Phase 3+ page authors use `<Section size="md">` instead of memorizing spacing classes.
-- **D-05** "Done" bar for Phase 2 primitives (aligned with ROADMAP SC #1 literal language):
-  - Each primitive renders once in `/_design/` with **one real ProActiv photograph** as content (from the D-07 curated set)
+- **D-05 — AMENDED 2026-04-23.** "Done" bar for Phase 2 primitives (aligned with ROADMAP SC #1 literal language):
+  - Each primitive renders once in `/_design/` with one hero-tier photograph as content (from the D-07 curated set). The original wording required "one **real ProActiv** photograph"; amended to allow a mix of real-ProActiv and OFL stock placeholders for coverage gaps (e.g., Singapore) so Phase 2 can ship end-to-end without blocking on full photography curation. Every placeholder must be clearly labelled `placeholder: true` in the photo manifest and is a Phase 4 (HK) / Phase 5 (SG) replacement target — the real-photo bar still applies to those market phases.
   - Passes keyboard navigation (Tab, Enter, Escape where applicable, no keyboard traps)
   - Passes WCAG AA contrast (4.5:1 for normal text, 3:1 for large text / UI elements) — verified via Lighthouse accessibility audit on `/_design/`
   - No variant matrices, no state galleries, no Storybook-style docs. Phase 3+ discovers variant needs from real page requirements and adds them then.
@@ -48,12 +48,14 @@ Phase 2 delivers the visual and media foundation that every page built after thi
 ### Media pipeline (Area 3)
 
 - **D-06** **Video DEFERRED to Phase 10.** Phase 2 builds the `<VideoPlayer>` primitive shell (client component, `dynamic + ssr: false`, MuxPlayer import, typed props for `playbackId`, `title`, `poster`, `autoPlay`) using a **placeholder clip URL** (`https://stream.mux.com/DS00Spx1CV902MCtPj5WknGlR102V5HFkDe.m3u8` — Mux public demo, or equivalent). No real Mux account signup, no real playback IDs, no Mux dashboard interaction. Phase 10 (DNS cutover + launch) owns: Mux account provisioning, real playback IDs, signed vs public policy decision, actual camp clip uploads. **ROADMAP SC #3 is amended** for Phase 2: "Mux primitive shell renders on desktop + mobile without hydration errors" (not "plays a real camp clip"). Real clip playback re-enters the scope in Phase 10.
-- **D-07** Photo curation is **upfront by Martin, before Phase 2 execute**. Workflow:
-  1. Before `/gsd-execute-phase 2`, Martin reviews `/Users/martin/Downloads/ProActive/01 - PHOTOS to use/` (and related folders per MEDIA-INVENTORY.md).
-  2. Selects **10–15 hero-tier images** covering: 1 root gateway hero, 2–3 HK venues (Wan Chai + Cyberport + optional), 1–2 SG Prodigy/Katong, 3–5 programme/session shots (coaching in action, different age groups), 1–2 testimonial/parent scenes.
-  3. Drops selected files (original resolution, any format Sharp accepts — JPG/PNG/HEIC/TIFF) into `.planning/inputs/curated-hero-photos/`. This folder is gitignored — raw originals never enter the repo.
-  4. Runs (or Phase 2 plan includes a task to run) `pnpm photos:process` which invokes `scripts/process-photos.mjs`. Output: `public/photography/<slug>.avif` + `.webp` + `.jpg` fallback at 1920px + responsive breakpoints (640, 1024, 1920).
-  5. Processed output in `public/photography/` IS committed. Raw source in `.planning/inputs/curated-hero-photos/` stays uncommitted.
+- **D-07 — AMENDED 2026-04-23.** Photo curation workflow:
+  1. Before `/gsd-execute-phase 2`, source hero-tier imagery from `/Users/martin/Downloads/ProActive/01 - PHOTOS to use/` (primary) and — only where the ProActiv library genuinely doesn't yet cover a required market (e.g., Singapore Prodigy) — from OFL stock sources (Unsplash License permits free commercial use without attribution).
+  2. Target **10–15 hero-tier images** covering: 1 root gateway hero, 2–3 HK venues (Wan Chai + Cyberport + optional), 1–2 SG Prodigy/Katong (placeholder stock acceptable until Phase 5), 3–5 programme/session shots (different age groups), 1–2 testimonial/parent scenes.
+  3. Drop selected files into `.planning/inputs/curated-hero-photos/` (original resolution, any format Sharp accepts — JPG/PNG/HEIC/TIFF/WebP). Folder is gitignored at file level — raw originals never enter the repo; only the `.gitkeep` is tracked.
+  4. Any stock placeholder MUST have its license source (e.g., "Unsplash · photographer slug / photo ID · OFL no-attribution") captured in the per-photo metadata, and be clearly marked `placeholder: true` in the processed-output manifest so Phase 4/5 knows to replace it.
+  5. Run `pnpm photos:process` which invokes `scripts/process-photos.mjs`. Output: `public/photography/<slug>.avif` + `.webp` + `.jpg` fallback at 640 / 1024 / 1920 widths.
+  6. Processed output in `public/photography/` IS committed. Raw source in `.planning/inputs/curated-hero-photos/` stays uncommitted.
+  7. **Replacement schedule:** HK placeholders (if any) → Phase 4 replaces with real ProActiv HK photography. SG placeholders → Phase 5 replaces with real Prodigy / Katong photography. Tracked as a Phase 4 + Phase 5 opening requirement.
 
 ### `/_design/` gallery structure (Area 4)
 
