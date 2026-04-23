@@ -49,3 +49,9 @@ next-env.d.ts
 # sentry
 .sentryclirc
 .env.sentry-build-plugin
+
+# Phase 2 / Plan 02-05 — curated hero photos staging (D-07).
+# Raw originals (any format Sharp accepts) never enter the repo.
+# Only the .gitkeep file is tracked so the directory persists.
+.planning/inputs/curated-hero-photos/*
+!.planning/inputs/curated-hero-photos/.gitkeep
