@@ -69,9 +69,9 @@ describe("Gateway homepage — GW-01 metadata", () => {
     const og = metadata.openGraph;
     expect(og).toBeDefined();
     expect(og?.siteName).toBeDefined();
-    expect(og?.locale).toBeDefined();
-    expect(og?.type).toBeDefined();
-    expect(og?.url).toBeDefined();
+    expect((og as any)?.locale).toBeDefined();
+    expect((og as any)?.type).toBeDefined();
+    expect((og as any)?.url).toBeDefined();
     expect((og as any)?.title).toBeDefined();
     expect((og as any)?.description).toBeDefined();
     expect(og?.images).toBeDefined();

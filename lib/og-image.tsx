@@ -5,8 +5,12 @@
 // Pitfall 1 (RESEARCH): metadataBase MUST be set in app/root/layout.tsx (Task 3 of this plan).
 //   Without metadataBase, the og:image URL becomes relative and WhatsApp/iMessage previews break.
 //
-// NOTE: This file is authorable without bloc-bold.ttf present. The font is read at
-//   build/request time. Place app/fonts/bloc-bold.ttf before running `pnpm build`.
+// NOTE: Font + logo files are HUMAN-ACTION preconditions. Build succeeds without them via
+//   graceful try/catch — OG image renders with system-ui fallback when font is absent.
+//   Place app/fonts/bloc-bold.ttf + app/assets/logo-white.svg before deploying to production.
+//
+// [Rule 3 fix — Plan 03-02]: Added graceful try/catch around readFile calls so pnpm build
+//   doesn't crash when font/logo files are missing. Previously threw ENOENT at build time.
 
 import { ImageResponse } from 'next/og';
 import { readFile } from 'node:fs/promises';
@@ -18,9 +22,22 @@ interface OgImageOptions {
 }
 
 export async function createRootOgImage({ title, tagline }: OgImageOptions): Promise<ImageResponse> {
-  const blocBold = await readFile(join(process.cwd(), 'app/fonts/bloc-bold.ttf'));
-  const logoSvg = await readFile(join(process.cwd(), 'app/assets/logo-white.svg'), 'utf-8');
-  const logoDataUri = `data:image/svg+xml;base64,${Buffer.from(logoSvg).toString('base64')}`;
+  // Graceful fallback: font + logo files are HUMAN-ACTION preconditions (Plan 03-01 Task 1).
+  // Build still succeeds without them — OG image renders with system fonts and no logo.
+  let blocBold: Buffer | null = null;
+  try {
+    blocBold = await readFile(join(process.cwd(), 'app/fonts/bloc-bold.ttf'));
+  } catch {
+    // bloc-bold.ttf not yet placed — OG image renders with system-ui fallback
+  }
+
+  let logoDataUri = '';
+  try {
+    const logoSvg = await readFile(join(process.cwd(), 'app/assets/logo-white.svg'), 'utf-8');
+    logoDataUri = `data:image/svg+xml;base64,${Buffer.from(logoSvg).toString('base64')}`;
+  } catch {
+    // logo-white.svg not yet placed — OG image renders without logo
+  }
 
   return new ImageResponse(
     (
@@ -34,18 +51,20 @@ export async function createRootOgImage({ title, tagline }: OgImageOptions): Pro
           backgroundColor: '#0f206c', // PROJECT.md brand-navy — NO gradient
           padding: '64px',
           position: 'relative',
-          fontFamily: 'Bloc Bold',
+          fontFamily: blocBold ? 'Bloc Bold' : 'system-ui, sans-serif',
         }}
       >
-        {/* Logo top-left — absolute positioned */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={logoDataUri}
-          width={160}
-          height={40}
-          alt=""
-          style={{ position: 'absolute', top: 64, left: 64 }}
-        />
+        {/* Logo top-left — absolute positioned (only if logo SVG loaded) */}
+        {logoDataUri ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={logoDataUri}
+            width={160}
+            height={40}
+            alt=""
+            style={{ position: 'absolute', top: 64, left: 64 }}
+          />
+        ) : null}
 
         {/* Title — Bloc Bold, white, 72px */}
         <div
@@ -94,7 +113,9 @@ export async function createRootOgImage({ title, tagline }: OgImageOptions): Pro
     {
       width: 1200,
       height: 630,
-      fonts: [{ name: 'Bloc Bold', data: blocBold, weight: 700, style: 'normal' }],
+      fonts: blocBold
+        ? [{ name: 'Bloc Bold', data: blocBold, weight: 700, style: 'normal' }]
+        : [],
     },
   );
 }
