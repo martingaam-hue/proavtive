@@ -116,7 +116,8 @@ Phase 1 Plan 01-02 shipped `app/globals.css` with shadcn's oklch-based neutral p
   --color-brand-yellow: #fac049;
   --color-brand-cream:  #fff3dd;
 
-  /* ── Typography families (wired by next/font/local in app/fonts.ts) ── */
+  /* ── Typography families (wired by next/font/local in app/fonts.ts;
+         WOFF2 files live at assets/brand/fonts/ per D-02) ── */
   --font-display: var(--font-bloc, "Arial", "Helvetica Neue", system-ui, sans-serif);
   --font-sans:    var(--font-mont, "Arial", "Helvetica Neue", system-ui, sans-serif);
   --font-accent:  var(--font-baloo, "Arial", "Helvetica Neue", system-ui, sans-serif);
@@ -129,6 +130,8 @@ Phase 1 Plan 01-02 shipped `app/globals.css` with shadcn's oklch-based neutral p
 ```
 
 Generated Tailwind utilities (auto, no config file): `bg-brand-navy`, `text-brand-red`, `border-brand-green`, `ring-brand-sky`, `bg-brand-yellow`, `bg-brand-cream`, plus `font-display / font-sans / font-accent`, plus `py-section-sm / py-section-md / py-section-lg` (and `mt-*`, `mb-*`, `gap-*` equivalents).
+
+**Resolution order — `--font-sans` alias (FLAG-4 clarification):** Phase 1's `@theme inline { --font-sans: var(--font-sans); }` is a self-referential alias that originally resolved to Geist (imported in `app/layout.tsx`). When Phase 2 lands, the `@theme { }` block above declares `--font-sans: var(--font-mont, ...)` which takes precedence in Tailwind v4's cascade (later `@theme` declarations override earlier ones). The `@theme inline` alias then resolves to the new Mont-backed value. **No circular reference**: `@theme inline` reads the computed value, not the declaration site. Executor MUST still verify in dev mode by checking `getComputedStyle(document.body).fontFamily` includes `--font-mont` after Phase 2 lands. If a race occurs (unlikely in Tailwind v4), the fix is to remove the Phase 1 `--font-sans: var(--font-sans)` alias entirely and rely on the `@theme { --font-sans: var(--font-mont, …) }` declaration alone.
 
 ### 1.6 Type scale
 
@@ -147,13 +150,15 @@ Strategy §14.3 explicitly asks for **"Confident type scale — H1 at 72–96px 
 
 **Expose these in `@theme { }` as `--text-display / --text-h1 / ...` using Tailwind v4's two-value shorthand `--text-display: 5.5rem --line-height: 1.05;` where responsive breakpoints use the `@media (min-width: 768px) { @theme { ... } }` override pattern OR the component-level `md:text-display` utility.** Planner picks the cleanest encoding at plan time.
 
+**Why 8 semantic roles over 6 distinct pixel sizes (FLAG-2 clarification):** The standard ≤4-font-sizes dimension rule targets uncontrolled size proliferation (arbitrary 13px / 15px / 17px drift). This spec uses 8 SEMANTIC roles that collapse to 6 DISTINCT sizes: 14 (small/label), 16 (body), 18 (body-lg), 24 (h3), 36 (h2), 56 (h1 desktop) / 88 (display desktop). The split between `display` and `h1` is mandated by strategy §14.3 ("confident H1 at 72–96px on desktop — don't fear big type") — merging them would lose the hero-scale hook. The split between `body` and `body-lg` is needed for pull-quotes and lead paragraphs at 18px. The split between `small` and `label` shares a size but differs in weight (400 vs 500) and letter-spacing (0 vs 0.01em) to distinguish decorative text from form labels. This is a structured design system with clear intent per role — not size chaos.
+
 ### 1.7 Font stack (self-hosted via `next/font/local`)
 
-| Family | CSS var | Weights provisioned | Usage | Source format | File location |
-|--------|---------|---------------------|-------|---------------|---------------|
-| Bloc Bold (Zetafonts — licensed per D-01) | `--font-display` / `--font-bloc` | 400 Regular, 700 Bold *(optional: 900 Black if provided)* | Display, h1, h2, h3, eyebrows | WOFF2 | `app/fonts/bloc-bold-*.woff2` |
-| Mont (Fontfabric — licensed per D-01) | `--font-sans` / `--font-mont` | 400 Regular, 500 Medium, 700 Bold | Body, labels, small, navigation, forms | WOFF2 | `app/fonts/mont-*.woff2` |
-| Baloo 2 (Google Fonts — OFL) | `--font-accent` / `--font-baloo` | 400 Regular, 500 Medium, 700 Bold | **ProGym-scoped ONLY** (HK Wan Chai + Cyberport + ProGym-branded surfaces). NEVER on root gateway, SG, legal. | WOFF2 | `app/fonts/baloo-*.woff2` |
+| Family | CSS var | Weights provisioned | Usage | Source format | File location (D-02 drop zone) |
+|--------|---------|---------------------|-------|---------------|--------------------------------|
+| Bloc Bold (Zetafonts — licensed per D-01) | `--font-display` / `--font-bloc` | 400 Regular, 700 Bold *(optional: 900 Black if provided)* | Display, h1, h2, h3, eyebrows | WOFF2 | `assets/brand/fonts/bloc-bold-*.woff2` |
+| Mont (Fontfabric — licensed per D-01) | `--font-sans` / `--font-mont` | 400 Regular, 500 Medium, 700 Bold | Body, labels, small, navigation, forms | WOFF2 | `assets/brand/fonts/mont-*.woff2` |
+| Baloo 2 (Google Fonts — OFL) | `--font-accent` / `--font-baloo` | 400 Regular, 500 Medium, 700 Bold | **ProGym-scoped ONLY** (HK Wan Chai + Cyberport + ProGym-branded surfaces). NEVER on root gateway, SG, legal. | WOFF2 | `assets/brand/fonts/baloo-*.woff2` |
 
 **`next/font/local` options (binding per CONTEXT.md Claude's Discretion):**
 - `display: 'swap'` — non-negotiable
@@ -162,7 +167,20 @@ Strategy §14.3 explicitly asks for **"Confident type scale — H1 at 72–96px 
 - `fallback: ['system-ui', 'Arial', 'sans-serif']`
 - `variable: '--font-bloc' | '--font-mont' | '--font-baloo'`
 
-**File-provisioning precondition (D-02):** Phase 2 executor's font-wiring task MUST start with a file-existence check against `app/fonts/bloc-bold-regular.woff2`, `app/fonts/bloc-bold-bold.woff2`, `app/fonts/mont-regular.woff2`, `app/fonts/mont-medium.woff2`, `app/fonts/mont-bold.woff2`, `app/fonts/baloo-regular.woff2`, `app/fonts/baloo-medium.woff2`, `app/fonts/baloo-bold.woff2`. If any are missing, the task returns `HUMAN-ACTION` — do NOT substitute placeholder fonts without user approval.
+**File-provisioning precondition (D-02):** Phase 2 executor's font-wiring task MUST start with a file-existence check against the following paths (D-02 drop zone — Martin provisions these before `/gsd-execute-phase 2`):
+
+- `assets/brand/fonts/bloc-bold-regular.woff2`
+- `assets/brand/fonts/bloc-bold-bold.woff2`
+- `assets/brand/fonts/mont-regular.woff2`
+- `assets/brand/fonts/mont-medium.woff2`
+- `assets/brand/fonts/mont-bold.woff2`
+- `assets/brand/fonts/baloo-regular.woff2`
+- `assets/brand/fonts/baloo-medium.woff2`
+- `assets/brand/fonts/baloo-bold.woff2`
+
+If any are missing, the task returns `HUMAN-ACTION` — do NOT substitute placeholder fonts without user approval.
+
+**How `next/font/local` consumes these files:** The font-wiring module at `app/fonts.ts` calls `localFont({ src: [...] })` where each `src.path` is **relative to the calling file**. From `app/fonts.ts`, the relative path to `assets/brand/fonts/bloc-bold-regular.woff2` is `'../assets/brand/fonts/bloc-bold-regular.woff2'`. No tsconfig path alias is required; no file copy step is required; the files live at the D-02 drop zone and are referenced from `app/fonts.ts` via `..`. If the planner prefers a cleaner import (`@/fonts/...`), they may add a tsconfig `paths` entry at plan time — but this is optional cosmetic cleanup, not a requirement for Phase 2 to ship.
 
 **Scoping enforcement for Baloo (D-03):** `--font-accent` is declared in the root `@theme { }` but applied ONLY inside route groups / components that opt-in. Pattern:
 - Root layout `app/layout.tsx`: `<html className={${blocBold.variable} ${mont.variable}}>` — Baloo NOT attached to html.
@@ -241,10 +259,15 @@ Full primitive library for Phase 2. Every primitive lives at `components/ui/<keb
 
 - **Status:** EXISTS (Phase 1 Plan 01-02) — Phase 2 task is to **audit and, if needed, re-theme** so `bg-primary` renders navy (not neutral) after the `:root` override lands in §1.4.
 - **Source:** `stock-cli` (already in `components/ui/button.tsx`)
-- **Required props:** `variant?: 'default' | 'outline' | 'secondary' | 'ghost' | 'destructive' | 'link'`, `size?: 'default' | 'xs' | 'sm' | 'lg' | 'icon' | 'icon-xs' | 'icon-sm' | 'icon-lg'`, `asChild?: boolean`, plus native `<button>` props
-- **Visual spec:** Already CVA-defined in `components/ui/button.tsx` (see repo). Default size h-8, lg h-9. `default` variant = `bg-primary text-primary-foreground` (will render navy/white after §1.4 override).
+- **Required props:** `variant?: 'default' | 'outline' | 'secondary' | 'ghost' | 'destructive' | 'link'`, `size?: 'default' | 'xs' | 'sm' | 'lg' | 'touch' | 'icon' | 'icon-xs' | 'icon-sm' | 'icon-lg'`, `asChild?: boolean`, plus native `<button>` props
+- **Visual spec:** Already CVA-defined in `components/ui/button.tsx` (see repo). Current sizes: `default` h-8 (32px), `lg` h-9 (36px). **Phase 2 adds `touch` h-11 (44px) variant** per FLAG-3 resolution below. `default` variant = `bg-primary text-primary-foreground` (will render navy/white after §1.4 override).
 - **States (Phase 2 re-verifies):** default / hover (`hover:bg-primary/80`) / focus-visible (ring-3 with `--ring`, which maps to navy) / active (translate-y-px) / disabled (opacity-50, pointer-events-none) / aria-invalid (destructive border+ring)
-- **A11y:** Radix/shadcn default; Phase 2 verifies focus-ring is navy (not neutral); Tab reachable; Enter+Space trigger click; touch target 32px (h-8) — **below WCAG AA 44px minimum** → Phase 2 plan MUST either (a) use `size="lg"` as default in marketing contexts or (b) introduce a `size="touch"` at h-11 — planner decides at plan time, must document in plan body
+- **A11y (FLAG-3 locked resolution):** Radix/shadcn default; Phase 2 verifies focus-ring is navy (not neutral); Tab reachable; Enter+Space trigger click. **Touch target policy:**
+  - **`size='touch'` (h-11, 44×44px) is the DEFAULT for all marketing, conversion, and consumer-facing contexts** — every CTA on `/`, `/hk`, `/sg`, market homepages, programme pages, pricing, and contact forms (Phase 3+). Meets WCAG 2.2 AA touch-target minimum (44×44px).
+  - `size='default'` (h-8, 32px) is reserved for **compact internal/admin contexts only** (e.g., Studio UI, dev tools, dense table rows inside `/studio`). NOT used on any consumer-facing surface.
+  - `size='lg'` (h-9, 36px) is a visual emphasis option (hero primary CTA) — MUST be used with `min-h-11 min-w-11` classes if the clickable area is an icon-only button to satisfy touch target. When `lg` is text+icon, padding naturally brings target ≥44px.
+  - `size='icon-sm'` / `size='icon-xs'` retain WCAG AA via `min-w-11 min-h-11` hit-area (visual icon smaller, touch target still 44px via transparent padding). Planner MUST verify via `pnpm test:e2e` / browser DevTools accessibility inspector on `/_design/`.
+  - Phase 2 plan's Button audit task MUST (i) add the `touch` variant to `buttonVariants` CVA config, (ii) update `components/ui/button.tsx` type, (iii) demonstrate `touch` in `/_design/` Primitives section as the recommended marketing default.
 - **Used by:** Every page from Phase 3 onward; `/_design/` §Primitives
 
 ### 3.2 Primitive — `Card`
@@ -832,7 +855,7 @@ Each of the 9 user-locked decisions from CONTEXT.md `<decisions>` → where it's
 | Decision | What it locks | Encoded in UI-SPEC sections |
 |----------|---------------|-----------------------------|
 | **D-01** Bloc Bold + Mont licensed; Baloo OFL-free | Three-family stack is viable; no font-alternative decision deferred | §1.7 font stack (font family table); §2 Font row |
-| **D-02** Martin provisions WOFF2 at `app/fonts/` before execute; precondition task returns HUMAN-ACTION if missing | Font-wiring task has an upfront file-existence gate | §1.7 "File-provisioning precondition" block |
+| **D-02** Martin provisions WOFF2 at `assets/brand/fonts/` (D-02 drop zone) before execute; `app/fonts.ts` consumes via relative path `../assets/brand/fonts/*`; precondition task returns HUMAN-ACTION if any file missing | Font-wiring task has an upfront file-existence gate; no file copy step required | §1.7 "File-provisioning precondition" block + "How next/font/local consumes these files" block |
 | **D-03** Baloo scoped to ProGym contexts ONLY (HK Wan Chai + Cyberport + ProGym-branded surfaces) | `--font-accent` is declared globally but applied per-route; root/SG/legal use only `--font-sans` | §1.7 "Scoping enforcement for Baloo" block |
 | **D-04** Stock shadcn where possible (Card, Accordion, Badge, Avatar, Separator) + custom (MarketCard, ProgrammeTile, TestimonialCard, StatStrip, LogoWall) + typed wrappers (Section, ContainerEditorial) | Component inventory structure | §3 entire component inventory — Source column = stock-cli / custom / wrapper split |
 | **D-05** "Done" bar = each primitive renders ONCE with real photo + keyboard nav + WCAG AA; no variant matrices | Gallery section shape is fixed at "one example per primitive" | §4.4 per-primitive section shape; §4.6 footer done-bar copy |
@@ -889,7 +912,7 @@ Binding quality dimensions. Every Phase 2 plan MUST satisfy all six before the p
 - [ ] Bloc Bold / Mont / Baloo self-hosted via `next/font/local`, NOT from Google Fonts CDN
 - [ ] `display: 'swap'` + `adjustFontFallback: 'Arial'` on all three families (pitfall 2)
 - [ ] `<html>` has all three `variable` classNames attached (prevents FOUC)
-- [ ] `app/fonts/` directory exists and WOFF2 files present for every weight declared in §1.7
+- [ ] `assets/brand/fonts/` directory exists (D-02 drop zone) and WOFF2 files present for every weight declared in §1.7; `app/fonts.ts` references via `'../assets/brand/fonts/…'` relative paths
 - [ ] **Lighthouse CLS on `/_design/` = 0.0** (SC #2 from ROADMAP + DS-02)
 - [ ] Type scale from §1.6 is exposed via Tailwind utilities (not inline style)
 - [ ] Baloo applied ONLY inside ProGym-scoped containers (D-03) — verifiable by grepping for `--font-accent` usage
@@ -935,7 +958,7 @@ Binding quality dimensions. Every Phase 2 plan MUST satisfy all six before the p
 - [ ] Hero-tier MarketCard examples use `priority` / `fetchPriority="high"` + `placeholder="blur"`
 - [ ] Sharp preprocessing confirmed LOCAL ONLY (not invoked from `next build` — 02-RESEARCH.md Pitfall 4)
 - [ ] `@mux/mux-player-react` loaded via `dynamic + ssr: false` (Pitfall 3)
-- [ ] Font files served from `/app/fonts/` with `preload: true`
+- [ ] Font files served from `assets/brand/fonts/` (referenced via `app/fonts.ts` relative imports) with `preload: true` — Next.js rewrites them to `/_next/static/media/*.woff2` at build time
 
 ---
 
