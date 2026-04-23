@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 03 UI-SPEC approved (6/6 dimensions PASS)
-last_updated: "2026-04-23T08:54:32.277Z"
-last_activity: 2026-04-23 -- Phase 03 planning complete
+stopped_at: Phase 02 Plan 02-02 complete — Wave 1 done, Wave 2 ready
+last_updated: "2026-04-23T15:13:00.000Z"
+last_activity: 2026-04-23 -- Plan 02-02 (typography) shipped after D-01 amendment
 progress:
   total_phases: 11
   completed_phases: 2
   total_plans: 21
-  completed_plans: 12
-  percent: 57
+  completed_plans: 13
+  percent: 62
 ---
 
 # Project State
@@ -26,11 +26,12 @@ See: .planning/PROJECT.md (updated 2026-04-22)
 ## Current Position
 
 Phase: 02 (design-system-component-gallery-media-pipeline) — EXECUTING
-Plan: 1 of 6
-Status: Ready to execute
-Last activity: 2026-04-23 -- Phase 03 planning complete
+Plan: 3 of 6 complete (Wave 1: 02-01 ✓, 02-02 ✓, 02-03 ✓)
+Next: Wave 2 — 02-04 (custom primitives), 02-05 (image pipeline), 02-06 (/_design/ gallery)
+Status: Wave 2 unblocked; ready to execute
+Last activity: 2026-04-23 -- Plan 02-02 typography shipped (Unbounded + Manrope + Baloo 2 via next/font/google after D-01 amendment)
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█████░░░░░] 50% of Phase 02 plans complete
 
 ## Performance Metrics
 
@@ -80,6 +81,7 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 01 / Plan 01-03]: 2026-04-22: Corrected client/server boundary for embedded Studio — 'use client' at top of sanity.config.ts (v11 canonical); app/studio/[[...tool]]/page.tsx is a Server Component re-exporting metadata+viewport from next-sanity/studio. Per next-sanity@11 README lines 1044–1099
 - [Phase 01]: Plan 01-04: installed Vitest 4.1.5 (current stable, not the ^2 suggested in context note) scoped to middleware + pure-TS tests; 11-test middleware.test.ts encodes D-02/D-16 host authority + D-04 internal-rewrite + D-07 studio pass-through as CI regression gates. Helper uses Variant A (explicit host header) per Task 1 probe finding: req.headers.get('host') is null without explicit RequestInit.headers.host.
 - [Phase 01]: Plan 01-04: added NEXT_PUBLIC_SANITY_PROJECT_ID/DATASET=build-placeholder to ci.yml Build step env. sanity.config.ts throws at module-eval if missing (Plan 01-03 fail-fast); Vercel injects real values at deploy time; CI just needs build compile. Studio runs client-side only — placeholders are safe.
+- [Phase 02 / D-01 amended]: 2026-04-23: Brand typography pivoted from Bloc Bold (Zetafonts, commercial) + Mont (Fontfabric, commercial) self-hosted via next/font/local → Unbounded + Manrope + Baloo 2 via next/font/google (all OFL/free-for-commercial). User preference for accessible free stack; unblocked Plan 02-02 without the D-02 HUMAN-ACTION gate on foundry-portal downloads. D-02 obsoleted. Commercial licenses preserved for possible future re-introduction. CSS vars renamed internally (--font-bloc/mont → --font-unbounded/manrope) — public Tailwind utilities font-display / font-sans / font-accent unchanged.
 
 ### Pending Todos
 
@@ -103,7 +105,11 @@ Items acknowledged and carried forward (from requirements / scope decisions):
 
 ## Session Continuity
 
-Last session: 2026-04-23T07:55:28.077Z
-Stopped at: Phase 03 UI-SPEC approved (6/6 dimensions PASS)
-Resume file: .planning/phases/03-root-gateway-and-supporting-root-pages/03-UI-SPEC.md
+Last session: 2026-04-23T15:13:00.000Z
+Stopped at: Plan 02-02 shipped — Phase 02 Wave 1 complete; Wave 2 (02-04 / 02-05 / 02-06) unblocked
+Resume file: — (no mid-plan checkpoint; next action is `/gsd-execute-phase 2` for Wave 2)
+Recent commits:
+  - 3569f5a docs(03): sync roadmap plan list + config flag from prior planning session
+  - 032f57e docs(02): amend D-01 — drop Bloc Bold + Mont for free Google Fonts stack
+  - 01b8849 feat(02-02): wire brand typography via next/font/google
 Pipelined: Phase 03 RESEARCH.md drafted in background (untracked) — promote when Phase 02 closes
