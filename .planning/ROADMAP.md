@@ -80,7 +80,13 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Strategy anchors**: PART 14.1 (colour), PART 14.2 (typography), PART 14.3 (visual direction), PART 14.4 (photography), PART 14.5 (video), PART 15.4 Weeks 2–4
 **UI hint**: yes
 **Rough shape**: Tailwind config with brand tokens, self-hosted fonts preloaded via `next/font` with `display: swap` tuning, primitive components in `components/ui/`, Sharp-based image optimisation wrapper, `@mux/mux-player-react` integration, media processing pass against `MEDIA-INVENTORY.md`, `/_design/` gallery route gated to preview / dev.
-**Plans**: TBD
+**Plans**: 6 plans
+  - [ ] 02-01-PLAN.md — Brand token layer in globals.css (DS-01): new @theme { } block with 6 brand hex values + 3 font-family vars + 3 section-spacing vars; :root oklch overrides mapping 10 shadcn semantic roles to brand colours
+  - [ ] 02-02-PLAN.md — Self-hosted typography via next/font/local (DS-02): app/fonts.ts exports Bloc Bold + Mont + Baloo with display:swap + adjustFontFallback:'Arial'; app/layout.tsx wires Bloc + Mont (Baloo D-03 scoped); HUMAN-ACTION precondition on 8 WOFF2 files at assets/brand/fonts/
+  - [ ] 02-03-PLAN.md — Stock shadcn primitives (DS-03 half-a): CLI-add Card + Accordion + Badge + Avatar + Separator; add 'touch' size variant (h-11, 44px WCAG 2.2 AA) to Phase 1 Button CVA config
+  - [ ] 02-04-PLAN.md — Custom primitives (DS-03 half-b + DS-06 groundwork): Section + ContainerEditorial wrappers, FAQItem composition, MarketCard + ProgrammeTile + TestimonialCard patterns on Card/Badge/Avatar, StatStrip + LogoWall plain compositions; Pillar 2 raw-hex gate
+  - [ ] 02-05-PLAN.md — Media pipeline (DS-04): next.config.ts images {} block with AVIF/WebP + Sanity remotePattern; scripts/process-photos.mjs (Sharp LOCAL ONLY per Pitfall 4); components/ui/video-player.tsx shell with dynamic({ ssr:false }) + Mux public demo playback ID (D-06 placeholder); HUMAN-ACTION checkpoint on photo curation (D-07)
+  - [ ] 02-06-PLAN.md — /_design/ gallery + verification gate (DS-05 + DS-06): all 14 primitives in Foundation → Primitives → Patterns → Media sections with editorial asymmetry; VERCEL_ENV='production' + notFound() env-gate (D-09); Lighthouse/axe-core/keyboard-walk verification of 5 ROADMAP SCs (SC #3 amended by D-06 for placeholder Mux); STRIDE threat model with 4 threats
 
 ---
 
@@ -221,7 +227,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 |-------|----------------|--------|-----------|
 | 0. Local foundation | 6/6 | Complete    | 2026-04-22 |
 | 1. Next.js foundation + subdomain middleware + Sanity scaffold + Vercel previews | 0/4   | Not started | - |
-| 2. Design system + component gallery + media pipeline | 0/TBD | Not started | - |
+| 2. Design system + component gallery + media pipeline | 0/6   | Not started | - |
 | 3. Root gateway + supporting root pages | 0/TBD | Not started | - |
 | 4. Hong Kong market | 0/TBD | Not started | - |
 | 5. Singapore market | 0/TBD | Not started | - |
