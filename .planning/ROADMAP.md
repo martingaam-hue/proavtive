@@ -81,7 +81,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **UI hint**: yes
 **Rough shape**: Tailwind config with brand tokens, self-hosted fonts preloaded via `next/font` with `display: swap` tuning, primitive components in `components/ui/`, Sharp-based image optimisation wrapper, `@mux/mux-player-react` integration, media processing pass against `MEDIA-INVENTORY.md`, `/_design/` gallery route gated to preview / dev.
 **Plans**: 6 plans
-  - [ ] 02-01-PLAN.md — Brand token layer in globals.css (DS-01): new @theme { } block with 6 brand hex values + 3 font-family vars + 3 section-spacing vars; :root oklch overrides mapping 10 shadcn semantic roles to brand colours
+  - [x] 02-01-PLAN.md — Brand token layer in globals.css (DS-01): new @theme { } block with 6 brand hex values + 3 font-family vars + 3 section-spacing vars; :root oklch overrides mapping 10 shadcn semantic roles to brand colours
   - [ ] 02-02-PLAN.md — Self-hosted typography via next/font/local (DS-02): app/fonts.ts exports Bloc Bold + Mont + Baloo with display:swap + adjustFontFallback:'Arial'; app/layout.tsx wires Bloc + Mont (Baloo D-03 scoped); HUMAN-ACTION precondition on 8 WOFF2 files at assets/brand/fonts/
   - [ ] 02-03-PLAN.md — Stock shadcn primitives (DS-03 half-a): CLI-add Card + Accordion + Badge + Avatar + Separator; add 'touch' size variant (h-11, 44px WCAG 2.2 AA) to Phase 1 Button CVA config
   - [ ] 02-04-PLAN.md — Custom primitives (DS-03 half-b + DS-06 groundwork): Section + ContainerEditorial wrappers, FAQItem composition, MarketCard + ProgrammeTile + TestimonialCard patterns on Card/Badge/Avatar, StatStrip + LogoWall plain compositions; Pillar 2 raw-hex gate
