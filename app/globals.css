@@ -4,6 +4,33 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ── Phase 2 / Plan 02-01: ProActiv brand token layer ───────────────────── */
+/* Extends Tailwind v4's default palette with brand-scoped utilities.
+   Does NOT use --color-*: initial (RESEARCH Pitfall 1 — would wipe shadcn neutrals).
+   Font vars use nested var() with Arial fallback so tokens resolve before Plan 02-02
+   wires next/font/local (Plan 02-02 sets --font-bloc, --font-mont, --font-baloo via
+   `localFont({ variable })` on <html>). */
+@theme {
+  /* ProActiv palette (PROJECT.md authoritative) */
+  --color-brand-navy:   #0f206c;
+  --color-brand-red:    #ec1c24;
+  --color-brand-green:  #0f9733;
+  --color-brand-sky:    #0fa0e2;
+  --color-brand-yellow: #fac049;
+  --color-brand-cream:  #fff3dd;
+
+  /* Typography families — resolved by Plan 02-02 next/font/local variable= names.
+     Fallback chain keeps the token usable pre-font-wiring. */
+  --font-display: var(--font-bloc,  "Arial", "Helvetica Neue", system-ui, sans-serif);
+  --font-sans:    var(--font-mont,  "Arial", "Helvetica Neue", system-ui, sans-serif);
+  --font-accent:  var(--font-baloo, "Arial", "Helvetica Neue", system-ui, sans-serif);
+
+  /* Section-spacing rhythm (strategy §14.6) — 64 / 96 / 128 px */
+  --spacing-section-sm: 4rem;
+  --spacing-section-md: 6rem;
+  --spacing-section-lg: 8rem;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
