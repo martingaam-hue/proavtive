@@ -17,9 +17,11 @@
     "format:check": "prettier --check .",
     "test:unit": "vitest run",
     "test:unit:watch": "vitest",
+    "photos:process": "node scripts/process-photos.mjs",
     "prepare": "lefthook install"
   },
   "dependencies": {
+    "@mux/mux-player-react": "^3.11.8",
     "@sanity/vision": "^5.22.0",
     "@sentry/nextjs": "^10.49.0",
     "class-variance-authority": "^0.7.1",
@@ -51,6 +53,7 @@
     "lefthook": "^2.1.6",
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.3",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vercel": "^52.0.0",

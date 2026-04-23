@@ -15,6 +15,19 @@ const nextConfig: NextConfig = {
   // consuming packages rewrites the named imports to use proper CJS interop.
   transpilePackages: ["sanity", "@sanity/vision", "@sanity/visual-editing"],
 
+  // Phase 2 / Plan 02-05 — Vercel image optimization config per UI-SPEC §5.3 + DS-04.
+  // formats: AVIF preferred (smaller), WebP fallback, automatic per-request negotiation.
+  // deviceSizes + imageSizes: full Next.js default spectrum + hero-tier 1920 anchor.
+  // minimumCacheTTL: 31 days — long cache for edge-served variants.
+  // remotePatterns: cdn.sanity.io for Phase 6 CMS-uploaded images (configured now, used then).
+  images: {
+    formats: ["image/avif", "image/webp"],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 2678400,
+    remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
+  },
+
   async headers() {
     // VERCEL_ENV is auto-injected by Vercel at runtime:
     //   'production'  — the live custom domain (Phase 10)
