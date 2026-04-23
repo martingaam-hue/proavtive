@@ -11,8 +11,9 @@ import path from "path";
 
 export default defineConfig({
   resolve: {
+    // Mirrors tsconfig paths: "@/*" → "./*" (repo root).
+    // Required for vi.mock("@/emails/contact", ...) and import "@/..." in route tests.
     alias: {
-      // Mirror tsconfig paths: "@/*" → "./*" (repo root)
       "@": path.resolve(__dirname, "."),
     },
   },
