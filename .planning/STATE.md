@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 02 Plan 02-05 Task 4 — awaiting photo curation (D-07 HUMAN-ACTION)
-last_updated: "2026-04-23T15:40:00.000Z"
-last_activity: 2026-04-23 -- Wave 2 executed; 02-04 complete, 02-05 3/4 tasks complete, Task 4 parked on photo curation
+stopped_at: Phase 02 Plan 02-06 Task 3 — awaiting human visual verify on /_design gallery
+last_updated: "2026-04-23T22:00:00.000Z"
+last_activity: 2026-04-23 -- Phase 02 Wave 2 + Wave 3 executed; 02-04/05/06 all at 2/2, 4/4, 2/2 code complete; Task 3 pending Martin's visual inspection
 progress:
   total_phases: 11
   completed_phases: 2
   total_plans: 21
-  completed_plans: 14
-  percent: 67
+  completed_plans: 15
+  percent: 71
 ---
 
 # Project State
@@ -26,12 +26,12 @@ See: .planning/PROJECT.md (updated 2026-04-22)
 ## Current Position
 
 Phase: 02 (design-system-component-gallery-media-pipeline) — EXECUTING
-Plan: 4 of 6 complete (02-01 ✓, 02-02 ✓, 02-03 ✓, 02-04 ✓); 02-05 at 3/4 tasks
-Next: Martin drops 10–15 curated hero photos → resume `/gsd-execute-phase 2` → finishes 02-05 Task 4 → runs 02-06 gallery (Wave 3)
-Status: PAUSED on HUMAN-ACTION (D-07 photo curation)
-Last activity: 2026-04-23 -- Wave 2 executed; 02-04 shipped 8 custom primitives; 02-05 shipped image config + Sharp script + VideoPlayer shell, Task 4 parked on photo curation
+Plans: 5 of 6 fully done (02-01 ✓, 02-02 ✓, 02-03 ✓, 02-04 ✓, 02-05 ✓); 02-06 Tasks 1+2 code-complete + automated sub-checks run, Task 3 pending Martin's visual verify
+Next: Martin inspects `http://localhost:3000/_design` (`pnpm build && pnpm start`) — approves or requests revision
+Status: PAUSED on HUMAN-VERIFY (Plan 02-06 Task 3 visual inspection)
+Last activity: 2026-04-23 -- 12 photos processed (87 MB → 8.7 MB); /_design gallery scaffolded + populated with all 14 primitives; Lighthouse a11y 96/100, axe-core 0 criticals
 
-Progress: [███████░░░] 75% of Phase 02 tasks complete (4 plans ✓ + 3/4 tasks of 02-05)
+Progress: [█████████░] 95% of Phase 02 code complete — visual-verify gate is the final checkpoint
 
 ## Performance Metrics
 
@@ -82,6 +82,7 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 01]: Plan 01-04: installed Vitest 4.1.5 (current stable, not the ^2 suggested in context note) scoped to middleware + pure-TS tests; 11-test middleware.test.ts encodes D-02/D-16 host authority + D-04 internal-rewrite + D-07 studio pass-through as CI regression gates. Helper uses Variant A (explicit host header) per Task 1 probe finding: req.headers.get('host') is null without explicit RequestInit.headers.host.
 - [Phase 01]: Plan 01-04: added NEXT_PUBLIC_SANITY_PROJECT_ID/DATASET=build-placeholder to ci.yml Build step env. sanity.config.ts throws at module-eval if missing (Plan 01-03 fail-fast); Vercel injects real values at deploy time; CI just needs build compile. Studio runs client-side only — placeholders are safe.
 - [Phase 02 / D-01 amended]: 2026-04-23: Brand typography pivoted from Bloc Bold (Zetafonts, commercial) + Mont (Fontfabric, commercial) self-hosted via next/font/local → Unbounded + Manrope + Baloo 2 via next/font/google (all OFL/free-for-commercial). User preference for accessible free stack; unblocked Plan 02-02 without the D-02 HUMAN-ACTION gate on foundry-portal downloads. D-02 obsoleted. Commercial licenses preserved for possible future re-introduction. CSS vars renamed internally (--font-bloc/mont → --font-unbounded/manrope) — public Tailwind utilities font-display / font-sans / font-accent unchanged.
+- [Phase 02 / D-05 + D-07 amended]: 2026-04-23: Photo curation policy relaxed to allow mixed real-ProActiv + OFL stock placeholder imagery for Phase 2 gallery coverage. D-05's "one real ProActiv photograph per primitive" requirement kept for Phase 4/5 market pages but waived for Phase 2's `/_design/` gallery. 12 photos staged: 11 real ProActiv (HK venues + programmes + testimonials) + 1 Unsplash placeholder for SG (David Trinks, OFL / no-attribution, marked `sg-placeholder-*` for Phase 5 replacement).
 
 ### Pending Todos
 
@@ -89,9 +90,22 @@ None yet.
 
 ### Blockers/Concerns
 
-**Active blocker (2026-04-23):** Plan 02-05 Task 4 paused on HUMAN-ACTION. Martin needs to drop 10–15 hero-tier photos from `/Users/martin/Downloads/ProActive/01 - PHOTOS to use/` into `.planning/inputs/curated-hero-photos/` per D-07 coverage (1 root hero · 2–3 HK venues · 1–2 SG · 3–5 programmes · 1–2 testimonials). Resume with `/gsd-execute-phase 2` — will run Sharp preprocessing + then move to Plan 02-06 `/_design/` gallery.
+**Active: visual-verify pause (Plan 02-06 Task 3, 2026-04-23):** Martin to inspect `http://localhost:3000/_design` via `pnpm build && pnpm start`. Checklist:
+1. Keyboard Tab walk — every interactive element shows a visible navy focus ring
+2. Editorial-asymmetry verdict (UI-SPEC §7) — gallery reads as brand-led, NOT an "AI-SaaS" grid template
+3. "Does this feel like ProActiv" — navy primary, yellow accent, confident display type, real photography
+Then type one of: `approved` · `editorial-fail: <note>` · `a11y-fail: <detail>` · `visual-fail: <detail>`.
 
-Note for Phase 10: `proactivsports.com` transfer prep — gather registrar auth code / EPP code closer to Phase 10 start.
+**Known non-blocking regressions captured in 02-06-SUMMARY.md:**
+- Lighthouse Performance 55–81 (target ≥95) — driven by Mux VideoPlayer bootup; acceptable for `/_design` only; real market pages don't embed VideoPlayer by default; revisit at Phase 10 when real Mux integration happens
+- LCP 2.9–7.7s — same Mux root cause
+- 2 axe-core serious violations — 1 Mux internal (upstream dependency), 1 Button contrast from Plan 02-03 (out-of-scope for this plan; tracked as a Phase 2 refinement-candidate)
+
+**Replacement targets carried into Phase 4/5:**
+- HK real-photography swap-ins (if any placeholder was used, none were in the 2026-04-23 staging) — Phase 4 owns
+- SG Prodigy real photography — Phase 5 replaces `sg-placeholder-climbing-unsplash-trinks.*` (David Trinks / Unsplash License / Vernon CT climbing facility) with real Katong Point imagery
+
+Note for Phase 10: `proactivsports.com` transfer prep — gather registrar auth code / EPP code closer to Phase 10 start. Also revisit Mux player performance when real playback IDs land.
 
 ## Deferred Items
 
@@ -107,9 +121,9 @@ Items acknowledged and carried forward (from requirements / scope decisions):
 
 ## Session Continuity
 
-Last session: 2026-04-23T15:40:00.000Z
-Stopped at: Plan 02-05 Task 4 paused — Martin to drop 10–15 curated hero photos into `.planning/inputs/curated-hero-photos/`, then resume `/gsd-execute-phase 2`
-Resume file: .planning/phases/02-design-system-component-gallery-media-pipeline/02-05-SUMMARY.md (details exact resume instruction)
+Last session: 2026-04-23T22:00:00.000Z
+Stopped at: Plan 02-06 Task 3 — human-verify pause on `/_design` gallery. Martin to run `pnpm build && pnpm start` and visit `http://localhost:3000/_design`, then type approve/fail-type signal.
+Resume file: .planning/phases/02-design-system-component-gallery-media-pipeline/02-06-SUMMARY.md (full measured metrics + 5 auto-fixed deviations + resume-signal grammar)
 Recent commits (this session):
   - 3569f5a docs(03): sync roadmap plan list + config flag from prior planning session
   - 032f57e docs(02): amend D-01 — drop Bloc Bold + Mont for free Google Fonts stack
@@ -123,4 +137,12 @@ Recent commits (this session):
   - b5ccbcd feat(02-05): add sharp preprocessing script + photo staging scaffolding
   - 4d8126b feat(02-05): add VideoPlayer shell wrapping @mux/mux-player-react
   - fe6de2b docs(02-05): complete media-pipeline plan (3/4 tasks; Task 4 awaits curation)
+  - 5c6afbd docs(state): wave 2 progress — 02-04 done, 02-05 paused
+  - 9162e23 docs(02): amend D-05 + D-07 — allow placeholder imagery for Phase 2 gallery
+  - afb5331 feat(02-05): process 12 curated photos → public/photography/ AVIF+WebP+JPG
+  - ca06e1e docs(02-05): mark plan complete after Task 4 photos:process run
+  - 7c30d52 feat(02-06): scaffold /_design gallery route + layout + sidebar nav
+  - ad62fce feat(02-06): populate /_design gallery with all 14 primitives + foundation
+  - 0647b5a fix(02-06): address Lighthouse + axe-core a11y findings on /_design
+  - 48d9e76 docs(02-06): complete gallery assembly plan (Task 3 pending human-verify)
 Pipelined: Phase 03 RESEARCH.md drafted in background (untracked) — promote when Phase 02 closes
