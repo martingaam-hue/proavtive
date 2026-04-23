@@ -2,7 +2,7 @@
 phase: 02
 plan: 05
 subsystem: design-system / media pipeline
-tags: [media, sharp, mux, next-image, avif, webp, video-shell, phase-2, human-action-pending]
+tags: [media, sharp, mux, next-image, avif, webp, video-shell, phase-2]
 
 # Dependency graph
 requires:
@@ -14,6 +14,7 @@ provides:
   - "VideoPlayer primitive shell at components/ui/video-player.tsx — Mux player via dynamic({ ssr: false })"
   - "Staging directories: .planning/inputs/curated-hero-photos/ (gitignored raw) + public/photography/ (tracked output)"
   - "pnpm photos:process script registered"
+  - "12 curated hero photos processed → public/photography/ (36 files: 12 × AVIF/WebP/JPG at 1920px max) — 87.20 MB source → 2.27 MB AVIF (2.6% of source)"
 affects: [02-06 gallery, 03-root-gateway, 04-hk, 05-sg, 10-launch (Mux account + real playback IDs)]
 
 # Tech tracking
@@ -27,6 +28,7 @@ tech-stack:
     - "Module-namespace → callable-component unwrap requires unknown intermediate cast (TS structural-typing constraint)"
     - "Single-width 1920px Sharp output (UI-SPEC §5.2 'Planner choice') — Vercel request-time optimization handles responsive variants"
     - "gitignore file-level filter on staging directory with .gitkeep exception — raw never commits, directory persists"
+    - "sg-placeholder-* slug convention — marks OFL stock images earmarked for later replacement (per D-05/D-07 amendments 2026-04-23)"
 
 key-files:
   created:
@@ -34,6 +36,9 @@ key-files:
     - components/ui/video-player.tsx (110 lines)
     - .planning/inputs/curated-hero-photos/.gitkeep (empty)
     - public/photography/.gitkeep (empty)
+    - public/photography/*.avif (12 files, 2.27 MB total)
+    - public/photography/*.webp (12 files, 2.30 MB total)
+    - public/photography/*.jpg (12 files, 4.13 MB total)
   modified:
     - next.config.ts (added images block between transpilePackages and async headers())
     - package.json (+2 deps, +1 script)
@@ -45,29 +50,31 @@ key-decisions:
   - "MuxPlayer unwrap uses `unknown` intermediate cast (Rule 1 — TS 5 refuses the direct `as { default?: T } & T` cast because the module namespace object doesn't structurally overlap with a FunctionComponent; TS error TS2352 suggested the `unknown` intermediate)."
   - "Mux NOT added to transpilePackages — pnpm build passed clean without it. Add only if a future CJS/ESM interop error surfaces (Phase 1 precedent)."
   - "Single-width 1920px Sharp output chosen per UI-SPEC §5.2 'Planner choice'. Multi-width Sharp pipelines (640 + 1024 + 1920) would produce 3× output count per source photo but duplicate what Vercel Image Optimization does at request time."
+  - "SG Prodigy coverage shipped as Unsplash OFL placeholder (David Trinks, unsplash.com/photos/-6hNoEeUsDY) labelled sg-placeholder-climbing-unsplash-trinks.* — D-05 + D-07 amendments (commit 9162e23, 2026-04-23) explicitly permit mixed real + OFL stock coverage for Phase 2 gallery purposes; Phase 5 will replace with real Prodigy/Katong photography."
 
 requirements-completed: [DS-04]
 
 # Metrics
-duration: ~12min (focused execution time)
+duration: ~12min initial + ~2min Task 4 resume
 completed: 2026-04-23
-tasks_completed: 3  # of 4 total — Task 4 (photo processing) blocked on curation
-tasks_pending_human_action: 1
-files_created: 4
+tasks_completed: 4  # 4/4 — plan done
+tasks_pending_human_action: 0
+files_created: 40  # 4 initial (2 code + 2 .gitkeep) + 36 processed photo outputs
 files_modified: 4
 ---
 
 # Phase 02 Plan 05: Media Pipeline Summary
 
-**Three of four tasks shipped — image config, Sharp preprocessing script, and VideoPlayer shell are all landed and committed. Task 4 (`pnpm photos:process`) is parked at a HUMAN-ACTION checkpoint because `.planning/inputs/curated-hero-photos/` is currently empty (only `.gitkeep`). Martin needs to curate 10–15 hero-tier photos per D-07 before the Sharp pipeline can produce real AVIF/WebP/JPG output. All non-curation work — `next.config.ts` images block (AVIF/WebP + 8 deviceSizes + cdn.sanity.io remote pattern), `scripts/process-photos.mjs` (single-width 1920px Sharp pipeline, fails fast on empty input), `components/ui/video-player.tsx` (client-only `dynamic({ ssr: false })` wrapping `@mux/mux-player-react` with Mux's public demo playback ID), and the `.gitkeep` + `.gitignore` scaffolding — is complete. `pnpm typecheck` + `pnpm build` pass. DS-04 is materialised but the asset substrate (`public/photography/*.avif|webp|jpg`) awaits curation.**
+**All four tasks shipped. Image config, Sharp preprocessing script, VideoPlayer shell, and the processed photo assets are committed. 12 curated hero photos (11 real ProActiv + 1 Unsplash OFL placeholder for SG Prodigy coverage) reduced from 87.20 MB source to 2.27 MB AVIF (2.6% of source) / 2.30 MB WebP / 4.13 MB JPG — 36 output files total in `public/photography/`. DS-04 asset substrate is now live and ready for Plan 02-06 gallery to reference. Phase 5 will replace `sg-placeholder-climbing-unsplash-trinks.*` with real Prodigy/Katong photography (D-05 + D-07 amended 2026-04-23, commit 9162e23, to permit mixed real + OFL stock placeholder coverage for Phase 2 gallery purposes). `pnpm typecheck` + `pnpm build` pass.**
 
 ## Performance
 
-- **Duration:** ~12 min focused execution
+- **Duration:** ~12 min initial (Tasks 1–3) + ~2 min Task 4 resume (photo processing + commit)
 - **Started:** 2026-04-23T15:40:11Z
-- **Completed (non-blocked tasks):** 2026-04-23T15:52:00Z
-- **Tasks completed:** 3 of 4 autonomous — Task 4 parked HUMAN-ACTION
-- **Files created:** 4 (2 code + 2 `.gitkeep`)
+- **Completed (Tasks 1–3):** 2026-04-23T15:52:00Z
+- **Task 4 resumed + completed:** 2026-04-23T21:18:00Z (after curation landed)
+- **Tasks completed:** 4 of 4 — plan done
+- **Files created:** 40 (2 code + 2 `.gitkeep` + 36 processed photo outputs)
 - **Files modified:** 4 (`next.config.ts`, `package.json`, `pnpm-lock.yaml`, `.gitignore`)
 
 ## Tasks
@@ -134,23 +141,61 @@ files_modified: 4
 - `pnpm typecheck` + `pnpm build` exit 0 after the Rule 1 fixes (see below).
 - First Load JS unchanged at 239 kB — VideoPlayer tree-shakes out because no route imports it yet (Plan 02-06 gallery will wire one example).
 
-### Task 4: Run `pnpm photos:process` — HUMAN-ACTION PENDING
+### Task 4 (resumed 2026-04-23): Run `pnpm photos:process` — COMPLETE
 
-**Status:** Blocked. `.planning/inputs/curated-hero-photos/` is empty (only `.gitkeep`).
+**Commit:** `afb5331` — `feat(02-05): process 12 curated photos → public/photography/ AVIF+WebP+JPG`
 
-**Resume instruction:**
-> Awaiting Martin's curation of 10–15 hero photos per D-07 coverage list:
->   - 1 root gateway hero
->   - 2–3 HK venues (Wan Chai + Cyberport + optional)
->   - 1–2 SG Prodigy / Katong
->   - 3–5 programmes in action (different age groups)
->   - 1–2 testimonial / parent scenes
->
-> Source photos at `/Users/martin/Downloads/ProActive/01 - PHOTOS to use/` (and related folders per `.planning/inputs/MEDIA-INVENTORY.md`).
->
-> Accepted formats: JPG, PNG, HEIC, TIFF, WebP. Any filename — the script slugifies.
->
-> **Resume by re-running `/gsd-execute-phase 2`** once photos are dropped into `.planning/inputs/curated-hero-photos/`. A continuation agent will run `pnpm photos:process`, log reduction stats, commit the processed AVIF/WebP/JPG output in `public/photography/`, and update this summary's Task 4 section.
+Preconditions:
+- `.planning/inputs/curated-hero-photos/` contained 12 source images (plus `.gitkeep`) at the time of this resumption, staged by Martin.
+- D-05 + D-07 had been amended earlier the same day (commit `9162e23`) to explicitly permit mixed real-ProActiv + OFL stock placeholder coverage for Phase 2 gallery purposes — enabling the `sg-placeholder-*` slug convention used below.
+
+Execution:
+- `pnpm photos:process` ran cleanly (exit 0). No Sharp warnings, no skipped files, no HEIC/format issues — all 12 sources were plain JPEG.
+- pnpm emitted the expected `WARN Unsupported engine: wanted: {"node":">=22.0.0 <23.0.0"} (current: {"node":"v24.14.0"})` about pnpm's engines field — cosmetic only, script ran without issue on Node 24.
+- Sharp processed 12 × 3 = 36 output files into `public/photography/` (verified with `ls public/photography/ | wc -l` → 36).
+- `public/photography/.gitkeep` remains (pre-existing from Task 2) so the 37-entry directory count includes `.gitkeep`. The commit only stages `*.avif` / `*.webp` / `*.jpg` — the `.gitkeep` is already tracked.
+
+Source → output reduction (from `/tmp/photos-process.log`):
+
+| Metric            | Value     | % of source |
+| ----------------- | --------- | ----------- |
+| Source total      | 87.20 MB  | 100 %       |
+| AVIF total        | 2.27 MB   | 2.6 %       |
+| WebP total        | 2.30 MB   | 2.6 %       |
+| JPG total         | 4.13 MB   | 4.7 %       |
+| Combined output   | 8.70 MB   | 10.0 %      |
+
+Per-file breakdown (slug → source MB → AVIF / WebP / JPG):
+
+| Slug                                        | Source MB | AVIF MB | WebP MB | JPG MB |
+| ------------------------------------------- | --------- | ------- | ------- | ------ |
+| `hero-gateway-drone`                        | 4.03      | 0.33    | 0.34    | 0.56   |
+| `hk-venue-cyberport`                        | 8.33      | 0.08    | 0.09    | 0.17   |
+| `hk-venue-wanchai-gymtots`                  | 8.79      | 0.26    | 0.27    | 0.40   |
+| `programme-adults`                          | 6.86      | 0.11    | 0.12    | 0.28   |
+| `programme-beginner-two`                    | 8.15      | 0.12    | 0.14    | 0.31   |
+| `programme-beginner`                        | 8.31      | 0.12    | 0.13    | 0.31   |
+| `programme-competitive`                     | 8.79      | 0.18    | 0.19    | 0.36   |
+| `programme-easter-camp`                     | 4.58      | 0.03    | 0.05    | 0.13   |
+| `programme-intermediate`                    | 9.52      | 0.27    | 0.26    | 0.48   |
+| `sg-placeholder-climbing-unsplash-trinks`   | 2.24      | 0.57    | 0.50    | 0.75   |
+| `testimonial-birthday-party`                | 8.95      | 0.11    | 0.11    | 0.20   |
+| `testimonial-family-scene`                  | 8.66      | 0.10    | 0.10    | 0.19   |
+
+Verifications after run:
+- `file public/photography/hero-gateway-drone.avif` → `ISO Media, AVIF Image` (correct container)
+- `file public/photography/hero-gateway-drone.webp` → `RIFF (little-endian) data, Web/P image, VP8 encoding, 1728x3072` (resized from portrait 4032×7168 → width 1728, height preserved by `resize(1920, null)` with `withoutEnlargement: true`)
+- `file public/photography/hero-gateway-drone.jpg` → `JPEG image data, progressive, precision 8, 1728x3072, components 3` (progressive mozjpeg)
+- `git status --short` before staging: exactly 36 untracked `public/photography/*.{avif,webp,jpg}` files — no stray repo changes.
+- Commit hooks ran clean: gitleaks (0 leaks), lint-staged (no staged code files), commitlint (subject format valid).
+
+SG Prodigy placeholder attribution:
+- Source: [unsplash.com/photos/-6hNoEeUsDY](https://unsplash.com/photos/-6hNoEeUsDY) by David Trinks (@dtrinksrph) — children climbing an indoor rock wall in Vernon, CT.
+- Licence: Unsplash Licence (free for commercial use, no attribution required).
+- Slug prefix `sg-placeholder-*` is the convention for Phase 5 to identify and replace with real Prodigy/Katong photography.
+- Processed variant size is larger than any real-ProActiv photo in AVIF (0.57 MB vs average ~0.18 MB) because Unsplash's original is already pre-compressed JPEG — less entropy for AVIF/WebP to squeeze. Perfectly acceptable for a temporary placeholder.
+
+No Rule 1/2/3 deviations surfaced during Task 4 resumption — the script ran exactly as specified.
 
 ## Task Commits
 
@@ -159,7 +204,9 @@ files_modified: 4
 | Task 1 | add image config + install sharp and @mux/mux-player-react | `6d86339` |
 | Task 2 | add sharp preprocessing script + photo staging scaffolding | `b5ccbcd` |
 | Task 3 | add VideoPlayer shell wrapping @mux/mux-player-react | `4d8126b` |
-| Task 4 | *(pending human-action — curation)* | — |
+| Plan (docs, earlier) | complete media-pipeline plan (3/4 tasks; Task 4 awaits curation) | `fe6de2b` |
+| D-05/D-07 amendment | allow placeholder imagery for Phase 2 gallery | `9162e23` |
+| Task 4 | process 12 curated photos → public/photography/ AVIF+WebP+JPG | `afb5331` |
 
 ## Deviations from Plan
 
@@ -191,6 +238,10 @@ files_modified: 4
 
 None of these three are material — the plan's functional contract (default-export unwrap, ssr:false, prefers-reduced-motion respect, fail-fast script) is fully preserved. Only the TypeScript/ESLint implementation details shifted.
 
+### Task 4 resumption — no new deviations
+
+Task 4 ran exactly as specified by the plan's `<how-to-verify>` block. No Rule 1/2/3 issues surfaced. The SG placeholder inclusion is pre-approved by the D-05/D-07 amendment (commit 9162e23) and therefore not classed as a deviation.
+
 ### Formatting (lefthook lint-staged)
 
 - `scripts/process-photos.mjs` was reformatted by prettier on commit (e.g., line-joined `sharp(src).rotate().resize(...)` onto one line, trailing-comma normalisation). Repo uses `"singleQuote": false` in `.prettierrc.json` — all new code uses double quotes. The plan's sample code used single quotes, but this is cosmetic and the repo's prettier config is authoritative.
@@ -218,6 +269,7 @@ VideoPlayer uses `bg-muted` + `rounded-xl` + `w-full` + `overflow-hidden` — al
 - **Sharp local-only** — referenced only by `scripts/process-photos.mjs`, which is NOT invoked during `next build` (confirmed by inspecting the build tail — no Sharp symbol in the production bundle).
 - **Mux defers to client:** `dynamic({ ssr: false })` ensures server-rendered HTML contains no Mux code; the player only mounts after hydration. LCP budget for pages that use VideoPlayer is therefore controlled by the `poster` image (a regular `next/image`-optimised asset), not the video itself.
 - **Route bundle size unchanged (239 kB First Load JS)** — VideoPlayer tree-shakes out because no route consumes it yet. Plan 02-06 gallery will wire a single example and re-measure.
+- **Committed asset bytes** — processed `public/photography/` totals 8.70 MB (AVIF + WebP + JPG combined), vs 87.20 MB of raw source. Vercel serves AVIF by default (2.27 MB over 12 hero images) with WebP/JPG fallbacks, so most users' total image bytes per full-site crawl is ~2.3 MB.
 
 ## D-06 Compliance (Mux Placeholder Policy)
 
@@ -232,8 +284,16 @@ Phase 2 ships only the VideoPlayer shell. The primitive defaults to Mux's public
 - `.planning/inputs/curated-hero-photos/` is gitignored at file level (rule: `.planning/inputs/curated-hero-photos/*`) with an exception for `.gitkeep` (`!.planning/inputs/curated-hero-photos/.gitkeep`)
 - `public/photography/` is tracked (intentional — processed AVIF + WebP + JPG output is the deployable asset artifact)
 - Verified: `git check-ignore .planning/inputs/curated-hero-photos/fake.jpg` returns a match; `git check-ignore .planning/inputs/curated-hero-photos/.gitkeep` returns no match.
+- Confirmed at Task 4 commit time: the 12 raw JPEG sources (~87 MB) in `.planning/inputs/curated-hero-photos/` stayed local-only. `git status` showed only `public/photography/*` as new files. Commit `afb5331` contains zero files from the staging folder.
 
-When Martin drops 10–15 raw photos into the staging folder, they remain local-only. Running `pnpm photos:process` reads from that gitignored staging area and writes into the tracked `public/photography/` folder — the ratio of committed bytes to raw bytes is at most the 1920px-wide AVIF variant's size per photo.
+## D-05 / D-07 Amendments (Mixed Real + OFL Placeholder Coverage)
+
+Commit `9162e23` (2026-04-23) amended D-05 ("gallery shows real ProActiv photography") and D-07 ("curation upfront") to explicitly permit mixed real-ProActiv + OFL-licensed stock placeholders for Phase 2 gallery demonstration purposes. Without this amendment, the SG Prodigy coverage gap (no real Katong photography available for Phase 2) would have blocked Task 4 or forced an incomplete gallery in Plan 02-06.
+
+Phase 5 (SG market buildout) will:
+1. Commission or source real Prodigy/Katong photography during Phase 5 field work or CMS population
+2. Replace `public/photography/sg-placeholder-climbing-unsplash-trinks.{avif,webp,jpg}` with real asset(s) (re-run `pnpm photos:process`)
+3. Drop the `sg-placeholder-*` slug convention once all slots are real
 
 ## Notes for Plan 02-06 (gallery)
 
@@ -252,11 +312,20 @@ import { VideoPlayer, PLACEHOLDER_PLAYBACK_ID } from "@/components/ui/video-play
 <VideoPlayer title="SG Prodigy" aspect="portrait" />
 ```
 
-**Photo slug naming (when Task 4 resumes):**
-- Sharp lowercases, replaces non-alphanumerics with `-`, strips leading/trailing dashes
-- `IMG_2341.JPG` → `public/photography/img-2341.{avif,webp,jpg}`
-- `Cyberport-Class-042.jpeg` → `public/photography/cyberport-class-042.{avif,webp,jpg}`
-- Gallery page should reference `.jpg` in `<Image src>` — `next/image` handles AVIF/WebP negotiation at request time via the Vercel image optimizer.
+**Photo slugs available in `public/photography/` (all with `.avif`, `.webp`, `.jpg` variants):**
+
+- `hero-gateway-drone` — drone venue overview (Wan Chai) — candidate for root gateway hero
+- `hk-venue-cyberport` — Cyberport venue interior
+- `hk-venue-wanchai-gymtots` — Wan Chai + young-age class
+- `programme-beginner`, `programme-beginner-two` — beginner class action
+- `programme-intermediate` — intermediate level
+- `programme-competitive` — competitive level action
+- `programme-adults` — adult class
+- `programme-easter-camp` — holiday camps
+- `testimonial-birthday-party`, `testimonial-family-scene` — family/parent scenes
+- `sg-placeholder-climbing-unsplash-trinks` — OFL placeholder for SG Prodigy (temporary; Phase 5 replacement)
+
+Reference via `<Image src="/photography/{slug}.jpg">` — `next/image` handles AVIF/WebP negotiation at request time via the Vercel image optimizer.
 
 **Gallery test for VideoPlayer:**
 - Render one `<VideoPlayer title="Phase 2 media-primitive smoke test" />` in `/_design/page.tsx` under a "Media" section.
@@ -275,17 +344,21 @@ import { VideoPlayer, PLACEHOLDER_PLAYBACK_ID } from "@/components/ui/video-play
 - FOUND: `components/ui/video-player.tsx`
 - FOUND: `.planning/inputs/curated-hero-photos/.gitkeep`
 - FOUND: `public/photography/.gitkeep`
+- FOUND: `public/photography/*.avif` (12 files)
+- FOUND: `public/photography/*.webp` (12 files)
+- FOUND: `public/photography/*.jpg` (12 files)
 
 **Files verified to be modified:**
-- FOUND in HEAD~3: `next.config.ts` (images block added)
-- FOUND in HEAD~3: `package.json` (deps + script added)
-- FOUND in HEAD~3: `pnpm-lock.yaml` (updated)
-- FOUND in HEAD~2: `.gitignore` (curated-hero-photos rule added)
+- FOUND in prior commits: `next.config.ts` (images block added in `6d86339`)
+- FOUND in prior commits: `package.json` (deps + script added in `6d86339`)
+- FOUND in prior commits: `pnpm-lock.yaml` (updated in `6d86339`)
+- FOUND in prior commits: `.gitignore` (curated-hero-photos rule added in `b5ccbcd`)
 
 **Commits verified to exist:**
 - FOUND: `6d86339` (Task 1)
 - FOUND: `b5ccbcd` (Task 2)
 - FOUND: `4d8126b` (Task 3)
+- FOUND: `afb5331` (Task 4 — processed photos)
 
 **Plan-level invariants verified:**
 - `grep -q "image/avif" next.config.ts` — passes
@@ -299,15 +372,12 @@ import { VideoPlayer, PLACEHOLDER_PLAYBACK_ID } from "@/components/ui/video-play
 - `grep -E "#[0-9a-fA-F]{6}" components/ui/video-player.tsx` — empty (Pillar 2)
 - `git check-ignore .planning/inputs/curated-hero-photos/fake.jpg` — matches the ignore rule
 - `git check-ignore .planning/inputs/curated-hero-photos/.gitkeep` — no match (exception works)
-- `pnpm typecheck` — exit 0
-- `pnpm build` — exit 0; First Load JS 239 kB on all dashboard routes (no regression vs Plan 02-04 baseline)
-
-**Pending (by design — HUMAN-ACTION):**
-- `public/photography/*.avif`/`*.webp`/`*.jpg` output — awaits Task 4 resume after Martin curates 10–15 hero photos.
+- `ls public/photography/*.avif public/photography/*.webp public/photography/*.jpg | wc -l` — 36
+- `pnpm typecheck` — exit 0 (re-verified post-Task-4)
+- `pnpm build` — exit 0 (re-verified post-Task-4)
 
 ---
 
 *Phase: 02-design-system-component-gallery-media-pipeline*
 *Plan: 05 — media-pipeline*
-*Completed non-blocked tasks: 2026-04-23*
-*Task 4 status: HUMAN-ACTION pending — resume via `/gsd-execute-phase 2` after photo curation*
+*Completed: 2026-04-23 (all 4 tasks)*
