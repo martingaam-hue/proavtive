@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Phase 02 Plan 02-06 Task 3 — awaiting human visual verify on /_design gallery
-last_updated: "2026-04-23T22:00:00.000Z"
-last_activity: 2026-04-23 -- Phase 02 Wave 2 + Wave 3 executed; 02-04/05/06 all at 2/2, 4/4, 2/2 code complete; Task 3 pending Martin's visual inspection
+status: phase-complete
+stopped_at: Phase 02 COMPLETE — design system + component gallery + media pipeline shipped
+last_updated: "2026-04-23T22:30:00.000Z"
+last_activity: 2026-04-23 -- Plan 02-06 Task 3 approved by Martin with one token tweak (cream → white); Phase 02 fully closed
 progress:
   total_phases: 11
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 21
-  completed_plans: 15
-  percent: 71
+  completed_plans: 16
+  percent: 76
 ---
 
 # Project State
@@ -25,13 +25,14 @@ See: .planning/PROJECT.md (updated 2026-04-22)
 
 ## Current Position
 
-Phase: 02 (design-system-component-gallery-media-pipeline) — EXECUTING
-Plans: 5 of 6 fully done (02-01 ✓, 02-02 ✓, 02-03 ✓, 02-04 ✓, 02-05 ✓); 02-06 Tasks 1+2 code-complete + automated sub-checks run, Task 3 pending Martin's visual verify
-Next: Martin inspects `http://localhost:3000/_design` (`pnpm build && pnpm start`) — approves or requests revision
-Status: PAUSED on HUMAN-VERIFY (Plan 02-06 Task 3 visual inspection)
-Last activity: 2026-04-23 -- 12 photos processed (87 MB → 8.7 MB); /_design gallery scaffolded + populated with all 14 primitives; Lighthouse a11y 96/100, axe-core 0 criticals
+Phase: 02 COMPLETE ✓ (design-system-component-gallery-media-pipeline)
+All 6 plans shipped: 02-01 tokens · 02-02 typography · 02-03 stock primitives · 02-04 custom primitives · 02-05 image pipeline · 02-06 /_design gallery
+Next: Phase 3 (Root Gateway) — already planned (5 approved plans 03-01 through 03-05); discuss/research/plan artifacts already exist; ready for `/gsd-execute-phase 3`
 
-Progress: [█████████░] 95% of Phase 02 code complete — visual-verify gate is the final checkpoint
+Status: READY for Phase 3 execution
+Last activity: 2026-04-23 -- Phase 02 closed after human-verify + surface-default amendment (cream → pure white)
+
+Progress: [███░░░░░░░░] 3 of 11 phases complete (0, 1, 2)
 
 ## Performance Metrics
 
@@ -83,6 +84,7 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 01]: Plan 01-04: added NEXT_PUBLIC_SANITY_PROJECT_ID/DATASET=build-placeholder to ci.yml Build step env. sanity.config.ts throws at module-eval if missing (Plan 01-03 fail-fast); Vercel injects real values at deploy time; CI just needs build compile. Studio runs client-side only — placeholders are safe.
 - [Phase 02 / D-01 amended]: 2026-04-23: Brand typography pivoted from Bloc Bold (Zetafonts, commercial) + Mont (Fontfabric, commercial) self-hosted via next/font/local → Unbounded + Manrope + Baloo 2 via next/font/google (all OFL/free-for-commercial). User preference for accessible free stack; unblocked Plan 02-02 without the D-02 HUMAN-ACTION gate on foundry-portal downloads. D-02 obsoleted. Commercial licenses preserved for possible future re-introduction. CSS vars renamed internally (--font-bloc/mont → --font-unbounded/manrope) — public Tailwind utilities font-display / font-sans / font-accent unchanged.
 - [Phase 02 / D-05 + D-07 amended]: 2026-04-23: Photo curation policy relaxed to allow mixed real-ProActiv + OFL stock placeholder imagery for Phase 2 gallery coverage. D-05's "one real ProActiv photograph per primitive" requirement kept for Phase 4/5 market pages but waived for Phase 2's `/_design/` gallery. 12 photos staged: 11 real ProActiv (HK venues + programmes + testimonials) + 1 Unsplash placeholder for SG (David Trinks, OFL / no-attribution, marked `sg-placeholder-*` for Phase 5 replacement).
+- [Phase 02 / UI-SPEC §1.4 amended]: 2026-04-23: Surface-default swapped cream → pure white on `--muted` + `--accent`. Martin feedback during /_design visual verify. `bg-brand-cream` utility preserved for deliberate accent use. Trade-off: `hover:bg-accent` on sidebar nav becomes visually invisible — keyboard focus ring is the primary affordance; mouse-hover affordance revisitable in Phase 3+ if user testing flags it.
 
 ### Pending Todos
 
@@ -90,22 +92,18 @@ None yet.
 
 ### Blockers/Concerns
 
-**Active: visual-verify pause (Plan 02-06 Task 3, 2026-04-23):** Martin to inspect `http://localhost:3000/_design` via `pnpm build && pnpm start`. Checklist:
-1. Keyboard Tab walk — every interactive element shows a visible navy focus ring
-2. Editorial-asymmetry verdict (UI-SPEC §7) — gallery reads as brand-led, NOT an "AI-SaaS" grid template
-3. "Does this feel like ProActiv" — navy primary, yellow accent, confident display type, real photography
-Then type one of: `approved` · `editorial-fail: <note>` · `a11y-fail: <detail>` · `visual-fail: <detail>`.
+**No active blockers.** Phase 02 closed 2026-04-23 with Martin's visual-verify signoff + one token tweak (cream → pure white on `--muted` + `--accent`).
 
-**Known non-blocking regressions captured in 02-06-SUMMARY.md:**
-- Lighthouse Performance 55–81 (target ≥95) — driven by Mux VideoPlayer bootup; acceptable for `/_design` only; real market pages don't embed VideoPlayer by default; revisit at Phase 10 when real Mux integration happens
-- LCP 2.9–7.7s — same Mux root cause
-- 2 axe-core serious violations — 1 Mux internal (upstream dependency), 1 Button contrast from Plan 02-03 (out-of-scope for this plan; tracked as a Phase 2 refinement-candidate)
+**Known non-blocking regressions carried forward (captured in 02-06-SUMMARY.md):**
+- Lighthouse Performance 55–81 on `/_design` only (target ≥95) — Mux VideoPlayer bootup. Acceptable because real market pages (Phase 3+) don't embed VideoPlayer by default; revisit at Phase 10 when real Mux integration happens.
+- LCP 2.9–7.7s — same Mux root cause.
+- 2 axe-core serious violations — 1 Mux internal/upstream; 1 Button contrast from Plan 02-03 (tracked as a Phase-2 refinement candidate, not blocking Phase 3).
 
 **Replacement targets carried into Phase 4/5:**
-- HK real-photography swap-ins (if any placeholder was used, none were in the 2026-04-23 staging) — Phase 4 owns
-- SG Prodigy real photography — Phase 5 replaces `sg-placeholder-climbing-unsplash-trinks.*` (David Trinks / Unsplash License / Vernon CT climbing facility) with real Katong Point imagery
+- SG Prodigy real photography — Phase 5 replaces `sg-placeholder-climbing-unsplash-trinks.*` (David Trinks / Unsplash License / Vernon CT climbing facility) with real Katong Point imagery.
+- HK real-photography swap-ins — none needed; 11/11 HK placements used real ProActiv photography.
 
-Note for Phase 10: `proactivsports.com` transfer prep — gather registrar auth code / EPP code closer to Phase 10 start. Also revisit Mux player performance when real playback IDs land.
+**Note for Phase 10:** `proactivsports.com` transfer prep — gather registrar auth code / EPP code closer to Phase 10 start. Also revisit Mux player performance when real playback IDs land.
 
 ## Deferred Items
 
@@ -121,9 +119,14 @@ Items acknowledged and carried forward (from requirements / scope decisions):
 
 ## Session Continuity
 
-Last session: 2026-04-23T22:00:00.000Z
-Stopped at: Plan 02-06 Task 3 — human-verify pause on `/_design` gallery. Martin to run `pnpm build && pnpm start` and visit `http://localhost:3000/_design`, then type approve/fail-type signal.
-Resume file: .planning/phases/02-design-system-component-gallery-media-pipeline/02-06-SUMMARY.md (full measured metrics + 5 auto-fixed deviations + resume-signal grammar)
+Last session: 2026-04-23T22:30:00.000Z
+Stopped at: Phase 02 COMPLETE — all 6 plans shipped, Martin approved Plan 02-06 Task 3 visual verify with surface-default amendment
+Resume file: — (no mid-plan checkpoint; next action is `/gsd-execute-phase 3` when ready)
+Phase 03 (Root Gateway) readiness:
+  - RESEARCH.md drafted (was pipelined in background during Phase 01 execute)
+  - CONTEXT.md + UI-SPEC present
+  - 5 plans approved + committed: 03-01 foundation, 03-02 gateway homepage, 03-03 contact backend + UI, 03-04 editorial content pages, 03-05 lighter content pages
+  - All planning artifacts already tracked in git (from 2026-04-05 planning session)
 Recent commits (this session):
   - 3569f5a docs(03): sync roadmap plan list + config flag from prior planning session
   - 032f57e docs(02): amend D-01 — drop Bloc Bold + Mont for free Google Fonts stack
@@ -145,4 +148,5 @@ Recent commits (this session):
   - ad62fce feat(02-06): populate /_design gallery with all 14 primitives + foundation
   - 0647b5a fix(02-06): address Lighthouse + axe-core a11y findings on /_design
   - 48d9e76 docs(02-06): complete gallery assembly plan (Task 3 pending human-verify)
-Pipelined: Phase 03 RESEARCH.md drafted in background (untracked) — promote when Phase 02 closes
+  - 51ce024 docs(state): phase 02 wave 3 executed — /_design gallery code-complete, human-verify pending
+  - 8bb9e98 refactor(02): surface-default cream → pure white + 02-06 human-verify signoff
