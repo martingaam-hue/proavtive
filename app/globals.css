@@ -87,9 +87,11 @@
   --primary-foreground: oklch(1 0 0); /* white */
   --secondary: oklch(0.8399 0.1469 81.92); /* yellow — contrast w/ navy 8.80:1 */
   --secondary-foreground: oklch(0.2906 0.1328 267.05); /* navy on yellow */
-  --muted: oklch(0.9678 0.0316 82.77); /* cream */
-  --muted-foreground: oklch(0.45 0.05 267); /* 70% navy — verify live ≥4.5:1 */
-  --accent: oklch(0.9678 0.0316 82.77); /* cream */
+  --muted: oklch(
+    1 0 0
+  ); /* pure white — was cream; amended 2026-04-23 for white-default surface policy */
+  --muted-foreground: oklch(0.45 0.05 267); /* 70% navy — passes ≥4.5:1 on white */
+  --accent: oklch(1 0 0); /* pure white — was cream; amended 2026-04-23 */
   --accent-foreground: oklch(0.2906 0.1328 267.05); /* navy */
   --destructive: oklch(0.6012 0.2339 26.97); /* brand red #ec1c24 */
   --border: oklch(0.922 0 0);

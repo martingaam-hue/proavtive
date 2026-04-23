@@ -90,10 +90,10 @@ Phase 1 Plan 01-02 shipped `app/globals.css` with shadcn's oklch-based neutral p
 | `--primary-foreground` | White | `oklch(1 0 0)` | CTA label colour — 14.55:1 |
 | `--secondary` | Yellow | `oklch(0.8399 0.1469 81.92)` | Energy accent fill (secondary CTA, badges). Text on top MUST be navy. |
 | `--secondary-foreground` | Navy | `oklch(0.2906 0.1328 267.05)` | 8.80:1 on yellow |
-| `--accent` | Cream | `oklch(0.9678 0.0316 82.77)` | Warm surface for hover / subtle emphasis — 13.24:1 with navy |
+| `--accent` | White | `oklch(1 0 0)` | **AMENDED 2026-04-23** — was Cream. Pure white surface; hover-states on `bg-accent` become invisible by design (keyboard focus ring remains the primary affordance). Cream is still available via the `bg-brand-cream` utility for deliberate accent use. |
 | `--accent-foreground` | Navy | `oklch(0.2906 0.1328 267.05)` | — |
-| `--muted` | Cream | `oklch(0.9678 0.0316 82.77)` | Muted card / sidebar surface |
-| `--muted-foreground` | Navy at 70% | `oklch(0.45 0.05 267)` | Subdued body text — ≥4.6:1 on white (verify live) |
+| `--muted` | White | `oklch(1 0 0)` | **AMENDED 2026-04-23** — was Cream. Muted card / sidebar surface is now pure white; hierarchy comes from borders, shadow, and photography rather than a warm tint. |
+| `--muted-foreground` | Navy at 70% | `oklch(0.45 0.05 267)` | Subdued body text — 14.55:1 on white (stronger than on cream) |
 | `--destructive` | Red | `oklch(0.6012 0.2339 26.97)` | Reserved for destructive actions + form error borders — NEVER for marketing emphasis |
 | `--destructive-foreground` | White | `oklch(1 0 0)` | — |
 | `--border` | Neutral 200 | `oklch(0.922 0 0)` | Keep Phase 1 value — shadcn default is brand-neutral enough |

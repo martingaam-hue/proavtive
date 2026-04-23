@@ -343,3 +343,19 @@ Triggers for plan revision:
 - [x] `pnpm typecheck` + `pnpm build` + `pnpm test:unit` all exit 0
 - [x] `/_design` returns HTTP 200 on `pnpm start` — verified via curl
 - [x] All 14 primitive imports present; 23 anchor IDs in place; UI-SPEC §6.1 sample copy verbatim — grep-verified
+
+---
+
+## Task 3 — Human-Verify: APPROVED (2026-04-23)
+
+Martin inspected `/_design` on the live dev server and approved with one token tweak.
+
+**Feedback captured during verify:**
+- Cream surface tone felt off-brand on default backgrounds.
+- Direction: "pure white as standard". Applied to `--muted` + `--accent` in `app/globals.css` (`oklch(1 0 0)`). `bg-brand-cream` utility preserved for deliberate accent use.
+- UI-SPEC §1.4 role-mapping table amended accordingly. PROJECT.md Key Decisions table logs the change.
+- Trade-off accepted: `hover:bg-accent` on sidebar nav is now visually invisible; keyboard focus ring remains the primary affordance. Revisit if Phase 3+ user testing flags mouse-hover as friction.
+
+**Editorial-asymmetry & brand-fidelity judgments:** accepted with the token tweak above. No per-primitive repairs requested.
+
+**Plan 02-06 now CLOSED.** Phase 02 complete.
