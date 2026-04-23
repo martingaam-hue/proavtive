@@ -114,7 +114,7 @@ Grouped by the strategy doc's three layers + cross-cutting concerns. Each is a h
 - **Brand palette** (from `assets/brand/guidelines/brand-guidelines.pdf`):
   - **Primary:** `#0f206c` (navy) · `#ffffff` · `#ec1c24` (red)
   - **Secondary:** `#0f9733` (green) · `#0fa0e2` (sky) · `#fac049` (yellow) · `#fff3dd` (cream)
-- **Typography:** Bloc Bold (headlines) · Mont (body) · Baloo (Progym body usage)
+- **Typography:** Unbounded (headlines) · Manrope (body) · Baloo 2 (ProGym body usage) — all Google Fonts (OFL), delivered via `next/font/google`. *Originally Bloc Bold + Mont (commercial licenses); amended 2026-04-23 per Phase 2 D-01 to an accessible free stack.*
 - **Logos:** ProActiv, ProGym, Prodigy lockups in `assets/brand/logos/` (PNG + .ai source)
 - **Media library:** ~22 GB of real photos + videos in `/Users/martin/Downloads/ProActive/`. Inventoried at `.planning/inputs/MEDIA-INVENTORY.md`. Will be processed and uploaded to Mux (video) / Sanity (images) during Phase 2.
 - **Legacy site:** `proactivsports.net` had suspected malware / black-hat SEO. New ecosystem must be clean from the ground up. WordPress is suspected as the compromised platform — headless stack chosen to reduce attack surface.
@@ -144,6 +144,7 @@ Grouped by the strategy doc's three layers + cross-cutting concerns. Each is a h
 | Project-scoped skill kit (32 skills) | frontend-design, lp-editor, page-cro, ai-seo, schema-markup, seo-audit, geo-fix-llmstxt + claude-seo suite — directly relevant to the build, scoped so they don't pollute other projects | ✓ Good (committed `4c451ae`) |
 | Defer domain/DNS/Cloudflare to Phase 10 | Build entirely on Vercel preview URLs through Phase 9; attach `proactivsports.com` at launch. Lets build proceed without DNS coordination; Vercel previews give full-stack testability for free | — Pending |
 | Reject one.com for staging | Shared PHP hosting incompatible with Next.js App Router middleware + ISR — static export would break subdomain routing + Sanity webhook revalidation | ✓ Good |
+| 2026-04-23: Typography pivot — Unbounded + Manrope + Baloo 2 via `next/font/google` (OFL) instead of Bloc Bold + Mont (commercial) | User preference for accessible/free stack; eliminates foundry-license traceability risk (D-02 gate) and unblocks Phase 2 Plan 02-02 without a HUMAN-ACTION checkpoint; Unbounded + Manrope preserves the "confident display + clean geometric body" intent of the original brand spec. Original commercial licenses for Bloc Bold + Mont are preserved for a possible future re-introduction. | ✓ Good (amends Phase 2 D-01; obsoletes Phase 2 D-02) |
 
 ## Evolution
 

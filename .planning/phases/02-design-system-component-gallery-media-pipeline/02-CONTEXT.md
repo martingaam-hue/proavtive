@@ -29,13 +29,9 @@ Phase 2 delivers the visual and media foundation that every page built after thi
 
 ### Brand typography sourcing (Area 1)
 
-- **D-01** Bloc Bold (Zetafonts) and Mont (Fontfabric) are commercially licensed for web self-hosting on `proactivsports.com`. Martin holds the licenses. Baloo is already free via OFL (Google Fonts).
-- **D-02** Font files are provisioned by the user (Martin) at `assets/brand/fonts/` BEFORE `/gsd-execute-phase 2` runs. Required files (WOFF2 preferred, WOFF fallback):
-  - `bloc-bold-*.woff2` (weights: at minimum Regular 400 + Bold 700; see Claude's Discretion for full set)
-  - `mont-*.woff2` (weights: at minimum Regular 400, Medium 500, Bold 700)
-  - `baloo-*.woff2` (weights: at minimum Regular 400 + Medium 500 + Bold 700)
-  Plans MUST include a precondition task that verifies these files exist before the font-wiring task runs. If any are missing at execute time, that task returns a human-action checkpoint rather than fabricating a placeholder.
-- **D-03** Baloo is scoped to **ProGym contexts only** — Wan Chai + Cyberport HK location pages, and any ProGym-branded surfaces elsewhere. Mont is the body font everywhere else (root gateway, HK non-ProGym, SG, legal pages). Bloc Bold is the display/headline font across the entire ecosystem. The design token system exposes `--font-display` (Bloc Bold), `--font-sans` (Mont), `--font-accent` (Baloo). Components apply `--font-accent` only on ProGym-scoped pages; global default is `--font-sans`.
+- **D-01 — AMENDED 2026-04-23.** Brand typography uses three Google Fonts (all SIL OFL, free for commercial use) delivered via `next/font/google`: **Unbounded** (display / headline), **Manrope** (body / UI), **Baloo 2** (ProGym accent). Replaces the original Bloc Bold (Zetafonts, commercial) + Mont (Fontfabric, commercial) + Baloo pairing. Rationale: user pivoted to an accessible/free stack; the Unbounded + Manrope pairing preserves the intent of D-01 (confident display + clean geometric body) without foundry-license traceability risk. Existing Bloc Bold / Mont commercial licenses that Martin holds are preserved for a future re-introduction if brand direction demands it, but are NOT required to ship v1.0.
+- **D-02 — OBSOLETE as of 2026-04-23.** Original decision required human provisioning of foundry-licensed WOFF2 files at `assets/brand/fonts/` before `/gsd-execute-phase 2`. Superseded by the D-01 amendment — `next/font/google` self-hosts the Google Fonts at build time (Vercel-edge preloading, zero third-party request, still zero-CLS via `display: 'swap'` + automatic adjustFontFallback). No HUMAN-ACTION checkpoint needed. The `assets/brand/fonts/` directory is removed. Any downstream plan that referenced a "D-02 drop zone" file-existence gate has been revised (see plan 02-02).
+- **D-03** Baloo 2 is scoped to **ProGym contexts only** — Wan Chai + Cyberport HK location pages, and any ProGym-branded surfaces elsewhere. Manrope is the body font everywhere else (root gateway, HK non-ProGym, SG, legal pages). Unbounded is the display/headline font across the entire ecosystem. The design token system exposes `--font-display` (Unbounded), `--font-sans` (Manrope), `--font-accent` (Baloo 2). Components apply `--font-accent` only on ProGym-scoped pages; global default is `--font-sans`.
 
 ### Primitive library scope (Area 2)
 
@@ -71,8 +67,8 @@ Phase 2 delivers the visual and media foundation that every page built after thi
 
 Implementation details the planner decides without further user input:
 
-- **Font weight provisioning** — Default to 3 weights per family (Regular 400, Medium/Semibold 500–600, Bold 700). Bloc Bold may additionally include Black 900 if provided. Plans will list the exact set they require; if Martin drops more weights, planner adds them to `next/font/local` configuration.
-- **`next/font/local` options** — `display: 'swap'`, `adjustFontFallback: 'Arial'` for sans-serif families, `preload: true` (default), `variable: '--font-display|--font-sans|--font-accent'`.
+- **Font weight provisioning** — Default to 3 weights per family (Regular 400, Medium 500, Bold 700). Unbounded may additionally include 800 ExtraBold if the display role wants extra punch. Plans pass the exact `weight: [...]` array to `next/font/google`.
+- **`next/font/google` options** — `subsets: ['latin']`, `display: 'swap'`, `weight: [...]`, `variable: '--font-unbounded|--font-manrope|--font-baloo'`. `next/font/google` handles fallback metric-matching automatically — no manual `adjustFontFallback` / `fallback` chain needed.
 - **HSL triplet conversion** — Convert the 7 brand hex values to shadcn's HSL channel format (space-separated, no `hsl()` wrapper) for `:root` overrides. Example: `--primary: 228 77% 24%` (navy). Encode the semantic → brand mapping per `02-RESEARCH.md` Topic 1 guidance.
 - **Spacing + radius + shadow tokens** — Adopt `--spacing-section-{sm,md,lg}` = 4rem / 6rem / 8rem per 02-RESEARCH.md. Keep shadcn radius default (`--radius: 0.5rem`) unless it visually conflicts with brand (review after first primitive renders). Shadow tokens: default shadcn scale — defer refinement to Phase 3+ page needs.
 - **Sharp preprocessing script** (`scripts/process-photos.mjs`) — Node.js 22 ES module, reads from `.planning/inputs/curated-hero-photos/`, writes to `public/photography/`, quality: AVIF 70 + WebP 80 + JPG 85, widths: [640, 1024, 1920], fail fast on any image error. Logs a summary (N files processed, total size reduction) at the end. Added to `package.json` scripts as `photos:process`.
@@ -154,11 +150,11 @@ None — no matched todos from `gsd-tools todo match-phase 02`.
 ### Integration Points
 
 - `app/globals.css` — brand token layer lands here (first) BEFORE shadcn `@theme inline` (already present)
-- `app/layout.tsx` — root HTML layout; `next/font/local` font declarations go here with `variable` CSS var names attached to `<html className={...}>`. Per-market layouts (`app/hk/layout.tsx` etc.) may need tweaks to enable Baloo in ProGym contexts per D-03.
+- `app/fonts.ts` (new in Phase 2) — `next/font/google` declarations for Unbounded + Manrope + Baloo 2, exports their `.variable` CSS var names
+- `app/layout.tsx` — root HTML layout; imports `unbounded` + `manrope` from `./fonts` and attaches their `.variable` className to `<html>` (Baloo NOT attached at root per D-03). Per-market layouts (`app/hk/layout.tsx` etc.) may need tweaks to enable Baloo in ProGym contexts per D-03.
 - `app/_design/page.tsx` (new in Phase 2) — the gallery route
 - `public/photography/` (new in Phase 2) — output of `scripts/process-photos.mjs`; committed to git
 - `scripts/process-photos.mjs` (new in Phase 2) — local-only Sharp preprocessing script
-- `assets/brand/fonts/` (provisioned by Martin before execute) — source of truth for brand typography WOFF2 files
 - `components/ui/` (extends Phase 1's Button) — where all new primitives land
 - `components/ui/video-player.tsx` — Mux player shell with placeholder URL (D-06); phase 10 replaces placeholder with real playback ID
 
@@ -169,7 +165,7 @@ None — no matched todos from `gsd-tools todo match-phase 02`.
 
 - **Raw photo source**: `/Users/martin/Downloads/ProActive/01 - PHOTOS to use/` and related folders per MEDIA-INVENTORY.md. Martin curates 10–15 hero-tier images into `.planning/inputs/curated-hero-photos/` before Phase 2 execute.
 - **Brand palette (from PROJECT.md, authoritative)**: navy `#0f206c`, white `#ffffff`, red `#ec1c24`, green `#0f9733`, sky `#0fa0e2`, yellow `#fac049`, cream `#fff3dd`.
-- **Typography stack (from PROJECT.md)**: Bloc Bold (display), Mont (body), Baloo (ProGym-scoped accent per D-03).
+- **Typography stack (D-01 amended 2026-04-23)**: Unbounded (display), Manrope (body), Baloo 2 (ProGym-scoped accent per D-03) — all Google Fonts (OFL), delivered via `next/font/google`.
 - **Anti-aesthetic reference**: strategy PART 14.3 "editorial asymmetry, real photography, confident type" — distinct from the "AI-generated SaaS" aesthetic (symmetric grids, stock photos, Inter + purple gradients). Required by ROADMAP SC #5.
 - **Section spacing rhythm**: strategy PART 14.6 — 64px / 96px / 128px between content blocks on hero/pillar pages. Exposed as `--spacing-section-{sm,md,lg}` tokens.
 - **WCAG AA trap**: yellow `#fac049` fails AA contrast on white (2.2:1). Never use as text color on light surfaces. Reserve for fills + yellow-on-dark-navy accents.
