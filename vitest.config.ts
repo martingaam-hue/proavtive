@@ -10,10 +10,15 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    environment: "node",
-    // Include root-level and deep-path .test.ts files. Co-located convention per
+    // Phase 3 / Plan 03-01 — extended to jsdom for React component tests (RTL).
+    // Phase 1 used Node default; components/root/* and app/root/*.test.tsx need DOM.
+    environment: "jsdom",
+    // Phase 3 / Plan 03-01 — RTL + jest-dom setup.
+    setupFiles: ["./tests/setup.ts"],
+    // Include root-level and deep-path .test.ts + .test.tsx files. Co-located convention per
     // PATTERNS.md line 139 — middleware.test.ts sits beside middleware.ts at repo root.
-    include: ["**/*.test.ts"],
+    // Extended glob covers app/root/**/*.test.tsx, app/api/**/*.test.ts, components/root/**/*.test.ts.
+    include: ["**/*.test.ts", "**/*.test.tsx"],
     // Match eslint.config.mjs line 17 for consistency — ignore build outputs + deps.
     exclude: ["node_modules/**", ".next/**", "out/**", "build/**", ".vercel/**"],
     // Phase 1 scope: only the middleware test exists. No coverage requirement yet
