@@ -103,7 +103,12 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Strategy anchors**: PART 3 (root wireframe), PART 6A (root copy), PART 12 Tier 1 #13 (Root `/brand/`), PART 15.4 Weeks 4–7
 **UI hint**: yes
 **Rough shape**: Eight sections of the gateway homepage built section-by-section per PART 3, six root evergreen pages driven by placeholder content (CMS content models come in Phase 6 — content lives in code or Markdown sources for now), market-routed contact form wired to the chosen mail / CRM backend.
-**Plans**: TBD
+**Plans**: 5 plans
+  - [ ] 03-01-PLAN.md — Foundation: Phase 3 deps + shadcn input/textarea/label/sheet + bloc-bold.ttf precondition + Vitest jsdom/RTL/Resend-mock test infra + .env.example + lib/og-image.tsx utility + gateway opengraph-image.tsx + root layout (metadataBase + skip-link + RootNav + RootFooter)
+  - [ ] 03-02-PLAN.md — Gateway homepage: 8 sections per PART 3 wireframe + verbatim PART 6A copy + inline Organization/WebSite/FAQPage JSON-LD + LeadershipCard + LeadershipSection (Phase 3-local components per D-11) + page.test.tsx with 5 regression assertions
+  - [ ] 03-03-PLAN.md — Contact backend + UI: Resend route handler at app/api/contact/route.ts (POST, market routing, honeypot D-04, validation Pitfall 5) + emails/contact.tsx React Email template (single template parameterised by market per UI-SPEC §6.11) + contact page with force-pick UX (D-03) + WhatsApp env-conditional cards (D-02) + careers subject pre-fill (D-07)
+  - [ ] 03-04-PLAN.md — Editorial content pages: /brand/ (LLM-citable paragraph + LeadershipSection reuse + StatStrip + LogoWall + history) and /coaching-philosophy/ (3-pillar Safety/Progression/Confidence + training course callout + 2-coach LeadershipCards) — both via next-mdx-remote/rsc per Pitfall 3
+  - [ ] 03-05-PLAN.md — Lighter content pages: /news/ (D-06 empty array + email signup reusing /api/contact with subject="Press notification list") + /careers/ (D-07 evergreen → /contact?subject=job) + /privacy/ + /terms/ (D-08 yellow draft banner + MDX placeholder bodies)
 
 ---
 
@@ -228,7 +233,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 | 0. Local foundation | 6/6 | Complete    | 2026-04-22 |
 | 1. Next.js foundation + subdomain middleware + Sanity scaffold + Vercel previews | 0/4   | Not started | - |
 | 2. Design system + component gallery + media pipeline | 0/6   | Not started | - |
-| 3. Root gateway + supporting root pages | 0/TBD | Not started | - |
+| 3. Root gateway + supporting root pages | 0/5   | Not started | - |
 | 4. Hong Kong market | 0/TBD | Not started | - |
 | 5. Singapore market | 0/TBD | Not started | - |
 | 6. Sanity content models + editor UX + webhook→ISR | 0/TBD | Not started | - |

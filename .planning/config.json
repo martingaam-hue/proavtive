@@ -12,7 +12,8 @@
     "verifier": true,
     "nyquist_validation": true,
     "auto_advance": false,
-    "research_before_questions": false
+    "research_before_questions": false,
+    "_auto_chain_active": false
   },
   "notes": "Research disabled because the canonical brief lives at .planning/inputs/strategy.md (12.5k words, all 15 PARTS already produced). Each phase still gets discuss + plan + check + execute + verify. Quality model profile because this is a long-lived production site for a real client; opus is worth it on planning agents."
 }
