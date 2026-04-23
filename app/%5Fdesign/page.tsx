@@ -33,27 +33,19 @@ export const dynamic = "force-static";
 
 // Brand palette swatches — hex values are LABELS (rendered as visible text), not applied styles.
 // Applied backgrounds use `bg-brand-*` utilities per Pillar 2 (token-only rule).
+// Text labels render BELOW the color block (on the neutral section background) so WCAG AA
+// contrast is preserved even for brand Red/Green/Sky whose white text fails 4.5:1 on white.
 const BRAND_SWATCHES = [
-  { name: "Navy", hex: "#0f206c", cls: "bg-brand-navy text-white", role: "primary" },
-  { name: "Red", hex: "#ec1c24", cls: "bg-brand-red text-white", role: "destructive" },
-  { name: "Green", hex: "#0f9733", cls: "bg-brand-green text-white", role: "—" },
-  { name: "Sky", hex: "#0fa0e2", cls: "bg-brand-sky text-white", role: "—" },
-  {
-    name: "Yellow",
-    hex: "#fac049",
-    cls: "bg-brand-yellow text-primary",
-    role: "secondary",
-  },
-  {
-    name: "Cream",
-    hex: "#fff3dd",
-    cls: "bg-brand-cream text-primary",
-    role: "accent/muted",
-  },
+  { name: "Navy", hex: "#0f206c", cls: "bg-brand-navy", role: "primary" },
+  { name: "Red", hex: "#ec1c24", cls: "bg-brand-red", role: "destructive" },
+  { name: "Green", hex: "#0f9733", cls: "bg-brand-green", role: "—" },
+  { name: "Sky", hex: "#0fa0e2", cls: "bg-brand-sky", role: "—" },
+  { name: "Yellow", hex: "#fac049", cls: "bg-brand-yellow", role: "secondary" },
+  { name: "Cream", hex: "#fff3dd", cls: "bg-brand-cream", role: "accent/muted" },
   {
     name: "White",
     hex: "#ffffff",
-    cls: "bg-white text-primary border border-border",
+    cls: "bg-white border border-border",
     role: "background",
   },
 ] as const;
@@ -108,13 +100,11 @@ export default function DesignGallery() {
             </p>
             <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-7">
               {BRAND_SWATCHES.map((c) => (
-                <div
-                  key={c.hex}
-                  className={`${c.cls} flex aspect-square flex-col justify-end rounded-lg p-4`}
-                >
-                  <p className="font-display text-lg font-bold">{c.name}</p>
-                  <p className="font-sans text-xs">{c.hex}</p>
-                  <p className="font-sans text-xs opacity-80">{c.role}</p>
+                <div key={c.hex} className="flex flex-col">
+                  <div className={`${c.cls} aspect-square rounded-lg`} aria-hidden="true" />
+                  <p className="mt-3 font-display text-lg font-bold text-primary">{c.name}</p>
+                  <p className="font-sans text-xs text-muted-foreground">{c.hex}</p>
+                  <p className="font-sans text-xs text-muted-foreground">{c.role}</p>
                 </div>
               ))}
             </div>
@@ -316,7 +306,7 @@ export default function DesignGallery() {
                 </div>
               </div>
             </div>
-            <aside className="lg:col-span-4">
+            <div className="lg:col-span-4">
               <details className="rounded-lg border border-border bg-muted/50 p-4">
                 <summary className="cursor-pointer font-sans text-sm font-medium text-primary">
                   Props
@@ -333,12 +323,12 @@ export default function DesignGallery() {
                   </li>
                 </ul>
               </details>
-            </aside>
+            </div>
           </div>
 
           {/* Card — mirror (metadata left, example right) for asymmetric variety */}
           <div id="card" className="mt-16 grid gap-8 lg:grid-cols-12">
-            <aside className="lg:order-1 lg:col-span-4">
+            <div className="lg:order-1 lg:col-span-4">
               <h3 className="font-display text-xl font-semibold text-primary lg:text-2xl">Card</h3>
               <p className="mt-2 font-sans text-base leading-relaxed text-muted-foreground">
                 Neutral container with header + content + optional footer. Named sub-exports compose
@@ -358,7 +348,7 @@ export default function DesignGallery() {
                   </li>
                 </ul>
               </details>
-            </aside>
+            </div>
             <div className="lg:order-2 lg:col-span-8">
               <Card>
                 <CardHeader>
@@ -397,7 +387,7 @@ export default function DesignGallery() {
                 />
               </div>
             </div>
-            <aside className="lg:col-span-4">
+            <div className="lg:col-span-4">
               <details className="rounded-lg border border-border bg-muted/50 p-4">
                 <summary className="cursor-pointer font-sans text-sm font-medium text-primary">
                   Props
@@ -414,12 +404,12 @@ export default function DesignGallery() {
                   </li>
                 </ul>
               </details>
-            </aside>
+            </div>
           </div>
 
           {/* Badge — mirror */}
           <div id="badge" className="mt-16 grid gap-8 lg:grid-cols-12">
-            <aside className="lg:order-1 lg:col-span-4">
+            <div className="lg:order-1 lg:col-span-4">
               <h3 className="font-display text-xl font-semibold text-primary lg:text-2xl">Badge</h3>
               <p className="mt-2 font-sans text-base leading-relaxed text-muted-foreground">
                 Inline meta pills for age bands, market labels, and callouts. Yellow-on-navy
@@ -435,7 +425,7 @@ export default function DesignGallery() {
                   </li>
                 </ul>
               </details>
-            </aside>
+            </div>
             <div className="lg:order-2 lg:col-span-8">
               <div className="flex flex-wrap items-center gap-3">
                 <Badge variant="secondary">Ages 4–6</Badge>
@@ -475,7 +465,7 @@ export default function DesignGallery() {
                 </div>
               </div>
             </div>
-            <aside className="lg:col-span-4">
+            <div className="lg:col-span-4">
               <details className="rounded-lg border border-border bg-muted/50 p-4">
                 <summary className="cursor-pointer font-sans text-sm font-medium text-primary">
                   Props
@@ -490,12 +480,12 @@ export default function DesignGallery() {
                   </li>
                 </ul>
               </details>
-            </aside>
+            </div>
           </div>
 
           {/* Separator — mirror */}
           <div id="separator" className="mt-16 grid gap-8 lg:grid-cols-12">
-            <aside className="lg:order-1 lg:col-span-4">
+            <div className="lg:order-1 lg:col-span-4">
               <h3 className="font-display text-xl font-semibold text-primary lg:text-2xl">
                 Separator
               </h3>
@@ -516,7 +506,7 @@ export default function DesignGallery() {
                   </li>
                 </ul>
               </details>
-            </aside>
+            </div>
             <div className="lg:order-2 lg:col-span-8">
               <div className="space-y-6 rounded-lg border border-border p-6">
                 <div>
