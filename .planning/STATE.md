@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 02 Plan 02-02 complete — Wave 1 done, Wave 2 ready
-last_updated: "2026-04-23T15:13:00.000Z"
-last_activity: 2026-04-23 -- Plan 02-02 (typography) shipped after D-01 amendment
+stopped_at: Phase 02 Plan 02-05 Task 4 — awaiting photo curation (D-07 HUMAN-ACTION)
+last_updated: "2026-04-23T15:40:00.000Z"
+last_activity: 2026-04-23 -- Wave 2 executed; 02-04 complete, 02-05 3/4 tasks complete, Task 4 parked on photo curation
 progress:
   total_phases: 11
   completed_phases: 2
   total_plans: 21
-  completed_plans: 13
-  percent: 62
+  completed_plans: 14
+  percent: 67
 ---
 
 # Project State
@@ -26,12 +26,12 @@ See: .planning/PROJECT.md (updated 2026-04-22)
 ## Current Position
 
 Phase: 02 (design-system-component-gallery-media-pipeline) — EXECUTING
-Plan: 3 of 6 complete (Wave 1: 02-01 ✓, 02-02 ✓, 02-03 ✓)
-Next: Wave 2 — 02-04 (custom primitives), 02-05 (image pipeline), 02-06 (/_design/ gallery)
-Status: Wave 2 unblocked; ready to execute
-Last activity: 2026-04-23 -- Plan 02-02 typography shipped (Unbounded + Manrope + Baloo 2 via next/font/google after D-01 amendment)
+Plan: 4 of 6 complete (02-01 ✓, 02-02 ✓, 02-03 ✓, 02-04 ✓); 02-05 at 3/4 tasks
+Next: Martin drops 10–15 curated hero photos → resume `/gsd-execute-phase 2` → finishes 02-05 Task 4 → runs 02-06 gallery (Wave 3)
+Status: PAUSED on HUMAN-ACTION (D-07 photo curation)
+Last activity: 2026-04-23 -- Wave 2 executed; 02-04 shipped 8 custom primitives; 02-05 shipped image config + Sharp script + VideoPlayer shell, Task 4 parked on photo curation
 
-Progress: [█████░░░░░] 50% of Phase 02 plans complete
+Progress: [███████░░░] 75% of Phase 02 tasks complete (4 plans ✓ + 3/4 tasks of 02-05)
 
 ## Performance Metrics
 
@@ -89,7 +89,9 @@ None yet.
 
 ### Blockers/Concerns
 
-None blocking Phase 0. Note for Phase 10: `proactivsports.com` transfer prep — gather registrar auth code / EPP code closer to Phase 10 start.
+**Active blocker (2026-04-23):** Plan 02-05 Task 4 paused on HUMAN-ACTION. Martin needs to drop 10–15 hero-tier photos from `/Users/martin/Downloads/ProActive/01 - PHOTOS to use/` into `.planning/inputs/curated-hero-photos/` per D-07 coverage (1 root hero · 2–3 HK venues · 1–2 SG · 3–5 programmes · 1–2 testimonials). Resume with `/gsd-execute-phase 2` — will run Sharp preprocessing + then move to Plan 02-06 `/_design/` gallery.
+
+Note for Phase 10: `proactivsports.com` transfer prep — gather registrar auth code / EPP code closer to Phase 10 start.
 
 ## Deferred Items
 
@@ -105,11 +107,20 @@ Items acknowledged and carried forward (from requirements / scope decisions):
 
 ## Session Continuity
 
-Last session: 2026-04-23T15:13:00.000Z
-Stopped at: Plan 02-02 shipped — Phase 02 Wave 1 complete; Wave 2 (02-04 / 02-05 / 02-06) unblocked
-Resume file: — (no mid-plan checkpoint; next action is `/gsd-execute-phase 2` for Wave 2)
-Recent commits:
+Last session: 2026-04-23T15:40:00.000Z
+Stopped at: Plan 02-05 Task 4 paused — Martin to drop 10–15 curated hero photos into `.planning/inputs/curated-hero-photos/`, then resume `/gsd-execute-phase 2`
+Resume file: .planning/phases/02-design-system-component-gallery-media-pipeline/02-05-SUMMARY.md (details exact resume instruction)
+Recent commits (this session):
   - 3569f5a docs(03): sync roadmap plan list + config flag from prior planning session
   - 032f57e docs(02): amend D-01 — drop Bloc Bold + Mont for free Google Fonts stack
   - 01b8849 feat(02-02): wire brand typography via next/font/google
+  - 3c49a90 docs(state): plan 02-02 complete, phase 02 wave 1 done
+  - 3bab5ed feat(02-04): add Section + ContainerEditorial + FAQItem primitives
+  - a81398e feat(02-04): add MarketCard + ProgrammeTile + TestimonialCard primitives
+  - 309ed77 feat(02-04): add StatStrip + LogoWall primitives
+  - 47757e1 docs(02-04): complete custom-primitives plan
+  - 6d86339 feat(02-05): add image config + install sharp and @mux/mux-player-react
+  - b5ccbcd feat(02-05): add sharp preprocessing script + photo staging scaffolding
+  - 4d8126b feat(02-05): add VideoPlayer shell wrapping @mux/mux-player-react
+  - fe6de2b docs(02-05): complete media-pipeline plan (3/4 tasks; Task 4 awaits curation)
 Pipelined: Phase 03 RESEARCH.md drafted in background (untracked) — promote when Phase 02 closes
