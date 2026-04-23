@@ -90,7 +90,7 @@ pnpm add next-mdx-remote gray-matter
 | 4. WHAT WE DO | PART 3 §4 | 5 tiles using `<Card>` (shadcn) with icon + description | Icon from `lucide-react`. Tiles: Gymnastics, Sports Classes, Holiday Camps, Birthday Parties, Competitions. |
 | 5. TRUST STRIP | PART 3 §5 | `<LogoWall>` + `<TestimonialCard>` | LogoWall = partner/school logos. One TestimonialCard (KidsFirst quote from PART 6A §5). |
 | 6. LEADERSHIP | PART 3 §6 | Three portrait cards — variant of `<Card>` or a new `<LeadershipCard>` | Will / Monica / Haikel. Portrait photos from Phase 2 media. One-line bio. **See pitfall: LeadershipCard vs reusing existing primitives.** |
-| 7. FAQ | PART 3 §7 | `<Accordion>` (shadcn) composed as `<FAQItem>` × 5 | 5 Q&A pairs from PART 6A §7. FAQPage JSON-LD adjacent. |
+| 7. FAQ | PART 3 §7 | `<Accordion>` (shadcn) composed as `<FAQItem>` × 6 | 6 Q&A pairs from PART 6A §7 (verified 2026-04-23 against strategy lines 432-450). FAQPage JSON-LD adjacent. |
 | 8. FINAL CTA | PART 3 §8 | `<Section size="sm">` + two `<Button>` | Repeat market entry. Support email line ("Not sure? Email hello@proactivsports.com"). |
 | Footer | PART 3 §9 | New `<RootFooter>` component using `<ContainerEditorial>` | Cross-market, social links, legal links, careers, press contact. Phase 3 ships this; Phase 4/5 market footers are separate. |
 
@@ -545,7 +545,7 @@ const organizationSchema = {
     },
     {
       "@type": "FAQPage",
-      "mainEntity": [/* 5 Q&A pairs from PART 6A §7, answers must match visible copy verbatim */]
+      "mainEntity": [/* 6 Q&A pairs from PART 6A §7, answers must match visible copy verbatim */]
     }
   ]
 };
@@ -757,9 +757,22 @@ export const metadata: Metadata = {
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-These are the questions `/gsd-discuss-phase 3` must answer before planning begins.
+> **All 8 questions resolved 2026-04-23 via `/gsd-discuss-phase 3` (areas B, A, C). See `03-CONTEXT.md` for full decisions.**
+>
+> | Q | Resolution | Decision ID |
+> |---|-----------|-------------|
+> | Q1 | HUMAN-ACTION at execute (env vars `CONTACT_INBOX_HK/SG`) | D-01 |
+> | Q2 | Static photography hero — no video on root | D-09 |
+> | Q3 | Coming-soon placeholder; Phase 6 swap to Sanity | D-06 |
+> | Q4 | Evergreen "always hiring" + open application CTA | D-07 |
+> | Q5 | Placeholder MDX with "DRAFT — pending legal review" banner | D-08 |
+> | Q6 | HUMAN-ACTION precondition checkpoint pattern (Phase 2 D-02 fonts analog) | D-10 |
+> | Q7 | HUMAN-ACTION at execute (env vars `NEXT_PUBLIC_WHATSAPP_HK/SG`) | D-02 |
+> | Q8 | Force-pick — no default market on `/contact/` | D-03 |
+
+The original analyses below are preserved for reference; recommendations have been superseded by the resolutions above.
 
 **Q1: Contact form backend — HK inbox and SG inbox email addresses**
 - What we know: Contact form routes enquiries to one of two email inboxes based on the market selector.

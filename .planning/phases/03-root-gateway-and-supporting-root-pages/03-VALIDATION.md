@@ -1,11 +1,14 @@
 ---
 phase: 03
 slug: root-gateway-and-supporting-root-pages
-status: draft
-nyquist_compliant: false
-wave_0_complete: false
+status: approved
+nyquist_compliant: true
+wave_0_complete: true
 created: 2026-04-23
+approved: 2026-04-23
 ---
+
+> **Wave 0 sign-off (2026-04-23):** All Wave 0 dependencies are scoped into Plan 03-01 Task 1 (RTL+jsdom install, Vitest config extension if needed, Resend mock at `tests/mocks/resend.ts`, contact-form fixtures at `tests/fixtures/contact-payloads.ts`). Sampling continuity verified: every plan task has `<verify><automated>` block invoking `pnpm test:unit` or `pnpm build`; no consecutive 3-task gap.
 
 # Phase 03 — Validation Strategy
 
