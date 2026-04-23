@@ -7,8 +7,16 @@
 // (between Build and Gitleaks), blocking merge on middleware regressions for D-02 host-authority,
 // D-04 internal-rewrite, and D-07 /studio pass-through invariants.
 import { defineConfig } from "vitest/config";
+import { resolve } from "node:path";
 
 export default defineConfig({
+  resolve: {
+    // Phase 3 / Plan 03-03 — mirrors tsconfig.json paths: "@/*": ["./*"]
+    // Required for vi.mock("@/emails/contact", ...) and import "@/..." in route tests.
+    alias: {
+      "@": resolve(__dirname, "."),
+    },
+  },
   test: {
     // Phase 3 / Plan 03-01 — extended to jsdom for React component tests (RTL).
     // Phase 1 used Node default; components/root/* and app/root/*.test.tsx need DOM.
