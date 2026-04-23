@@ -2,10 +2,10 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: phase-complete
-stopped_at: Phase 02 COMPLETE — design system + component gallery + media pipeline shipped
-last_updated: "2026-04-23T22:30:00.000Z"
-last_activity: 2026-04-23 -- Plan 02-06 Task 3 approved by Martin with one token tweak (cream → white); Phase 02 fully closed
+status: executing
+stopped_at: Phase 02 COMPLETE — all 6 plans shipped, Martin approved Plan 02-06 Task 3 visual verify with surface-default amendment
+last_updated: "2026-04-23T20:26:56.644Z"
+last_activity: 2026-04-23 -- Phase 03 execution started
 progress:
   total_phases: 11
   completed_phases: 3
@@ -21,16 +21,17 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-22)
 
 **Core value:** Convert affluent parents into trial bookings and enquiries; SEO + LLM visibility serve that goal.
-**Current focus:** Phase 02 — design-system-component-gallery-media-pipeline
+**Current focus:** Phase 03 — root-gateway-and-supporting-root-pages
 
 ## Current Position
 
-Phase: 02 COMPLETE ✓ (design-system-component-gallery-media-pipeline)
+Phase: 03 (root-gateway-and-supporting-root-pages) — EXECUTING
+Plan: 1 of 5
 All 6 plans shipped: 02-01 tokens · 02-02 typography · 02-03 stock primitives · 02-04 custom primitives · 02-05 image pipeline · 02-06 /_design gallery
 Next: Phase 3 (Root Gateway) — already planned (5 approved plans 03-01 through 03-05); discuss/research/plan artifacts already exist; ready for `/gsd-execute-phase 3`
 
-Status: READY for Phase 3 execution
-Last activity: 2026-04-23 -- Phase 02 closed after human-verify + surface-default amendment (cream → pure white)
+Status: Executing Phase 03
+Last activity: 2026-04-23 -- Phase 03 execution started
 
 Progress: [███░░░░░░░░] 3 of 11 phases complete (0, 1, 2)
 
@@ -95,11 +96,13 @@ None yet.
 **No active blockers.** Phase 02 closed 2026-04-23 with Martin's visual-verify signoff + one token tweak (cream → pure white on `--muted` + `--accent`).
 
 **Known non-blocking regressions carried forward (captured in 02-06-SUMMARY.md):**
+
 - Lighthouse Performance 55–81 on `/_design` only (target ≥95) — Mux VideoPlayer bootup. Acceptable because real market pages (Phase 3+) don't embed VideoPlayer by default; revisit at Phase 10 when real Mux integration happens.
 - LCP 2.9–7.7s — same Mux root cause.
 - 2 axe-core serious violations — 1 Mux internal/upstream; 1 Button contrast from Plan 02-03 (tracked as a Phase-2 refinement candidate, not blocking Phase 3).
 
 **Replacement targets carried into Phase 4/5:**
+
 - SG Prodigy real photography — Phase 5 replaces `sg-placeholder-climbing-unsplash-trinks.*` (David Trinks / Unsplash License / Vernon CT climbing facility) with real Katong Point imagery.
 - HK real-photography swap-ins — none needed; 11/11 HK placements used real ProActiv photography.
 
@@ -123,11 +126,14 @@ Last session: 2026-04-23T22:30:00.000Z
 Stopped at: Phase 02 COMPLETE — all 6 plans shipped, Martin approved Plan 02-06 Task 3 visual verify with surface-default amendment
 Resume file: — (no mid-plan checkpoint; next action is `/gsd-execute-phase 3` when ready)
 Phase 03 (Root Gateway) readiness:
+
   - RESEARCH.md drafted (was pipelined in background during Phase 01 execute)
   - CONTEXT.md + UI-SPEC present
   - 5 plans approved + committed: 03-01 foundation, 03-02 gateway homepage, 03-03 contact backend + UI, 03-04 editorial content pages, 03-05 lighter content pages
   - All planning artifacts already tracked in git (from 2026-04-05 planning session)
+
 Recent commits (this session):
+
   - 3569f5a docs(03): sync roadmap plan list + config flag from prior planning session
   - 032f57e docs(02): amend D-01 — drop Bloc Bold + Mont for free Google Fonts stack
   - 01b8849 feat(02-02): wire brand typography via next/font/google
