@@ -1,0 +1,16 @@
+// Phase 3 / Plan 03-04 — /brand/ OG image.
+// force-dynamic: prevents static prerender crash when app/fonts/bloc-bold.ttf is absent
+// (same Rule 3 fix as Plan 03-02 applied to root opengraph-image.tsx).
+import { createRootOgImage } from "@/lib/og-image";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+
+export default function OG() {
+  return createRootOgImage({
+    title: "About ProActiv Sports",
+    tagline: "Brand story, history, and the people behind 14 years of children's coaching.",
+  });
+}
