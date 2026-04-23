@@ -105,17 +105,24 @@ function rewriteToMarket(req: NextRequest, market: Market): NextResponse {
 // --- Matcher (Claude's Discretion — exclude non-routable paths) ---
 // Excludes: _next/* (Next internals), api/health (future health-check route — not created yet, but reserved),
 //           favicon.ico, monitoring (Sentry tunnel per next.config.ts line 45), studio (embedded Sanity
-//           Studio — D-07 reachable-on-any-host invariant), static assets by extension.
+//           Studio — D-07 reachable-on-any-host invariant), _design (Phase 2 D-09 — gallery route is
+//           market-agnostic; rewriting into /<market>/_design would 404 because the page lives at
+//           app/%5Fdesign/page.tsx outside the per-market trees), static assets by extension.
 // Rationale: these paths must NEVER route into a market-specific tree even if the Host matches — they are
 // either Next internals, Sentry's tunnel (T-MIDDLEWARE-BYPASS mitigation), Sanity Studio's own routing
-// surface (D-07: /studio is reachable on any host; middleware passes it through unchanged), or static assets.
+// surface (D-07: /studio is reachable on any host; middleware passes it through unchanged), the internal
+// design gallery (Phase 2 D-09 gated via VERCEL_ENV inside the page component), or static assets.
 // D-07 NOTE (Plan 01-03 Task 2): `studio` was added to this negative-lookahead because Studio's client-side
 // router (NextStudio) requires /studio and /studio/* to reach its own catch-all route at app/studio/[[...tool]]/.
 // Rewriting /studio into /<market>/studio would 404 Studio on every load. Plan 01-04 Task 2 will add a Vitest
 // regression assertion so any future refactor that accidentally removes `studio` from this list fails CI
 // immediately — this preserves the D-07 invariant permanently.
+// D-09 NOTE (Plan 02-06 Task 1): `_design` was added similarly — the gallery page resolves via the URL-encoded
+// folder app/%5Fdesign/ (Next.js private-folder opt-in via %5F) and is NOT inside the market trees. Without
+// this exclusion, middleware rewrites /_design → /root/_design which 404s. Production lockout is enforced
+// code-level inside app/%5Fdesign/page.tsx via `if (process.env.VERCEL_ENV === 'production') notFound();`.
 export const config = {
   matcher: [
-    "/((?!_next/|api/health|favicon\\.ico|monitoring|studio|.*\\.(?:svg|png|jpg|jpeg|webp|avif|ico|gif|woff2?)).*)",
+    "/((?!_next/|_design|api/health|favicon\\.ico|monitoring|studio|.*\\.(?:svg|png|jpg|jpeg|webp|avif|ico|gif|woff2?)).*)",
   ],
 };
