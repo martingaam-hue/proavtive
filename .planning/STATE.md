@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 6 context gathered
-last_updated: "2026-04-24T21:13:07.403Z"
-last_activity: 2026-04-24
+status: executing
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-04-24T21:40:51.257Z"
+last_activity: 2026-04-24 -- Phase --phase execution started
 progress:
   total_phases: 11
   completed_phases: 5
   total_plans: 34
-  completed_plans: 29
-  percent: 85
+  completed_plans: 30
+  percent: 88
 ---
 
 # Project State
@@ -21,17 +21,17 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-22)
 
 **Core value:** Convert affluent parents into trial bookings and enquiries; SEO + LLM visibility serve that goal.
-**Current focus:** Phase 04 — hong-kong-market
+**Current focus:** Phase --phase — 05
 
 ## Current Position
 
-Phase: 05
-Plan: Not started
+Phase: --phase (05) — EXECUTING
+Plan: 1 of --name
 All 6 plans shipped: 02-01 tokens · 02-02 typography · 02-03 stock primitives · 02-04 custom primitives · 02-05 image pipeline · 02-06 /_design gallery
 Next: Phase 3 (Root Gateway) — already planned (5 approved plans 03-01 through 03-05); discuss/research/plan artifacts already exist; ready for `/gsd-execute-phase 3`
 
-Status: Ready to plan
-Last activity: 2026-04-24
+Status: Executing Phase --phase
+Last activity: 2026-04-24 -- Phase --phase execution started
 
 Progress: [███░░░░░░░░] 3 of 11 phases complete (0, 1, 2)
 
@@ -62,6 +62,7 @@ Progress: [███░░░░░░░░] 3 of 11 phases complete (0, 1, 2)
 | Phase 01 P02 | 11min | 2 tasks | 7 files |
 | Phase 01 P03 | multi-session | 4 tasks | 18 files |
 | Phase 01 P04 | 10min | 3 tasks | 5 files |
+| Phase 05 P01 | 90 | 2 tasks | 15 files |
 
 ## Accumulated Context
 
@@ -87,6 +88,8 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 02 / D-01 amended]: 2026-04-23: Brand typography pivoted from Bloc Bold (Zetafonts, commercial) + Mont (Fontfabric, commercial) self-hosted via next/font/local → Unbounded + Manrope + Baloo 2 via next/font/google (all OFL/free-for-commercial). User preference for accessible free stack; unblocked Plan 02-02 without the D-02 HUMAN-ACTION gate on foundry-portal downloads. D-02 obsoleted. Commercial licenses preserved for possible future re-introduction. CSS vars renamed internally (--font-bloc/mont → --font-unbounded/manrope) — public Tailwind utilities font-display / font-sans / font-accent unchanged.
 - [Phase 02 / D-05 + D-07 amended]: 2026-04-23: Photo curation policy relaxed to allow mixed real-ProActiv + OFL stock placeholder imagery for Phase 2 gallery coverage. D-05's "one real ProActiv photograph per primitive" requirement kept for Phase 4/5 market pages but waived for Phase 2's `/_design/` gallery. 12 photos staged: 11 real ProActiv (HK venues + programmes + testimonials) + 1 Unsplash placeholder for SG (David Trinks, OFL / no-attribution, marked `sg-placeholder-*` for Phase 5 replacement).
 - [Phase 02 / UI-SPEC §1.4 amended]: 2026-04-23: Surface-default swapped cream → pure white on `--muted` + `--accent`. Martin feedback during /_design visual verify. `bg-brand-cream` utility preserved for deliberate accent use. Trade-off: `hover:bg-accent` on sidebar nav becomes visually invisible — keyboard focus ring is the primary affordance; mouse-hover affordance revisitable in Phase 3+ if user testing flags it.
+- [Phase 05]: Wave-0 test files use React.createElement() not JSX — .ts extension incompatible with esbuild JSX transform
+- [Phase 05]: katong-point added to ALLOWED_VENUES server whitelist (T-05-01) and ContactEmailProps venue union (Rule 1)
 
 ### Pending Todos
 
@@ -123,9 +126,9 @@ Items acknowledged and carried forward (from requirements / scope decisions):
 
 ## Session Continuity
 
-Last session: --stopped-at
-Stopped at: Phase 6 context gathered
-Resume file: --resume-file
+Last session: 2026-04-24T21:40:39.284Z
+Stopped at: Completed 05-01-PLAN.md
+Resume file: None
 Phase 03 (Root Gateway) readiness:
 
   - RESEARCH.md drafted (was pipelined in background during Phase 01 execute)

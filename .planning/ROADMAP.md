@@ -150,7 +150,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **UI hint**: yes
 **Rough shape**: ~15 SG-scoped pages composed from Phase 2 primitives with Prodigy-branded variants (Baloo typography treatment per PROJECT.md), MultiBall-forward copy, IFS partnership callout on `/school-partnerships/`, booking backend targets SG inbox.
 **Plans**: 6 plans
-  - [ ] 05-01-PLAN.md — Foundation: lib/sg-data.ts (KATONG_POINT, KATONG_POINT_NAP, SG_ZONES, SG_CAMP_TYPES, SG_COACHES, SG_FAQ_ITEMS, SG_BLOG_POSTS_STUB, IFS_PARTNERSHIP_COPY) + createSGOgImage append to lib/og-image.tsx (Prodigy-green D-09) + /api/contact ALLOWED_VENUES extend with katong-point (D-10) + .env.example SG block + 10 Wave-0 Vitest test scaffolds (RED) including no-sg-placeholder-leak guard (Pitfall 3)
+  - [x] 05-01-PLAN.md — Foundation: lib/sg-data.ts (KATONG_POINT, KATONG_POINT_NAP, SG_ZONES, SG_CAMP_TYPES, SG_COACHES, SG_FAQ_ITEMS, SG_BLOG_POSTS_STUB, IFS_PARTNERSHIP_COPY) + createSGOgImage append to lib/og-image.tsx (Prodigy-green D-09) + /api/contact ALLOWED_VENUES extend with katong-point (D-10) + .env.example SG block + 10 Wave-0 Vitest test scaffolds (RED) including no-sg-placeholder-leak guard (Pitfall 3)
   - [ ] 05-02-PLAN.md — Layout chrome: app/sg/layout.tsx replaces Phase 1 stub with SGNav + SGFooter + Baloo 2 activation (D-01) + SG metadataBase + SGNavMobile Sheet (D-05 mobile variant) + VenueChipRow single-chip (D-08) + ActiveVenueChip + VenueMap + default SG opengraph-image (Prodigy-green D-09)
   - [ ] 05-03-PLAN.md — SG homepage: 13 sections per strategy PART 5 (hero video D-07 HUMAN-ACTION, single-venue chip, Why-Prodigy 4-tile with MultiBall flagship, programmes 2+2 staggered, three-zones with Sports+MultiBall green badge + mobile reshuffle, social proof navy, camps feature, parties, coaches grid, about cross-market, blog stub, FAQ, final CTA) + WebSite + FAQPage JSON-LD + SGHeroVideo client + HUMAN-VERIFY checkpoint
   - [ ] 05-04-PLAN.md — Pillars: /weekly-classes/ pillar + 3 zones (movement, sports-multiball, climbing — D-03 slugs) AND /prodigy-camps/ pillar + 3 types (themed, multi-activity, gymnastics — D-04 slugs) + ZonesPillarNav + CampsPillarNav + ActiveSGNavLink (Pitfall 8 exact-match) + MultiBall spotlight on sports-multiball page (Pattern 11 #4) + 3 per-route OGs
@@ -283,7 +283,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 | 2. Design system + component gallery + media pipeline | 0/6   | Not started | - |
 | 3. Root gateway + supporting root pages | 0/5   | Not started | - |
 | 4. Hong Kong market | 0/TBD | Not started | - |
-| 5. Singapore market | 0/TBD | Not started | - |
+| 5. Singapore market | 1/6 | In Progress|  |
 | 6. Sanity content models + editor UX + webhook→ISR | 0/TBD | Not started | - |
 | 7. SEO, schema, and LLMO | 0/TBD | Not started | - |
 | 8. Analytics + GBP + NAP consistency | 0/TBD | Not started | - |
