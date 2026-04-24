@@ -48,6 +48,7 @@ import { LogoWall } from "@/components/ui/logo-wall";
 import { FAQItem } from "@/components/ui/faq-item";
 import { VenueChipRow } from "@/components/hk/venue-chip-row";
 import { HKHeroVideo } from "@/components/hk/hk-hero-video";
+import { WhatsAppCTA } from "@/components/hk/whatsapp-cta";
 import { HK_VENUES, HK_FAQ_ITEMS, HK_BLOG_POSTS_STUB } from "@/lib/hk-data";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -739,19 +740,16 @@ function FinalCTASection() {
                 variant="outline"
                 className="border-white text-white hover:bg-white/10 bg-transparent"
               >
-                <a
-                  href={`https://wa.me/${sanitisedWhatsapp}?text=${encodeURIComponent(
-                    "Hi ProActiv HK, I'd like to book a free trial.",
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <WhatsAppCTA
+                  phone={sanitisedWhatsapp}
+                  message="Hi ProActiv HK, I'd like to book a free trial."
                 >
                   Chat on WhatsApp{" "}
                   <MessageCircle
                     className="ml-2 size-4"
                     aria-hidden="true"
                   />
-                </a>
+                </WhatsAppCTA>
               </Button>
             )}
           </div>

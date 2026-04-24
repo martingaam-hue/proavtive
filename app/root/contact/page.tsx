@@ -4,11 +4,12 @@
 
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Mail, MessageCircle } from "lucide-react";
+import { Mail } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { ContainerEditorial } from "@/components/ui/container-editorial";
 import { Card } from "@/components/ui/card";
 import { ContactForm } from "./contact-form";
+import { WhatsAppContactCard } from "@/components/root/whatsapp-contact-card";
 
 export const metadata: Metadata = {
   title: "Contact — Enquire with the HK or SG team",
@@ -106,35 +107,19 @@ export default function ContactPage() {
             </a>
 
             {whatsappHk && (
-              <a
-                href={`https://wa.me/${whatsappHk.replace(/[^0-9+]/g, "")}?text=${encodeURIComponent("Hello ProActiv Sports HK — ")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
-                <Card className="p-6 hover:shadow-md transition-shadow h-full">
-                  <MessageCircle className="size-8 text-brand-green" aria-hidden="true" />
-                  <h3 className="text-h3 font-display mt-3">WhatsApp Hong Kong</h3>
-                  <p className="text-small text-muted-foreground mt-1">Chat with our HK team</p>
-                  <p className="text-body font-semibold text-foreground mt-2">{whatsappHk}</p>
-                </Card>
-              </a>
+              <WhatsAppContactCard
+                phone={whatsappHk}
+                label="WhatsApp Hong Kong"
+                sublabel="Chat with our HK team"
+              />
             )}
 
             {whatsappSg && (
-              <a
-                href={`https://wa.me/${whatsappSg.replace(/[^0-9+]/g, "")}?text=${encodeURIComponent("Hello ProActiv Sports SG — ")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
-                <Card className="p-6 hover:shadow-md transition-shadow h-full">
-                  <MessageCircle className="size-8 text-brand-green" aria-hidden="true" />
-                  <h3 className="text-h3 font-display mt-3">WhatsApp Singapore</h3>
-                  <p className="text-small text-muted-foreground mt-1">Chat with our SG team</p>
-                  <p className="text-body font-semibold text-foreground mt-2">{whatsappSg}</p>
-                </Card>
-              </a>
+              <WhatsAppContactCard
+                phone={whatsappSg}
+                label="WhatsApp Singapore"
+                sublabel="Chat with our SG team"
+              />
             )}
           </div>
         </ContainerEditorial>
