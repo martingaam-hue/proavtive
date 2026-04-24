@@ -162,7 +162,13 @@ export async function POST(req: NextRequest | Request): Promise<NextResponse> {
 
   const phone = typeof body.phone === "string" ? body.phone.trim() : undefined;
   const age = typeof body.age === "string" ? body.age.trim() : undefined;
-  const subject = typeof body.subject === "string" ? body.subject.trim() : undefined;
+  // Phase 5 / Plan 05-06 — T-05-51 mitigation: email-header injection via subject field.
+  // Strip newlines + cap at 100 chars (UI-SPEC §6 + RESEARCH §Security).
+  const rawSubject = typeof body.subject === "string" ? body.subject : "";
+  const subject = rawSubject
+    .slice(0, 100)            // length cap — prevents excessively long subject lines
+    .replace(/[\r\n]/g, " ") // newline strip — prevents email-header injection
+    .trim() || undefined;
 
   const props: ContactEmailProps = {
     name,
