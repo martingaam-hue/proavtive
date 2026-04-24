@@ -29,7 +29,8 @@ export interface ContactEmailProps {
   market: "hk" | "sg";
   subject?: string;
   // Phase 4 / Plan 04-07 — HK booking form extension (D-10). Optional for Phase 3 compat.
-  venue?: "wan-chai" | "cyberport" | "no-preference";
+  // Phase 5 / Plan 05-01 — added "katong-point" per D-10 (single SG venue).
+  venue?: "wan-chai" | "cyberport" | "no-preference" | "katong-point";
   childAge?: string | number;
 }
 
@@ -37,6 +38,7 @@ const VENUE_LABEL: Record<NonNullable<ContactEmailProps["venue"]>, string> = {
   "wan-chai": "ProGym Wan Chai",
   cyberport: "ProGym Cyberport",
   "no-preference": "No preference",
+  "katong-point": "Prodigy @ Katong Point",
 };
 
 export function ContactEmail({

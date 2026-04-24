@@ -30,9 +30,9 @@ import { join, extname } from "node:path";
  */
 function collectSourceFiles(dir: string): string[] {
   let results: string[] = [];
-  let entries: ReturnType<typeof readdirSync>;
+  let entries: string[];
   try {
-    entries = readdirSync(dir);
+    entries = readdirSync(dir, { encoding: "utf-8" });
   } catch {
     // Directory does not exist — passes trivially (Wave-0 state with no SG pages yet)
     return [];

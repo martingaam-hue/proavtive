@@ -121,6 +121,8 @@ export async function createRootOgImage({ title, tagline }: OgImageOptions): Pro
   );
 }
 
+// Phase 5 / Plan 05-01 — SG OG image appended at bottom of this file as createSGOgImage.
+
 // Phase 4 / Plan 04-02 — HK-specific OG image generator.
 // Mirrors createRootOgImage line-for-line — navy background, Bloc Bold (or
 // system-ui fallback) title, brand-cream tagline, brand-rainbow bottom strip —
@@ -209,6 +211,128 @@ export async function createHKOgImage({ title, tagline }: OgImageOptions): Promi
             fontSize: 28,
             fontWeight: 400,
             color: '#fff3dd', // PROJECT.md brand-cream
+            lineHeight: 1.3,
+            maxWidth: 1000,
+            marginBottom: 40,
+            fontFamily: 'system-ui, sans-serif',
+          }}
+        >
+          {tagline}
+        </div>
+
+        {/* Brand-rainbow bottom strip — 8px tall, full width, red→yellow→sky */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 8,
+            background: 'linear-gradient(90deg, #ec1c24 0%, #fac049 50%, #0fa0e2 100%)',
+            display: 'flex',
+          }}
+        />
+      </div>
+    ),
+    {
+      width: 1200,
+      height: 630,
+      fonts: blocBold
+        ? [{ name: 'Bloc Bold', data: blocBold, weight: 700, style: 'normal' }]
+        : [],
+    },
+  );
+}
+
+// Phase 5 / Plan 05-01 — SG-specific OG image generator (D-09).
+// Mirrors createHKOgImage line-for-line with THREE changes only:
+//   1. backgroundColor: '#0f9733'  (Prodigy-green) instead of '#0f206c' (brand-navy)
+//   2. superscript color: '#fff3dd' (brand-cream)  instead of '#fac049' (brand-yellow)
+//      Rationale: yellow clashes visually on green background (PATTERNS.md line 544)
+//   3. superscript text: 'Prodigy by ProActiv Sports Singapore' instead of 'ProActiv Sports Hong Kong'
+// Contrast check: white title on #0f9733 = 3.82:1 — passes WCAG AA large-text (UI-SPEC §8.1)
+// Consumed by app/sg/opengraph-image.tsx as the default SG OG; per-route OGs may override.
+export async function createSGOgImage({ title, tagline }: OgImageOptions): Promise<ImageResponse> {
+  // Graceful fallback matching createRootOgImage — font + logo HUMAN-ACTION preconditions.
+  let blocBold: Buffer | null = null;
+  try {
+    blocBold = await readFile(join(process.cwd(), 'app/fonts/bloc-bold.ttf'));
+  } catch {
+    // bloc-bold.ttf not yet placed — OG image renders with system-ui fallback
+  }
+
+  let logoDataUri = '';
+  try {
+    const logoSvg = await readFile(join(process.cwd(), 'app/assets/logo-white.svg'), 'utf-8');
+    logoDataUri = `data:image/svg+xml;base64,${Buffer.from(logoSvg).toString('base64')}`;
+  } catch {
+    // logo-white.svg not yet placed — OG image renders without logo
+  }
+
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
+          backgroundColor: '#0f9733', // Prodigy-green (D-09) — distinguishes SG from HK navy
+          padding: '64px',
+          position: 'relative',
+          fontFamily: blocBold ? 'Bloc Bold' : 'system-ui, sans-serif',
+        }}
+      >
+        {/* Logo top-left — absolute positioned (only if logo SVG loaded) */}
+        {logoDataUri ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={logoDataUri}
+            width={160}
+            height={40}
+            alt=""
+            style={{ position: 'absolute', top: 64, left: 64 }}
+          />
+        ) : null}
+
+        {/* SG market line — superscript above title, brand-cream for legibility on green */}
+        <div
+          style={{
+            fontSize: 24,
+            fontWeight: 700,
+            color: '#fff3dd', // brand-cream — yellow clashes on Prodigy-green (PATTERNS.md line 544)
+            lineHeight: 1.2,
+            letterSpacing: '0.05em',
+            textTransform: 'uppercase',
+            marginBottom: 16,
+            fontFamily: 'system-ui, sans-serif',
+          }}
+        >
+          Prodigy by ProActiv Sports Singapore
+        </div>
+
+        {/* Title — Bloc Bold (or system-ui fallback), white, 72px */}
+        <div
+          style={{
+            fontSize: 72,
+            fontWeight: 700,
+            color: '#ffffff',
+            lineHeight: 1.05,
+            letterSpacing: '-0.015em',
+            maxWidth: 1000,
+            marginBottom: 16,
+          }}
+        >
+          {title}
+        </div>
+
+        {/* Tagline — system-ui fallback (Mont TTF not loaded) */}
+        <div
+          style={{
+            fontSize: 28,
+            fontWeight: 400,
+            color: '#fff3dd', // brand-cream
             lineHeight: 1.3,
             maxWidth: 1000,
             marginBottom: 40,
