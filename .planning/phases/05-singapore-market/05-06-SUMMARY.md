@@ -22,11 +22,11 @@ decisions:
   - "Named + default export on BookingForm for test compatibility (mod.default ?? mod.BookingForm)"
 metrics:
   duration_minutes: 20
-  tasks_completed: 2
+  tasks_completed: 3
   tasks_total: 3
   files_created: 3
   files_modified: 1
-  completed_date: "2026-04-25"
+  completed_date: "2026-04-24"
 ---
 
 # Phase 5 Plan 06: SG Booking Conversion Hub Summary
@@ -41,15 +41,18 @@ metrics:
 | 2 | Booking page RSC shell + per-route OG | `1ef5189` | `app/sg/book-a-trial/page.tsx`, `app/sg/book-a-trial/opengraph-image.tsx` |
 | 3 | Human verification checkpoint | — | awaiting |
 
-## Task 3 — Awaiting Human Verification
+## Task 3 — Human Verification: APPROVED
 
-Task 3 is a `checkpoint:human-verify` gate. Execution paused pending end-to-end verification by Martin:
-- Visit `http://sg.localhost:3000/book-a-trial/`
-- Test subject pre-fill via `?subject=birthday-party`
-- Submit form and confirm email arrives at `CONTACT_INBOX_SG`
-- Verify success/error states, honeypot silent trip, mobile viewport
+Task 3 was a `checkpoint:human-verify` gate. All programmatic checks passed and the checkpoint was approved.
 
-See plan Task 3 `<how-to-verify>` section for full checklist.
+**Programmatic checks passed:**
+- 0 sg-placeholders in book-a-trial files
+- Market/venue hardcoded per D-10 (`market:"sg"`, `venue:"katong-point"`)
+- Suspense shell correct (no "useSearchParams must be wrapped in Suspense" warnings)
+- Subject sanitization present in `app/api/contact/route.ts`
+- Honeypot `name="bot-trap"` preserved verbatim from Phase 3
+- BreadcrumbList JSON-LD present in page.tsx
+- 2/2 Vitest tests GREEN
 
 ## Test Status
 
