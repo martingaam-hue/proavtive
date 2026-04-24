@@ -1,7 +1,8 @@
 ---
 phase: 5
 slug: singapore-market
-status: draft
+status: approved
+reviewed_at: 2026-04-24T00:00:00Z
 shadcn_initialized: true
 preset: style=radix-nova + base-color=neutral + css-variables=true + rsc=true + iconLibrary=lucide
 created: 2026-04-24
