@@ -4,14 +4,14 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Phase 4 UI-SPEC approved
-last_updated: "2026-04-24T07:53:25.877Z"
-last_activity: 2026-04-23 -- Phase 03 execution started
+last_updated: "2026-04-24T09:00:05.823Z"
+last_activity: 2026-04-24 -- Phase 04 execution started
 progress:
   total_phases: 11
   completed_phases: 3
-  total_plans: 23
+  total_plans: 30
   completed_plans: 22
-  percent: 96
+  percent: 73
 ---
 
 # Project State
@@ -21,17 +21,17 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-22)
 
 **Core value:** Convert affluent parents into trial bookings and enquiries; SEO + LLM visibility serve that goal.
-**Current focus:** Phase 03 — root-gateway-and-supporting-root-pages
+**Current focus:** Phase 04 — hong-kong-market
 
 ## Current Position
 
-Phase: 03 (root-gateway-and-supporting-root-pages) — EXECUTING
-Plan: 1 of 5
+Phase: 04 (hong-kong-market) — EXECUTING
+Plan: 1 of 7
 All 6 plans shipped: 02-01 tokens · 02-02 typography · 02-03 stock primitives · 02-04 custom primitives · 02-05 image pipeline · 02-06 /_design gallery
 Next: Phase 3 (Root Gateway) — already planned (5 approved plans 03-01 through 03-05); discuss/research/plan artifacts already exist; ready for `/gsd-execute-phase 3`
 
-Status: Executing Phase 03
-Last activity: 2026-04-23 -- Phase 03 execution started
+Status: Executing Phase 04
+Last activity: 2026-04-24 -- Phase 04 execution started
 
 Progress: [███░░░░░░░░] 3 of 11 phases complete (0, 1, 2)
 

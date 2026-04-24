@@ -125,7 +125,14 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Strategy anchors**: PART 4 (HK wireframe), PART 6B (HK copy), PART 8 (local SEO — Wan Chai + Cyberport), PART 12 Tier 1 #1–#5 and #10–#12, PART 15.4 Weeks 4–9
 **UI hint**: yes
 **Rough shape**: 22 HK-scoped pages composed from Phase 2 primitives; content is hardcoded or stubbed against forthcoming CMS types; booking form submits through the contact backend introduced in Phase 3 with an HK destination; venue maps lazy-loaded via lightweight embed, not full Google Maps JS.
-**Plans**: TBD
+**Plans**: 7 plans
+  - [x] 04-01-PLAN.md — Foundation: shadcn navigation-menu install + lib/hk-data.ts (HK_VENUES, HK_COACHES, HK_BLOG_POSTS_STUB, HK_FAQ_ITEMS, HK_GYMNASTICS_PROGRAMMES) + .env.example + 5 Wave-0 Vitest test scaffolds (RED)
+  - [ ] 04-02-PLAN.md — Layout chrome: app/hk/layout.tsx replaces Phase 1 stub with HKNav + HKFooter + Baloo 2 font activation + HK metadataBase + VenueChipRow + ActiveVenueChip + createHKOgImage utility + default HK opengraph-image
+  - [ ] 04-03-PLAN.md — HK homepage: 12 sections per strategy PART 4 wireframe (hero video D-01 HUMAN-ACTION, venue chips, programmes 3+2 grid, location split, social proof, coaching method, camps/parties, about, blog stubs, FAQ, final CTA) + WebSite + FAQPage JSON-LD
+  - [ ] 04-04-PLAN.md — Location pages: /wan-chai/ + /cyberport/ with verbatim NAP + lazy iframe VenueMap + opening hours + programme list + venue-prefilled booking CTAs + SportsActivityLocation + BreadcrumbList JSON-LD + 2 per-route OG images
+  - [ ] 04-05-PLAN.md — Gymnastics pillar + 8 sub-pages: GymPillarNav (RSC + ActiveGymNavLink client) + pillar overview page + 8 static sub-routes (toddlers/beginner/intermediate/advanced/competitive/rhythmic/adult/private) sharing one template driven by HK_GYMNASTICS_PROGRAMMES
+  - [ ] 04-06-PLAN.md — Supporting content: /holiday-camps/, /birthday-parties/, /school-partnerships/, /competitions-events/ (empty-state copy), /coaches/ (D-08 combined team + D-09 portrait HUMAN-ACTION gate), /blog/ (HK_BLOG_POSTS_STUB + empty-state branch), /faq/ (grouped accordion + FAQPage JSON-LD char-for-char)
+  - [ ] 04-07-PLAN.md — Booking flow: /api/contact + emails/contact.tsx additive extension (venue + childAge validation + email rows) + /book-a-trial/ conversion hub + /book-a-trial/free-assessment/ Suspense shell + BookingForm client component (6 fields + honeypot + venue pre-fill)
 
 ---
 
@@ -142,7 +149,14 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Strategy anchors**: PART 5 (SG wireframe), PART 6C (SG copy), PART 8 (local SEO — Katong Point), PART 12 Tier 1 #6–#9 and #10–#12, PART 15.4 Weeks 4–9
 **UI hint**: yes
 **Rough shape**: ~15 SG-scoped pages composed from Phase 2 primitives with Prodigy-branded variants (Baloo typography treatment per PROJECT.md), MultiBall-forward copy, IFS partnership callout on `/school-partnerships/`, booking backend targets SG inbox.
-**Plans**: TBD
+**Plans**: 7 plans
+  - [ ] 04-01-PLAN.md — Foundation: shadcn navigation-menu install + lib/hk-data.ts (HK_VENUES, HK_COACHES, HK_BLOG_POSTS_STUB, HK_FAQ_ITEMS, HK_GYMNASTICS_PROGRAMMES) + .env.example + 5 Wave-0 Vitest test scaffolds (RED)
+  - [ ] 04-02-PLAN.md — Layout chrome: app/hk/layout.tsx replaces Phase 1 stub with HKNav + HKFooter + Baloo 2 font activation + HK metadataBase + VenueChipRow + ActiveVenueChip + createHKOgImage utility + default HK opengraph-image
+  - [ ] 04-03-PLAN.md — HK homepage: 12 sections per strategy PART 4 wireframe (hero video D-01 HUMAN-ACTION, venue chips, programmes 3+2 grid, location split, social proof, coaching method, camps/parties, about, blog stubs, FAQ, final CTA) + WebSite + FAQPage JSON-LD
+  - [ ] 04-04-PLAN.md — Location pages: /wan-chai/ + /cyberport/ with verbatim NAP + lazy iframe VenueMap + opening hours + programme list + venue-prefilled booking CTAs + SportsActivityLocation + BreadcrumbList JSON-LD + 2 per-route OG images
+  - [ ] 04-05-PLAN.md — Gymnastics pillar + 8 sub-pages: GymPillarNav (RSC + ActiveGymNavLink client) + pillar overview page + 8 static sub-routes (toddlers/beginner/intermediate/advanced/competitive/rhythmic/adult/private) sharing one template driven by HK_GYMNASTICS_PROGRAMMES
+  - [ ] 04-06-PLAN.md — Supporting content: /holiday-camps/, /birthday-parties/, /school-partnerships/, /competitions-events/ (empty-state copy), /coaches/ (D-08 combined team + D-09 portrait HUMAN-ACTION gate), /blog/ (HK_BLOG_POSTS_STUB + empty-state branch), /faq/ (grouped accordion + FAQPage JSON-LD char-for-char)
+  - [ ] 04-07-PLAN.md — Booking flow: /api/contact + emails/contact.tsx additive extension (venue + childAge validation + email rows) + /book-a-trial/ conversion hub + /book-a-trial/free-assessment/ Suspense shell + BookingForm client component (6 fields + honeypot + venue pre-fill)
 
 ---
 
@@ -158,7 +172,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   5. An editor who uploads a new hero image with alt text sees it swap in on the next publish; an editor who tries to save without alt text is warned, and no image without alt text reaches production
 **Strategy anchors**: PART 13.2 (editable vs static map), PART 13.3 (dynamic sync), PART 13.4 (blog editor), PART 13.5 (roles), PART 13.6 (security)
 **Rough shape**: Sanity schemas for Hero / MarketCard / ProgrammeCard / Venue / Person / Post / Camp / Page / Testimonial / Logo / FAQItem; Studio access groups (Admin / Editor / Author / Marketing / Viewer) with 2FA on Admin and Editor; webhook → Vercel deploy hook → `revalidatePath` for affected routes; Portable Text rich editor with required-field enforcement; scheduled publish via Sanity cron; featured-blog logic in homepage data query; Event JSON-LD generated from Camp fields.
-**Plans**: TBD
+**Plans**: 7 plans
+  - [ ] 04-01-PLAN.md — Foundation: shadcn navigation-menu install + lib/hk-data.ts (HK_VENUES, HK_COACHES, HK_BLOG_POSTS_STUB, HK_FAQ_ITEMS, HK_GYMNASTICS_PROGRAMMES) + .env.example + 5 Wave-0 Vitest test scaffolds (RED)
+  - [ ] 04-02-PLAN.md — Layout chrome: app/hk/layout.tsx replaces Phase 1 stub with HKNav + HKFooter + Baloo 2 font activation + HK metadataBase + VenueChipRow + ActiveVenueChip + createHKOgImage utility + default HK opengraph-image
+  - [ ] 04-03-PLAN.md — HK homepage: 12 sections per strategy PART 4 wireframe (hero video D-01 HUMAN-ACTION, venue chips, programmes 3+2 grid, location split, social proof, coaching method, camps/parties, about, blog stubs, FAQ, final CTA) + WebSite + FAQPage JSON-LD
+  - [ ] 04-04-PLAN.md — Location pages: /wan-chai/ + /cyberport/ with verbatim NAP + lazy iframe VenueMap + opening hours + programme list + venue-prefilled booking CTAs + SportsActivityLocation + BreadcrumbList JSON-LD + 2 per-route OG images
+  - [ ] 04-05-PLAN.md — Gymnastics pillar + 8 sub-pages: GymPillarNav (RSC + ActiveGymNavLink client) + pillar overview page + 8 static sub-routes (toddlers/beginner/intermediate/advanced/competitive/rhythmic/adult/private) sharing one template driven by HK_GYMNASTICS_PROGRAMMES
+  - [ ] 04-06-PLAN.md — Supporting content: /holiday-camps/, /birthday-parties/, /school-partnerships/, /competitions-events/ (empty-state copy), /coaches/ (D-08 combined team + D-09 portrait HUMAN-ACTION gate), /blog/ (HK_BLOG_POSTS_STUB + empty-state branch), /faq/ (grouped accordion + FAQPage JSON-LD char-for-char)
+  - [ ] 04-07-PLAN.md — Booking flow: /api/contact + emails/contact.tsx additive extension (venue + childAge validation + email rows) + /book-a-trial/ conversion hub + /book-a-trial/free-assessment/ Suspense shell + BookingForm client component (6 fields + honeypot + venue pre-fill)
 
 ---
 
@@ -174,7 +195,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   5. Keyboard-only navigation works across every primary page; focus indicators are visible and WCAG AA contrast; screen reader walks the page in a logical order with a correct `<h1>` per page
 **Strategy anchors**: PART 7 (SEO package), PART 9 (schema package), PART 10 (LLM / AI visibility), PART 13.2 (SEO fields), PART 15.4 Weeks 7–9
 **Rough shape**: Per-page metadata via Next.js `generateMetadata` reading from Sanity SEO fields with sane fallbacks; `sitemap.xml` routes per property using a configurable origin (preview vs production); robots routes per property; `llms.txt` + `llms-full.txt` ISR-generated; typed JSON-LD helpers per strategy PART 9.3–9.5; accessibility audit pass (axe + manual keyboard walk); performance pass (image lazy-loading, route-level code-split, font preload, remove render-blocking scripts).
-**Plans**: TBD
+**Plans**: 7 plans
+  - [ ] 04-01-PLAN.md — Foundation: shadcn navigation-menu install + lib/hk-data.ts (HK_VENUES, HK_COACHES, HK_BLOG_POSTS_STUB, HK_FAQ_ITEMS, HK_GYMNASTICS_PROGRAMMES) + .env.example + 5 Wave-0 Vitest test scaffolds (RED)
+  - [ ] 04-02-PLAN.md — Layout chrome: app/hk/layout.tsx replaces Phase 1 stub with HKNav + HKFooter + Baloo 2 font activation + HK metadataBase + VenueChipRow + ActiveVenueChip + createHKOgImage utility + default HK opengraph-image
+  - [ ] 04-03-PLAN.md — HK homepage: 12 sections per strategy PART 4 wireframe (hero video D-01 HUMAN-ACTION, venue chips, programmes 3+2 grid, location split, social proof, coaching method, camps/parties, about, blog stubs, FAQ, final CTA) + WebSite + FAQPage JSON-LD
+  - [ ] 04-04-PLAN.md — Location pages: /wan-chai/ + /cyberport/ with verbatim NAP + lazy iframe VenueMap + opening hours + programme list + venue-prefilled booking CTAs + SportsActivityLocation + BreadcrumbList JSON-LD + 2 per-route OG images
+  - [ ] 04-05-PLAN.md — Gymnastics pillar + 8 sub-pages: GymPillarNav (RSC + ActiveGymNavLink client) + pillar overview page + 8 static sub-routes (toddlers/beginner/intermediate/advanced/competitive/rhythmic/adult/private) sharing one template driven by HK_GYMNASTICS_PROGRAMMES
+  - [ ] 04-06-PLAN.md — Supporting content: /holiday-camps/, /birthday-parties/, /school-partnerships/, /competitions-events/ (empty-state copy), /coaches/ (D-08 combined team + D-09 portrait HUMAN-ACTION gate), /blog/ (HK_BLOG_POSTS_STUB + empty-state branch), /faq/ (grouped accordion + FAQPage JSON-LD char-for-char)
+  - [ ] 04-07-PLAN.md — Booking flow: /api/contact + emails/contact.tsx additive extension (venue + childAge validation + email rows) + /book-a-trial/ conversion hub + /book-a-trial/free-assessment/ Suspense shell + BookingForm client component (6 fields + honeypot + venue pre-fill)
 
 ---
 
@@ -190,7 +218,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   5. A Search Console verification record is prepared as a TXT record ready for Cloudflare DNS (not yet submitted — verification happens in Phase 10 once the zone is live)
 **Strategy anchors**: PART 8.3 (NAP / GBP / citations), PART 15.2 Warning #2 (cross-domain GA4), PART 15.4 Weeks 11–13
 **Rough shape**: GA4 with GTM cross-subdomain config; conversion events wired to form submits and WhatsApp click handlers; NAP reconciliation spreadsheet + single canonical YAML / Sanity Venue document per location; GBP audit and update per the PART 8.3 checklist; GSC TXT record pre-generated and stored.
-**Plans**: TBD
+**Plans**: 7 plans
+  - [ ] 04-01-PLAN.md — Foundation: shadcn navigation-menu install + lib/hk-data.ts (HK_VENUES, HK_COACHES, HK_BLOG_POSTS_STUB, HK_FAQ_ITEMS, HK_GYMNASTICS_PROGRAMMES) + .env.example + 5 Wave-0 Vitest test scaffolds (RED)
+  - [ ] 04-02-PLAN.md — Layout chrome: app/hk/layout.tsx replaces Phase 1 stub with HKNav + HKFooter + Baloo 2 font activation + HK metadataBase + VenueChipRow + ActiveVenueChip + createHKOgImage utility + default HK opengraph-image
+  - [ ] 04-03-PLAN.md — HK homepage: 12 sections per strategy PART 4 wireframe (hero video D-01 HUMAN-ACTION, venue chips, programmes 3+2 grid, location split, social proof, coaching method, camps/parties, about, blog stubs, FAQ, final CTA) + WebSite + FAQPage JSON-LD
+  - [ ] 04-04-PLAN.md — Location pages: /wan-chai/ + /cyberport/ with verbatim NAP + lazy iframe VenueMap + opening hours + programme list + venue-prefilled booking CTAs + SportsActivityLocation + BreadcrumbList JSON-LD + 2 per-route OG images
+  - [ ] 04-05-PLAN.md — Gymnastics pillar + 8 sub-pages: GymPillarNav (RSC + ActiveGymNavLink client) + pillar overview page + 8 static sub-routes (toddlers/beginner/intermediate/advanced/competitive/rhythmic/adult/private) sharing one template driven by HK_GYMNASTICS_PROGRAMMES
+  - [ ] 04-06-PLAN.md — Supporting content: /holiday-camps/, /birthday-parties/, /school-partnerships/, /competitions-events/ (empty-state copy), /coaches/ (D-08 combined team + D-09 portrait HUMAN-ACTION gate), /blog/ (HK_BLOG_POSTS_STUB + empty-state branch), /faq/ (grouped accordion + FAQPage JSON-LD char-for-char)
+  - [ ] 04-07-PLAN.md — Booking flow: /api/contact + emails/contact.tsx additive extension (venue + childAge validation + email rows) + /book-a-trial/ conversion hub + /book-a-trial/free-assessment/ Suspense shell + BookingForm client component (6 fields + honeypot + venue pre-fill)
 
 ---
 
@@ -205,7 +240,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. A dry-run of the cutover runbook (sections 1–N up to but not including the DNS switch itself) executes cleanly on preview with every step checked off and rollback step understood
 **Strategy anchors**: PART 1 (why the clean `.com`), PART 13.6 (security discipline), PART 15.2 Warning #1 (`.net` reputation risk), PART 15.4 Week 10
 **Rough shape**: Legacy crawl via Screaming Frog / Sitebulb; 301 map in `vercel.json` redirects or middleware (activated when domain is attached in Phase 10); dependency audit + Dependabot configuration; Sanity token scoping audit; cutover runbook Markdown with DNS swap order, cache purge steps, smoke test checklist, rollback plan, and TTL-lowering schedule.
-**Plans**: TBD
+**Plans**: 7 plans
+  - [ ] 04-01-PLAN.md — Foundation: shadcn navigation-menu install + lib/hk-data.ts (HK_VENUES, HK_COACHES, HK_BLOG_POSTS_STUB, HK_FAQ_ITEMS, HK_GYMNASTICS_PROGRAMMES) + .env.example + 5 Wave-0 Vitest test scaffolds (RED)
+  - [ ] 04-02-PLAN.md — Layout chrome: app/hk/layout.tsx replaces Phase 1 stub with HKNav + HKFooter + Baloo 2 font activation + HK metadataBase + VenueChipRow + ActiveVenueChip + createHKOgImage utility + default HK opengraph-image
+  - [ ] 04-03-PLAN.md — HK homepage: 12 sections per strategy PART 4 wireframe (hero video D-01 HUMAN-ACTION, venue chips, programmes 3+2 grid, location split, social proof, coaching method, camps/parties, about, blog stubs, FAQ, final CTA) + WebSite + FAQPage JSON-LD
+  - [ ] 04-04-PLAN.md — Location pages: /wan-chai/ + /cyberport/ with verbatim NAP + lazy iframe VenueMap + opening hours + programme list + venue-prefilled booking CTAs + SportsActivityLocation + BreadcrumbList JSON-LD + 2 per-route OG images
+  - [ ] 04-05-PLAN.md — Gymnastics pillar + 8 sub-pages: GymPillarNav (RSC + ActiveGymNavLink client) + pillar overview page + 8 static sub-routes (toddlers/beginner/intermediate/advanced/competitive/rhythmic/adult/private) sharing one template driven by HK_GYMNASTICS_PROGRAMMES
+  - [ ] 04-06-PLAN.md — Supporting content: /holiday-camps/, /birthday-parties/, /school-partnerships/, /competitions-events/ (empty-state copy), /coaches/ (D-08 combined team + D-09 portrait HUMAN-ACTION gate), /blog/ (HK_BLOG_POSTS_STUB + empty-state branch), /faq/ (grouped accordion + FAQPage JSON-LD char-for-char)
+  - [ ] 04-07-PLAN.md — Booking flow: /api/contact + emails/contact.tsx additive extension (venue + childAge validation + email rows) + /book-a-trial/ conversion hub + /book-a-trial/free-assessment/ Suspense shell + BookingForm client component (6 fields + honeypot + venue pre-fill)
 
 ---
 
@@ -221,7 +263,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   5. The first content cadence is operating: at least one blog post is live on each market's `/blog/`, an outreach pipeline for the first 10 backlinks is defined per strategy PART 11, the GBP review acquisition campaign is enabled (post-trial email template exists and is firing from the booking platform), and a Day-90 review date is on the calendar with the rankings / organic traffic / trial booking baseline recorded against which it will be measured
 **Strategy anchors**: PART 11 (backlink framework), PART 13.6 (security discipline), PART 15.1 #1 (launch Tier 1 together), PART 15.4 Weeks 10–13 and Day 90 review
 **Rough shape**: Cloudflare zone transfer + NS change; Vercel domain attachment with cert provisioning for `proactivsports.com` + `*.proactivsports.com`; Cloudflare WAF managed rulesets + per-route custom rules + rate limiting; WordPress attack-surface blocklist; production DNS cutover per runbook with TTL lowered 24h prior; Search Console verification and sitemap submission; smoke test execution; first blog post per market; backlink outreach framework operationalised; GBP review acquisition template turned on; Day-90 review scheduled.
-**Plans**: TBD
+**Plans**: 7 plans
+  - [ ] 04-01-PLAN.md — Foundation: shadcn navigation-menu install + lib/hk-data.ts (HK_VENUES, HK_COACHES, HK_BLOG_POSTS_STUB, HK_FAQ_ITEMS, HK_GYMNASTICS_PROGRAMMES) + .env.example + 5 Wave-0 Vitest test scaffolds (RED)
+  - [ ] 04-02-PLAN.md — Layout chrome: app/hk/layout.tsx replaces Phase 1 stub with HKNav + HKFooter + Baloo 2 font activation + HK metadataBase + VenueChipRow + ActiveVenueChip + createHKOgImage utility + default HK opengraph-image
+  - [ ] 04-03-PLAN.md — HK homepage: 12 sections per strategy PART 4 wireframe (hero video D-01 HUMAN-ACTION, venue chips, programmes 3+2 grid, location split, social proof, coaching method, camps/parties, about, blog stubs, FAQ, final CTA) + WebSite + FAQPage JSON-LD
+  - [ ] 04-04-PLAN.md — Location pages: /wan-chai/ + /cyberport/ with verbatim NAP + lazy iframe VenueMap + opening hours + programme list + venue-prefilled booking CTAs + SportsActivityLocation + BreadcrumbList JSON-LD + 2 per-route OG images
+  - [ ] 04-05-PLAN.md — Gymnastics pillar + 8 sub-pages: GymPillarNav (RSC + ActiveGymNavLink client) + pillar overview page + 8 static sub-routes (toddlers/beginner/intermediate/advanced/competitive/rhythmic/adult/private) sharing one template driven by HK_GYMNASTICS_PROGRAMMES
+  - [ ] 04-06-PLAN.md — Supporting content: /holiday-camps/, /birthday-parties/, /school-partnerships/, /competitions-events/ (empty-state copy), /coaches/ (D-08 combined team + D-09 portrait HUMAN-ACTION gate), /blog/ (HK_BLOG_POSTS_STUB + empty-state branch), /faq/ (grouped accordion + FAQPage JSON-LD char-for-char)
+  - [ ] 04-07-PLAN.md — Booking flow: /api/contact + emails/contact.tsx additive extension (venue + childAge validation + email rows) + /book-a-trial/ conversion hub + /book-a-trial/free-assessment/ Suspense shell + BookingForm client component (6 fields + honeypot + venue pre-fill)
 
 ## Progress
 
