@@ -18,10 +18,12 @@
     "test:unit": "vitest run",
     "test:unit:watch": "vitest",
     "photos:process": "node scripts/process-photos.mjs",
+    "redirects:verify": "node scripts/verify-redirects.mjs",
     "prepare": "lefthook install"
   },
   "dependencies": {
     "@mux/mux-player-react": "^3.11.8",
+    "@next/third-parties": "^16.2.4",
     "@react-email/components": "^1.0.12",
     "@sanity/vision": "^5.22.0",
     "@sentry/nextjs": "^10.49.0",
@@ -66,5 +68,10 @@
     "typescript": "^5",
     "vercel": "^52.0.0",
     "vitest": "^4.1.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "path-to-regexp": ">=8.4.0"
+    }
   }
 }
