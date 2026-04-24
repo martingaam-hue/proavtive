@@ -127,7 +127,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Rough shape**: 22 HK-scoped pages composed from Phase 2 primitives; content is hardcoded or stubbed against forthcoming CMS types; booking form submits through the contact backend introduced in Phase 3 with an HK destination; venue maps lazy-loaded via lightweight embed, not full Google Maps JS.
 **Plans**: 7 plans
   - [x] 04-01-PLAN.md — Foundation: shadcn navigation-menu install + lib/hk-data.ts (HK_VENUES, HK_COACHES, HK_BLOG_POSTS_STUB, HK_FAQ_ITEMS, HK_GYMNASTICS_PROGRAMMES) + .env.example + 5 Wave-0 Vitest test scaffolds (RED)
-  - [ ] 04-02-PLAN.md — Layout chrome: app/hk/layout.tsx replaces Phase 1 stub with HKNav + HKFooter + Baloo 2 font activation + HK metadataBase + VenueChipRow + ActiveVenueChip + createHKOgImage utility + default HK opengraph-image
+  - [x] 04-02-PLAN.md — Layout chrome: app/hk/layout.tsx replaces Phase 1 stub with HKNav + HKFooter + Baloo 2 font activation + HK metadataBase + VenueChipRow + ActiveVenueChip + createHKOgImage utility + default HK opengraph-image
   - [ ] 04-03-PLAN.md — HK homepage: 12 sections per strategy PART 4 wireframe (hero video D-01 HUMAN-ACTION, venue chips, programmes 3+2 grid, location split, social proof, coaching method, camps/parties, about, blog stubs, FAQ, final CTA) + WebSite + FAQPage JSON-LD
   - [ ] 04-04-PLAN.md — Location pages: /wan-chai/ + /cyberport/ with verbatim NAP + lazy iframe VenueMap + opening hours + programme list + venue-prefilled booking CTAs + SportsActivityLocation + BreadcrumbList JSON-LD + 2 per-route OG images
   - [ ] 04-05-PLAN.md — Gymnastics pillar + 8 sub-pages: GymPillarNav (RSC + ActiveGymNavLink client) + pillar overview page + 8 static sub-routes (toddlers/beginner/intermediate/advanced/competitive/rhythmic/adult/private) sharing one template driven by HK_GYMNASTICS_PROGRAMMES
@@ -150,7 +150,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **UI hint**: yes
 **Rough shape**: ~15 SG-scoped pages composed from Phase 2 primitives with Prodigy-branded variants (Baloo typography treatment per PROJECT.md), MultiBall-forward copy, IFS partnership callout on `/school-partnerships/`, booking backend targets SG inbox.
 **Plans**: 7 plans
-  - [ ] 04-01-PLAN.md — Foundation: shadcn navigation-menu install + lib/hk-data.ts (HK_VENUES, HK_COACHES, HK_BLOG_POSTS_STUB, HK_FAQ_ITEMS, HK_GYMNASTICS_PROGRAMMES) + .env.example + 5 Wave-0 Vitest test scaffolds (RED)
+  - [x] 04-01-PLAN.md — Foundation: shadcn navigation-menu install + lib/hk-data.ts (HK_VENUES, HK_COACHES, HK_BLOG_POSTS_STUB, HK_FAQ_ITEMS, HK_GYMNASTICS_PROGRAMMES) + .env.example + 5 Wave-0 Vitest test scaffolds (RED)
   - [ ] 04-02-PLAN.md — Layout chrome: app/hk/layout.tsx replaces Phase 1 stub with HKNav + HKFooter + Baloo 2 font activation + HK metadataBase + VenueChipRow + ActiveVenueChip + createHKOgImage utility + default HK opengraph-image
   - [ ] 04-03-PLAN.md — HK homepage: 12 sections per strategy PART 4 wireframe (hero video D-01 HUMAN-ACTION, venue chips, programmes 3+2 grid, location split, social proof, coaching method, camps/parties, about, blog stubs, FAQ, final CTA) + WebSite + FAQPage JSON-LD
   - [ ] 04-04-PLAN.md — Location pages: /wan-chai/ + /cyberport/ with verbatim NAP + lazy iframe VenueMap + opening hours + programme list + venue-prefilled booking CTAs + SportsActivityLocation + BreadcrumbList JSON-LD + 2 per-route OG images
