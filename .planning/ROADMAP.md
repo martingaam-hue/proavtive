@@ -263,13 +263,13 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Strategy anchors**: PART 11 (backlink framework), PART 13.6 (security discipline), PART 15.1 #1 (launch Tier 1 together), PART 15.4 Weeks 10–13 and Day 90 review
 **Rough shape**: Cloudflare zone transfer + NS change; Vercel domain attachment with cert provisioning for `proactivsports.com` + `*.proactivsports.com`; Cloudflare WAF managed rulesets + per-route custom rules + rate limiting; WordPress attack-surface blocklist; production DNS cutover per runbook with TTL lowered 24h prior; Search Console verification and sitemap submission; smoke test execution; first blog post per market; backlink outreach framework operationalised; GBP review acquisition template turned on; Day-90 review scheduled.
 **Plans**: 7 plans
-  - [x] 04-01-PLAN.md — Foundation: shadcn navigation-menu install + lib/hk-data.ts (HK_VENUES, HK_COACHES, HK_BLOG_POSTS_STUB, HK_FAQ_ITEMS, HK_GYMNASTICS_PROGRAMMES) + .env.example + 5 Wave-0 Vitest test scaffolds (RED)
-  - [x] 04-02-PLAN.md — Layout chrome: app/hk/layout.tsx replaces Phase 1 stub with HKNav + HKFooter + Baloo 2 font activation + HK metadataBase + VenueChipRow + ActiveVenueChip + createHKOgImage utility + default HK opengraph-image
-  - [ ] 04-03-PLAN.md — HK homepage: 12 sections per strategy PART 4 wireframe (hero video D-01 HUMAN-ACTION, venue chips, programmes 3+2 grid, location split, social proof, coaching method, camps/parties, about, blog stubs, FAQ, final CTA) + WebSite + FAQPage JSON-LD
-  - [ ] 04-04-PLAN.md — Location pages: /wan-chai/ + /cyberport/ with verbatim NAP + lazy iframe VenueMap + opening hours + programme list + venue-prefilled booking CTAs + SportsActivityLocation + BreadcrumbList JSON-LD + 2 per-route OG images
-  - [ ] 04-05-PLAN.md — Gymnastics pillar + 8 sub-pages: GymPillarNav (RSC + ActiveGymNavLink client) + pillar overview page + 8 static sub-routes (toddlers/beginner/intermediate/advanced/competitive/rhythmic/adult/private) sharing one template driven by HK_GYMNASTICS_PROGRAMMES
-  - [ ] 04-06-PLAN.md — Supporting content: /holiday-camps/, /birthday-parties/, /school-partnerships/, /competitions-events/ (empty-state copy), /coaches/ (D-08 combined team + D-09 portrait HUMAN-ACTION gate), /blog/ (HK_BLOG_POSTS_STUB + empty-state branch), /faq/ (grouped accordion + FAQPage JSON-LD char-for-char)
-  - [ ] 04-07-PLAN.md — Booking flow: /api/contact + emails/contact.tsx additive extension (venue + childAge validation + email rows) + /book-a-trial/ conversion hub + /book-a-trial/free-assessment/ Suspense shell + BookingForm client component (6 fields + honeypot + venue pre-fill)
+  - [ ] 10-01-PLAN.md — Pre-flight: registrar audit, DNSSEC check, DNS zone export, Vercel plan verification, Cloudflare zone creation (human-action checkpoint)
+  - [ ] 10-02-PLAN.md — Vercel domain attachment: add proactivsports.com + hk/sg subdomains, record CNAME hash, set NEXT_PUBLIC_SITE_URL env vars (checkpoint)
+  - [ ] 10-03-PLAN.md — WAF configuration: vercel.json deny rules committed; Dashboard rate limiting + OWASP + Bot Protection rulesets in LOG mode (partial auto)
+  - [ ] 10-04-PLAN.md — DNS cutover: T-24h TTL lowering + T-0 NS change at registrar + propagation verification + Vercel cert provisioning (human-action checkpoint)
+  - [ ] 10-05-PLAN.md — Production build + smoke tests + GSC verification + sitemap submission + WAF LOG→DENY after 1h real traffic (checkpoint)
+  - [x] 10-06-PLAN.md — Operational document skeletons: CUTOVER-RUNBOOK.md + SMOKE-TEST-CHECKLIST.md + DNS-RECORDS.md committed (autonomous — complete 2026-04-25)
+  - [ ] 10-07-PLAN.md — Day 90 operational bootstrap: launch baselines recorded, GBP review template confirmed, Week 1–2 backlink outreach initiated (checkpoint)
 
 ## Progress
 
@@ -288,7 +288,7 @@ Phases execute in numeric order: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 →
 | 7. SEO, schema, and LLMO | 0/TBD | Not started | - |
 | 8. Analytics + GBP + NAP consistency | 0/TBD | Not started | - |
 | 9. Legacy `.net` migration prep + security hardening | 0/TBD | Not started | - |
-| 10. Hosting + DNS + domain cutover + launch | 0/TBD | Not started | - |
+| 10. Hosting + DNS + domain cutover + launch | 1/7 | In Progress | - |
 
 ## Coverage
 
