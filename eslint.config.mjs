@@ -18,10 +18,12 @@ const eslintConfig = [
   },
   // Phase 3 / Plan 03-02 — Relax no-explicit-any for test files.
   // Vitest mock factories use `any` for untyped primitive props — standard pattern.
+  // Phase 4 — also disable no-img-element: vi.mock("next/image") uses <img> by convention.
   {
     files: ["**/*.test.ts", "**/*.test.tsx"],
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
+      "@next/next/no-img-element": "off",
     },
   },
 ];

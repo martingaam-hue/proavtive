@@ -35,12 +35,7 @@ vi.mock("@/components/hk/venue-map", () => ({
 }));
 vi.mock("next/image", () => ({
   default: ({ src, alt, priority, ...rest }: any) => (
-    <img
-      src={src}
-      alt={alt}
-      data-priority={priority ? "true" : "false"}
-      {...rest}
-    />
+    <img src={src} alt={alt} data-priority={priority ? "true" : "false"} {...rest} />
   ),
 }));
 
@@ -53,14 +48,16 @@ beforeAll(() => {
 
 afterEach(() => cleanup());
 
+// Shared import — page exists (Plan 04-04 shipped it); no longer needs @vite-ignore scaffolding.
+let CyberportPage: () => JSX.Element;
+beforeAll(async () => {
+  const mod = await import("./page");
+  CyberportPage = mod.default as any;
+});
+
 describe("/cyberport/ (HK-03) — '5,000 sq ft' verbatim", () => {
   it("renders the literal text '5,000 sq ft' somewhere on the page", async () => {
-    // RED-state import: the page does not exist yet at Wave 0; Plan 04-04 ships it.
-    const pagePath = "./page";
-    const mod = (await import(/* @vite-ignore */ pagePath)) as any;
-    const CyberportPage = mod.default;
-    const ui =
-      typeof CyberportPage === "function" ? await CyberportPage() : CyberportPage;
+    const ui = typeof CyberportPage === "function" ? await CyberportPage() : CyberportPage;
     render(ui);
     expect(document.body.textContent).toContain("5,000 sq ft");
   });
@@ -68,12 +65,7 @@ describe("/cyberport/ (HK-03) — '5,000 sq ft' verbatim", () => {
 
 describe("/cyberport/ (HK-03) — H1 identifier", () => {
   it("renders an <h1> whose text contains 'Cyberport'", async () => {
-    // RED-state import: the page does not exist yet at Wave 0; Plan 04-04 ships it.
-    const pagePath = "./page";
-    const mod = (await import(/* @vite-ignore */ pagePath)) as any;
-    const CyberportPage = mod.default;
-    const ui =
-      typeof CyberportPage === "function" ? await CyberportPage() : CyberportPage;
+    const ui = typeof CyberportPage === "function" ? await CyberportPage() : CyberportPage;
     const { container } = render(ui);
     const h1 = container.querySelector("h1");
     expect(h1).not.toBeNull();
@@ -83,12 +75,7 @@ describe("/cyberport/ (HK-03) — H1 identifier", () => {
 
 describe("/cyberport/ (HK-03) — map embed", () => {
   it("renders an <iframe> (via VenueMap) with a non-empty title (a11y)", async () => {
-    // RED-state import: the page does not exist yet at Wave 0; Plan 04-04 ships it.
-    const pagePath = "./page";
-    const mod = (await import(/* @vite-ignore */ pagePath)) as any;
-    const CyberportPage = mod.default;
-    const ui =
-      typeof CyberportPage === "function" ? await CyberportPage() : CyberportPage;
+    const ui = typeof CyberportPage === "function" ? await CyberportPage() : CyberportPage;
     render(ui);
     const iframe = document.querySelector("iframe");
     expect(iframe).not.toBeNull();
@@ -99,15 +86,10 @@ describe("/cyberport/ (HK-03) — map embed", () => {
 
 describe("/cyberport/ (HK-03) — booking CTA venue pre-fill", () => {
   it("renders at least one link to /book-a-trial/free-assessment/?venue=cyberport", async () => {
-    // RED-state import: the page does not exist yet at Wave 0; Plan 04-04 ships it.
-    const pagePath = "./page";
-    const mod = (await import(/* @vite-ignore */ pagePath)) as any;
-    const CyberportPage = mod.default;
-    const ui =
-      typeof CyberportPage === "function" ? await CyberportPage() : CyberportPage;
+    const ui = typeof CyberportPage === "function" ? await CyberportPage() : CyberportPage;
     render(ui);
     const anchors = Array.from(
-      document.querySelectorAll<HTMLAnchorElement>('a[href*="?venue=cyberport"]')
+      document.querySelectorAll<HTMLAnchorElement>('a[href*="?venue=cyberport"]'),
     );
     expect(anchors.length).toBeGreaterThanOrEqual(1);
     const target = anchors[0].getAttribute("href") ?? "";
@@ -117,16 +99,9 @@ describe("/cyberport/ (HK-03) — booking CTA venue pre-fill", () => {
 
 describe("/cyberport/ (HK-03) — SportsActivityLocation JSON-LD", () => {
   it("renders <script type='application/ld+json'> with SportsActivityLocation type", async () => {
-    // RED-state import: the page does not exist yet at Wave 0; Plan 04-04 ships it.
-    const pagePath = "./page";
-    const mod = (await import(/* @vite-ignore */ pagePath)) as any;
-    const CyberportPage = mod.default;
-    const ui =
-      typeof CyberportPage === "function" ? await CyberportPage() : CyberportPage;
+    const ui = typeof CyberportPage === "function" ? await CyberportPage() : CyberportPage;
     render(ui);
-    const scripts = Array.from(
-      document.querySelectorAll('script[type="application/ld+json"]')
-    );
+    const scripts = Array.from(document.querySelectorAll('script[type="application/ld+json"]'));
     const joined = scripts.map((s) => s.textContent ?? "").join("");
     expect(joined).toContain('"@type":"SportsActivityLocation"');
   });

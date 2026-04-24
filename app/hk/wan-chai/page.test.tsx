@@ -35,46 +35,35 @@ vi.mock("@/components/hk/venue-map", () => ({
 }));
 vi.mock("next/image", () => ({
   default: ({ src, alt, priority, ...rest }: any) => (
-    <img
-      src={src}
-      alt={alt}
-      data-priority={priority ? "true" : "false"}
-      {...rest}
-    />
+    <img src={src} alt={alt} data-priority={priority ? "true" : "false"} {...rest} />
   ),
 }));
 
 beforeAll(() => {
   process.env.NEXT_PUBLIC_HK_PHONE = "+85287654321";
-  process.env.NEXT_PUBLIC_WAN_CHAI_MAP_EMBED =
-    "https://www.google.com/maps/embed?pb=test";
+  process.env.NEXT_PUBLIC_WAN_CHAI_MAP_EMBED = "https://www.google.com/maps/embed?pb=test";
 });
 
 afterEach(() => cleanup());
 
+// Shared import — page exists (Plan 04-04 shipped it); no longer needs @vite-ignore scaffolding.
+let WanChaiPage: () => JSX.Element;
+beforeAll(async () => {
+  const mod = await import("./page");
+  WanChaiPage = mod.default as any;
+});
+
 describe("/wan-chai/ (HK-02) — verbatim NAP", () => {
   it("renders '15/F, The Hennessy, 256 Hennessy Road' somewhere on the page", async () => {
-    // RED-state import: the page does not exist yet at Wave 0; Plan 04-04 ships it.
-    const pagePath = "./page";
-    const mod = (await import(/* @vite-ignore */ pagePath)) as any;
-    const WanChaiPage = mod.default;
-    const ui =
-      typeof WanChaiPage === "function" ? await WanChaiPage() : WanChaiPage;
+    const ui = typeof WanChaiPage === "function" ? await WanChaiPage() : WanChaiPage;
     render(ui);
-    expect(document.body.textContent).toContain(
-      "15/F, The Hennessy, 256 Hennessy Road"
-    );
+    expect(document.body.textContent).toContain("15/F, The Hennessy, 256 Hennessy Road");
   });
 });
 
 describe("/wan-chai/ (HK-02) — map embed", () => {
   it("renders an <iframe> (via VenueMap) with a non-empty title (a11y)", async () => {
-    // RED-state import: the page does not exist yet at Wave 0; Plan 04-04 ships it.
-    const pagePath = "./page";
-    const mod = (await import(/* @vite-ignore */ pagePath)) as any;
-    const WanChaiPage = mod.default;
-    const ui =
-      typeof WanChaiPage === "function" ? await WanChaiPage() : WanChaiPage;
+    const ui = typeof WanChaiPage === "function" ? await WanChaiPage() : WanChaiPage;
     render(ui);
     const iframe = document.querySelector("iframe");
     expect(iframe).not.toBeNull();
@@ -85,12 +74,7 @@ describe("/wan-chai/ (HK-02) — map embed", () => {
 
 describe("/wan-chai/ (HK-02) — opening hours", () => {
   it("renders opening hours text ('09:00' appears at least twice)", async () => {
-    // RED-state import: the page does not exist yet at Wave 0; Plan 04-04 ships it.
-    const pagePath = "./page";
-    const mod = (await import(/* @vite-ignore */ pagePath)) as any;
-    const WanChaiPage = mod.default;
-    const ui =
-      typeof WanChaiPage === "function" ? await WanChaiPage() : WanChaiPage;
+    const ui = typeof WanChaiPage === "function" ? await WanChaiPage() : WanChaiPage;
     render(ui);
     const text = document.body.textContent ?? "";
     const occurrences = (text.match(/09:00/g) ?? []).length;
@@ -100,15 +84,10 @@ describe("/wan-chai/ (HK-02) — opening hours", () => {
 
 describe("/wan-chai/ (HK-02) — booking CTA venue pre-fill", () => {
   it("renders at least one link to /book-a-trial/free-assessment/?venue=wan-chai", async () => {
-    // RED-state import: the page does not exist yet at Wave 0; Plan 04-04 ships it.
-    const pagePath = "./page";
-    const mod = (await import(/* @vite-ignore */ pagePath)) as any;
-    const WanChaiPage = mod.default;
-    const ui =
-      typeof WanChaiPage === "function" ? await WanChaiPage() : WanChaiPage;
+    const ui = typeof WanChaiPage === "function" ? await WanChaiPage() : WanChaiPage;
     render(ui);
     const anchors = Array.from(
-      document.querySelectorAll<HTMLAnchorElement>('a[href*="?venue=wan-chai"]')
+      document.querySelectorAll<HTMLAnchorElement>('a[href*="?venue=wan-chai"]'),
     );
     expect(anchors.length).toBeGreaterThanOrEqual(1);
     const target = anchors[0].getAttribute("href") ?? "";
@@ -118,16 +97,9 @@ describe("/wan-chai/ (HK-02) — booking CTA venue pre-fill", () => {
 
 describe("/wan-chai/ (HK-02) — SportsActivityLocation JSON-LD", () => {
   it("renders <script type='application/ld+json'> with SportsActivityLocation type", async () => {
-    // RED-state import: the page does not exist yet at Wave 0; Plan 04-04 ships it.
-    const pagePath = "./page";
-    const mod = (await import(/* @vite-ignore */ pagePath)) as any;
-    const WanChaiPage = mod.default;
-    const ui =
-      typeof WanChaiPage === "function" ? await WanChaiPage() : WanChaiPage;
+    const ui = typeof WanChaiPage === "function" ? await WanChaiPage() : WanChaiPage;
     render(ui);
-    const scripts = Array.from(
-      document.querySelectorAll('script[type="application/ld+json"]')
-    );
+    const scripts = Array.from(document.querySelectorAll('script[type="application/ld+json"]'));
     const joined = scripts.map((s) => s.textContent ?? "").join("");
     expect(joined).toContain('"@type":"SportsActivityLocation"');
   });

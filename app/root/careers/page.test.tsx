@@ -1,4 +1,23 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
+
+// Mock heavy RSC/server dependencies so the test doesn't hang in jsdom.
+vi.mock("node:fs/promises", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("node:fs/promises")>();
+  return {
+    ...actual,
+    readFile: vi
+      .fn()
+      .mockResolvedValue(
+        `---\ntitle: Careers at ProActiv Sports\ndescription: Join our coaching team.\n---\nWe are hiring.`,
+      ),
+  };
+});
+vi.mock("next-mdx-remote/rsc", () => ({
+  MDXRemote: ({ source }: { source: string }) => <p>{source}</p>,
+}));
+vi.mock("next/image", () => ({
+  default: ({ src, alt, ...rest }: any) => <img src={src} alt={alt} {...rest} />,
+}));
 
 describe("/careers/ page — GW-05 metadata", () => {
   it("exports full openGraph (Pitfall 2)", async () => {
