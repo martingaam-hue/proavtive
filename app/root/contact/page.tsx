@@ -3,6 +3,7 @@
 // D-02: WhatsApp cards conditionally render based on NEXT_PUBLIC_WHATSAPP_HK/SG env vars.
 
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Mail, MessageCircle } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { ContainerEditorial } from "@/components/ui/container-editorial";
@@ -82,7 +83,11 @@ export default function ContactPage() {
       <Section size="md" bg="muted">
         <ContainerEditorial width="default">
           <Card className="p-6 lg:p-10 max-w-2xl mx-auto">
-            <ContactForm />
+            {/* [Rule 3 fix — Plan 03-06]: ContactForm uses useSearchParams which requires a Suspense boundary
+                when statically prerendered. Without this, `pnpm build` fails at /root/contact. */}
+            <Suspense fallback={null}>
+              <ContactForm />
+            </Suspense>
           </Card>
         </ContainerEditorial>
       </Section>
