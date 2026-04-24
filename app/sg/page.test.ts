@@ -39,6 +39,10 @@ vi.mock("@/components/ui/button", () => ({
 vi.mock("@/components/ui/card", () => ({
   Card: ({ children, ...rest }: any) =>
     React.createElement("div", rest, children),
+  CardHeader: ({ children, ...rest }: any) =>
+    React.createElement("div", rest, children),
+  CardContent: ({ children, ...rest }: any) =>
+    React.createElement("div", rest, children),
 }));
 vi.mock("@/components/ui/badge", () => ({
   Badge: ({ children, ...rest }: any) =>
