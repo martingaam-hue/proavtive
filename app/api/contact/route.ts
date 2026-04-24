@@ -27,7 +27,8 @@ const MIN_MESSAGE = 10;
 const MAX_MESSAGE = 2000;
 
 // Phase 4 / Plan 04-07 — allowed venue enum (D-10). Change here if HK opens a new venue.
-const ALLOWED_VENUES = ["wan-chai", "cyberport", "no-preference"] as const;
+// Phase 5 / Plan 05-01 — added "katong-point" per D-10 (single SG venue; BookingForm submits with venue hardcoded).
+const ALLOWED_VENUES = ["wan-chai", "cyberport", "no-preference", "katong-point"] as const;
 type AllowedVenue = (typeof ALLOWED_VENUES)[number];
 
 function getInboxes() {
