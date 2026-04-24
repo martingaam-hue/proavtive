@@ -2,10 +2,16 @@
 // Renders all 8 programmes as detailed cards plus GymPillarNav for sub-page
 // navigation. See UI-SPEC §4 (pillar row) + §5.5 (GymPillarNav) + §7 (OG).
 //
-// NOTE on FAQ rendering: we use a plain div wrapper around FAQItem (which
-// already wraps its own Radix Accordion internally). This matches the
-// app/root/page.tsx pattern. Plan text suggested an outer <Accordion> but
-// that would nest two Accordion roots — Rule 1 correctness fix.
+// NOTE on FAQ rendering: we use native <details>/<summary> instead of the
+// Radix Accordion-based FAQItem. Reasons:
+//   - Plan text suggested wrapping FAQItem in <Accordion>, but FAQItem
+//     internally already composes its own Accordion root — that would nest
+//     two Accordion roots (Rule 1).
+//   - <details> gives zero-JS disclosure, better static rendering, and keeps
+//     the 04-01 pillar RED test within the default 5s jsdom timeout (Rule 3).
+//   - FAQPage JSON-LD is still emitted from the pillarSchema block above; the
+//     data-question/data-answer attributes on <details>/<p> match FAQItem's
+//     SEO hooks for parity with the Phase 7 crawler contract.
 
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -15,7 +21,6 @@ import { ContainerEditorial } from "@/components/ui/container-editorial";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { FAQItem } from "@/components/ui/faq-item";
 import { GymPillarNav } from "@/components/hk/gymnastics-pillar-nav";
 import { HK_GYMNASTICS_PROGRAMMES, HK_FAQ_ITEMS } from "@/lib/hk-data";
 
@@ -185,7 +190,9 @@ export default function GymnasticsPillarPage() {
         </ContainerEditorial>
       </Section>
 
-      {/* §5 Shared FAQ */}
+      {/* §5 Shared FAQ — native <details>/<summary> for zero JS + fast SSR.
+           FAQPage JSON-LD above is the SEO source; details elements are the
+           accessible disclosure widget (keyboard + screenreader supported). */}
       {GYM_FAQS.length > 0 && (
         <Section size="md" bg="muted">
           <ContainerEditorial width="default">
@@ -193,14 +200,30 @@ export default function GymnasticsPillarPage() {
               <h2 className="text-h2 font-display text-foreground mb-6">
                 Gymnastics FAQs
               </h2>
-              <div className="flex flex-col gap-0">
+              <div className="flex flex-col divide-y divide-border">
                 {GYM_FAQS.map((item) => (
-                  <FAQItem
+                  <details
                     key={item.value}
                     id={item.value}
-                    question={item.question}
-                    answer={item.answer}
-                  />
+                    className="group py-4"
+                    data-question={item.question}
+                  >
+                    <summary className="flex cursor-pointer items-start justify-between gap-4 text-xl font-semibold font-display text-primary leading-snug list-none marker:hidden lg:text-2xl">
+                      <span>{item.question}</span>
+                      <span
+                        aria-hidden
+                        className="shrink-0 text-brand-navy transition-transform group-open:rotate-45"
+                      >
+                        +
+                      </span>
+                    </summary>
+                    <p
+                      data-answer
+                      className="mt-3 font-sans text-base leading-relaxed text-muted-foreground"
+                    >
+                      {item.answer}
+                    </p>
+                  </details>
                 ))}
               </div>
             </div>
