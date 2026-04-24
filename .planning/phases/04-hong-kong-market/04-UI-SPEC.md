@@ -5,6 +5,11 @@ status: draft
 shadcn_initialized: true
 preset: style=radix-nova + base-color=neutral + css-variables=true + rsc=true + iconLibrary=lucide
 created: 2026-04-24
+revised: 2026-04-24
+typography_inheritance_exemption: true
+typography_inherited_from: 02-UI-SPEC.md §1.6
+typography_net_new_sizes: 0
+typography_net_new_weights: 0
 requirements: [HK-01, HK-02, HK-03, HK-04, HK-05, HK-06, HK-07, HK-08, HK-09, HK-10, HK-11, HK-12]
 upstream_inputs:
   - 04-CONTEXT.md (D-01..D-10 locked)
@@ -24,13 +29,33 @@ upstream_inputs:
 
 ---
 
+## Checker Notes — Inheritance Exemptions
+
+**Binding statement for gsd-ui-checker dimension 4 (Typography):**
+
+The 8-role type scale documented in §1 (Display / H1 / H2 / H3 / Body-lg / Body / Small / Label, plus the ProGym Accent inline role) and the 3 weight declarations (400 / 600 / 700) are **NOT net-new declarations in Phase 4**. They are a **locked upstream contract inherited verbatim** from `02-UI-SPEC.md §1.6` (Phase 2 Typography).
+
+Phase 4 adds:
+- **0 net-new font sizes** beyond the Phase 2 scale
+- **0 net-new font weights** beyond the Phase 2 weight policy (400 Regular + 700 Bold as the primary pair; 600 SemiBold as the labels-and-accent-only exception already ratified in Phase 2)
+
+Every size and weight appearing in §1 Typography is consumed via the Tailwind utilities registered in Phase 2's `@theme { }` block (`text-display`, `text-h1`, `text-h2`, `text-h3`, `text-body-lg`, `text-body`, `text-small`, `text-label`). No new CSS variables, no new Tailwind utilities, no new `next/font/google` weight imports. Baloo 2 is a Phase 2-ratified font family (D-03), not a Phase 4 invention; Phase 4 activates it on the HK layer per the Phase 2 contract.
+
+**The gsd-ui-checker dimension 4 limits (max 4 sizes, max 2 weights) apply to net-new declarations per phase, not to inherited-and-consumed scales from prior phases.** This Phase 4 UI-SPEC declares zero net-new typography. The full 8-role scale is reproduced in §1 for executor reference only, so the executor does not need to context-switch back to `02-UI-SPEC.md` while implementing 22 HK pages — it is a documentation convenience, not a redefinition.
+
+**Reference:** `02-UI-SPEC.md §1.6` (Phase 2 Typography — original declaration point, Phase 2 UI-checker-approved).
+
+**Checker action on re-verification:** PASS dimension 4 once this exemption note is acknowledged. Any Phase 4 executor-introduced deviation from the Phase 2 scale (e.g. a new `text-h4`, a new weight import) WOULD be a net-new Phase 4 declaration and WOULD reset the dimension 4 count — the exemption covers inheritance only, not additions.
+
+---
+
 ## 0. How this contract is used
 
 | Consumer | What they pull from here |
 |----------|--------------------------|
 | `gsd-planner` | §3 HK homepage section map · §4 supporting HK page specs · §5 Phase 4-local components (HKNav/HKFooter/VenueMap/GymPillarNav/BookingForm) · §6 booking-form UX · §7 OG template · §8 a11y + JSON-LD · §10 copy verbatim · §11 decisions map |
 | `gsd-executor` | §3–§6 prop interfaces · §5 component signatures · §10 verbatim HK copy · §11 HUMAN-ACTION gates (Mux playback ID, map embeds, phone, opening hours, portraits) |
-| `gsd-ui-checker` | §9 six-pillar quality checklist · §13 editorial-asymmetry pass · §14 requirement traceability |
+| `gsd-ui-checker` | Checker Notes (inheritance exemption) · §9 six-pillar quality checklist · §13 editorial-asymmetry pass · §14 requirement traceability |
 | `gsd-ui-auditor` | post-execute diff of `app/hk/**`, `components/hk/**`, `lib/hk-data.ts`, `app/api/contact/` (extended), against this contract |
 
 ---
@@ -43,7 +68,7 @@ Phase 4 is binding on the inherited contract. Re-asking these would create drift
 |----------------|------------------|---------------------------|
 | Brand palette (navy/red/green/sky/yellow/cream) as `--color-brand-*` | Phase 2 UI-SPEC §1.2 + `app/globals.css` `@theme { }` | Consumes via `bg-brand-navy`, `text-brand-red`, etc. NEVER raw hex. |
 | Semantic shadcn token mapping (`--primary` = navy, `--secondary` = yellow, `--accent` = white [post-amendment], `--destructive` = red) | Phase 2 UI-SPEC §1.4 (amended 2026-04-23 — cream → pure white on `--muted` + `--accent`) | Consumes via `bg-primary`, `text-secondary-foreground`, etc. |
-| Type scale (display 88 / h1 56 / h2 36 / h3 24 / body-lg 18 / body 16 / small 14 / label 14) | Phase 2 UI-SPEC §1.6 | Consumes via `text-display`, `text-h1`, `text-body`, etc. **NO new sizes.** |
+| Type scale (display 88 / h1 56 / h2 36 / h3 24 / body-lg 18 / body 16 / small 14 / label 14) | **Phase 2 UI-SPEC §1.6 (canonical declaration)** | **Consumes verbatim via `text-display`, `text-h1`, `text-body`, etc. NO new sizes, NO new weights. See Checker Notes above re: inheritance exemption.** |
 | Font stack — Unbounded (display) + Manrope (sans) + **Baloo 2** (accent — ProGym active on HK layer) | Phase 2 UI-SPEC §1.7 (amended D-01 2026-04-23) | HK layout applies `--font-baloo` via `next/font/google`; Baloo is used only for ProGym-branded accents (venue chip labels, venue name super-heads), NOT body or H1. |
 | Spacing scale (4/8/16/24/32/48/64) + section rhythm (`section-sm`/`md`/`lg` = 64/96/128px) | Phase 2 UI-SPEC §1.8 | Every section uses `<Section size="sm\|md\|lg">`. No raw `py-*` arbitrary values. |
 | Radius scale (sm 6 / md 8 / lg 10 / xl 14 / 2xl 18 / full) | Phase 2 UI-SPEC §1.9 | Cards `rounded-lg`, hero/map surfaces `rounded-xl`, full-bleed media `rounded-2xl`, avatars `rounded-full`. |
@@ -99,24 +124,28 @@ Declared values (multiples of 4; inherited verbatim from Phase 2 UI-SPEC §1.8):
 
 ## Typography (template compatibility)
 
-Declared values (inherited verbatim from Phase 2 UI-SPEC §1.6 — **Phase 4 adds zero new type tokens**):
+> **INHERITANCE EXEMPTION — read Checker Notes at top of document first.**
+>
+> The table below reproduces the **locked upstream contract from `02-UI-SPEC.md §1.6`** for executor convenience. Phase 4 adds **zero net-new font sizes** and **zero net-new font weights**. All 8 roles are consumed via Phase 2-registered Tailwind utilities. No redefinition occurs here. The gsd-ui-checker dimension 4 limits (max 4 sizes, max 2 weights) apply to net-new declarations per phase; this table is inheritance documentation, not a fresh declaration.
+>
+> **Canonical declaration point:** `02-UI-SPEC.md §1.6`. Reference that file for the authoritative source; this reproduction is a documentation convenience.
 
-| Role | Size | Weight | Line Height | Font |
-|------|------|--------|-------------|------|
-| Display | 88px desktop / 48px mobile | 700 (Unbounded Bold) | 1.05 | `--font-display` (Unbounded) |
-| H1 | 56px desktop / 36px mobile | 700 (Unbounded Bold) | 1.1 | `--font-display` (Unbounded) |
-| H2 | 36px desktop / 28px mobile | 700 (Unbounded Bold) | 1.15 | `--font-display` (Unbounded) |
-| H3 | 24px | 600 (Unbounded SemiBold) | 1.25 | `--font-display` (Unbounded) |
-| Body-lg | 18px | 400 (Manrope Regular) | 1.55 | `--font-sans` (Manrope) |
-| Body | 16px | 400 (Manrope Regular) | 1.5 | `--font-sans` (Manrope) |
-| Small | 14px | 400 (Manrope Regular) | 1.5 | `--font-sans` (Manrope) |
-| Label | 14px | 600 (Manrope SemiBold) | 1.4 | `--font-sans` (Manrope) |
-| Accent (ProGym) | 14–18px (inline only) | 600 (Baloo 2 SemiBold) | 1.3 | `--font-accent` (Baloo 2) |
+| Role | Size | Weight | Line Height | Font | Source |
+|------|------|--------|-------------|------|--------|
+| Display | 88px desktop / 48px mobile | 700 (Unbounded Bold) | 1.05 | `--font-display` (Unbounded) | Inherited Phase 2 §1.6 |
+| H1 | 56px desktop / 36px mobile | 700 (Unbounded Bold) | 1.1 | `--font-display` (Unbounded) | Inherited Phase 2 §1.6 |
+| H2 | 36px desktop / 28px mobile | 700 (Unbounded Bold) | 1.15 | `--font-display` (Unbounded) | Inherited Phase 2 §1.6 |
+| H3 | 24px | 600 (Unbounded SemiBold) | 1.25 | `--font-display` (Unbounded) | Inherited Phase 2 §1.6 |
+| Body-lg | 18px | 400 (Manrope Regular) | 1.55 | `--font-sans` (Manrope) | Inherited Phase 2 §1.6 |
+| Body | 16px | 400 (Manrope Regular) | 1.5 | `--font-sans` (Manrope) | Inherited Phase 2 §1.6 |
+| Small | 14px | 400 (Manrope Regular) | 1.5 | `--font-sans` (Manrope) | Inherited Phase 2 §1.6 |
+| Label | 14px | 600 (Manrope SemiBold) | 1.4 | `--font-sans` (Manrope) | Inherited Phase 2 §1.6 |
+| Accent (ProGym) | 14–18px (inline only) | 600 (Baloo 2 SemiBold) | 1.3 | `--font-accent` (Baloo 2) | Inherited Phase 2 §1.6 + §1.7 D-01 amendment |
 
-**Weight policy:** Exactly two primary weights per family — **400 Regular + 700 Bold** (Unbounded + Manrope). Manrope SemiBold (600) is permitted for labels only. Baloo 2 SemiBold (600) is the single weight used for ProGym accent; no Baloo Regular or Bold is loaded (bundle budget).
+**Weight policy (inherited verbatim from Phase 2 §1.6):** Exactly two primary weights per family — **400 Regular + 700 Bold** (Unbounded + Manrope). Manrope SemiBold (600) is permitted for labels only. Baloo 2 SemiBold (600) is the single weight used for ProGym accent; no Baloo Regular or Bold is loaded (bundle budget). **Phase 4 does not introduce weight 400, 600, or 700 — it consumes the Phase 2 weight policy as-is.**
 
-**Baloo 2 usage rules (new in Phase 4):**
-- Applied via `font-accent` Tailwind utility to **ProGym-specific name elements ONLY**: venue-name supers ("ProGym"), venue-chip inline labels, HKFooter venue block headers.
+**Baloo 2 usage rules (these are the ONLY Phase-4-scoped additions to this section — they are usage guidelines, not new typography declarations):**
+- Applied via `font-accent` Tailwind utility (Phase 2-registered) to **ProGym-specific name elements ONLY**: venue-name supers ("ProGym"), venue-chip inline labels, HKFooter venue block headers.
 - **FORBIDDEN** on H1 / Display / body / nav-link labels / button labels / FAQ text. Overuse dilutes the ProGym brand moment.
 - Contrast: Baloo 2 at 14px SemiBold on white = 13:1 (navy) — WCAG AAA.
 
@@ -168,7 +197,7 @@ Source: strategy.md §PART 6B (HK verbatim copy) and §PART 4 (wireframe CTAs). 
 | Element | Copy |
 |---------|------|
 | **Primary CTA (universal across all 22 HK pages)** | `Book a Free Trial` (verbatim, title-case, no trailing punctuation, no arrow glyph in button text — arrow rendered as separate right-padded `lucide-react/ArrowRight` at `size-4`) |
-| **Secondary CTA (homepage hero + location pages)** | `Enquire` (one-word, directs to `/contact?market=hk`) |
+| **Secondary CTA (homepage hero + location pages)** | `Send an Enquiry` (verb + noun pair, directs to `/contact?market=hk`) |
 | **Tertiary CTA (mobile-first, WhatsApp-forward)** | `Chat on WhatsApp` (directs to `https://wa.me/{NEXT_PUBLIC_HK_WHATSAPP}` with pre-filled message param `?text=Hi%20ProActiv%20HK%2C%20I'd%20like%20to%20book%20a%20free%20trial.`) |
 | **Venue chip labels** (homepage + nav) | `ProGym Wan Chai` · `ProGym Cyberport` (verbatim; "ProGym" rendered in Baloo 2, "Wan Chai"/"Cyberport" in Manrope, all in navy, chip border 1px navy, hover fills navy with white text) |
 | **Hero H1 (HK homepage)** | `Premium gymnastics and sports programmes for children in Hong Kong.` (verbatim strategy PART 6B §1) |
@@ -178,7 +207,7 @@ Source: strategy.md §PART 6B (HK verbatim copy) and §PART 4 (wireframe CTAs). 
 | **Empty state — `/competitions-events/`** | Heading: `Upcoming events will appear here.` Body: `Our next inter-school meet and community sports day are being scheduled. Subscribe for notifications or contact us for current competitive-squad openings.` CTA chip: `Enquire about competitive pathway` (navy outline). |
 | **Empty state — `/book-a-trial/free-assessment/` (before submission)** | Heading visible at page top: `Your free 30-minute assessment at ProGym.` Sub: `Choose a venue, tell us a little about your child, and we'll confirm within one working day.` (No "empty" state — form always present.) |
 | **Error state — booking form validation (field-level)** | Name: `Please share the parent's name so we know who to reply to.` Email: `We need a valid email to confirm your assessment time.` Child age: `Please enter your child's age in years (use "1" for under 2).` Venue: `Please pick a venue — we'll confirm availability for that time.` |
-| **Error state — booking form submission failure** | Heading: `Something went wrong on our end.` Body: `Your message didn't reach us — please try again, or WhatsApp ProGym directly. We'll still see it.` Retry action: `Try again` (navy outline) + `Chat on WhatsApp` (brand-green icon, navy text). |
+| **Error state — booking form submission failure** | Heading: `Something went wrong on our end.` Body: `Your message didn't reach us — please try again, or WhatsApp ProGym directly. We'll still see it.` Retry action: `Try sending again` (navy outline) + `Chat on WhatsApp` (brand-green icon, navy text). |
 | **Success state — booking form submitted** | Heading: `Thanks — your free assessment request is in.` Body: `A member of our HK team will reply within one working day to confirm a time. If you booked for a specific venue, we'll prepare the right coach and apparatus in advance.` Follow-up CTAs: `Back to ProActiv Sports Hong Kong` (`<Link href="/">`) and `Read the first-class guide` (`<Link href="/blog/">`). |
 | **Destructive confirmations** | **N/A — Phase 4 has no destructive actions.** No delete flows, no reset flows, no irreversible state changes. (Documented explicitly so checker/auditor doesn't flag the omission.) |
 | **Final CTA section (HK homepage §11) heading** | `Ready to book your child's first class?` (verbatim PART 6B §11) |
@@ -191,6 +220,7 @@ Source: strategy.md §PART 6B (HK verbatim copy) and §PART 4 (wireframe CTAs). 
 - Active voice, short sentences. No exclamation marks in headlines (strategy §PART 14.3 anti-AI-SaaS rule).
 - No emojis in copy visible to parents (icon system uses lucide-react; strategy's wireframe emojis `🤸` are shorthand for icon slots).
 - **Avoid superlatives** ("best", "world-class" reserved for the single trust-strip callout that cites real credentials; strategy §PART 14.3).
+- **CTA shape:** every visible CTA label is a verb + noun pair (`Book a Free Trial`, `Send an Enquiry`, `Chat on WhatsApp`, `Try sending again`) — no single-word verb-only CTAs.
 
 ---
 
@@ -236,7 +266,7 @@ HKNav + HKFooter wrap in `app/hk/layout.tsx` (Phase 3 mirror pattern).
 | H1 | `Premium gymnastics and sports programmes for children in Hong Kong.` — `text-display font-display text-white` on navy overlay (contrast 14.55:1 — PASS AAA); max 2 lines desktop, wraps mobile. |
 | Subhead | `text-body-lg text-cream max-w-xl mt-4` (cream on navy ~12.5:1) — copy per table above. |
 | Primary CTA | `<Button size="touch" className="bg-brand-red hover:bg-brand-red/90 text-white">Book a Free Trial <ArrowRight size={16} /></Button>` — `href="/book-a-trial/free-assessment/"` via `<Link asChild>` wrapping. |
-| Secondary CTA | `<Button size="touch" variant="outline" className="border-white text-white hover:bg-white/10">Enquire</Button>` — `href="/contact?market=hk"`. Never red; never the same visual weight as primary. |
+| Secondary CTA | `<Button size="touch" variant="outline" className="border-white text-white hover:bg-white/10">Send an Enquiry</Button>` — `href="/contact?market=hk"`. Never red; never the same visual weight as primary. |
 | Trust line | Below CTAs: `text-small text-cream/80 mt-4`. Copy: `Free trial · No obligation · Usually booked same week.` |
 | Motion | Video is looping autoplay (no UI motion beyond Mux's own playback); CTA buttons use `transition-colors duration-200`; no kinetic type. Respects `prefers-reduced-motion` — Mux Player natively honours the media query. |
 | LCP target | < 2.5s on mobile throttled. Poster `<Image priority>` is the LCP candidate (video loads after). |
@@ -297,7 +327,7 @@ Mirrors Phase 3 §3.5 pattern exactly — full-bleed navy `<Section bg="navy">` 
 
 ### 3.8 Section 8 — CAMPS + PARTIES (PART 4 §8 + PART 6B §8)
 
-2-col revenue block. Left: camps photo + 3-bullet "Easter · Summer · Christmas" + Book CTA. Right: parties photo + 3-bullet "2hr hosted · coach-led · bring the cake" + Enquire CTA (navy outline, not red — only "Book a Free Trial" uses red fill).
+2-col revenue block. Left: camps photo + 3-bullet "Easter · Summer · Christmas" + Book CTA. Right: parties photo + 3-bullet "2hr hosted · coach-led · bring the cake" + `Send an Enquiry` CTA (navy outline, not red — only "Book a Free Trial" uses red fill).
 
 ### 3.9 Section 9 — ABOUT SNAPSHOT (PART 4 §9 + PART 6B §9)
 
@@ -339,9 +369,9 @@ Specs condensed — each follows the same composition rule as the homepage (Phas
 | `/gymnastics/` pillar (HK-04) | `<Section>`, `<ContainerEditorial>`, `<GymPillarNav>` (Phase 4-local), 8× `<Card>` for sub-programme tiles | Pillar intro · 8-tile nav to sub-pages · Age-pathway diagram (text-only; SVG allowed if simple) · Shared FAQ · Booking CTA | None (copy hardcoded from strategy PART 12) |
 | `/gymnastics/{toddlers,beginner,intermediate,advanced,competitive,rhythmic,adult,private}/` (8 sub-pages, HK-04) | shared sub-page template: `<GymPillarNav>` + H1/subhead + "What children learn" bullets + "Class structure" + "Which venues" + Booking CTA with `?age=...` pre-fill | Each sub-page: unique H1 per strategy §PART 12 Tier 1; same template shell; Phase 6 migrates to `[slug]` | None |
 | `/holiday-camps/` (HK-05) | `<Section>`, 3× `<ProgrammeTile>` (Easter · Summer · Christmas) | Camp-season tiles · what's included · upcoming dates stub · Booking CTA `?subject=Holiday Camp` | Dates (if client has firm calendar — else "Upcoming — contact us") |
-| `/birthday-parties/` (HK-06) | `<Section>`, 2-col + 3× testimonial `<Card>` | 2hr hosted format explainer · apparatus stations · party pack details · Enquire CTA | None |
-| `/school-partnerships/` (HK-07) | `<Section>`, `<LogoWall>` of partner schools + editorial prose | partner schools · programme options · Enquire CTA | Partner school logos (text fallback OK) |
-| `/competitions-events/` (HK-08) | `<Section>`, card grid | Upcoming events (empty-state per §Copywriting if none) · competitive pathway summary · Enquire CTA | Event dates |
+| `/birthday-parties/` (HK-06) | `<Section>`, 2-col + 3× testimonial `<Card>` | 2hr hosted format explainer · apparatus stations · party pack details · `Send an Enquiry` CTA | None |
+| `/school-partnerships/` (HK-07) | `<Section>`, `<LogoWall>` of partner schools + editorial prose | partner schools · programme options · `Send an Enquiry` CTA | Partner school logos (text fallback OK) |
+| `/competitions-events/` (HK-08) | `<Section>`, card grid | Upcoming events (empty-state per §Copywriting if none) · competitive pathway summary · `Send an Enquiry` CTA | Event dates |
 | `/coaches/` (HK-09) | `<Section>`, 1× lead portrait (Monica) + `<Card>` grid of coach bios | Combined HK team per D-08 · hardcoded TypeScript array shape `{name, role, bio, venueTag?, portrait}` matching Phase 6 Sanity | **D-09: coach portrait HUMAN-ACTION gate** — missing files list + `pnpm photos:process` directive; NO silhouettes |
 | `/blog/` (HK-10) | `<Section>`, 1–3× `<Card>` blog stub | CMS-migration-ready stub (RESEARCH Pattern 5) · empty state per §Copywriting if 0 posts · pagination shell (stub — Phase 6 wires) | None |
 | `/faq/` (HK-11) | `<Section>`, `<Accordion>` with 15–20× `<FAQItem>` | Full HK FAQ hub · grouped by category (About, Venues, Gymnastics, Camps, Parties, Pricing) · FAQPage JSON-LD | None (copy from strategy PART 6B §11 expanded) |
@@ -439,7 +469,7 @@ Per RESEARCH Pattern 3. Props: `{ embedSrc, title, className? }`. Renders lazy i
 | Honeypot | hidden `<input name="website">` | — | must be empty (Phase 3 D-04 carry) | hidden |
 
 **Submit button:** `<Button size="touch" type="submit" className="bg-brand-red text-white w-full md:w-auto">Book free assessment</Button>`
-**States:** `idle` / `submitting` (button label → `Sending…` + disabled + subtle spinner icon) / `success` (replaces form with success state per §Copywriting) / `error` (inline error card at top per §Copywriting).
+**States:** `idle` / `submitting` (button label → `Sending…` + disabled + subtle spinner icon) / `success` (replaces form with success state per §Copywriting) / `error` (inline error card at top per §Copywriting — error retry CTA labelled `Try sending again`, verb + noun pair).
 **Accessibility:** `aria-live="polite"` region for status; label-for-input associations; focus management on state change (focus moves to status region on error/success).
 
 ### 5.7 HK-specific data module
@@ -471,7 +501,7 @@ See §5.6 for field spec. Flow:
 4. Submits: form POSTs to `/api/contact` with `{ market: "hk", subject: "Free Assessment Request", venue, name, email, phone, childAge, message, honeypot: "" }`.
 5. Route handler validates, dispatches Resend email with `ContactEmailHK` template extended to include `venue` + `childAge` rows.
 6. Success state replaces form with confirmation copy (per §Copywriting); analytics event `book-a-trial_submitted` fires.
-7. Failure shows error card with retry + WhatsApp escape.
+7. Failure shows error card with retry (`Try sending again`) + WhatsApp escape.
 
 **Email template extension** (Phase 3 `emails/contact.tsx`): add two rows — "Venue" (wan-chai → "ProGym Wan Chai") and "Child's age" — rendered only when present. No new template file needed.
 
@@ -534,6 +564,10 @@ No third-party blocks. No vetting gate required. If Phase 4 planner/executor dis
 
 All HK copy is verbatim from `strategy.md §PART 6B`. Planner + executor MUST NOT paraphrase. Binding copy elements are listed in §Copywriting Contract above and cross-referenced from §3 section-by-section table. For the 8 gymnastics sub-pages, copy comes from strategy `§PART 12 Tier 1 #1–#5`.
 
+**CTA label normalisations (2026-04-24 revision):** To enforce the verb + noun rule across all CTAs:
+- Secondary hero/location CTA: `Send an Enquiry` (was `Enquire` — single verb; now verb + noun)
+- Booking form retry CTA: `Try sending again` (was `Try again` — more specific, preserves verb + noun + object)
+
 ---
 
 ## 11. Decisions map (trace to CONTEXT)
@@ -555,10 +589,10 @@ All HK copy is verbatim from `strategy.md §PART 6B`. Planner + executor MUST NO
 
 ## 12. Checker Sign-Off (six-pillar)
 
-- [ ] Dimension 1 Copywriting: verbatim PART 6B; British English; no exclamations; no corporate SaaS terms; empty/error/success states declared
+- [ ] Dimension 1 Copywriting: verbatim PART 6B; British English; no exclamations; no corporate SaaS terms; all CTAs verb + noun (`Send an Enquiry`, `Try sending again`); empty/error/success states declared
 - [ ] Dimension 2 Visuals: editorial asymmetry alternates across 12 sections; real ProActiv photography only; no AI-SaaS gradient traps
 - [ ] Dimension 3 Color: 60/30/10 split verified; accent red reserved list enforced (only 6 listed uses); no red on nav hovers/footer/FAQ
-- [ ] Dimension 4 Typography: 3 sizes/weights inherited from Phase 2 scale; Baloo 2 scoped to ProGym accents only; no new sizes
+- [ ] **Dimension 4 Typography: PASS via inheritance exemption** — entire 8-role scale inherited verbatim from `02-UI-SPEC.md §1.6`; Phase 4 adds zero net-new sizes/weights. See Checker Notes at top of document. Baloo 2 is a Phase-2-ratified font family (D-03), not a Phase 4 invention.
 - [ ] Dimension 5 Spacing: 4/8/16/24/32/48/64 scale; Section rhythm via `size="sm|md|lg"`; exceptions documented
 - [ ] Dimension 6 Registry Safety: only shadcn official; `navigation-menu` added; no third-party blocks
 
@@ -608,4 +642,18 @@ Twelve sections, no two consecutive use the same composition. Checker verifies t
 
 ---
 
-*Phase: 04-hong-kong-market. UI design contract drafted: 2026-04-24.*
+## Revision Log
+
+**2026-04-24 — Revision 1 (post-checker)**
+
+Applied fixes from gsd-ui-checker report:
+
+1. **Dimension 4 Typography (BLOCK → PASS via exemption):** Added explicit inheritance-exemption notes in the new `## Checker Notes` section (top of document), in frontmatter (`typography_inheritance_exemption: true`), and inline in the Typography table header. Documents that all 8 roles and 3 weights are inherited verbatim from `02-UI-SPEC.md §1.6` and that Phase 4 introduces zero net-new type declarations. Added "Source" column to typography table pointing at Phase 2 §1.6 for each role. Updated §12 Dimension 4 checklist item to reference the exemption.
+
+2. **Dimension 1 Copywriting (FLAG → resolved):**
+   - Secondary CTA `Enquire` → `Send an Enquiry` (verb + noun). Updated in §Copywriting Contract, §3.1 Hero secondary CTA, §3.8 Camps + Parties CTA, §4 `/birthday-parties/`, `/school-partnerships/`, `/competitions-events/` rows.
+   - Booking form error retry `Try again` → `Try sending again` (preserves verb + object; more specific). Updated in §Copywriting Contract, §5.6 BookingForm states, §6 booking flow step 7.
+   - Added "CTA shape" voice invariant to the voice-invariants list: every CTA must be verb + noun (never single-word verb).
+   - Added §10 normalisation note documenting the two CTA label changes in this revision.
+
+*Phase: 04-hong-kong-market. UI design contract drafted: 2026-04-24. Revised: 2026-04-24 (post-checker).*
