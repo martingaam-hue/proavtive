@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12",
+  "generated": "2026-04-25",
+  "crawl_sources": [
+    "proactivsports.net",
+    "hk.proactivsports.net",
+    "sg.proactivsports.net"
+  ],
+  "gsb_check_date": "REPLACE_WITH_DATE",
+  "gsb_status": "unknown",
+  "note": "DEVELOPER: (1) Complete HUMAN-ACTION steps in 09-03-T01 and 09-03-T03. (2) Update gsb_check_date + gsb_status. (3) Populate redirects[] from NET-URL-INVENTORY.csv. (4) Move non-trafficked URLs to unmapped_urls[]. (5) Run Plan 09-04 to sync to vercel.json.",
+  "redirects": [
+    {
+      "source": "/gymnastics",
+      "destination": "https://hk.proactivsports.com/gymnastics/",
+      "statusCode": 301,
+      "source_domain": "proactivsports.net",
+      "target_market": "hk",
+      "has_backlinks": true,
+      "has_traffic": true,
+      "note": "Primary gymnastics pillar — VERIFY: confirm this path exists and has backlinks in crawl output"
+    },
+    {
+      "source": "/holiday-camps",
+      "destination": "https://hk.proactivsports.com/holiday-camps/",
+      "statusCode": 301,
+      "source_domain": "proactivsports.net",
+      "target_market": "hk",
+      "has_backlinks": false,
+      "has_traffic": true,
+      "note": "STUB: update has_backlinks/has_traffic from crawl data"
+    },
+    {
+      "source": "/birthday-parties",
+      "destination": "https://hk.proactivsports.com/birthday-parties/",
+      "statusCode": 301,
+      "source_domain": "proactivsports.net",
+      "target_market": "hk",
+      "has_backlinks": false,
+      "has_traffic": true,
+      "note": "STUB: update has_backlinks/has_traffic from crawl data"
+    },
+    {
+      "source": "/about",
+      "destination": "https://proactivsports.com/brand/",
+      "statusCode": 301,
+      "source_domain": "proactivsports.net",
+      "target_market": "root",
+      "has_backlinks": false,
+      "has_traffic": true,
+      "note": "STUB: update has_backlinks/has_traffic from crawl data"
+    },
+    {
+      "source": "/contact",
+      "destination": "https://proactivsports.com/contact/",
+      "statusCode": 301,
+      "source_domain": "proactivsports.net",
+      "target_market": "root",
+      "has_backlinks": false,
+      "has_traffic": true,
+      "note": "STUB: update has_backlinks/has_traffic from crawl data"
+    },
+    {
+      "source": "/blog",
+      "destination": "https://hk.proactivsports.com/blog/",
+      "statusCode": 301,
+      "source_domain": "proactivsports.net",
+      "target_market": "hk",
+      "has_backlinks": false,
+      "has_traffic": true,
+      "note": "STUB: if SG also had a /blog on proactivsports.net, add a separate entry for sg subdomain source"
+    },
+    {
+      "source": "/blog/:slug*",
+      "destination": "https://hk.proactivsports.com/blog/:slug*",
+      "statusCode": 301,
+      "source_domain": "proactivsports.net",
+      "target_market": "hk",
+      "has_backlinks": true,
+      "has_traffic": true,
+      "note": "Wildcard slug capture — covers all blog post URLs. VERIFY: confirm HK was the blog domain on .net"
+    }
+  ],
+  "unmapped_urls": [
+    {
+      "url": "https://proactivsports.net/wp-login.php",
+      "source_domain": "proactivsports.net",
+      "reason": "spam_page",
+      "note": "WordPress attack surface — intentional 404 on new ecosystem"
+    },
+    {
+      "url": "https://proactivsports.net/wp-admin",
+      "source_domain": "proactivsports.net",
+      "reason": "spam_page",
+      "note": "WordPress attack surface — intentional 404 on new ecosystem"
+    }
+  ]
+}
