@@ -47,11 +47,12 @@ beforeAll(() => {
 afterEach(() => cleanup());
 
 // Shared import — page exists (Plan 04-04 shipped it); no longer needs @vite-ignore scaffolding.
+// 20s hook timeout matches the cold RSC import warm-up (testTimeout is 15s; hookTimeout defaults to 10s).
 let WanChaiPage: () => JSX.Element;
 beforeAll(async () => {
   const mod = await import("./page");
   WanChaiPage = mod.default as any;
-});
+}, 20000);
 
 describe("/wan-chai/ (HK-02) — verbatim NAP", () => {
   it("renders '15/F, The Hennessy, 256 Hennessy Road' somewhere on the page", async () => {

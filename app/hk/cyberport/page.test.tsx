@@ -49,11 +49,12 @@ beforeAll(() => {
 afterEach(() => cleanup());
 
 // Shared import — page exists (Plan 04-04 shipped it); no longer needs @vite-ignore scaffolding.
+// 20s hook timeout matches the cold RSC import warm-up (testTimeout is 15s; hookTimeout defaults to 10s).
 let CyberportPage: () => JSX.Element;
 beforeAll(async () => {
   const mod = await import("./page");
   CyberportPage = mod.default as any;
-});
+}, 20000);
 
 describe("/cyberport/ (HK-03) — '5,000 sq ft' verbatim", () => {
   it("renders the literal text '5,000 sq ft' somewhere on the page", async () => {
