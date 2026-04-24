@@ -17,6 +17,7 @@
 
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
+import { trackBookATrial } from '@/lib/analytics'
 import {
   Loader2,
   MapPin,
@@ -102,6 +103,7 @@ export function BookingForm() {
         body: JSON.stringify(payload),
       });
       if (res.ok) {
+        trackBookATrial('hk', venue)
         setStatus("success");
         return;
       }

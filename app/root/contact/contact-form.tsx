@@ -8,6 +8,7 @@
 
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
+import { trackEnquiry } from '@/lib/analytics'
 import { Loader2, MapPin, CheckCircle2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -48,6 +49,7 @@ export function ContactForm() {
         body: JSON.stringify(payload),
       });
       if (res.ok) {
+        trackEnquiry('root')
         setStatus("success");
         return;
       }
