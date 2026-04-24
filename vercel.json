@@ -2,5 +2,42 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "buildCommand": "pnpm build",
-  "installCommand": "pnpm install --frozen-lockfile"
+  "installCommand": "pnpm install --frozen-lockfile",
+  "redirects": [
+    {
+      "source": "/gymnastics",
+      "destination": "https://hk.proactivsports.com/gymnastics/",
+      "statusCode": 301
+    },
+    {
+      "source": "/holiday-camps",
+      "destination": "https://hk.proactivsports.com/holiday-camps/",
+      "statusCode": 301
+    },
+    {
+      "source": "/birthday-parties",
+      "destination": "https://hk.proactivsports.com/birthday-parties/",
+      "statusCode": 301
+    },
+    {
+      "source": "/about",
+      "destination": "https://proactivsports.com/brand/",
+      "statusCode": 301
+    },
+    {
+      "source": "/contact",
+      "destination": "https://proactivsports.com/contact/",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog",
+      "destination": "https://hk.proactivsports.com/blog/",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/:slug*",
+      "destination": "https://hk.proactivsports.com/blog/:slug*",
+      "statusCode": 301
+    }
+  ]
 }
