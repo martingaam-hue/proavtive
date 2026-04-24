@@ -1,6 +1,25 @@
 import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
 
+// Phase 9 / Plan 09-02 — Security headers (MIG-03).
+// CSP covers all Phase 0–8 resource origins. `unsafe-inline` is required for
+// GTM (script-src) and Tailwind/shadcn inline styles (style-src).
+// Post-launch hardening: introduce CSP nonce via middleware to remove unsafe-inline.
+const CSP_HEADER = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.sanity.io",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com",
+  "img-src 'self' data: blob: https://cdn.sanity.io https://image.mux.com https://*.googleusercontent.com",
+  "media-src 'self' https://stream.mux.com https://www.googleapis.com",
+  "connect-src 'self' https://*.sanity.io https://www.google-analytics.com https://analytics.google.com https://*.sentry.io",
+  "frame-src 'self' https://www.google.com https://maps.google.com https://www.googletagmanager.com",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "upgrade-insecure-requests",
+].join("; ");
+
 // Phase 0 / Plan 00-03 — X-Robots-Tag: noindex, nofollow on all non-production deploys (D-15).
 // Phase 0 / Plan 00-05 — wrapped with withSentryConfig (source-map upload, release tagging, ad-blocker tunnel).
 const nextConfig: NextConfig = {
@@ -33,18 +52,54 @@ const nextConfig: NextConfig = {
     //   'production'  — the live custom domain (Phase 10)
     //   'preview'     — every PR / branch preview
     //   'development' — `vercel dev` locally
-    // Block indexing on anything that is NOT production — belt-and-braces behind Deployment Protection (D-14).
     const isProd = process.env.VERCEL_ENV === "production";
 
+    // Security headers applied to ALL routes on ALL environments.
+    // HSTS includeSubDomains covers hk.* and sg.* once domain is live (Phase 10).
+    // X-Frame-Options SAMEORIGIN allows Sanity Studio iframe (same-origin embed).
+    const securityHeaders = [
+      {
+        key: "Strict-Transport-Security",
+        value: "max-age=31536000; includeSubDomains; preload",
+      },
+      {
+        key: "X-Content-Type-Options",
+        value: "nosniff",
+      },
+      {
+        key: "X-Frame-Options",
+        value: "SAMEORIGIN",
+      },
+      {
+        key: "Referrer-Policy",
+        value: "strict-origin-when-cross-origin",
+      },
+      {
+        key: "Permissions-Policy",
+        value: "camera=(), microphone=(), geolocation=(), payment=()",
+      },
+      {
+        key: "Content-Security-Policy",
+        value: CSP_HEADER,
+      },
+    ];
+
     if (isProd) {
-      // Production: no noindex header. Real robots.txt ships in Phase 7 (SEO-03).
-      return [];
+      // Production: security headers only — no noindex.
+      return [
+        {
+          source: "/(.*)",
+          headers: securityHeaders,
+        },
+      ];
     }
 
+    // Non-production (preview / dev): security headers + noindex.
+    // Belt-and-braces behind Deployment Protection (D-14). Real robots.txt ships in Phase 7 (SEO-03).
     return [
       {
-        source: "/:path*",
-        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+        source: "/(.*)",
+        headers: [...securityHeaders, { key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
     ];
   },
