@@ -123,6 +123,6 @@ function rewriteToMarket(req: NextRequest, market: Market): NextResponse {
 // code-level inside app/%5Fdesign/page.tsx via `if (process.env.VERCEL_ENV === 'production') notFound();`.
 export const config = {
   matcher: [
-    "/((?!_next/|_design|api/health|favicon\\.ico|monitoring|studio|.*\\.(?:svg|png|jpg|jpeg|webp|avif|ico|gif|woff2?)).*)",
+    "/((?!_next/|_design|api/health|favicon\\.ico|monitoring|studio|sitemap\\.xml|robots\\.txt|llms\\.txt|llms-full\\.txt|.*\\.(?:svg|png|jpg|jpeg|webp|avif|ico|gif|woff2?)).*)",
   ],
 };
