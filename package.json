@@ -19,6 +19,7 @@
     "test:unit:watch": "vitest",
     "photos:process": "node scripts/process-photos.mjs",
     "redirects:verify": "node scripts/verify-redirects.mjs",
+    "typegen": "sanity schema extract && sanity typegen generate",
     "prepare": "lefthook install"
   },
   "dependencies": {
