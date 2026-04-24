@@ -25,9 +25,13 @@ export const manrope = Manrope({
   display: "swap",
 });
 
+// Phase 4 / Plan 04-02 — Added weight "600" (SemiBold) per UI-SPEC §1 weight policy
+// (Baloo 2 SemiBold 600 is the ONLY weight used for ProGym accent on the HK layer).
+// Previous Phase 2 weights retained for graceful fallback — `font-accent` utility will
+// render SemiBold where Tailwind applies `font-semibold`, matching UI-SPEC §1 + §5.1.
 export const baloo = Baloo_2({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-baloo",
   display: "swap",
 });
