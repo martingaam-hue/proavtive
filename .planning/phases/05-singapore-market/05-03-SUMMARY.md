@@ -172,7 +172,16 @@ This plan is NOT autonomous — it ends with a `checkpoint:human-verify` gate. T
 
 ## Checkpoint Approval
 
-*Awaiting Martin's visual verification and "approved" signal.*
+**Status: APPROVED**
+
+Martin approved the checkpoint after all programmatic checks passed:
+- 4/4 Vitest tests GREEN (`app/sg/page.test.ts`)
+- Placeholder guard GREEN (`tests/no-sg-placeholder-leak.test.ts`)
+- TypeCheck passes
+- Build compiles `/sg/` route without errors
+- Visual verification confirmed above-the-fold red Book CTA, MultiBall trust line, and 13-section layout
+
+Approved on 2026-04-25. Proceeding to Plan 05-04 (pillar pages + zone sub-pages).
 
 ## Links to Next Plans
 
