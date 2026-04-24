@@ -37,6 +37,7 @@ import { LogoWall } from "@/components/ui/logo-wall";
 import { FAQItem } from "@/components/ui/faq-item";
 import { VenueChipRow } from "@/components/sg/venue-chip-row";
 import { SGHeroVideo } from "@/components/sg/sg-hero-video";
+import { WhatsAppCTA } from "@/components/sg/whatsapp-cta";
 import {
   SG_FAQ_ITEMS,
   SG_ZONES,
@@ -793,19 +794,16 @@ function FinalCTASection() {
                 variant="outline"
                 className="border-white text-white hover:bg-white/10 bg-transparent"
               >
-                <a
-                  href={`https://wa.me/${sanitisedWhatsapp}?text=${encodeURIComponent(
-                    "Hi Prodigy SG, I'd like to book a free trial.",
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <WhatsAppCTA
+                  phone={sanitisedWhatsapp}
+                  message="Hi Prodigy SG, I'd like to book a free trial."
                 >
                   Chat on WhatsApp{" "}
                   <MessageCircle
                     className="ml-2 size-4"
                     aria-hidden="true"
                   />
-                </a>
+                </WhatsAppCTA>
               </Button>
             )}
           </div>

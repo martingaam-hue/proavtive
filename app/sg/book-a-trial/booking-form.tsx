@@ -17,6 +17,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { trackBookATrial } from '@/lib/analytics'
 import {
   Loader2,
   CheckCircle2,
@@ -74,6 +75,7 @@ export function BookingForm() {
         body: JSON.stringify(payload),
       });
       if (res.ok) {
+        trackBookATrial('sg', 'katong-point')
         setStatus("success");
         return;
       }
