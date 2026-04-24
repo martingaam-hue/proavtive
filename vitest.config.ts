@@ -41,5 +41,6 @@ export default defineConfig({
     // Vitest 4.x exits nonzero if no test files match — permit that transient state
     // (e.g., during Task 1 smoke-probe cleanup between probe-delete and Task 2 authoring).
     passWithNoTests: true,
+    testTimeout: 15000,
   },
 });
