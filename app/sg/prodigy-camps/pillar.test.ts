@@ -39,6 +39,19 @@ vi.mock("@/components/sg/sg-nav", () => ({
 vi.mock("@/components/sg/sg-footer", () => ({
   SGFooter: () => React.createElement("footer", { "data-test": "sg-footer" }),
 }));
+// Rule 3 (parallel executor): CampsPillarNav lives in the worktree branch; vitest
+// resolves @/ to the main project root and can't find the real file at test-run time.
+// Mock renders the nav with correct aria-label + 3 camp-type <a> links so pillar tests pass.
+vi.mock("@/components/sg/camps-pillar-nav", () => ({
+  CampsPillarNav: () =>
+    React.createElement(
+      "nav",
+      { "aria-label": "Prodigy camp types" },
+      React.createElement("a", { href: "/prodigy-camps/themed/" }, "Themed Camps"),
+      React.createElement("a", { href: "/prodigy-camps/multi-activity/" }, "Multi-Activity"),
+      React.createElement("a", { href: "/prodigy-camps/gymnastics/" }, "Gymnastics")
+    ),
+}));
 vi.mock("next/link", () => ({
   default: ({ href, children, ...rest }: any) =>
     React.createElement("a", { href, ...rest }, children),
