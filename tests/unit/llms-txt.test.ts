@@ -1,44 +1,63 @@
 import { describe, it, expect } from 'vitest'
-
-// Wave 1 will convert these TODOs to real assertions that call GET() from the route handlers.
+import { GET as hkGET } from '../../app/hk/llms.txt/route'
+import { GET as sgGET } from '../../app/sg/llms.txt/route'
+import { GET as rootGET } from '../../app/root/llms.txt/route'
 
 describe('HK llms.txt route', () => {
-  it('TODO: response Content-Type is text/plain; charset=utf-8', () => {
-    // Wave 1: const res = await GET()
-    // expect(res.headers.get('Content-Type')).toBe('text/plain; charset=utf-8')
-    expect(true).toBe(true)
+  it('response Content-Type is text/plain; charset=utf-8', async () => {
+    const res = await hkGET()
+    expect(res.headers.get('Content-Type')).toBe('text/plain; charset=utf-8')
   })
 
-  it('TODO: response body starts with # (H1 heading required by spec)', () => {
-    // Wave 1: const text = await res.text()
-    // expect(text.trim().startsWith('# ')).toBe(true)
-    expect(true).toBe(true)
+  it('response body starts with # H1 heading (required by llmstxt.org spec)', async () => {
+    const res = await hkGET()
+    const text = await res.text()
+    expect(text.trim().startsWith('# ')).toBe(true)
   })
 
-  it('TODO: response body contains blockquote (> ) as required by llmstxt.org spec', () => {
-    // Wave 1: expect(text).toContain('\n> ')
-    expect(true).toBe(true)
+  it('response body contains blockquote (> ) as required by spec', async () => {
+    const res = await hkGET()
+    const text = await res.text()
+    expect(text).toContain('\n> ')
   })
 
-  it('TODO: response body contains no H3 or deeper headings (spec violation)', () => {
-    // Wave 1: expect(text).not.toMatch(/^###/m)
-    expect(true).toBe(true)
+  it('response body contains no H3 or deeper headings (spec violation)', async () => {
+    const res = await hkGET()
+    const text = await res.text()
+    expect(text).not.toMatch(/^###/m)
   })
 
-  it('TODO: response body contains no HTML markup', () => {
-    // Wave 1: expect(text).not.toMatch(/<[a-z][\s\S]*>/i)
-    expect(true).toBe(true)
+  it('response body contains no HTML markup', async () => {
+    const res = await hkGET()
+    const text = await res.text()
+    expect(text).not.toMatch(/<[a-z][\s\S]*>/i)
+  })
+
+  it('contains ## Optional section', async () => {
+    const res = await hkGET()
+    const text = await res.text()
+    expect(text).toContain('## Optional')
   })
 })
 
 describe('SG llms.txt route', () => {
-  it('TODO: passes same checks as HK', () => {
-    expect(true).toBe(true)
+  it('passes spec checks: H1, blockquote, no H3, no HTML', async () => {
+    const res = await sgGET()
+    const text = await res.text()
+    expect(text.trim().startsWith('# ')).toBe(true)
+    expect(text).toContain('\n> ')
+    expect(text).not.toMatch(/^###/m)
+    expect(text).not.toMatch(/<[a-z][\s\S]*>/i)
   })
 })
 
 describe('Root llms.txt route', () => {
-  it('TODO: passes same checks as HK', () => {
-    expect(true).toBe(true)
+  it('passes spec checks: H1, blockquote, no H3, no HTML', async () => {
+    const res = await rootGET()
+    const text = await res.text()
+    expect(text.trim().startsWith('# ')).toBe(true)
+    expect(text).toContain('\n> ')
+    expect(text).not.toMatch(/^###/m)
+    expect(text).not.toMatch(/<[a-z][\s\S]*>/i)
   })
 })

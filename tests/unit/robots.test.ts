@@ -1,34 +1,37 @@
 import { describe, it, expect } from 'vitest'
-
-// These tests will become real assertions in Wave 1 when robots.ts files are created.
+import hkRobots from '../../app/hk/robots'
+import sgRobots from '../../app/sg/robots'
+import rootRobots from '../../app/root/robots'
 
 describe('HK robots', () => {
-  it('TODO: returns allow-all rule for all user agents', () => {
-    // Wave 1: import robots from '../../app/hk/robots'
-    // const r = robots()
-    // expect(r.rules).toMatchObject({ userAgent: '*', allow: '/' })
-    expect(true).toBe(true)
+  it('returns allow-all rule for all user agents', () => {
+    const r = hkRobots()
+    expect(r.rules).toMatchObject({ userAgent: '*', allow: '/' })
   })
 
-  it('TODO: sitemap URL points to production origin', () => {
-    // Wave 1: expect(r.sitemap).toBe('https://hk.proactivsports.com/sitemap.xml')
-    expect(true).toBe(true)
+  it('sitemap URL points to HK production origin', () => {
+    const r = hkRobots()
+    expect(r.sitemap).toBe('https://hk.proactivsports.com/sitemap.xml')
   })
 
-  it('TODO: host field is hk.proactivsports.com', () => {
-    // Wave 1: expect(r.host).toBe('hk.proactivsports.com')
-    expect(true).toBe(true)
+  it('host field is hk.proactivsports.com', () => {
+    const r = hkRobots()
+    expect(r.host).toBe('hk.proactivsports.com')
   })
 })
 
 describe('SG robots', () => {
-  it('TODO: returns allow-all and correct sitemap for SG', () => {
-    expect(true).toBe(true)
+  it('returns allow-all and correct sitemap for SG', () => {
+    const r = sgRobots()
+    expect(r.rules).toMatchObject({ userAgent: '*', allow: '/' })
+    expect(r.sitemap).toBe('https://sg.proactivsports.com/sitemap.xml')
   })
 })
 
 describe('Root robots', () => {
-  it('TODO: returns allow-all and correct sitemap for root', () => {
-    expect(true).toBe(true)
+  it('returns allow-all and correct sitemap for root', () => {
+    const r = rootRobots()
+    expect(r.rules).toMatchObject({ userAgent: '*', allow: '/' })
+    expect(r.sitemap).toBe('https://proactivsports.com/sitemap.xml')
   })
 })
