@@ -7,7 +7,7 @@ import { withSentryConfig } from "@sentry/nextjs";
 // Post-launch hardening: introduce CSP nonce via middleware to remove unsafe-inline.
 const CSP_HEADER = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.sanity.io",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdn.sanity.io https://core.sanity-cdn.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: blob: https://cdn.sanity.io https://image.mux.com https://*.googleusercontent.com",
@@ -41,6 +41,16 @@ const nextConfig: NextConfig = {
   // Sentry still receives source maps via its own separate upload mechanism
   // (deleteSourcemapsAfterUpload: true in withSentryConfig — it uploads before
   // deletion; CI has no SENTRY_AUTH_TOKEN so source-map upload is skipped there).
+  // Note: webpack alias approach (react$ / turbopack.resolveAlias) cannot fix the
+  // useEffectEvent crash — Next.js uses layer-based module resolution that overrides
+  // global resolve.alias. The fix is in scripts/patch-next-react.mjs (postinstall).
+  turbopack: {
+    resolveAlias: {
+      react: "react",
+      "react-dom": "react-dom",
+    },
+  },
+
   experimental: {
     turbopackSourceMaps: false,
   },

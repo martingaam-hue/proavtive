@@ -8,7 +8,7 @@
   },
   "packageManager": "pnpm@10.30.3",
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
@@ -20,7 +20,7 @@
     "photos:process": "node scripts/process-photos.mjs",
     "redirects:verify": "node scripts/verify-redirects.mjs",
     "typegen": "sanity schema extract && sanity typegen generate",
-    "postinstall": "node scripts/minify-sanity.mjs",
+    "postinstall": "node scripts/minify-sanity.mjs && node scripts/patch-next-react.mjs",
     "prepare": "lefthook install"
   },
   "dependencies": {
@@ -76,9 +76,6 @@
   "pnpm": {
     "overrides": {
       "path-to-regexp": ">=8.4.0"
-    },
-    "patchedDependencies": {
-      "sanity@5.22.0": "patches/sanity@5.22.0.patch"
     }
   }
 }
