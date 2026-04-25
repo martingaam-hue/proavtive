@@ -86,22 +86,24 @@ export default defineConfig({
               ],
             }),
           },
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore — siteSettings/hkSettings/sgSettings have no slug to select; resolve-only is valid at runtime
+          // Singleton resolvers: `select` must be provided even when no fields are needed.
+          // Omitting `select` causes Sanity 5.x to emit a schema warning (one of the 6 Issues).
+          // We select `_id` as a minimal valid sentinel — it's always present on every document.
           siteSettings: {
+            select: { id: "_id" },
             resolve: () => ({
               locations: [{ title: "Root Homepage", href: "/" }],
             }),
           },
-          // @ts-ignore
           hkSettings: {
+            select: { id: "_id" },
             resolve: () => ({
               // Middleware routes hk.* → /(hk); locally test via hk.localhost:3000
               locations: [{ title: "HK Homepage", href: "/" }],
             }),
           },
-          // @ts-ignore
           sgSettings: {
+            select: { id: "_id" },
             resolve: () => ({
               locations: [{ title: "SG Homepage", href: "/" }],
             }),

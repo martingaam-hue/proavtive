@@ -20,11 +20,6 @@ export const imageWithAlt = defineType({
         ),
     }),
   ],
-  validation: (Rule) =>
-    Rule.custom((value: { asset?: unknown; alt?: string } | undefined) => {
-      if (value?.asset && !value?.alt) {
-        return "Alt text is required when an image is uploaded.";
-      }
-      return true;
-    }),
+  // Removed duplicate type-level Rule.custom() — field-level Rule.required() above is sufficient.
+  // Duplicate validation on the same constraint caused one of the 6 studio schema warnings.
 });

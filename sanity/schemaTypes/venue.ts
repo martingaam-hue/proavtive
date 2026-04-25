@@ -75,11 +75,18 @@ export const venue = defineType({
       type: "array",
       of: [
         {
+          // name is required on inline array object definitions in Sanity v3 to avoid
+          // "schema type is missing a name" warning (one of the 6 studio schema warnings).
+          name: "openingHoursEntry",
           type: "object",
+          title: "Opening hours entry",
           fields: [
             { name: "days", type: "string", title: "Days (e.g. Mon–Fri)" },
             { name: "hours", type: "string", title: "Hours (e.g. 9:00–18:00)" },
           ],
+          preview: {
+            select: { title: "days", subtitle: "hours" },
+          },
         },
       ],
       description: "Opening hours by day range.",
