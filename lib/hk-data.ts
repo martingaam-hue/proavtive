@@ -1,4 +1,6 @@
 // Phase 4 / Plan 04-01 — HK static data module.
+// Phase 8 / Plan 08-03 — NAP fields (nameShort, nameFull, addressStreet, addressLocality,
+// addressRegion) now reference VENUES constants from lib/venues.ts (SEO-10 NAP consistency).
 // Shape MUST mirror Phase 6 Sanity schemas (coach, post, venue, faqItem) so Phase 6 GROQ queries
 // drop in without component edits. Do NOT add fields that won't exist in Sanity.
 //
@@ -17,6 +19,8 @@
 //   strategy.md §PART 6B §1–§11 (verbatim HK copy)
 //   strategy.md §PART 8.3 (NAP for Wan Chai + Cyberport)
 //   strategy.md §PART 12 Tier 1 #1-#5 (gymnastics programme age bands)
+
+import { VENUES } from "@/lib/venues";
 
 /* ────────────────────────────────────────────────────────────
  * Interfaces
@@ -100,13 +104,14 @@ export interface HKGymnasticsProgramme {
 export const HK_VENUES: readonly HKVenue[] = [
   {
     id: "wan-chai",
-    nameShort: "Wan Chai",
-    nameFull: "ProGym Wan Chai",
-    addressStreet: "15/F, The Hennessy, 256 Hennessy Road",
-    addressLocality: "Wan Chai",
-    addressRegion: "Hong Kong Island",
+    // NAP sourced from lib/venues.ts (SEO-10 single source of truth)
+    nameShort: VENUES.wanChai.shortName,
+    nameFull: VENUES.wanChai.name,
+    addressStreet: VENUES.wanChai.address,
+    addressLocality: VENUES.wanChai.locality,
+    addressRegion: VENUES.wanChai.region,
     addressCountry: "HK",
-    geo: { lat: 22.2772, lng: 114.173 },
+    geo: VENUES.wanChai.geo ?? { lat: 22.2772, lng: 114.173 },
     hours: [
       // HUMAN-ACTION: confirm hours — placeholder from strategy PART 9.4.
       { days: ["Mo", "Tu", "We", "Th", "Fr"], opens: "09:00", closes: "19:00" },
@@ -120,14 +125,17 @@ export const HK_VENUES: readonly HKVenue[] = [
   },
   {
     id: "cyberport",
-    nameShort: "Cyberport",
-    nameFull: "ProGym Cyberport",
-    // HUMAN-ACTION: replace with exact building + floor when Martin confirms.
-    addressStreet: "Cyberport Campus",
-    addressLocality: "Cyberport, Pokfulam",
-    addressRegion: "Hong Kong Island",
+    // NAP sourced from lib/venues.ts (SEO-10 single source of truth)
+    // HUMAN-ACTION (D-08): VENUES.cyberport.address is a holding value pending
+    // client confirmation of the exact Cyberport unit/floor. Update lib/venues.ts
+    // when confirmed — this file will pick up the change automatically.
+    nameShort: VENUES.cyberport.shortName,
+    nameFull: VENUES.cyberport.name,
+    addressStreet: VENUES.cyberport.address,
+    addressLocality: VENUES.cyberport.locality,
+    addressRegion: VENUES.cyberport.region,
     addressCountry: "HK",
-    geo: { lat: 22.2618, lng: 114.1303 },
+    geo: VENUES.cyberport.geo ?? { lat: 22.2618, lng: 114.1303 },
     hours: [
       // HUMAN-ACTION: confirm hours — placeholder from strategy PART 9.4.
       { days: ["Mo", "Tu", "We", "Th", "Fr"], opens: "09:00", closes: "19:00" },

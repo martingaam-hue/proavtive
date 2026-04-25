@@ -50,6 +50,7 @@ import { VenueChipRow } from "@/components/hk/venue-chip-row";
 import { HKHeroVideo } from "@/components/hk/hk-hero-video";
 import { WhatsAppCTA } from "@/components/hk/whatsapp-cta";
 import { HK_VENUES, HK_FAQ_ITEMS, HK_BLOG_POSTS_STUB } from "@/lib/hk-data";
+import { VENUES } from "@/lib/venues";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Page metadata — per-page openGraph fully specified (Pitfall 2 — shallow merge).
@@ -108,39 +109,39 @@ const hkHomeSchema = {
     {
       "@type": "SportsActivityLocation",
       "@id": "https://hk.proactivsports.com/#localbusiness-wan-chai",
-      name: "ProGym Wan Chai",
+      name: VENUES.wanChai.name,
       url: "https://hk.proactivsports.com/wan-chai/",
       parentOrganization: { "@id": "https://proactivsports.com/#organization" },
       address: {
         "@type": "PostalAddress",
-        streetAddress: "15/F, The Hennessy, 256 Hennessy Road",
-        addressLocality: "Wan Chai",
-        addressRegion: "Hong Kong Island",
-        addressCountry: "HK",
+        streetAddress: VENUES.wanChai.address,
+        addressLocality: VENUES.wanChai.locality,
+        addressRegion: VENUES.wanChai.region,
+        addressCountry: VENUES.wanChai.country,
       },
       geo: {
         "@type": "GeoCoordinates",
-        latitude: 22.2772,
-        longitude: 114.173,
+        latitude: VENUES.wanChai.geo?.lat ?? 22.2772,
+        longitude: VENUES.wanChai.geo?.lng ?? 114.173,
       },
     },
     {
       "@type": "SportsActivityLocation",
       "@id": "https://hk.proactivsports.com/#localbusiness-cyberport",
-      name: "ProGym Cyberport",
+      name: VENUES.cyberport.name,
       url: "https://hk.proactivsports.com/cyberport/",
       parentOrganization: { "@id": "https://proactivsports.com/#organization" },
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Cyberport Campus",
-        addressLocality: "Cyberport, Pokfulam",
-        addressRegion: "Hong Kong Island",
-        addressCountry: "HK",
+        streetAddress: VENUES.cyberport.address,
+        addressLocality: VENUES.cyberport.locality,
+        addressRegion: VENUES.cyberport.region,
+        addressCountry: VENUES.cyberport.country,
       },
       geo: {
         "@type": "GeoCoordinates",
-        latitude: 22.2618,
-        longitude: 114.1303,
+        latitude: VENUES.cyberport.geo?.lat ?? 22.2618,
+        longitude: VENUES.cyberport.geo?.lng ?? 114.1303,
       },
     },
     {

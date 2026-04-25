@@ -19,6 +19,8 @@
 //   strategy.md §PART 8.3 (NAP for Katong Point: 451 Joo Chiat Road, Level 3, Singapore 427664)
 //   strategy.md §PART 12 Tier 2 (zone descriptions, camp types, IFS partnership)
 
+import { VENUES } from "@/lib/venues";
+
 /* ────────────────────────────────────────────────────────────
  * Interfaces
  * ──────────────────────────────────────────────────────────── */
@@ -104,13 +106,14 @@ export interface SGCampType {
 
 export const KATONG_POINT: KatongPointVenue = {
   id: "katong-point",
-  nameShort: "Katong Point",
-  nameFull: "Prodigy @ Katong Point",
-  addressStreet: "451 Joo Chiat Road, Level 3",
-  addressLocality: "Katong",
-  addressRegion: "Singapore",
+  // NAP sourced from lib/venues.ts (SEO-10 single source of truth)
+  nameShort: VENUES.katongPoint.shortName,
+  nameFull: VENUES.katongPoint.name,
+  addressStreet: VENUES.katongPoint.address,
+  addressLocality: VENUES.katongPoint.locality,
+  addressRegion: VENUES.katongPoint.region,
   addressCountry: "SG",
-  postalCode: "427664",
+  postalCode: VENUES.katongPoint.postalCode ?? "427664",
   // HUMAN-ACTION A5 — verify geo coordinates pre-Phase-7; provisional from strategy §PART 8
   geo: { lat: 1.3113, lng: 103.9011 },
   hours: [
