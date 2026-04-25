@@ -1,5 +1,6 @@
-// Phase 4 / Plan 04-06 — HK FAQ hub (HK-11).
-// Renders all HK_FAQ_ITEMS grouped by group field; FAQPage JSON-LD char-for-char per UI-SPEC §8.3.
+// Phase 6 / Plan 06-05 — HK FAQ hub wired to live Sanity data.
+// Replaces HK_FAQ_ITEMS with sanityFetch + hkFaqQuery.
+// FAQPage JSON-LD built from live data (UI-SPEC §8.3).
 
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -9,7 +10,8 @@ import { Section } from "@/components/ui/section";
 import { ContainerEditorial } from "@/components/ui/container-editorial";
 import { Button } from "@/components/ui/button";
 import { FAQItem } from "@/components/ui/faq-item";
-import { HK_FAQ_ITEMS } from "@/lib/hk-data";
+import { sanityFetch } from "@/lib/sanity.live";
+import { hkFaqQuery } from "@/lib/queries";
 
 export const metadata: Metadata = {
   title: "FAQ — ProActiv Sports Hong Kong",
@@ -36,54 +38,52 @@ const GROUP_LABELS: Record<string, string> = {
   pricing: "Pricing",
 };
 
-const GROUP_ORDER = [
-  "about",
-  "venues",
-  "gymnastics",
-  "camps",
-  "parties",
-  "pricing",
-] as const;
+const GROUP_ORDER = ["about", "venues", "gymnastics", "camps", "parties", "pricing"] as const;
 
-// Build FAQPage JSON-LD with mainEntity matching visible Q&A char-for-char (UI-SPEC §8.3).
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "FAQPage",
-      mainEntity: HK_FAQ_ITEMS.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: { "@type": "Answer", text: item.answer },
-      })),
-    },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "ProActiv Sports Hong Kong",
-          item: "https://hk.proactivsports.com/",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "FAQ",
-          item: "https://hk.proactivsports.com/faq/",
-        },
-      ],
-    },
-  ],
-};
+export default async function HKFAQPage() {
+  const { data: faqs } = await sanityFetch({
+    query: hkFaqQuery,
+    tags: ["faq"],
+  });
 
-export default function HKFAQPage() {
-  // Group items by `group` field, preserving declaration order within each group.
+  // Group items by `category` field (Sanity field name), preserving GROUP_ORDER.
   const grouped = GROUP_ORDER.map((group) => ({
     group,
     label: GROUP_LABELS[group],
-    items: HK_FAQ_ITEMS.filter((i) => i.group === group),
+    items: faqs.filter((i) => i.category === group),
   })).filter((g) => g.items.length > 0);
+
+  // Build FAQPage JSON-LD with mainEntity matching visible Q&A char-for-char (UI-SPEC §8.3).
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        mainEntity: faqs.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer },
+        })),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "ProActiv Sports Hong Kong",
+            item: "https://hk.proactivsports.com/",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "FAQ",
+            item: "https://hk.proactivsports.com/faq/",
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <>
@@ -119,25 +119,38 @@ export default function HKFAQPage() {
         </ContainerEditorial>
       </Section>
 
-      {grouped.map((g, idx) => (
-        <Section key={g.group} size="md" bg={idx % 2 === 0 ? "muted" : "default"}>
+      {faqs.length === 0 ? (
+        <Section size="md" bg="muted">
           <ContainerEditorial width="default">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-h2 font-display text-foreground mb-6">{g.label}</h2>
-              <div className="flex flex-col gap-3">
-                {g.items.map((item) => (
-                  <FAQItem
-                    key={item.value}
-                    id={item.value}
-                    question={item.question}
-                    answer={item.answer}
-                  />
-                ))}
-              </div>
+            <div className="text-center max-w-2xl mx-auto">
+              <h2 className="text-h2 font-display text-foreground mb-4">FAQs coming soon.</h2>
+              <p className="text-body text-muted-foreground">
+                Send us your question directly and we&apos;ll reply same day.
+              </p>
             </div>
           </ContainerEditorial>
         </Section>
-      ))}
+      ) : (
+        grouped.map((g, idx) => (
+          <Section key={g.group} size="md" bg={idx % 2 === 0 ? "muted" : "default"}>
+            <ContainerEditorial width="default">
+              <div className="max-w-3xl mx-auto">
+                <h2 className="text-h2 font-display text-foreground mb-6">{g.label}</h2>
+                <div className="flex flex-col gap-3">
+                  {g.items.map((item) => (
+                    <FAQItem
+                      key={item._id}
+                      id={item._id}
+                      question={item.question}
+                      answer={item.answer}
+                    />
+                  ))}
+                </div>
+              </div>
+            </ContainerEditorial>
+          </Section>
+        ))
+      )}
 
       {/* CTA */}
       <Section size="lg" bg="navy">

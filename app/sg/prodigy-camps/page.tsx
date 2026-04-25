@@ -1,6 +1,6 @@
-// Phase 5 / Plan 05-04 — Prodigy Camps pillar overview page (SG-04 entry point).
-// Renders 3 camp-type overview cards + CampsPillarNav + BreadcrumbList + FAQPage JSON-LD.
-// Mirrors app/sg/weekly-classes/page.tsx with SG_CAMP_TYPES and group "camps" FAQs.
+// Phase 6 / Plan 06-05 — Prodigy Camps pillar page wired to Sanity.
+// Adds live sgCampsQuery section for upcoming individual camp events.
+// Static SG_CAMP_TYPES editorial section and FAQ preserved unchanged.
 
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
@@ -11,12 +11,14 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CampsPillarNav } from "@/components/sg/camps-pillar-nav";
 import { SG_CAMP_TYPES, SG_FAQ_ITEMS } from "@/lib/sg-data";
+import { sanityFetch } from "@/lib/sanity.live";
+import { sgCampsQuery } from "@/lib/queries";
+import Link from "next/link";
 
 const CAMPS_FAQS = SG_FAQ_ITEMS.filter((i) => i.group === "camps");
 
 export const metadata: Metadata = {
-  title:
-    "Prodigy Holiday Camps Singapore — Themed · Multi-Activity · Gymnastics | Katong Point",
+  title: "Prodigy Holiday Camps Singapore — Themed · Multi-Activity · Gymnastics | Katong Point",
   description:
     "School holiday camps for children aged 4–12 at Prodigy, Katong Point. Three camp types every school holiday: Themed (Ninja · Pokémon · Superhero · LEGO · STEAM), Multi-Activity, and Gymnastics. Full-day and AM/PM formats. Book now.",
   openGraph: {
@@ -39,38 +41,53 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://sg.proactivsports.com/prodigy-camps/" },
 };
 
-const pillarSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "FAQPage",
-      mainEntity: CAMPS_FAQS.map((i) => ({
-        "@type": "Question",
-        name: i.question,
-        acceptedAnswer: { "@type": "Answer", text: i.answer },
-      })),
-    },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Prodigy Singapore",
-          item: "https://sg.proactivsports.com/",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Prodigy Camps",
-          item: "https://sg.proactivsports.com/prodigy-camps/",
-        },
-      ],
-    },
-  ],
-};
+export default async function ProdigyCampsPillarPage() {
+  const { data: camps } = await sanityFetch({
+    query: sgCampsQuery,
+    tags: ["camp"],
+  });
 
-export default function ProdigyCampsPillarPage() {
+  const pillarSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        name: "Prodigy Holiday Camps Singapore",
+        description:
+          "Themed, multi-activity, and gymnastics holiday camps for children at Prodigy @ Katong Point, Katong, Singapore.",
+        url: "https://sg.proactivsports.com/prodigy-camps/",
+        provider: { "@id": "https://proactivsports.com/#organization" },
+        areaServed: "Singapore",
+        serviceType: "Children's Sports and Gymnastics Programmes",
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: CAMPS_FAQS.map((i) => ({
+          "@type": "Question",
+          name: i.question,
+          acceptedAnswer: { "@type": "Answer", text: i.answer },
+        })),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Prodigy Singapore",
+            item: "https://sg.proactivsports.com/",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Prodigy Camps",
+            item: "https://sg.proactivsports.com/prodigy-camps/",
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <>
       <script
@@ -82,14 +99,12 @@ export default function ProdigyCampsPillarPage() {
       <Section size="lg" bg="default">
         <ContainerEditorial width="default">
           <div className="max-w-3xl">
-            <h1 className="text-h1 font-display text-foreground">
-              Prodigy Camps at Katong Point.
-            </h1>
+            <h1 className="text-h1 font-display text-foreground">Prodigy Camps at Katong Point.</h1>
             <p className="text-body-lg text-muted-foreground mt-4">
-              Action-packed school holiday camps for children aged 4–12. Every
-              school holiday, three camp types to choose from — Themed adventures,
-              Multi-Activity sport rotations, and Gymnastics-focused days. Fully
-              indoor, air-conditioned, coach-led at our 2,700 sq ft venue.
+              Action-packed school holiday camps for children aged 4–12. Every school holiday, three
+              camp types to choose from — Themed adventures, Multi-Activity sport rotations, and
+              Gymnastics-focused days. Fully indoor, air-conditioned, coach-led at our 2,700 sq ft
+              venue.
             </p>
             <div className="mt-6">
               <Button
@@ -114,24 +129,69 @@ export default function ProdigyCampsPillarPage() {
         </ContainerEditorial>
       </Section>
 
-      {/* §3 Camp-type cards (3 cards) */}
-      <Section size="md" bg="muted">
+      {/* §3 Live upcoming camps from Sanity — shown when published */}
+      {camps.length > 0 && (
+        <Section size="md" bg="muted">
+          <ContainerEditorial width="wide">
+            <h2 className="text-h2 font-display text-foreground mb-8">Upcoming camps</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {camps.map((camp) => (
+                <Card key={camp._id} className="p-5 flex flex-col">
+                  <h3 className="text-h3 font-display text-foreground">{camp.title}</h3>
+                  {camp.ageRange && (
+                    <Badge variant="secondary" className="self-start mt-2">
+                      {camp.ageRange}
+                    </Badge>
+                  )}
+                  {camp.description && (
+                    <p className="text-body text-muted-foreground mt-3 flex-1 line-clamp-3">
+                      {camp.description}
+                    </p>
+                  )}
+                  {(camp.startDate || camp.endDate) && (
+                    <p className="text-small text-muted-foreground mt-3">
+                      {camp.startDate && <time dateTime={camp.startDate}>{camp.startDate}</time>}
+                      {camp.startDate && camp.endDate && " – "}
+                      {camp.endDate && <time dateTime={camp.endDate}>{camp.endDate}</time>}
+                    </p>
+                  )}
+                  {camp.price && (
+                    <p className="text-small text-foreground font-medium mt-1">SGD {camp.price}</p>
+                  )}
+                  <div className="mt-4">
+                    {camp.offerUrl ? (
+                      <a
+                        href={camp.offerUrl}
+                        className="inline-flex items-center text-brand-red font-semibold hover:underline"
+                      >
+                        Book now <ArrowRight className="ml-1 size-4" aria-hidden />
+                      </a>
+                    ) : camp.slug ? (
+                      <Link
+                        href={`/prodigy-camps/${camp.slug}/`}
+                        className="inline-flex items-center text-brand-navy font-semibold hover:underline"
+                      >
+                        View details <ArrowRight className="ml-1 size-4" aria-hidden />
+                      </Link>
+                    ) : null}
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </ContainerEditorial>
+        </Section>
+      )}
+
+      {/* §4 Camp-type editorial cards (3 types) */}
+      <Section size="md" bg={camps.length > 0 ? "default" : "muted"}>
         <ContainerEditorial width="wide">
-          <h2 className="text-h2 font-display text-foreground mb-8">
-            All three camp types.
-          </h2>
+          <h2 className="text-h2 font-display text-foreground mb-8">All three camp types.</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {SG_CAMP_TYPES.map((c) => (
               <Card key={c.slug} className="p-5 flex flex-col">
                 <Badge variant="secondary">{c.ageBand}</Badge>
-                <h3 className="text-h3 font-display text-foreground mt-3">
-                  {c.label}
-                </h3>
-                {c.tag && (
-                  <p className="text-[11px] text-muted-foreground mt-1 italic">
-                    {c.tag}
-                  </p>
-                )}
+                <h3 className="text-h3 font-display text-foreground mt-3">{c.label}</h3>
+                {c.tag && <p className="text-[11px] text-muted-foreground mt-1 italic">{c.tag}</p>}
                 <p className="text-body text-muted-foreground mt-3 flex-1 line-clamp-3">
                   {c.description}
                 </p>
@@ -148,13 +208,11 @@ export default function ProdigyCampsPillarPage() {
         </ContainerEditorial>
       </Section>
 
-      {/* §4 What's included */}
-      <Section size="md" bg="default">
+      {/* §5 What's included */}
+      <Section size="md" bg={camps.length > 0 ? "muted" : "default"}>
         <ContainerEditorial width="default">
           <div className="max-w-3xl">
-            <h2 className="text-h2 font-display text-foreground mb-6">
-              Every camp includes.
-            </h2>
+            <h2 className="text-h2 font-display text-foreground mb-6">Every camp includes.</h2>
             <ul className="space-y-3">
               {[
                 "Dri-fit Prodigy Camp T-shirt",
@@ -175,14 +233,12 @@ export default function ProdigyCampsPillarPage() {
         </ContainerEditorial>
       </Section>
 
-      {/* §5 Camp FAQ */}
+      {/* §6 Camp FAQ */}
       {CAMPS_FAQS.length > 0 && (
-        <Section size="md" bg="muted">
+        <Section size="md" bg={camps.length > 0 ? "default" : "muted"}>
           <ContainerEditorial width="default">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-h2 font-display text-foreground mb-6">
-                Camp FAQs
-              </h2>
+              <h2 className="text-h2 font-display text-foreground mb-6">Camp FAQs</h2>
               <div className="flex flex-col divide-y divide-border">
                 {CAMPS_FAQS.map((item) => (
                   <details
@@ -214,7 +270,7 @@ export default function ProdigyCampsPillarPage() {
         </Section>
       )}
 
-      {/* §6 Booking CTA */}
+      {/* §7 Booking CTA */}
       <Section size="lg" bg="navy">
         <ContainerEditorial width="default">
           <div className="text-center max-w-2xl mx-auto">
@@ -222,14 +278,10 @@ export default function ProdigyCampsPillarPage() {
               Reserve a camp place for your child.
             </h2>
             <p className="text-body-lg text-cream mb-6">
-              Every school holiday. Ages 4–12. Full-day and AM/PM options.
-              Places fill quickly — book early.
+              Every school holiday. Ages 4–12. Full-day and AM/PM options. Places fill quickly —
+              book early.
             </p>
-            <Button
-              asChild
-              size="touch"
-              className="bg-brand-red text-white hover:bg-brand-red/90"
-            >
+            <Button asChild size="touch" className="bg-brand-red text-white hover:bg-brand-red/90">
               <a href="/book-a-trial/?subject=general-enquiry">
                 Book a Camp Place
                 <ArrowRight className="ml-2 size-4" aria-hidden />

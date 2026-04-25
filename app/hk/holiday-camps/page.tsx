@@ -1,5 +1,6 @@
-// Phase 4 / Plan 04-06 — Holiday camps page (HK-05).
-// Three season cards (Easter / Summer / Christmas) via ProgrammeTile + editorial sections + booking CTA.
+// Phase 6 / Plan 06-05 — Holiday camps listing page wired to Sanity.
+// Fetches live camps from hkCampsQuery; shows them in a dynamic grid when available.
+// Static SEASONS editorial section preserved below for evergreen content.
 
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -8,7 +9,11 @@ import { ArrowRight, Calendar } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { ContainerEditorial } from "@/components/ui/container-editorial";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { ProgrammeTile } from "@/components/ui/programme-tile";
+import { sanityFetch } from "@/lib/sanity.live";
+import { hkCampsQuery } from "@/lib/queries";
 
 export const metadata: Metadata = {
   title: "Holiday Camps Hong Kong — Easter, Summer, Christmas | ProGym",
@@ -61,7 +66,12 @@ const SEASONS = [
   },
 ] as const;
 
-export default function HolidayCampsPage() {
+export default async function HolidayCampsPage() {
+  const { data: camps } = await sanityFetch({
+    query: hkCampsQuery,
+    tags: ["camp"],
+  });
+
   return (
     <>
       {/* Hero */}
@@ -104,8 +114,65 @@ export default function HolidayCampsPage() {
         </ContainerEditorial>
       </Section>
 
-      {/* Three seasons */}
-      <Section size="md" bg="muted">
+      {/* Live camps from Sanity — shown when published */}
+      {camps.length > 0 && (
+        <Section size="md" bg="muted">
+          <ContainerEditorial width="wide">
+            <h2 className="text-h2 font-display text-foreground mb-8">Upcoming camps</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {camps.map((camp) => (
+                <Card key={camp._id} className="overflow-hidden flex flex-col">
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 className="text-h3 font-display text-foreground">{camp.title}</h3>
+                    {camp.ageRange && (
+                      <Badge variant="secondary" className="self-start mt-2">
+                        {camp.ageRange}
+                      </Badge>
+                    )}
+                    {camp.description && (
+                      <p className="text-body text-muted-foreground mt-3 flex-1">
+                        {camp.description}
+                      </p>
+                    )}
+                    {(camp.startDate || camp.endDate) && (
+                      <p className="text-small text-muted-foreground mt-3">
+                        {camp.startDate && <time dateTime={camp.startDate}>{camp.startDate}</time>}
+                        {camp.startDate && camp.endDate && " – "}
+                        {camp.endDate && <time dateTime={camp.endDate}>{camp.endDate}</time>}
+                      </p>
+                    )}
+                    {camp.venue?.name && (
+                      <p className="text-small text-brand-navy font-medium mt-1">
+                        {camp.venue.name}
+                      </p>
+                    )}
+                    <div className="mt-4">
+                      {camp.offerUrl ? (
+                        <a
+                          href={camp.offerUrl}
+                          className="inline-flex items-center text-brand-red font-semibold hover:underline"
+                        >
+                          Book now <ArrowRight className="ml-1 size-4" aria-hidden />
+                        </a>
+                      ) : camp.slug ? (
+                        <Link
+                          href={`/holiday-camps/${camp.slug}/`}
+                          className="inline-flex items-center text-brand-navy font-semibold hover:underline"
+                        >
+                          View details <ArrowRight className="ml-1 size-4" aria-hidden />
+                        </Link>
+                      ) : null}
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </ContainerEditorial>
+        </Section>
+      )}
+
+      {/* Three seasons — evergreen editorial section */}
+      <Section size="md" bg={camps.length > 0 ? "default" : "muted"}>
         <ContainerEditorial width="wide">
           <h2 className="text-h2 font-display text-foreground mb-8">
             Three seasons, three formats.
@@ -127,7 +194,7 @@ export default function HolidayCampsPage() {
       </Section>
 
       {/* What's included */}
-      <Section size="md" bg="default">
+      <Section size="md" bg={camps.length > 0 ? "muted" : "default"}>
         <ContainerEditorial width="default">
           <div className="max-w-3xl">
             <h2 className="text-h2 font-display text-foreground mb-6">What&apos;s included</h2>
@@ -151,14 +218,10 @@ export default function HolidayCampsPage() {
               Ready to book the next holiday?
             </h2>
             <p className="text-body-lg text-brand-cream mb-8">
-              Camps fill quickly — especially Summer. Send us a quick enquiry with your
-              child&apos;s age and preferred dates.
+              Camps fill quickly — especially Summer. Send us a quick enquiry with your child&apos;s
+              age and preferred dates.
             </p>
-            <Button
-              asChild
-              size="touch"
-              className="bg-brand-red text-white hover:bg-brand-red/90"
-            >
+            <Button asChild size="touch" className="bg-brand-red text-white hover:bg-brand-red/90">
               <Link href="/contact?market=hk&subject=Holiday%20Camp">Send an Enquiry</Link>
             </Button>
           </div>
