@@ -35,7 +35,7 @@ export default defineConfig({
     // Extended glob covers app/root/**/*.test.tsx, app/api/**/*.test.ts, components/root/**/*.test.ts.
     include: ["**/*.test.ts", "**/*.test.tsx"],
     // Match eslint.config.mjs line 17 for consistency — ignore build outputs + deps.
-    exclude: ["node_modules/**", ".next/**", "out/**", "build/**", ".vercel/**"],
+    exclude: ["node_modules/**", ".next/**", "out/**", "build/**", ".vercel/**", ".claude/**"],
     // Phase 1 scope: only the middleware test exists. No coverage requirement yet
     // (Phase 7 SEO-06 owns the Lighthouse/test-coverage bar; Phase 1 is proving the pipe).
     // Vitest 4.x exits nonzero if no test files match — permit that transient state
