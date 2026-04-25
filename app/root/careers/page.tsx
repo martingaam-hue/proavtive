@@ -40,6 +40,29 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+const careersSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "ProActiv Sports",
+          item: "https://proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Careers",
+          item: "https://proactivsports.com/careers",
+        },
+      ],
+    },
+  ],
+};
+
 const LOOK_FOR_BULLETS = [
   "Genuine love of working with children.",
   "A coaching qualification or sport-specific background — or a deep willingness to learn through our training course.",
@@ -52,6 +75,10 @@ export default async function CareersPage() {
   const { content } = await getContent();
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(careersSchema) }}
+      />
       {/* §4.4 (1) Hero */}
       <Section size="lg">
         <ContainerEditorial width="wide">

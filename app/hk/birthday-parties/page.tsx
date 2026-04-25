@@ -35,6 +35,39 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://hk.proactivsports.com/birthday-parties/" },
 };
 
+const birthdayPartiesSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      name: "Birthday Parties Hong Kong",
+      description:
+        "Coach-hosted gymnastics birthday parties with exclusive venue hire at ProGym Wan Chai or ProGym Cyberport, Hong Kong.",
+      url: "https://hk.proactivsports.com/birthday-parties/",
+      provider: { "@id": "https://proactivsports.com/#organization" },
+      areaServed: "Hong Kong",
+      serviceType: "Children's Sports and Gymnastics Programmes",
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "ProActiv Sports Hong Kong",
+          item: "https://hk.proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Birthday Parties",
+          item: "https://hk.proactivsports.com/birthday-parties/",
+        },
+      ],
+    },
+  ],
+};
+
 const FORMAT_POINTS = [
   {
     icon: Clock,
@@ -96,6 +129,10 @@ const TESTIMONIALS = [
 export default function BirthdayPartiesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(birthdayPartiesSchema) }}
+      />
       {/* Hero */}
       <Section size="lg" bg="default">
         <ContainerEditorial width="wide">

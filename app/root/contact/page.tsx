@@ -37,21 +37,42 @@ export const metadata: Metadata = {
 
 const contactPageSchema = {
   "@context": "https://schema.org",
-  "@type": "ContactPage",
-  url: "https://proactivsports.com/contact",
-  mainEntity: {
-    "@type": "Organization",
-    "@id": "https://proactivsports.com/#organization",
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        contactType: "customer service",
-        email: "hello@proactivsports.com",
-        areaServed: ["HK", "SG"],
-        availableLanguage: "English",
+  "@graph": [
+    {
+      "@type": "ContactPage",
+      url: "https://proactivsports.com/contact",
+      mainEntity: {
+        "@type": "Organization",
+        "@id": "https://proactivsports.com/#organization",
+        contactPoint: [
+          {
+            "@type": "ContactPoint",
+            contactType: "customer service",
+            email: "hello@proactivsports.com",
+            areaServed: ["HK", "SG"],
+            availableLanguage: "English",
+          },
+        ],
       },
-    ],
-  },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "ProActiv Sports",
+          item: "https://proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Contact",
+          item: "https://proactivsports.com/contact",
+        },
+      ],
+    },
+  ],
 };
 
 export default function ContactPage() {

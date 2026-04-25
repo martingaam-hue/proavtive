@@ -19,6 +19,29 @@ interface NewsItem {
 // Phase 6: replace this empty array with `await sanityClient.fetch(GROQ_NEWS_QUERY)`.
 const newsItems: NewsItem[] = [];
 
+const newsSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "ProActiv Sports",
+          item: "https://proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "News & Press",
+          item: "https://proactivsports.com/news",
+        },
+      ],
+    },
+  ],
+};
+
 export const metadata: Metadata = {
   title: "News & Press — ProActiv Sports",
   description:
@@ -42,6 +65,10 @@ export default function NewsPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(newsSchema) }}
+      />
       {/* Hero */}
       <Section size="md">
         <ContainerEditorial width="default">

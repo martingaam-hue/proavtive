@@ -42,6 +42,16 @@ const birthdayPartiesSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Service",
+      name: "Birthday Parties Singapore",
+      description:
+        "Exclusive Prodigy @ Katong Point venue hire with MultiBall access, coach-hosted birthday parties for children in Singapore.",
+      url: "https://sg.proactivsports.com/birthday-parties/",
+      provider: { "@id": "https://proactivsports.com/#organization" },
+      areaServed: "Singapore",
+      serviceType: "Children's Sports and Gymnastics Programmes",
+    },
+    {
       "@type": "BreadcrumbList",
       itemListElement: [
         {

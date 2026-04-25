@@ -55,6 +55,16 @@ const pillarSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Service",
+      name: "Gymnastics Classes Hong Kong",
+      description:
+        "Structured weekly gymnastics for children aged 12 months to adult at ProGym Wan Chai and ProGym Cyberport. 8 levels from Toddlers to Competitive.",
+      url: "https://hk.proactivsports.com/gymnastics/",
+      provider: { "@id": "https://proactivsports.com/#organization" },
+      areaServed: "Hong Kong",
+      serviceType: "Children's Sports and Gymnastics Programmes",
+    },
+    {
       "@type": "FAQPage",
       mainEntity: GYM_FAQS.map((i) => ({
         "@type": "Question",

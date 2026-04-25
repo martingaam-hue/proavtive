@@ -34,10 +34,37 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+const privacySchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "ProActiv Sports",
+          item: "https://proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Privacy Policy",
+          item: "https://proactivsports.com/privacy",
+        },
+      ],
+    },
+  ],
+};
+
 export default async function PrivacyPage() {
   const { content, data } = await getContent();
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(privacySchema) }}
+      />
       {/* Yellow draft banner */}
       <Section size="sm">
         <ContainerEditorial width="default">

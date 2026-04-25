@@ -44,6 +44,29 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+const coachingPhilosophySchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "ProActiv Sports",
+          item: "https://proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Coaching Philosophy",
+          item: "https://proactivsports.com/coaching-philosophy",
+        },
+      ],
+    },
+  ],
+};
+
 const PILLARS = [
   {
     Icon: Shield,
@@ -88,6 +111,10 @@ export default async function CoachingPhilosophyPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(coachingPhilosophySchema) }}
+      />
       {/* §4.2 (1) Editorial hero */}
       <Section size="lg">
         <ContainerEditorial width="wide">

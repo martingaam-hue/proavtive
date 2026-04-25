@@ -37,27 +37,40 @@ export const metadata: Metadata = {
   },
 };
 
-const breadcrumbSchema = {
+const campSchema = {
   "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
+  "@graph": [
     {
-      "@type": "ListItem",
-      position: 1,
-      name: "Prodigy Singapore",
-      item: "https://sg.proactivsports.com/",
+      "@type": "Service",
+      name: `${CAMP.label} Holiday Camps Singapore`,
+      description: CAMP.metaDescription,
+      url: `https://sg.proactivsports.com${CAMP.href}`,
+      provider: { "@id": "https://proactivsports.com/#organization" },
+      areaServed: "Singapore",
+      serviceType: "Children's Sports and Gymnastics Programmes",
     },
     {
-      "@type": "ListItem",
-      position: 2,
-      name: "Prodigy Camps",
-      item: "https://sg.proactivsports.com/prodigy-camps/",
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: CAMP.label,
-      item: `https://sg.proactivsports.com${CAMP.href}`,
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Prodigy Singapore",
+          item: "https://sg.proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Prodigy Camps",
+          item: "https://sg.proactivsports.com/prodigy-camps/",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: CAMP.label,
+          item: `https://sg.proactivsports.com${CAMP.href}`,
+        },
+      ],
     },
   ],
 };
@@ -67,7 +80,7 @@ export default function GymnasticsCampsPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(campSchema) }}
       />
 
       {/* §1 Pillar nav */}

@@ -24,6 +24,29 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { HK_VENUES } from "@/lib/hk-data";
 
+const bookATrialSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "ProActiv Sports Hong Kong",
+          item: "https://hk.proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Book a Free Trial",
+          item: "https://hk.proactivsports.com/book-a-trial/",
+        },
+      ],
+    },
+  ],
+};
+
 export const metadata: Metadata = {
   title:
     "Book a Free Trial — ProActiv Sports Hong Kong | ProGym Wan Chai & Cyberport",
@@ -54,6 +77,10 @@ export default function BookATrialHubPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(bookATrialSchema) }}
+      />
       {/* §1 Hero */}
       <Section size="lg" bg="default">
         <ContainerEditorial width="default">

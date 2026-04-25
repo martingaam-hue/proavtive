@@ -42,27 +42,40 @@ export const metadata: Metadata = {
   },
 };
 
-const breadcrumbSchema = {
+const zoneSchema = {
   "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
+  "@graph": [
     {
-      "@type": "ListItem",
-      position: 1,
-      name: "Prodigy Singapore",
-      item: "https://sg.proactivsports.com/",
+      "@type": "Service",
+      name: `${ZONE.label} — Weekly Classes Singapore`,
+      description: ZONE.metaDescription,
+      url: `https://sg.proactivsports.com${ZONE.href}`,
+      provider: { "@id": "https://proactivsports.com/#organization" },
+      areaServed: "Singapore",
+      serviceType: "Children's Sports and Gymnastics Programmes",
     },
     {
-      "@type": "ListItem",
-      position: 2,
-      name: "Weekly Classes",
-      item: "https://sg.proactivsports.com/weekly-classes/",
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: ZONE.label,
-      item: `https://sg.proactivsports.com${ZONE.href}`,
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Prodigy Singapore",
+          item: "https://sg.proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Weekly Classes",
+          item: "https://sg.proactivsports.com/weekly-classes/",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: ZONE.label,
+          item: `https://sg.proactivsports.com${ZONE.href}`,
+        },
+      ],
     },
   ],
 };
@@ -72,7 +85,7 @@ export default function ClimbingZonePage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(zoneSchema) }}
       />
 
       {/* §1 Pillar nav */}

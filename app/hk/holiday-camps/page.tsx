@@ -39,6 +39,39 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://hk.proactivsports.com/holiday-camps/" },
 };
 
+const holidayCampsSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      name: "Holiday Camps Hong Kong",
+      description:
+        "Easter, Summer, and Christmas gymnastics holiday camps for children at ProGym Wan Chai and ProGym Cyberport, Hong Kong.",
+      url: "https://hk.proactivsports.com/holiday-camps/",
+      provider: { "@id": "https://proactivsports.com/#organization" },
+      areaServed: "Hong Kong",
+      serviceType: "Children's Sports and Gymnastics Programmes",
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "ProActiv Sports Hong Kong",
+          item: "https://hk.proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Holiday Camps",
+          item: "https://hk.proactivsports.com/holiday-camps/",
+        },
+      ],
+    },
+  ],
+};
+
 const SEASONS = [
   {
     title: "Easter Camps",
@@ -74,6 +107,10 @@ export default async function HolidayCampsPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(holidayCampsSchema) }}
+      />
       {/* Hero */}
       <Section size="lg" bg="default">
         <ContainerEditorial width="wide">

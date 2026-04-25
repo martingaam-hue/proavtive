@@ -27,6 +27,29 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://hk.proactivsports.com/competitions-events/" },
 };
 
+const competitionsEventsSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "ProActiv Sports Hong Kong",
+          item: "https://hk.proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Competitions & Events",
+          item: "https://hk.proactivsports.com/competitions-events/",
+        },
+      ],
+    },
+  ],
+};
+
 const PATHWAY_STAGES = [
   {
     icon: Award,
@@ -48,6 +71,10 @@ const PATHWAY_STAGES = [
 export default function CompetitionsEventsPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(competitionsEventsSchema) }}
+      />
       {/* Hero */}
       <Section size="lg" bg="default">
         <ContainerEditorial width="wide">

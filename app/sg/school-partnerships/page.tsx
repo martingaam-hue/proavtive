@@ -37,6 +37,16 @@ const schoolPartnershipsSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Service",
+      name: "School Partnerships Singapore",
+      description:
+        "In-school sports and gymnastics programmes including IFS school partnership at Prodigy by ProActiv Sports, Singapore.",
+      url: "https://sg.proactivsports.com/school-partnerships/",
+      provider: { "@id": "https://proactivsports.com/#organization" },
+      areaServed: "Singapore",
+      serviceType: "Children's Sports and Gymnastics Programmes",
+    },
+    {
       "@type": "BreadcrumbList",
       itemListElement: [
         {

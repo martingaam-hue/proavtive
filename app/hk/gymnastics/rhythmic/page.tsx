@@ -40,6 +40,15 @@ const subPageSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Service",
+      name: `${PROGRAMME.label} Gymnastics Hong Kong`,
+      description: PROGRAMME.metaDescription,
+      url: "https://hk.proactivsports.com/gymnastics/rhythmic/",
+      provider: { "@id": "https://proactivsports.com/#organization" },
+      areaServed: "Hong Kong",
+      serviceType: "Children's Sports and Gymnastics Programmes",
+    },
+    {
       "@type": "BreadcrumbList",
       itemListElement: [
         {

@@ -106,6 +106,44 @@ const hkHomeSchema = {
       inLanguage: "en-HK",
     },
     {
+      "@type": "SportsActivityLocation",
+      "@id": "https://hk.proactivsports.com/#localbusiness-wan-chai",
+      name: "ProGym Wan Chai",
+      url: "https://hk.proactivsports.com/wan-chai/",
+      parentOrganization: { "@id": "https://proactivsports.com/#organization" },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "15/F, The Hennessy, 256 Hennessy Road",
+        addressLocality: "Wan Chai",
+        addressRegion: "Hong Kong Island",
+        addressCountry: "HK",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 22.2772,
+        longitude: 114.173,
+      },
+    },
+    {
+      "@type": "SportsActivityLocation",
+      "@id": "https://hk.proactivsports.com/#localbusiness-cyberport",
+      name: "ProGym Cyberport",
+      url: "https://hk.proactivsports.com/cyberport/",
+      parentOrganization: { "@id": "https://proactivsports.com/#organization" },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Cyberport Campus",
+        addressLocality: "Cyberport, Pokfulam",
+        addressRegion: "Hong Kong Island",
+        addressCountry: "HK",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 22.2618,
+        longitude: 114.1303,
+      },
+    },
+    {
       "@type": "FAQPage",
       mainEntity: HK_HOMEPAGE_FAQS.map((item) => ({
         "@type": "Question",

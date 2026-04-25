@@ -69,27 +69,50 @@ export default async function SGBlogPostPage({ params }: Props) {
 
   if (!post) notFound();
 
-  // Minimal BlogPosting JSON-LD stub
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.excerpt ?? undefined,
-    datePublished: post.publishedAt ?? undefined,
-    author: post.author
-      ? {
-          "@type": "Person",
-          name: post.author.name,
-        }
-      : undefined,
-    image: post.mainImage?.asset
-      ? urlFor(post.mainImage.asset).width(1200).height(630).url()
-      : undefined,
-    publisher: {
-      "@type": "Organization",
-      name: "Prodigy by ProActiv Sports Singapore",
-      url: "https://sg.proactivsports.com/",
-    },
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.excerpt ?? undefined,
+        datePublished: post.publishedAt ?? undefined,
+        url: `https://sg.proactivsports.com/blog/${slug}/`,
+        author: post.author
+          ? {
+              "@type": "Person",
+              name: post.author.name,
+            }
+          : undefined,
+        image: post.mainImage?.asset
+          ? urlFor(post.mainImage.asset).width(1200).height(630).url()
+          : undefined,
+        publisher: { "@id": "https://proactivsports.com/#organization" },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "ProActiv Sports Singapore",
+            item: "https://sg.proactivsports.com/",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Blog",
+            item: "https://sg.proactivsports.com/blog/",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: post.title,
+            item: `https://sg.proactivsports.com/blog/${slug}/`,
+          },
+        ],
+      },
+    ],
   };
 
   return (

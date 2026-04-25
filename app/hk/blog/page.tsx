@@ -15,6 +15,29 @@ import { sanityFetch } from "@/lib/sanity.live";
 import { hkBlogListQuery } from "@/lib/queries";
 import { SanityImage } from "@/components/sanity-image";
 
+const hkBlogSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "ProActiv Sports Hong Kong",
+          item: "https://hk.proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Blog",
+          item: "https://hk.proactivsports.com/blog/",
+        },
+      ],
+    },
+  ],
+};
+
 export const metadata: Metadata = {
   title: "ProActiv Hong Kong Blog — Gymnastics + Sports for Children",
   description:
@@ -59,6 +82,10 @@ export default async function HKBlogPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(hkBlogSchema) }}
+      />
       {/* Hero */}
       <Section size="lg" bg="default">
         <ContainerEditorial width="wide">

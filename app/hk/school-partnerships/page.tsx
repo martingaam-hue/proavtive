@@ -29,6 +29,39 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://hk.proactivsports.com/school-partnerships/" },
 };
 
+const schoolPartnershipsSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      name: "School Partnerships Hong Kong",
+      description:
+        "In-school gymnastics and sports programmes for Hong Kong international and local schools, delivered by ProActiv Sports.",
+      url: "https://hk.proactivsports.com/school-partnerships/",
+      provider: { "@id": "https://proactivsports.com/#organization" },
+      areaServed: "Hong Kong",
+      serviceType: "Children's Sports and Gymnastics Programmes",
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "ProActiv Sports Hong Kong",
+          item: "https://hk.proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "School Partnerships",
+          item: "https://hk.proactivsports.com/school-partnerships/",
+        },
+      ],
+    },
+  ],
+};
+
 // Placeholder partner schools — text fallback per plan (LogoWall primitive requires real
 // image files; placeholder logo assets not yet staged in public/photography/).
 // Phase 6 replaces with Sanity-driven schoolPartner documents carrying real logos.
@@ -60,6 +93,10 @@ const PROGRAMME_OPTIONS = [
 export default function SchoolPartnershipsPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schoolPartnershipsSchema) }}
+      />
       {/* Hero */}
       <Section size="lg" bg="default">
         <ContainerEditorial width="wide">

@@ -11,6 +11,35 @@ import { Section } from "@/components/ui/section";
 import { ContainerEditorial } from "@/components/ui/container-editorial";
 import { BookingForm } from "./booking-form";
 
+const freeAssessmentSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "ProActiv Sports Hong Kong",
+          item: "https://hk.proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Book a Free Trial",
+          item: "https://hk.proactivsports.com/book-a-trial/",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Free Assessment",
+          item: "https://hk.proactivsports.com/book-a-trial/free-assessment/",
+        },
+      ],
+    },
+  ],
+};
+
 export const metadata: Metadata = {
   title: "Book a Free Assessment — ProActiv Sports Hong Kong | ProGym",
   description:
@@ -33,7 +62,12 @@ export const metadata: Metadata = {
 
 export default function FreeAssessmentPage() {
   return (
-    <Section size="lg" bg="default">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(freeAssessmentSchema) }}
+      />
+      <Section size="lg" bg="default">
       <ContainerEditorial width="default">
         <div className="max-w-2xl mx-auto">
           <h1 className="text-h1 font-display text-foreground">
@@ -50,5 +84,6 @@ export default function FreeAssessmentPage() {
         </div>
       </ContainerEditorial>
     </Section>
+    </>
   );
 }

@@ -48,6 +48,16 @@ const pillarSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Service",
+      name: "Weekly Sports Classes Singapore",
+      description:
+        "Movement, Sports + MultiBall, and Climbing zone classes for children aged 2–12 at Prodigy @ Katong Point, Singapore.",
+      url: "https://sg.proactivsports.com/weekly-classes/",
+      provider: { "@id": "https://proactivsports.com/#organization" },
+      areaServed: "Singapore",
+      serviceType: "Children's Sports and Gymnastics Programmes",
+    },
+    {
       "@type": "FAQPage",
       mainEntity: CLASSES_FAQS.map((i) => ({
         "@type": "Question",

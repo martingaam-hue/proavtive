@@ -79,6 +79,29 @@ const LEADERS: ReadonlyArray<LeadershipCardProps> = [
   },
 ];
 
+const brandSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "ProActiv Sports",
+          item: "https://proactivsports.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "About",
+          item: "https://proactivsports.com/brand",
+        },
+      ],
+    },
+  ],
+};
+
 // School partnership text chips — logo SVGs are a HUMAN-ACTION precondition.
 // Replace with LogoWall + real SVGs once partner logos are provided.
 const PARTNER_NAMES = [
@@ -95,6 +118,10 @@ export default async function BrandPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(brandSchema) }}
+      />
       {/* §4.1 (1) Hero — split editorial */}
       <Section size="lg">
         <ContainerEditorial width="wide">

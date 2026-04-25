@@ -95,6 +95,27 @@ const sgHomeSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "SportsActivityLocation",
+      "@id": "https://sg.proactivsports.com/#localbusiness-katong",
+      name: KATONG_POINT.nameFull,
+      url: "https://sg.proactivsports.com/katong-point/",
+      telephone: process.env.NEXT_PUBLIC_WHATSAPP_SG ?? "",
+      parentOrganization: { "@id": "https://proactivsports.com/#organization" },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: KATONG_POINT.addressStreet,
+        addressLocality: KATONG_POINT.addressLocality,
+        addressRegion: KATONG_POINT.addressRegion,
+        postalCode: KATONG_POINT.postalCode,
+        addressCountry: KATONG_POINT.addressCountry,
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: KATONG_POINT.geo.lat,
+        longitude: KATONG_POINT.geo.lng,
+      },
+    },
+    {
       "@type": "WebSite",
       "@id": "https://sg.proactivsports.com/#website",
       url: "https://sg.proactivsports.com/",
