@@ -37,10 +37,10 @@ export const metadata: Metadata = {
 };
 
 export default async function SGCoachesPage() {
-  const { data: coaches } = await sanityFetch({
-    query: sgCoachesQuery,
-    tags: ["coach"],
-  });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: coaches } = (await sanityFetch({ query: sgCoachesQuery, tags: ["coach"] })) as {
+    data: any[];
+  };
 
   // Person JSON-LD — built from live Sanity data
   const coachesSchema = {

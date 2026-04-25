@@ -38,11 +38,24 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://hk.proactivsports.com/blog/" },
 };
 
+type BlogPost = {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt?: string | null;
+  publishedAt?: string | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  mainImage?: { asset: any; alt?: string | null } | null;
+  categories?: string[] | null;
+  readTime?: number | null;
+};
+
 export default async function HKBlogPage() {
-  const { data: posts } = await sanityFetch({
+  const { data: postsRaw } = await sanityFetch({
     query: hkBlogListQuery,
     tags: ["post"],
   });
+  const posts = (postsRaw ?? []) as BlogPost[];
 
   return (
     <>

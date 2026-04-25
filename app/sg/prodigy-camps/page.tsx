@@ -42,10 +42,10 @@ export const metadata: Metadata = {
 };
 
 export default async function ProdigyCampsPillarPage() {
-  const { data: camps } = await sanityFetch({
-    query: sgCampsQuery,
-    tags: ["camp"],
-  });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: camps } = (await sanityFetch({ query: sgCampsQuery, tags: ["camp"] })) as {
+    data: any[];
+  };
 
   const pillarSchema = {
     "@context": "https://schema.org",

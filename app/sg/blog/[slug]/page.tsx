@@ -4,6 +4,7 @@
 
 import { notFound } from "next/navigation";
 import { sanityFetch } from "@/lib/sanity.live";
+import { client } from "@/lib/sanity.client";
 import { sgBlogPostBySlugQuery, sgBlogSlugsQuery } from "@/lib/queries";
 import { SanityImage, urlFor } from "@/components/sanity-image";
 import { PortableText } from "@/components/portable-text";
@@ -52,11 +53,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const { data: slugs } = await sanityFetch({
-    query: sgBlogSlugsQuery,
-    tags: ["post"],
-  });
-  return (slugs ?? []).map(({ slug }) => ({ slug }));
+  // Use the base client (not sanityFetch) — generateStaticParams runs at build time
+  // outside a request scope, so draftMode() cannot be called here.
+  const slugs = await client.fetch(sgBlogSlugsQuery);
+  return (slugs ?? []).map((item: { slug: string }) => ({ slug: item.slug }));
 }
 
 export default async function SGBlogPostPage({ params }: Props) {

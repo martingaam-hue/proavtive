@@ -17,12 +17,10 @@ import { render, cleanup } from "@testing-library/react";
 import React from "react";
 
 vi.mock("@/components/ui/section", () => ({
-  Section: ({ children, ...rest }: any) =>
-    React.createElement("section", rest, children),
+  Section: ({ children, ...rest }: any) => React.createElement("section", rest, children),
 }));
 vi.mock("@/components/ui/container-editorial", () => ({
-  ContainerEditorial: ({ children, ...rest }: any) =>
-    React.createElement("div", rest, children),
+  ContainerEditorial: ({ children, ...rest }: any) => React.createElement("div", rest, children),
 }));
 vi.mock("@/components/ui/button", () => ({
   Button: ({ asChild, children, ...rest }: any) =>
@@ -33,10 +31,8 @@ vi.mock("@/components/ui/button", () => ({
 vi.mock("@/components/ui/avatar", () => ({
   Avatar: ({ children, ...rest }: any) =>
     React.createElement("div", { "data-test": "avatar", ...rest }, children),
-  AvatarImage: ({ src, alt }: any) =>
-    React.createElement("img", { src, alt }),
-  AvatarFallback: ({ children }: any) =>
-    React.createElement("span", null, children),
+  AvatarImage: ({ src, alt }: any) => React.createElement("img", { src, alt }),
+  AvatarFallback: ({ children }: any) => React.createElement("span", null, children),
 }));
 vi.mock("@/components/sg/sg-nav", () => ({
   SGNav: () => React.createElement("nav", { "data-test": "sg-nav" }),
@@ -45,12 +41,44 @@ vi.mock("@/components/sg/sg-footer", () => ({
   SGFooter: () => React.createElement("footer", { "data-test": "sg-footer" }),
 }));
 vi.mock("next/image", () => ({
-  default: ({ src, alt, ...rest }: any) =>
-    React.createElement("img", { src, alt, ...rest }),
+  default: ({ src, alt, ...rest }: any) => React.createElement("img", { src, alt, ...rest }),
 }));
 vi.mock("next/link", () => ({
   default: ({ href, children, ...rest }: any) =>
     React.createElement("a", { href, ...rest }, children),
+}));
+
+// Phase 6 wired sanityFetch — mock returns the 3 SG coaches so name assertions pass.
+vi.mock("@/lib/sanity.live", () => ({
+  sanityFetch: async () => ({
+    data: [
+      {
+        name: "Haikel",
+        role: "Head of Sports",
+        bio: "Head of Sports at Prodigy Singapore.",
+        portrait: null,
+      },
+      {
+        name: "Mark",
+        role: "Sports Director",
+        bio: "Sports Director at Prodigy Singapore.",
+        portrait: null,
+      },
+      {
+        name: "Coach King",
+        role: "Senior Coach",
+        bio: "Senior Coach at Prodigy Singapore.",
+        portrait: null,
+      },
+    ],
+  }),
+  SanityLive: () => null,
+}));
+vi.mock("@/lib/queries", () => ({
+  sgCoachesQuery: "",
+}));
+vi.mock("@/components/sanity-image", () => ({
+  SanityImage: ({ alt, ...rest }: any) => React.createElement("img", { alt, ...rest }),
 }));
 
 beforeAll(() => {
@@ -65,8 +93,7 @@ describe("Coaches page (SG-08) — SG coaching team names", () => {
   it("renders coach name 'Haikel' (Head of Sports, per strategy PART 6C §8)", async () => {
     const mod = (await import("./page")) as any;
     const CoachesPage = mod.default;
-    const ui =
-      typeof CoachesPage === "function" ? await CoachesPage() : CoachesPage;
+    const ui = typeof CoachesPage === "function" ? await CoachesPage() : CoachesPage;
     render(ui);
     expect(document.body.textContent).toContain("Haikel");
   });
@@ -74,8 +101,7 @@ describe("Coaches page (SG-08) — SG coaching team names", () => {
   it("renders coach name 'Mark' (Sports Director, per strategy PART 6C §8)", async () => {
     const mod = (await import("./page")) as any;
     const CoachesPage = mod.default;
-    const ui =
-      typeof CoachesPage === "function" ? await CoachesPage() : CoachesPage;
+    const ui = typeof CoachesPage === "function" ? await CoachesPage() : CoachesPage;
     render(ui);
     expect(document.body.textContent).toContain("Mark");
   });
@@ -83,8 +109,7 @@ describe("Coaches page (SG-08) — SG coaching team names", () => {
   it("renders coach name 'Coach King' (Senior Coach, per strategy PART 6C §8)", async () => {
     const mod = (await import("./page")) as any;
     const CoachesPage = mod.default;
-    const ui =
-      typeof CoachesPage === "function" ? await CoachesPage() : CoachesPage;
+    const ui = typeof CoachesPage === "function" ? await CoachesPage() : CoachesPage;
     render(ui);
     expect(document.body.textContent).toContain("Coach King");
   });

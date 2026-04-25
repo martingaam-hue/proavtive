@@ -38,10 +38,10 @@ export const metadata: Metadata = {
 };
 
 export default async function CoachesPage() {
-  const { data: coaches } = await sanityFetch({
-    query: hkCoachesQuery,
-    tags: ["coach"],
-  });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: coaches } = (await sanityFetch({ query: hkCoachesQuery, tags: ["coach"] })) as {
+    data: any[];
+  };
 
   // D-07/D-08: lead = the coach whose venueTag is "both" (Monica);
   // team = everyone else, rendered in a single combined grid (no venue split headings).

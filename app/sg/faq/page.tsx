@@ -49,10 +49,10 @@ const GROUP_ORDER = [
 ] as const;
 
 export default async function SGFAQPage() {
-  const { data: faqs } = await sanityFetch({
-    query: sgFaqQuery,
-    tags: ["faq"],
-  });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: faqs } = (await sanityFetch({ query: sgFaqQuery, tags: ["faq"] })) as {
+    data: any[];
+  };
 
   // Group items preserving GROUP_ORDER — same order drives JSON-LD and DOM (char-for-char rule).
   const grouped = GROUP_ORDER.map((group) => ({

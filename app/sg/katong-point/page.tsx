@@ -46,11 +46,12 @@ export const metadata: Metadata = {
 };
 
 export default async function KatongPointPage() {
-  const { data: sanityVenue } = await sanityFetch({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: sanityVenue } = (await sanityFetch({
     query: venueBySlugQuery,
     params: { slug: "katong-point" },
     tags: ["venue"],
-  });
+  })) as { data: any };
 
   // Graceful fallback: Sanity data takes priority; static data used until venue doc is populated
   const phoneEnv = process.env.NEXT_PUBLIC_WHATSAPP_SG;
@@ -253,7 +254,8 @@ export default async function KatongPointPage() {
             </h2>
             <table className="w-full">
               <tbody>
-                {openingHours.map((h, i) => (
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                {(openingHours as any[]).map((h: any, i: number) => (
                   <tr key={i} className="border-b border-border">
                     <td className="py-3 font-semibold text-foreground">
                       {"days" in h ? h.days : ""}
