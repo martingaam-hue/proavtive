@@ -1,11 +1,11 @@
-import { PortableText as SanityPortableText } from '@portabletext/react'
-import type { PortableTextBlock } from '@portabletext/types'
-import { SanityImage } from './sanity-image'
-import { cn } from '@/lib/utils'
+import { PortableText as SanityPortableText } from "@portabletext/react";
+import type { PortableTextBlock } from "@portabletext/react";
+import { SanityImage } from "./sanity-image";
+import { cn } from "@/lib/utils";
 
 interface PortableTextProps {
-  value: PortableTextBlock[]
-  className?: string
+  value: PortableTextBlock[];
+  className?: string;
 }
 
 const components = {
@@ -13,7 +13,7 @@ const components = {
     imageWithAlt: ({ value }: { value: { asset: unknown; alt: string } }) => (
       <figure className="my-8">
         <SanityImage
-          image={value as Parameters<typeof SanityImage>[0]['image']}
+          image={value as Parameters<typeof SanityImage>[0]["image"]}
           width={800}
           height={500}
           className="rounded-lg w-full"
@@ -46,9 +46,7 @@ const components = {
     strong: ({ children }: { children?: React.ReactNode }) => (
       <strong className="font-semibold">{children}</strong>
     ),
-    em: ({ children }: { children?: React.ReactNode }) => (
-      <em className="italic">{children}</em>
-    ),
+    em: ({ children }: { children?: React.ReactNode }) => <em className="italic">{children}</em>,
     code: ({ children }: { children?: React.ReactNode }) => (
       <code className="font-mono text-sm bg-muted px-1 py-0.5 rounded">{children}</code>
     ),
@@ -56,19 +54,19 @@ const components = {
       <a
         href={value?.href}
         className="text-brand-navy underline underline-offset-2 hover:text-brand-navy/80"
-        target={value?.href?.startsWith('http') ? '_blank' : undefined}
-        rel={value?.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+        target={value?.href?.startsWith("http") ? "_blank" : undefined}
+        rel={value?.href?.startsWith("http") ? "noopener noreferrer" : undefined}
       >
         {children}
       </a>
     ),
   },
-}
+};
 
 export function PortableText({ value, className }: PortableTextProps) {
   return (
-    <div className={cn('max-w-prose', className)}>
+    <div className={cn("max-w-prose", className)}>
       <SanityPortableText value={value} components={components} />
     </div>
-  )
+  );
 }

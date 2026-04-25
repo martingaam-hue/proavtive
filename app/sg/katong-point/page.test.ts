@@ -13,12 +13,10 @@ import { render, cleanup } from "@testing-library/react";
 import React from "react";
 
 vi.mock("@/components/ui/section", () => ({
-  Section: ({ children, ...rest }: any) =>
-    React.createElement("section", rest, children),
+  Section: ({ children, ...rest }: any) => React.createElement("section", rest, children),
 }));
 vi.mock("@/components/ui/container-editorial", () => ({
-  ContainerEditorial: ({ children, ...rest }: any) =>
-    React.createElement("div", rest, children),
+  ContainerEditorial: ({ children, ...rest }: any) => React.createElement("div", rest, children),
 }));
 vi.mock("@/components/ui/button", () => ({
   Button: ({ asChild, children, ...rest }: any) =>
@@ -33,12 +31,10 @@ vi.mock("@/components/sg/sg-footer", () => ({
   SGFooter: () => React.createElement("footer", { "data-test": "sg-footer" }),
 }));
 vi.mock("@/components/sg/venue-map", () => ({
-  VenueMap: ({ title }: { title: string }) =>
-    React.createElement("iframe", { title }),
+  VenueMap: ({ title }: { title: string }) => React.createElement("iframe", { title }),
 }));
 vi.mock("@/components/hk/venue-map", () => ({
-  VenueMap: ({ title }: { title: string }) =>
-    React.createElement("iframe", { title }),
+  VenueMap: ({ title }: { title: string }) => React.createElement("iframe", { title }),
 }));
 vi.mock("next/image", () => ({
   default: ({ src, alt, priority, ...rest }: any) =>
@@ -52,6 +48,18 @@ vi.mock("next/image", () => ({
 vi.mock("next/link", () => ({
   default: ({ href, children, ...rest }: any) =>
     React.createElement("a", { href, ...rest }, children),
+}));
+
+// Phase 6 wired sanityFetch — mock returns null so page falls back to static KATONG_POINT data.
+vi.mock("@/lib/sanity.live", () => ({
+  sanityFetch: async () => ({ data: null }),
+  SanityLive: () => null,
+}));
+vi.mock("@/lib/queries", () => ({
+  venueBySlugQuery: "",
+}));
+vi.mock("@/components/sanity-image", () => ({
+  SanityImage: ({ alt, ...rest }: any) => React.createElement("img", { alt, ...rest }),
 }));
 
 beforeAll(() => {

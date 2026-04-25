@@ -67,10 +67,10 @@ const SEASONS = [
 ] as const;
 
 export default async function HolidayCampsPage() {
-  const { data: camps } = await sanityFetch({
-    query: hkCampsQuery,
-    tags: ["camp"],
-  });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: camps } = (await sanityFetch({ query: hkCampsQuery, tags: ["camp"] })) as {
+    data: any[];
+  };
 
   return (
     <>

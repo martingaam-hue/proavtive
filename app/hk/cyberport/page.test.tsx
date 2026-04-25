@@ -39,6 +39,18 @@ vi.mock("next/image", () => ({
   ),
 }));
 
+// Phase 6 wired sanityFetch — mock returns null so page falls back to static HK_CYBERPORT data.
+vi.mock("@/lib/sanity.live", () => ({
+  sanityFetch: async () => ({ data: null }),
+  SanityLive: () => null,
+}));
+vi.mock("@/lib/queries", () => ({
+  venueBySlugQuery: "",
+}));
+vi.mock("@/components/sanity-image", () => ({
+  SanityImage: ({ alt, ...rest }: any) => <img alt={alt} {...rest} />,
+}));
+
 beforeAll(() => {
   process.env.NEXT_PUBLIC_HK_PHONE = "+85287654321";
   process.env.NEXT_PUBLIC_HK_PHONE_CYBERPORT = "+85287654322";

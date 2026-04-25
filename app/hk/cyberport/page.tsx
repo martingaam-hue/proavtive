@@ -55,11 +55,12 @@ export const metadata: Metadata = {
 };
 
 export default async function CyberportPage() {
-  const { data: sanityVenue } = await sanityFetch({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: sanityVenue } = (await sanityFetch({
     query: venueBySlugQuery,
     params: { slug: "cyberport" },
     tags: ["venue"],
-  });
+  })) as { data: any };
 
   // Graceful fallback: use Sanity data when available, otherwise hardcoded static data
   const phoneHk = process.env.NEXT_PUBLIC_HK_PHONE_CYBERPORT ?? process.env.NEXT_PUBLIC_HK_PHONE;
@@ -237,7 +238,8 @@ export default async function CyberportPage() {
             </h2>
             <table className="w-full">
               <tbody>
-                {openingHours.map((h, i) => (
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                {(openingHours as any[]).map((h: any, i: number) => (
                   <tr key={i} className="border-b border-border">
                     <td className="py-3 font-semibold text-foreground">
                       {"days" in h ? h.days : ""}

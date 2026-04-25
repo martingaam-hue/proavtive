@@ -34,6 +34,17 @@ const nextConfig: NextConfig = {
   // consuming packages rewrites the named imports to use proper CJS interop.
   transpilePackages: ["sanity", "@sanity/vision", "@sanity/visual-editing"],
 
+  // Phase 7 / Plan 07-07 — Rule 1 fix for Turbopack build failure.
+  // sanity@5.22.0's lib/index.js is 4.62 MB, exceeding Turbopack's 22-bit
+  // source-map position limit (~4.19 MB). Disabling source maps for the
+  // Turbopack production build avoids the VLQ encoding overflow.
+  // Sentry still receives source maps via its own separate upload mechanism
+  // (deleteSourcemapsAfterUpload: true in withSentryConfig — it uploads before
+  // deletion; CI has no SENTRY_AUTH_TOKEN so source-map upload is skipped there).
+  experimental: {
+    turbopackSourceMaps: false,
+  },
+
   // Phase 2 / Plan 02-05 — Vercel image optimization config per UI-SPEC §5.3 + DS-04.
   // formats: AVIF preferred (smaller), WebP fallback, automatic per-request negotiation.
   // deviceSizes + imageSizes: full Next.js default spectrum + hero-tier 1920 anchor.

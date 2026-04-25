@@ -20,6 +20,7 @@
     "photos:process": "node scripts/process-photos.mjs",
     "redirects:verify": "node scripts/verify-redirects.mjs",
     "typegen": "sanity schema extract && sanity typegen generate",
+    "postinstall": "node scripts/minify-sanity.mjs",
     "prepare": "lefthook install"
   },
   "dependencies": {
@@ -75,6 +76,9 @@
   "pnpm": {
     "overrides": {
       "path-to-regexp": ">=8.4.0"
+    },
+    "patchedDependencies": {
+      "sanity@5.22.0": "patches/sanity@5.22.0.patch"
     }
   }
 }

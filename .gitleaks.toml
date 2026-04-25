@@ -6,10 +6,11 @@ title = "proactive-gitleaks"
 useDefault = true
 
 [allowlist]
-description = "Files where high-entropy strings are expected (lockfiles, planning docs)"
+description = "Files where high-entropy strings are expected (lockfiles, planning docs, npm patches)"
 paths = [
   '''pnpm-lock\.yaml''',
   '''package-lock\.json''',
   '''yarn\.lock''',
   '''\.planning/.*\.md''',
+  '''patches/.*\.patch''',
 ]

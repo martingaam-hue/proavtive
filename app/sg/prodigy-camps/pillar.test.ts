@@ -16,12 +16,10 @@ import { render, cleanup } from "@testing-library/react";
 import React from "react";
 
 vi.mock("@/components/ui/section", () => ({
-  Section: ({ children, ...rest }: any) =>
-    React.createElement("section", rest, children),
+  Section: ({ children, ...rest }: any) => React.createElement("section", rest, children),
 }));
 vi.mock("@/components/ui/container-editorial", () => ({
-  ContainerEditorial: ({ children, ...rest }: any) =>
-    React.createElement("div", rest, children),
+  ContainerEditorial: ({ children, ...rest }: any) => React.createElement("div", rest, children),
 }));
 vi.mock("@/components/ui/button", () => ({
   Button: ({ asChild, children, ...rest }: any) =>
@@ -30,8 +28,7 @@ vi.mock("@/components/ui/button", () => ({
       : React.createElement("button", rest, children),
 }));
 vi.mock("@/components/ui/card", () => ({
-  Card: ({ children, ...rest }: any) =>
-    React.createElement("div", rest, children),
+  Card: ({ children, ...rest }: any) => React.createElement("div", rest, children),
 }));
 vi.mock("@/components/sg/sg-nav", () => ({
   SGNav: () => React.createElement("nav", { "data-test": "sg-nav" }),
@@ -49,12 +46,22 @@ vi.mock("@/components/sg/camps-pillar-nav", () => ({
       { "aria-label": "Prodigy camp types" },
       React.createElement("a", { href: "/prodigy-camps/themed/" }, "Themed Camps"),
       React.createElement("a", { href: "/prodigy-camps/multi-activity/" }, "Multi-Activity"),
-      React.createElement("a", { href: "/prodigy-camps/gymnastics/" }, "Gymnastics")
+      React.createElement("a", { href: "/prodigy-camps/gymnastics/" }, "Gymnastics"),
     ),
 }));
 vi.mock("next/link", () => ({
   default: ({ href, children, ...rest }: any) =>
     React.createElement("a", { href, ...rest }, children),
+}));
+
+// Phase 6 wired sanityFetch — mock returns empty array (no live camps yet).
+// Static SG_CAMP_TYPES editorial section still renders with all 3 type links.
+vi.mock("@/lib/sanity.live", () => ({
+  sanityFetch: async () => ({ data: [] }),
+  SanityLive: () => null,
+}));
+vi.mock("@/lib/queries", () => ({
+  sgCampsQuery: "",
 }));
 
 beforeAll(() => {

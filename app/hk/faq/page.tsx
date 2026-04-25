@@ -41,10 +41,10 @@ const GROUP_LABELS: Record<string, string> = {
 const GROUP_ORDER = ["about", "venues", "gymnastics", "camps", "parties", "pricing"] as const;
 
 export default async function HKFAQPage() {
-  const { data: faqs } = await sanityFetch({
-    query: hkFaqQuery,
-    tags: ["faq"],
-  });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: faqs } = (await sanityFetch({ query: hkFaqQuery, tags: ["faq"] })) as {
+    data: any[];
+  };
 
   // Group items by `category` field (Sanity field name), preserving GROUP_ORDER.
   const grouped = GROUP_ORDER.map((group) => ({
