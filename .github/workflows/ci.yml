@@ -31,7 +31,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # Fetch full history so gitleaks can scan the entire PR diff range.
           fetch-depth: 0
