@@ -12,7 +12,7 @@ const CSP_HEADER = [
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: blob: https://cdn.sanity.io https://image.mux.com https://*.googleusercontent.com",
   "media-src 'self' https://stream.mux.com https://www.googleapis.com",
-  "connect-src 'self' https://*.sanity.io https://www.google-analytics.com https://analytics.google.com https://*.sentry.io",
+  "connect-src 'self' https://*.sanity.io https://sanity-cdn.com https://www.google-analytics.com https://analytics.google.com https://*.sentry.io",
   "frame-src 'self' https://www.google.com https://maps.google.com https://www.googletagmanager.com",
   "object-src 'none'",
   "base-uri 'self'",
