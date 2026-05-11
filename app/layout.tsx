@@ -3,8 +3,8 @@ import { unbounded, manrope } from "./fonts";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { SanityLive } from "@/lib/sanity.live";
-import { draftMode } from "next/headers";
-import VisualEditing from "next-sanity/visual-editing";
+import { VisualEditing } from "next-sanity/visual-editing";
+import { LenisProvider } from "@/components/lenis-provider";
 
 export const metadata: Metadata = {
   title: {
@@ -14,19 +14,20 @@ export const metadata: Metadata = {
   description: "ProActiv Sports — children's gymnastics & sports (Hong Kong + Singapore).",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
-  const { isEnabled: isDraftMode } = await draftMode();
   return (
     <html lang="en" className={`${unbounded.variable} ${manrope.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        {children}
+        <LenisProvider>{children}</LenisProvider>
         <SanityLive />
-        {isDraftMode && <VisualEditing />}
+        {/* VisualEditing is a no-op outside the Studio Presentation iframe;
+            it must always render so the comlink handshake can complete on cold load. */}
+        <VisualEditing />
       </body>
       {gaId && <GoogleAnalytics gaId={gaId} />}
     </html>
