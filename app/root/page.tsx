@@ -12,8 +12,8 @@ import { StorySectionWithStats } from "@/components/root/story-stats-section";
 import { MarketSplitSection } from "@/components/root/market-split-section";
 import { ProgrammeListSection } from "@/components/root/programme-list-section";
 import { TrustCinematicSection } from "@/components/root/trust-cinematic-section";
-import { LeadershipSection } from "@/components/root/leadership-section";
-import type { LeadershipCardProps } from "@/components/root/leadership-card";
+import { LeadershipEditorialSection } from "@/components/root/leadership-editorial-section";
+import type { LeadershipPersonProps } from "@/components/root/leadership-editorial-section";
 import { FAQNumberedSection } from "@/components/root/faq-numbered-section";
 import { FinalCTASection } from "@/components/root/final-cta-section";
 
@@ -71,7 +71,7 @@ const FAQ_ITEMS = [
 // LEADERS — verbatim from UI-SPEC §3.6 / PART 6A §6
 // Portrait paths require real photos via pnpm photos:process (D-10 HUMAN-ACTION)
 // ─────────────────────────────────────────────────────────────────────────────
-const LEADERS: LeadershipCardProps[] = [
+const LEADERS: LeadershipPersonProps[] = [
   {
     name: "Will",
     role: "Founder",
@@ -204,7 +204,7 @@ export default async function GatewayHomePage() {
       <MarketSplitSection hkUrl={HK_URL} sgUrl={SG_URL} />
       <ProgrammeListSection />
       <TrustCinematicSection />
-      <LeadershipSection
+      <LeadershipEditorialSection
         heading="Led by people who've built their lives around coaching."
         leaders={LEADERS}
       />
