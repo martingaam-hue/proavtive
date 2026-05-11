@@ -59,6 +59,9 @@ export function FAQNumberedSection({ items }: FAQNumberedSectionProps) {
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           className="mb-10 lg:mb-14"
         >
+          <p className="font-sans text-[0.65rem] tracking-[0.32em] uppercase text-brand-red font-semibold mb-4">
+            Common Questions
+          </p>
           <h2 className="font-display font-extrabold text-foreground tracking-tight text-[clamp(1.75rem,3vw,2.75rem)] max-w-[22ch]">
             Frequently asked — about the brand
           </h2>

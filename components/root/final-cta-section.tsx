@@ -41,13 +41,13 @@ export function FinalCTASection({ hkUrl, sgUrl }: FinalCTASectionProps) {
         >
           <a
             href={hkUrl}
-            className="inline-flex items-center justify-center px-10 py-[1.15rem] font-display font-bold text-[0.74rem] tracking-[0.18em] uppercase text-brand-cream bg-brand-navy hover:bg-brand-navy/85 transition-colors duration-300"
+            className="inline-flex items-center justify-center px-10 py-[1.15rem] font-display font-bold text-[0.74rem] tracking-[0.18em] uppercase text-white bg-brand-red hover:bg-brand-red/85 transition-colors duration-300"
           >
             Enter Hong Kong →
           </a>
           <a
             href={sgUrl}
-            className="inline-flex items-center justify-center px-10 py-[1.15rem] font-display font-bold text-[0.74rem] tracking-[0.18em] uppercase text-brand-navy border border-brand-navy/25 hover:border-brand-navy hover:bg-brand-navy/5 transition-all duration-300"
+            className="inline-flex items-center justify-center px-10 py-[1.15rem] font-display font-bold text-[0.74rem] tracking-[0.18em] uppercase text-white bg-brand-navy hover:bg-brand-navy/85 transition-colors duration-300"
           >
             Enter Singapore →
           </a>

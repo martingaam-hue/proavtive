@@ -67,7 +67,7 @@ export function HeroSection({ hkUrl, sgUrl }: HeroSectionProps) {
                   variants={wordReveal}
                   initial="hidden"
                   animate="visible"
-                  className="block font-display font-extrabold leading-[0.87] tracking-tight text-brand-cream text-[clamp(4rem,9.5vw,10rem)]"
+                  className={`block font-display font-black leading-[0.87] tracking-tight text-[clamp(4rem,9.5vw,10rem)]${word === "Thrive." ? " text-gradient-brand" : " text-brand-cream"}`}
                 >
                   {word}
                 </motion.span>
@@ -107,13 +107,13 @@ export function HeroSection({ hkUrl, sgUrl }: HeroSectionProps) {
           >
             <a
               href={hkUrl}
-              className="inline-flex items-center justify-center px-8 py-[1.1rem] font-display font-bold text-[0.78rem] tracking-[0.14em] uppercase text-brand-navy bg-brand-cream hover:bg-white transition-colors duration-300"
+              className="inline-flex items-center justify-center px-8 py-[1.1rem] font-display font-bold text-[0.78rem] tracking-[0.14em] uppercase text-white bg-brand-red hover:bg-brand-red/85 transition-colors duration-300"
             >
               Enter Hong Kong →
             </a>
             <a
               href={sgUrl}
-              className="inline-flex items-center justify-center px-8 py-[1.1rem] font-display font-bold text-[0.78rem] tracking-[0.14em] uppercase text-brand-cream border border-brand-cream/30 hover:border-brand-cream/60 hover:bg-white/5 transition-all duration-300"
+              className="inline-flex items-center justify-center px-8 py-[1.1rem] font-display font-bold text-[0.78rem] tracking-[0.14em] uppercase text-white bg-brand-navy hover:bg-brand-navy/85 transition-colors duration-300"
             >
               Enter Singapore →
             </a>

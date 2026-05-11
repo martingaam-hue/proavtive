@@ -65,6 +65,15 @@ export function StorySectionWithStats({ stats }: Props) {
     <section className="bg-brand-cream">
       {/* Story — asymmetric grid */}
       <div className="px-[5vw] lg:px-[6vw] py-[clamp(5rem,10vw,9rem)]">
+        <motion.p
+          className="font-sans text-[0.65rem] tracking-[0.32em] uppercase text-brand-red font-semibold mb-6"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+        >
+          Our Story
+        </motion.p>
         <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 lg:gap-20 items-start">
           <motion.h2
             className="font-display font-extrabold text-brand-navy text-[clamp(2rem,4.5vw,4.5rem)] leading-[1.0] tracking-tight"

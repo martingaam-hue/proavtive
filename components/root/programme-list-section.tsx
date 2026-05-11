@@ -1,100 +1,86 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Trophy, Activity, Backpack, Cake, Medal, type LucideIcon } from "lucide-react";
 
-const PROGRAMMES = [
+const CARDS = [
   {
-    index: "01",
-    icon: Trophy,
     title: "Gymnastics",
     description:
       "From toddler classes to the competitive pathway, with structured progression at every level.",
     markets: "HK: ProGym Wan Chai & Cyberport · SG: Prodigy",
+    photo: "/photography/nexus-gymnastics.jpg",
+    photoAlt: "Children in gymnastics class at ProActiv Sports",
   },
   {
-    index: "02",
-    icon: Activity,
     title: "Sports Classes",
     description: "Football, basketball, rugby, tennis, dodgeball, martial arts, parkour.",
     markets: "Core programme in SG · Multi-activity options in HK camps",
+    photo: "/photography/nexus-sports-classes.jpg",
+    photoAlt: "Children enjoying sports classes at ProActiv Sports",
   },
   {
-    index: "03",
-    icon: Backpack,
     title: "Holiday Camps",
     description:
       "Action-packed school holiday weeks, year-round. Themed options, half-day and full-day.",
     markets: "HK & SG",
+    photo: "/photography/nexus-holiday-camps.jpg",
+    photoAlt: "Children at a ProActiv Sports holiday camp",
   },
   {
-    index: "04",
-    icon: Cake,
     title: "Birthday Parties",
     description: "Two hours of hosted, coach-led fun. You bring the cake; we do the rest.",
     markets: "HK & SG",
-  },
-  {
-    index: "05",
-    icon: Medal,
-    title: "Competitions & Events",
-    description: "Competitive squads, inter-school events, community sports days.",
-    markets: "HK & SG",
+    photo: "/photography/nexus-birthday-parties.jpg",
+    photoAlt: "Birthday party at ProActiv Sports",
   },
 ] as const;
 
-interface ProgrammeItemProps {
-  index: string;
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  markets: string;
-  delay: number;
-}
-
-function ProgrammeItem({
-  index,
-  icon: Icon,
+function ProgrammeCard({
   title,
   description,
   markets,
+  photo,
+  photoAlt,
   delay,
-}: ProgrammeItemProps) {
-  const ref = useRef<HTMLLIElement>(null);
+}: (typeof CARDS)[number] & { delay: number }) {
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-4%" });
 
   return (
-    <motion.li
+    <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 28 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
       transition={{ delay, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-      className="grid grid-cols-[3rem_1fr] lg:grid-cols-[5rem_1fr] gap-5 lg:gap-10 py-8 lg:py-11 border-b border-foreground/10 last:border-b-0"
+      className="group flex flex-col rounded-xl overflow-hidden bg-white"
     >
-      <div className="pt-[2px]">
-        <span className="font-display font-bold text-[1.5rem] lg:text-[2.25rem] text-brand-navy/15 leading-none tabular-nums select-none">
-          {index}
-        </span>
+      <div className="relative aspect-[4/3] overflow-hidden">
+        <Image
+          src={photo}
+          alt={photoAlt}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+        />
       </div>
 
-      <div className="flex flex-col lg:flex-row lg:items-start lg:gap-16">
-        <div className="flex-1">
-          <div className="flex items-center gap-3 mb-2">
-            <Icon aria-hidden="true" className="size-[1.1rem] text-brand-navy shrink-0" />
-            <h3 className="font-display font-bold text-foreground text-[1.1rem] lg:text-[1.3rem] leading-snug">
-              {title}
-            </h3>
-          </div>
-          <p className="font-sans text-[0.9rem] text-muted-foreground leading-relaxed max-w-[54ch]">
-            {description}
-          </p>
-          <p className="mt-3 font-sans text-[0.7rem] text-brand-navy/45 tracking-[0.12em] uppercase">
-            {markets}
-          </p>
-        </div>
+      <div className="flex flex-col flex-1 p-6 lg:p-7">
+        <h3 className="font-display font-black text-brand-navy text-[1.1rem] lg:text-[1.2rem] leading-tight mb-2">
+          {title}
+        </h3>
+        <p className="font-sans text-[0.9rem] text-brand-navy/65 leading-relaxed flex-1">
+          {description}
+        </p>
+        <p className="mt-3 font-sans text-[0.65rem] text-brand-navy/40 tracking-[0.12em] uppercase">
+          {markets}
+        </p>
+        <span className="mt-4 font-display font-bold text-[0.75rem] tracking-[0.1em] uppercase text-brand-red">
+          Learn more →
+        </span>
       </div>
-    </motion.li>
+    </motion.div>
   );
 }
 
@@ -103,7 +89,7 @@ export function ProgrammeListSection() {
   const headingInView = useInView(headingRef, { once: true, margin: "-8%" });
 
   return (
-    <section>
+    <section className="bg-brand-cream">
       <div className="px-[5vw] lg:px-[6vw] py-20 lg:py-28">
         <motion.div
           ref={headingRef}
@@ -112,16 +98,19 @@ export function ProgrammeListSection() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12 lg:mb-16"
         >
-          <h2 className="font-display font-extrabold text-foreground leading-tight tracking-tight text-[clamp(1.75rem,3.5vw,3rem)] max-w-[28ch]">
+          <p className="font-sans text-[0.65rem] tracking-[0.32em] uppercase text-brand-red font-semibold mb-4">
+            Our Programmes
+          </p>
+          <h2 className="font-display font-black text-brand-navy leading-tight tracking-tight text-[clamp(1.75rem,3.5vw,3rem)] max-w-[28ch]">
             Built for every stage of a child&apos;s movement journey.
           </h2>
         </motion.div>
 
-        <ul className="list-none m-0 p-0">
-          {PROGRAMMES.map((prog, i) => (
-            <ProgrammeItem key={prog.title} {...prog} delay={i * 0.07} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {CARDS.map((card, i) => (
+            <ProgrammeCard key={card.title} {...card} delay={i * 0.07} />
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );
