@@ -39,7 +39,7 @@ export function RootFooter() {
   const sgUrl = process.env.NEXT_PUBLIC_SG_URL ?? "/?__market=sg";
 
   return (
-    <footer className="bg-brand-navy text-white">
+    <footer className="bg-[#0a0a0a] text-white border-t border-white/8">
       <Section size="md" bg="navy">
         <ContainerEditorial width="wide">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
@@ -47,39 +47,115 @@ export function RootFooter() {
             <div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/assets/logo.svg" alt="ProActiv Sports" className="h-10" />
-              <p className="text-small text-cream mt-4 max-w-xs">
+              <p className="text-small text-white/50 mt-4 max-w-xs">
                 Children&apos;s gymnastics and sports in Hong Kong and Singapore. Since 2011.
               </p>
             </div>
 
             {/* Column 2 — Company */}
             <div>
-              <h4 className="text-small font-semibold uppercase tracking-wider text-white">Company</h4>
-              <ul className="mt-4 space-y-2 text-small text-cream">
-                <li><Link href="/brand" className="hover:text-white transition-colors min-h-11 inline-flex items-center">About</Link></li>
-                <li><Link href="/coaching-philosophy" className="hover:text-white transition-colors min-h-11 inline-flex items-center">Coaching</Link></li>
-                <li><Link href="/news" className="hover:text-white transition-colors min-h-11 inline-flex items-center">News</Link></li>
-                <li><Link href="/careers" className="hover:text-white transition-colors min-h-11 inline-flex items-center">Careers</Link></li>
+              <h4 className="text-small font-semibold uppercase tracking-wide text-white">
+                Company
+              </h4>
+              <ul className="mt-4 space-y-2 text-small text-white/50">
+                <li>
+                  <Link
+                    href="/brand"
+                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
+                  >
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/coaching-philosophy"
+                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
+                  >
+                    Coaching
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/news"
+                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
+                  >
+                    News
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/careers"
+                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
+                  >
+                    Careers
+                  </Link>
+                </li>
               </ul>
             </div>
 
             {/* Column 3 — Markets */}
             <div>
-              <h4 className="text-small font-semibold uppercase tracking-wider text-white">Markets</h4>
-              <ul className="mt-4 space-y-2 text-small text-cream">
-                <li><a href={hkUrl} className="hover:text-white transition-colors min-h-11 inline-flex items-center">ProActiv Sports Hong Kong →</a></li>
-                <li><a href={sgUrl} className="hover:text-white transition-colors min-h-11 inline-flex items-center">Prodigy by ProActiv Sports Singapore →</a></li>
+              <h4 className="text-small font-semibold uppercase tracking-wide text-white">
+                Markets
+              </h4>
+              <ul className="mt-4 space-y-2 text-small text-white/50">
+                <li>
+                  <a
+                    href={hkUrl}
+                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
+                  >
+                    ProActiv Sports Hong Kong →
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={sgUrl}
+                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
+                  >
+                    Prodigy by ProActiv Sports Singapore →
+                  </a>
+                </li>
               </ul>
             </div>
 
             {/* Column 4 — Contact + Legal */}
             <div>
-              <h4 className="text-small font-semibold uppercase tracking-wider text-white">Contact &amp; Legal</h4>
-              <ul className="mt-4 space-y-2 text-small text-cream">
-                <li><Link href="/contact" className="hover:text-white transition-colors min-h-11 inline-flex items-center">Contact</Link></li>
-                <li><a href="mailto:hello@proactivsports.com" className="hover:text-white transition-colors min-h-11 inline-flex items-center">hello@proactivsports.com</a></li>
-                <li><Link href="/privacy" className="hover:text-white transition-colors min-h-11 inline-flex items-center">Privacy</Link></li>
-                <li><Link href="/terms" className="hover:text-white transition-colors min-h-11 inline-flex items-center">Terms</Link></li>
+              <h4 className="text-small font-semibold uppercase tracking-wide text-white">
+                Contact &amp; Legal
+              </h4>
+              <ul className="mt-4 space-y-2 text-small text-white/50">
+                <li>
+                  <Link
+                    href="/contact"
+                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
+                  >
+                    Contact
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href="mailto:hello@proactivsports.com"
+                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
+                  >
+                    hello@proactivsports.com
+                  </a>
+                </li>
+                <li>
+                  <Link
+                    href="/privacy"
+                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
+                  >
+                    Privacy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/terms"
+                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
+                  >
+                    Terms
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -87,7 +163,9 @@ export function RootFooter() {
           <Separator className="my-8 bg-white/20" />
 
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <p className="text-small text-cream">© {new Date().getFullYear()} ProActiv Sports. All rights reserved.</p>
+            <p className="text-small text-white/50">
+              © {new Date().getFullYear()} ProActiv Sports. All rights reserved.
+            </p>
             <div className="flex items-center gap-4">
               <a
                 href="https://www.facebook.com/proactivsportshk/"
@@ -96,7 +174,7 @@ export function RootFooter() {
                 aria-label="Follow ProActiv Sports on Facebook"
                 className="min-h-11 min-w-11 inline-flex items-center justify-center"
               >
-                <FacebookIcon className="size-5 text-cream hover:text-white transition-colors" />
+                <FacebookIcon className="size-5 text-white/50 hover:text-white transition-colors" />
               </a>
               <a
                 href="https://www.instagram.com/proactivsports/"
@@ -105,7 +183,7 @@ export function RootFooter() {
                 aria-label="Follow ProActiv Sports on Instagram"
                 className="min-h-11 min-w-11 inline-flex items-center justify-center"
               >
-                <InstagramIcon className="size-5 text-cream hover:text-white transition-colors" />
+                <InstagramIcon className="size-5 text-white/50 hover:text-white transition-colors" />
               </a>
               <a
                 href="https://www.linkedin.com/company/proactiv-sports/"
@@ -114,7 +192,7 @@ export function RootFooter() {
                 aria-label="Follow ProActiv Sports on LinkedIn"
                 className="min-h-11 min-w-11 inline-flex items-center justify-center"
               >
-                <LinkedinIcon className="size-5 text-cream hover:text-white transition-colors" />
+                <LinkedinIcon className="size-5 text-white/50 hover:text-white transition-colors" />
               </a>
             </div>
           </div>

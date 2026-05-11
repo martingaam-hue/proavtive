@@ -54,7 +54,7 @@ function ProgrammeCard({
       initial={{ opacity: 0, y: 28 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
       transition={{ delay, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-      className="group flex flex-col rounded-xl overflow-hidden bg-white"
+      className="group flex flex-col overflow-hidden bg-[#1a1a1a]"
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
@@ -67,16 +67,16 @@ function ProgrammeCard({
       </div>
 
       <div className="flex flex-col flex-1 p-6 lg:p-7">
-        <h3 className="font-display font-black text-brand-navy text-[1.1rem] lg:text-[1.2rem] leading-tight mb-2">
+        <h3 className="font-display font-bold text-white text-[1.1rem] lg:text-[1.2rem] leading-tight mb-2">
           {title}
         </h3>
-        <p className="font-sans text-[0.9rem] text-brand-navy/65 leading-relaxed flex-1">
+        <p className="font-sans text-[0.9rem] text-white/50 leading-relaxed flex-1">
           {description}
         </p>
-        <p className="mt-3 font-sans text-[0.65rem] text-brand-navy/40 tracking-[0.12em] uppercase">
+        <p className="mt-3 font-sans text-[0.65rem] text-white/28 tracking-wide uppercase">
           {markets}
         </p>
-        <span className="mt-4 font-display font-bold text-[0.75rem] tracking-[0.1em] uppercase text-brand-red">
+        <span className="mt-4 font-display font-semibold text-[0.75rem] text-brand-red">
           Learn more →
         </span>
       </div>
@@ -89,7 +89,7 @@ export function ProgrammeListSection() {
   const headingInView = useInView(headingRef, { once: true, margin: "-8%" });
 
   return (
-    <section className="bg-brand-cream">
+    <section className="bg-[#0d0d0d]">
       <div className="px-[5vw] lg:px-[6vw] py-20 lg:py-28">
         <motion.div
           ref={headingRef}
@@ -98,15 +98,15 @@ export function ProgrammeListSection() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12 lg:mb-16"
         >
-          <p className="font-sans text-[0.65rem] tracking-[0.32em] uppercase text-brand-red font-semibold mb-4">
+          <p className="font-sans text-[0.65rem] tracking-[0.1em] uppercase text-brand-red font-semibold mb-4">
             Our Programmes
           </p>
-          <h2 className="font-display font-black text-brand-navy leading-tight tracking-tight text-[clamp(1.75rem,3.5vw,3rem)] max-w-[28ch]">
+          <h2 className="font-display font-bold text-white leading-tight tracking-tight text-[clamp(1.75rem,3.5vw,3rem)] max-w-[28ch]">
             Built for every stage of a child&apos;s movement journey.
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {CARDS.map((card, i) => (
             <ProgrammeCard key={card.title} {...card} delay={i * 0.07} />
           ))}

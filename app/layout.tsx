@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { unbounded, manrope } from "./fonts";
+import { spaceGrotesk } from "./fonts";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { SanityLive } from "@/lib/sanity.live";
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
   return (
-    <html lang="en" className={`${unbounded.variable} ${manrope.variable} h-full antialiased`}>
+    <html lang="en" className={`${spaceGrotesk.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <LenisProvider>{children}</LenisProvider>
         <SanityLive />

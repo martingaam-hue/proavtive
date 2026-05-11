@@ -60,7 +60,7 @@ function MarketPanel({
       </motion.div>
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/95 via-brand-navy/45 to-brand-navy/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/45 to-black/10" />
 
       {/* Top edge accent */}
       {market === "sg" && (
@@ -70,7 +70,7 @@ function MarketPanel({
       {/* Content */}
       <div className="absolute inset-0 flex flex-col justify-end px-8 pb-14 lg:px-14 lg:pb-20">
         <motion.p
-          className="font-sans text-[0.6rem] tracking-[0.38em] uppercase text-brand-cream/45 mb-4"
+          className="font-sans text-[0.6rem] tracking-[0.1em] uppercase text-white/45 mb-4"
           custom={0.15}
           variants={contentReveal}
           initial="hidden"
@@ -80,7 +80,7 @@ function MarketPanel({
         </motion.p>
 
         <motion.h2
-          className="font-display font-extrabold text-brand-cream leading-none tracking-tight text-[clamp(2.5rem,5.5vw,5rem)]"
+          className="font-display font-extrabold text-white leading-none tracking-tight text-[clamp(2.5rem,5.5vw,5rem)]"
           custom={0.25}
           variants={contentReveal}
           initial="hidden"
@@ -90,7 +90,7 @@ function MarketPanel({
         </motion.h2>
 
         <motion.p
-          className="mt-4 font-sans text-[clamp(0.88rem,1.1vw,1rem)] text-brand-cream/65 max-w-[40ch] leading-relaxed"
+          className="mt-4 font-sans text-[clamp(0.88rem,1.1vw,1rem)] text-white/60 max-w-[40ch] leading-relaxed"
           custom={0.38}
           variants={contentReveal}
           initial="hidden"
@@ -100,7 +100,7 @@ function MarketPanel({
         </motion.p>
 
         <motion.p
-          className="mt-2 font-sans text-[0.72rem] text-brand-cream/38 tracking-wide"
+          className="mt-2 font-sans text-[0.72rem] text-white/35 tracking-wide"
           custom={0.48}
           variants={contentReveal}
           initial="hidden"
@@ -111,7 +111,7 @@ function MarketPanel({
 
         <motion.a
           href={href}
-          className="mt-8 self-start inline-flex items-center gap-2 font-display font-bold text-[0.71rem] tracking-[0.17em] uppercase text-brand-navy bg-brand-cream px-7 py-[0.95rem] hover:bg-white transition-colors duration-300"
+          className="mt-8 self-start inline-flex items-center gap-2 font-display font-semibold text-[0.75rem] tracking-wide uppercase text-white bg-brand-red px-7 py-[0.95rem] hover:bg-brand-red/85 transition-colors duration-300"
           custom={0.58}
           variants={contentReveal}
           initial="hidden"

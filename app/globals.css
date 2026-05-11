@@ -19,11 +19,9 @@
   --color-brand-yellow: #fac049;
   --color-brand-cream: #fff3dd;
 
-  /* Typography families — resolved by Plan 02-02 next/font/google variable= names
-     (D-01 amended 2026-04-23: Unbounded + Manrope + Baloo 2, all OFL).
-     Fallback chain keeps the token usable pre-font-wiring. */
-  --font-display: var(--font-unbounded, "Arial", "Helvetica Neue", system-ui, sans-serif);
-  --font-sans: var(--font-manrope, "Arial", "Helvetica Neue", system-ui, sans-serif);
+  /* Typography — single Space Grotesk system; weight carries the hierarchy */
+  --font-display: var(--font-space-grotesk, "Arial", "Helvetica Neue", system-ui, sans-serif);
+  --font-sans: var(--font-space-grotesk, "Arial", "Helvetica Neue", system-ui, sans-serif);
   --font-accent: var(--font-baloo, "Arial", "Helvetica Neue", system-ui, sans-serif);
 
   /* Section-spacing rhythm (strategy §14.6) — 64 / 96 / 128 px */
@@ -77,74 +75,73 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.2906 0.1328 267.05); /* navy — Phase 2 Plan 02-01 */
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2906 0.1328 267.05); /* navy */
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2906 0.1328 267.05); /* navy */
-  --primary: oklch(0.2906 0.1328 267.05); /* navy */
-  --primary-foreground: oklch(1 0 0); /* white */
-  --secondary: oklch(0.8399 0.1469 81.92); /* yellow — contrast w/ navy 8.80:1 */
-  --secondary-foreground: oklch(0.2906 0.1328 267.05); /* navy on yellow */
-  --muted: oklch(
-    1 0 0
-  ); /* pure white — was cream; amended 2026-04-23 for white-default surface policy */
-  --muted-foreground: oklch(0.45 0.05 267); /* 70% navy — passes ≥4.5:1 on white */
-  --accent: oklch(1 0 0); /* pure white — was cream; amended 2026-04-23 */
-  --accent-foreground: oklch(0.2906 0.1328 267.05); /* navy */
-  --destructive: oklch(0.6012 0.2339 26.97); /* brand red #ec1c24 */
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.2906 0.1328 267.05); /* navy — focus ring MUST match primary per UI-SPEC §1.4 */
+  --background: oklch(0.07 0 0); /* near-black */
+  --foreground: oklch(0.95 0 0); /* near-white */
+  --card: oklch(0.11 0 0); /* dark card surface */
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.11 0 0);
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: oklch(0.6012 0.2339 26.97); /* brand red as primary */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.15 0 0); /* dark secondary surface */
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.13 0 0); /* slightly lighter dark */
+  --muted-foreground: oklch(0.52 0 0); /* mid-grey readable text */
+  --accent: oklch(0.14 0 0);
+  --accent-foreground: oklch(0.95 0 0);
+  --destructive: oklch(0.6012 0.2339 26.97);
+  --border: oklch(1 0 0 / 0.09); /* white/9 */
+  --input: oklch(1 0 0 / 0.09);
+  --ring: oklch(0.6012 0.2339 26.97); /* red focus ring */
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --radius: 0.25rem;
+  --sidebar: oklch(0.1 0 0);
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.6012 0.2339 26.97);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.14 0 0);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(1 0 0 / 0.09);
+  --sidebar-ring: oklch(0.6012 0.2339 26.97);
 }
 
+/* Site is globally dark — .dark block mirrors :root */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --background: oklch(0.07 0 0);
+  --foreground: oklch(0.95 0 0);
+  --card: oklch(0.11 0 0);
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.11 0 0);
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: oklch(0.6012 0.2339 26.97);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.15 0 0);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.13 0 0);
+  --muted-foreground: oklch(0.52 0 0);
+  --accent: oklch(0.14 0 0);
+  --accent-foreground: oklch(0.95 0 0);
+  --destructive: oklch(0.6012 0.2339 26.97);
+  --border: oklch(1 0 0 / 0.09);
+  --input: oklch(1 0 0 / 0.09);
+  --ring: oklch(0.6012 0.2339 26.97);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar: oklch(0.1 0 0);
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.6012 0.2339 26.97);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.14 0 0);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(1 0 0 / 0.09);
+  --sidebar-ring: oklch(0.6012 0.2339 26.97);
 }
 
 @layer base {
@@ -192,4 +189,34 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+@keyframes ken-burns {
+  0% {
+    transform: scale(1) translate(0%, 0%);
+  }
+  50% {
+    transform: scale(1.06) translate(-1.2%, -0.8%);
+  }
+  100% {
+    transform: scale(1) translate(0.4%, 0.4%);
+  }
+}
+
+@keyframes slide-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@utility animate-ken-burns {
+  animation: ken-burns 18s ease-in-out infinite;
+}
+
+@utility animate-slide-progress {
+  animation: slide-progress linear forwards;
+  transform-origin: left;
 }

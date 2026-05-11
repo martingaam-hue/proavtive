@@ -30,7 +30,7 @@ function FAQRow({ question, answer, rowIndex }: FAQRowProps) {
       transition={{ delay: rowIndex * 0.055, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
       className="grid grid-cols-[2.5rem_1fr] lg:grid-cols-[3.5rem_1fr] gap-5 lg:gap-8 py-7 lg:py-10 border-b border-foreground/10 last:border-b-0"
     >
-      <span className="font-display font-bold text-[0.9rem] text-brand-navy/22 tabular-nums mt-[3px] select-none">
+      <span className="font-display font-bold text-[0.9rem] text-white/15 tabular-nums mt-[3px] select-none">
         {num}
       </span>
       <div>
