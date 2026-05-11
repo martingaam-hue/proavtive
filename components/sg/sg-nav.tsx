@@ -34,10 +34,7 @@ const FLAT_NAV_LINKS = [
 export function SGNav() {
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-brand-navy/10">
-      <ContainerEditorial
-        width="wide"
-        className="flex items-center justify-between h-16 lg:h-20"
-      >
+      <ContainerEditorial width="wide" className="flex items-center justify-between h-16 lg:h-20">
         {/* Brand lockup — "Prodigy" in Baloo accent (brand-green), "SG" in display font */}
         <Link
           href="/"
@@ -56,7 +53,7 @@ export function SGNav() {
                 Weekly Classes
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid gap-1 p-3 min-w-[320px] bg-white border border-border rounded-lg shadow-lg">
+                <ul className="grid gap-1 p-3 min-w-[320px] bg-card border border-border rounded-lg shadow-lg">
                   {SG_ZONES.map((z) => (
                     <li key={z.slug}>
                       <NavigationMenuLink asChild>
@@ -72,9 +69,7 @@ export function SGNav() {
                               </Badge>
                             )}
                           </div>
-                          <div className="text-sm text-muted-foreground">
-                            {z.ageBand}
-                          </div>
+                          <div className="text-sm text-muted-foreground">{z.ageBand}</div>
                         </Link>
                       </NavigationMenuLink>
                     </li>
@@ -99,7 +94,7 @@ export function SGNav() {
                 Prodigy Camps
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid gap-1 p-3 min-w-[320px] bg-white border border-border rounded-lg shadow-lg">
+                <ul className="grid gap-1 p-3 min-w-[320px] bg-card border border-border rounded-lg shadow-lg">
                   {SG_CAMP_TYPES.map((c) => (
                     <li key={c.slug}>
                       <NavigationMenuLink asChild>
@@ -107,12 +102,8 @@ export function SGNav() {
                           href={c.href}
                           className="block px-3 py-2 rounded hover:bg-brand-navy/5 transition-colors"
                         >
-                          <div className="font-sans font-semibold text-foreground">
-                            {c.label}
-                          </div>
-                          <div className="text-sm text-muted-foreground">
-                            {c.ageBand}
-                          </div>
+                          <div className="font-sans font-semibold text-foreground">{c.label}</div>
+                          <div className="text-sm text-muted-foreground">{c.ageBand}</div>
                         </Link>
                       </NavigationMenuLink>
                     </li>

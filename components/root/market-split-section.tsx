@@ -135,7 +135,7 @@ export function MarketSplitSection({ hkUrl, sgUrl }: MarketSplitSectionProps) {
           detail="Wan Chai · Cyberport · Ages 2–16"
           cta="Enter Hong Kong →"
           href={hkUrl}
-          imageSrc="/photography/hk-progym-wan-chai.webp"
+          imageSrc="/photography/hk-venue-wanchai-gymtots.webp"
           imageAlt="A coach guiding a child through a beam routine at ProGym Wan Chai"
         />
         <MarketPanel
@@ -145,7 +145,7 @@ export function MarketSplitSection({ hkUrl, sgUrl }: MarketSplitSectionProps) {
           detail="Katong Point · Ages 12 months–16"
           cta="Enter Singapore →"
           href={sgUrl}
-          imageSrc="/photography/sg-prodigy-katong.webp"
+          imageSrc="/photography/sg-placeholder-climbing-unsplash-trinks.webp"
           imageAlt="Children climbing the MultiBall wall at Prodigy @ Katong Point, Singapore"
         />
       </div>

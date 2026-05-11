@@ -33,10 +33,7 @@ const FLAT_NAV_LINKS = [
 export function HKNav() {
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-brand-navy/10">
-      <ContainerEditorial
-        width="wide"
-        className="flex items-center justify-between h-16 lg:h-20"
-      >
+      <ContainerEditorial width="wide" className="flex items-center justify-between h-16 lg:h-20">
         {/* Brand lockup — "ProActiv" in Unbounded display, "HK" in Baloo accent */}
         <Link
           href="/"
@@ -55,7 +52,7 @@ export function HKNav() {
                 Gymnastics
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid gap-1 p-3 min-w-[320px] bg-white border border-border rounded-lg shadow-lg">
+                <ul className="grid gap-1 p-3 min-w-[320px] bg-card border border-border rounded-lg shadow-lg">
                   {HK_GYMNASTICS_PROGRAMMES.map((p) => (
                     <li key={p.slug}>
                       <NavigationMenuLink asChild>
@@ -63,12 +60,8 @@ export function HKNav() {
                           href={p.href}
                           className="block px-3 py-2 rounded hover:bg-brand-navy/5 transition-colors"
                         >
-                          <div className="font-sans font-semibold text-foreground">
-                            {p.label}
-                          </div>
-                          <div className="text-sm text-muted-foreground">
-                            {p.ageBand}
-                          </div>
+                          <div className="font-sans font-semibold text-foreground">{p.label}</div>
+                          <div className="text-sm text-muted-foreground">{p.ageBand}</div>
                         </Link>
                       </NavigationMenuLink>
                     </li>
@@ -93,7 +86,7 @@ export function HKNav() {
                 Locations
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid gap-1 p-3 min-w-[320px] bg-white border border-border rounded-lg shadow-lg">
+                <ul className="grid gap-1 p-3 min-w-[320px] bg-card border border-border rounded-lg shadow-lg">
                   {HK_VENUES.map((v) => (
                     <li key={v.id}>
                       <NavigationMenuLink asChild>
@@ -102,12 +95,9 @@ export function HKNav() {
                           className="block px-3 py-2 rounded hover:bg-brand-navy/5 transition-colors"
                         >
                           <div className="font-sans font-semibold text-foreground">
-                            <span className="font-accent">ProGym</span>{" "}
-                            {v.nameShort}
+                            <span className="font-accent">ProGym</span> {v.nameShort}
                           </div>
-                          <div className="text-sm text-muted-foreground">
-                            {v.addressStreet}
-                          </div>
+                          <div className="text-sm text-muted-foreground">{v.addressStreet}</div>
                         </Link>
                       </NavigationMenuLink>
                     </li>
