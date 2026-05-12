@@ -29,14 +29,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Trophy,
-  MapPin,
-  BadgeCheck,
-  ArrowUpRight,
-  ArrowRight,
-  MessageCircle,
-} from "lucide-react";
+import { Trophy, MapPin, BadgeCheck, ArrowUpRight, ArrowRight, MessageCircle } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { ContainerEditorial } from "@/components/ui/container-editorial";
 import { Button } from "@/components/ui/button";
@@ -85,8 +78,7 @@ export const metadata: Metadata = {
 // Visible DOM order MUST equal JSON-LD order (Google FAQPage rich-result rule).
 // ─────────────────────────────────────────────────────────────────────────────
 const HK_HOMEPAGE_FAQS = HK_FAQ_ITEMS.filter(
-  (i) =>
-    i.group === "about" || i.group === "gymnastics" || i.group === "venues",
+  (i) => i.group === "about" || i.group === "gymnastics" || i.group === "venues",
 ).slice(0, 8);
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -160,7 +152,7 @@ const hkHomeSchema = {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // §3.1 HERO — per strategy PART 4 §1 + PART 6B §1 (verbatim H1 + subhead).
-// 21:9 on desktop, 16:9 on mobile. Overlay at brand-navy/40 for 14.55:1 contrast.
+// 21:9 on desktop, 16:9 on mobile. Overlay at black/40 for dark-theme cinematic look.
 // ─────────────────────────────────────────────────────────────────────────────
 function HeroSection() {
   return (
@@ -173,19 +165,15 @@ function HeroSection() {
             posterAlt="Children practising gymnastics at ProGym Wan Chai, Hong Kong"
             title="ProGym Hong Kong — hero montage"
           />
-          <div
-            className="absolute inset-0 bg-brand-navy/40"
-            aria-hidden="true"
-          />
+          <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
           <div className="absolute inset-0 flex flex-col items-start justify-center px-6 md:px-12">
             <h1 className="text-display font-display text-white max-w-2xl leading-tight text-4xl md:text-5xl lg:text-6xl font-bold">
               Premium gymnastics and sports programmes for children in Hong Kong.
             </h1>
             <p className="text-body-lg text-brand-cream max-w-xl mt-4 text-base md:text-lg">
-              Since 2011 — two dedicated venues in Wan Chai and Cyberport,
-              coaches who complete our training course regardless of prior
-              certification, and a progression pathway from first forward roll
-              to competitive squad.
+              Since 2011 — two dedicated venues in Wan Chai and Cyberport, coaches who complete our
+              training course regardless of prior certification, and a progression pathway from
+              first forward roll to competitive squad.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               {/* Trailing slash MUST be preserved to match HK-01 SC#1 /
@@ -199,8 +187,7 @@ function HeroSection() {
                 className="bg-brand-red text-white hover:bg-brand-red/90 focus-visible:ring-2 focus-visible:ring-white"
               >
                 <a href="/book-a-trial/free-assessment/">
-                  Book a Free Trial{" "}
-                  <ArrowRight className="ml-2 size-4" aria-hidden="true" />
+                  Book a Free Trial <ArrowRight className="ml-2 size-4" aria-hidden="true" />
                 </a>
               </Button>
               <Button
@@ -272,13 +259,8 @@ function WhyChooseSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {WHY_CHOOSE_TILES.map(({ icon: Icon, h3, body }) => (
             <Card key={h3} className="p-6">
-              <Icon
-                className="size-8 text-brand-navy mb-4"
-                aria-hidden="true"
-              />
-              <h3 className="text-h3 font-display text-foreground text-xl font-semibold">
-                {h3}
-              </h3>
+              <Icon className="size-8 text-brand-red mb-4" aria-hidden="true" />
+              <h3 className="text-h3 font-display text-foreground text-xl font-semibold">{h3}</h3>
               <p className="text-body text-muted-foreground mt-2">{body}</p>
             </Card>
           ))}
@@ -392,12 +374,9 @@ function LocationSplitSection() {
               </div>
               <div>
                 <h3 className="text-h3 font-display text-foreground text-xl font-semibold">
-                  <span className="font-accent text-brand-navy">ProGym</span>{" "}
-                  {v.nameShort}
+                  <span className="font-accent text-brand-red">ProGym</span> {v.nameShort}
                 </h3>
-                <p className="text-small text-muted-foreground mt-1 text-sm">
-                  {v.addressStreet}
-                </p>
+                <p className="text-small text-muted-foreground mt-1 text-sm">{v.addressStreet}</p>
                 {v.sizeNote && (
                   <p className="text-small text-muted-foreground text-sm">
                     {v.sizeNote} · {v.openedNote}
@@ -412,10 +391,9 @@ function LocationSplitSection() {
                 </div>
                 <Link
                   href={`/${v.id}/`}
-                  className="inline-flex items-center gap-1 mt-4 text-brand-navy font-semibold hover:underline"
+                  className="inline-flex items-center gap-1 mt-4 text-brand-red font-semibold hover:underline"
                 >
-                  See {v.nameShort} venue{" "}
-                  <ArrowRight className="size-4" aria-hidden="true" />
+                  See {v.nameShort} venue <ArrowRight className="size-4" aria-hidden="true" />
                 </Link>
               </div>
             </div>
@@ -508,7 +486,7 @@ function CoachingMethodSection() {
           <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
             {COACHING_PILLARS.map((p) => (
               <Card key={p.h3} className="p-5">
-                <h3 className="text-h3 font-display text-brand-navy text-xl font-semibold">
+                <h3 className="text-h3 font-display text-brand-red text-xl font-semibold">
                   {p.h3}
                 </h3>
                 <p className="text-body text-muted-foreground mt-2">{p.body}</p>
@@ -526,8 +504,8 @@ function CoachingMethodSection() {
               />
             </div>
             <p className="text-small text-muted-foreground mt-3 text-sm">
-              Led by Monica, Director of Sports Hong Kong — 19 years coaching,
-              Level 2 Italian certification.
+              Led by Monica, Director of Sports Hong Kong — 19 years coaching, Level 2 Italian
+              certification.
             </p>
           </div>
         </div>
@@ -592,7 +570,7 @@ function CampsPartiesSection() {
               asChild
               size="touch"
               variant="outline"
-              className="border-brand-navy text-brand-navy hover:bg-brand-navy/5 mt-4"
+              className="border-white/20 text-foreground hover:bg-white/8 mt-4"
             >
               <Link href="/birthday-parties/">Send an Enquiry</Link>
             </Button>
@@ -613,20 +591,17 @@ function AboutSnapshotSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <div>
             <h2 className="text-h2 font-display text-foreground mb-4 text-3xl md:text-4xl font-bold">
-              About{" "}
-              <span className="font-accent text-brand-navy">ProGym</span> Hong
-              Kong.
+              About <span className="font-accent text-brand-red">ProGym</span> Hong Kong.
             </h2>
             <p className="text-body text-muted-foreground">
-              We&apos;ve been building children&apos;s gymnastics in Hong Kong
-              since 2011. Two purpose-built venues — Wan Chai and Cyberport —
-              and a coaching method that treats every child as a long-term
-              progression project, not a class number.
+              We&apos;ve been building children&apos;s gymnastics in Hong Kong since 2011. Two
+              purpose-built venues — Wan Chai and Cyberport — and a coaching method that treats
+              every child as a long-term progression project, not a class number.
             </p>
             <p className="text-body text-muted-foreground mt-4">
-              Our path is simple: a free trial, a coach who notices your child
-              by name, and a programme that meets them at exactly their level.
-              The first forward roll is just the beginning.
+              Our path is simple: a free trial, a coach who notices your child by name, and a
+              programme that meets them at exactly their level. The first forward roll is just the
+              beginning.
             </p>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
@@ -658,10 +633,9 @@ function BlogSection() {
               New posts coming soon.
             </h2>
             <p className="text-body text-muted-foreground">
-              We&apos;re preparing long-form guides on gymnastics progression,
-              holiday camp planning, and what to expect at your first class.
-              In the meantime, our coaches are happy to answer any question
-              directly.
+              We&apos;re preparing long-form guides on gymnastics progression, holiday camp
+              planning, and what to expect at your first class. In the meantime, our coaches are
+              happy to answer any question directly.
             </p>
           </div>
         </ContainerEditorial>
@@ -691,12 +665,10 @@ function BlogSection() {
                 <h3 className="text-h3 font-display text-foreground mt-3 text-xl font-semibold">
                   {p.title}
                 </h3>
-                <p className="text-body text-muted-foreground mt-2">
-                  {p.excerpt}
-                </p>
+                <p className="text-body text-muted-foreground mt-2">{p.excerpt}</p>
                 <p className="text-small text-muted-foreground mt-3 text-sm">
-                  <time dateTime={p.publishedAt}>{p.publishedAt}</time> ·{" "}
-                  {p.readTimeMinutes} min read
+                  <time dateTime={p.publishedAt}>{p.publishedAt}</time> · {p.readTimeMinutes} min
+                  read
                 </p>
               </div>
             </Card>
@@ -758,18 +730,13 @@ function FinalCTASection() {
             Ready to book your child&apos;s first class?
           </h2>
           <p className="text-body-lg text-brand-cream mb-6 text-base md:text-lg">
-            Free 30-minute assessment, no commitment. Choose Wan Chai or
-            Cyberport — or let us suggest based on your location.
+            Free 30-minute assessment, no commitment. Choose Wan Chai or Cyberport — or let us
+            suggest based on your location.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button
-              asChild
-              size="touch"
-              className="bg-brand-red text-white hover:bg-brand-red/90"
-            >
+            <Button asChild size="touch" className="bg-brand-red text-white hover:bg-brand-red/90">
               <a href="/book-a-trial/free-assessment/">
-                Book a Free Trial{" "}
-                <ArrowRight className="ml-2 size-4" aria-hidden="true" />
+                Book a Free Trial <ArrowRight className="ml-2 size-4" aria-hidden="true" />
               </a>
             </Button>
             {whatsappHk && (
@@ -783,11 +750,7 @@ function FinalCTASection() {
                   phone={sanitisedWhatsapp}
                   message="Hi ProActiv HK, I'd like to book a free trial."
                 >
-                  Chat on WhatsApp{" "}
-                  <MessageCircle
-                    className="ml-2 size-4"
-                    aria-hidden="true"
-                  />
+                  Chat on WhatsApp <MessageCircle className="ml-2 size-4" aria-hidden="true" />
                 </WhatsAppCTA>
               </Button>
             )}

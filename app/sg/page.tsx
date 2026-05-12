@@ -41,7 +41,6 @@ import { WhatsAppCTA } from "@/components/sg/whatsapp-cta";
 import {
   SG_FAQ_ITEMS,
   SG_ZONES,
-  SG_CAMP_TYPES,
   SG_COACHES,
   SG_BLOG_POSTS_STUB,
   KATONG_POINT,
@@ -80,10 +79,7 @@ export const metadata: Metadata = {
 // ─────────────────────────────────────────────────────────────────────────────
 const SG_HOMEPAGE_FAQS = SG_FAQ_ITEMS.filter(
   (i) =>
-    i.group === "about" ||
-    i.group === "classes" ||
-    i.group === "venue" ||
-    i.group === "multiball",
+    i.group === "about" || i.group === "classes" || i.group === "venue" || i.group === "multiball",
 ).slice(0, 8);
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -139,7 +135,7 @@ const sgHomeSchema = {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // §3.1 HERO — per strategy PART 5 §1 + PART 6C §Hero (verbatim H1 + subhead).
-// 21:9 on desktop, 16:9 on mobile. Overlay at brand-navy/40 for 14.55:1 contrast.
+// 21:9 on desktop, 16:9 on mobile. Overlay at black/40 for dark-theme cinematic look.
 // MultiBall trust line placement 1 of 3 (Pattern 11).
 // ─────────────────────────────────────────────────────────────────────────────
 function HeroSection() {
@@ -153,28 +149,21 @@ function HeroSection() {
             posterAlt="Children playing at Prodigy @ Katong Point, Singapore's only MultiBall wall"
             title="Prodigy Singapore — Prodigy camp-day montage"
           />
-          <div
-            className="absolute inset-0 bg-brand-navy/40"
-            aria-hidden="true"
-          />
+          <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
           <div className="absolute inset-0 flex flex-col items-start justify-center px-6 md:px-12">
             <h1 className="text-display font-display text-white max-w-2xl leading-tight text-4xl md:text-5xl lg:text-6xl font-bold">
               Where Singapore&apos;s kids come to move, play, and grow.
             </h1>
             <p className="text-body-lg text-brand-cream max-w-xl mt-4 text-base md:text-lg">
-              Prodigy @ Katong Point — three zones, three seasons of camps, and
-              a coaching team that meets every child at exactly their level.
+              Prodigy @ Katong Point — three zones, three seasons of camps, and a coaching team that
+              meets every child at exactly their level.
             </p>
             {/* MultiBall trust line — Pattern 11 placement 1 */}
             <p className="text-body-lg text-brand-cream mt-3">
               <span className="font-accent text-brand-green">
                 Singapore&apos;s only MultiBall wall
               </span>{" "}
-              <Zap
-                size={16}
-                className="inline text-brand-yellow align-middle"
-                aria-hidden="true"
-              />{" "}
+              <Zap size={16} className="inline text-brand-yellow align-middle" aria-hidden="true" />{" "}
               · Katong Point
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
@@ -184,8 +173,7 @@ function HeroSection() {
                 className="bg-brand-red text-white hover:bg-brand-red/90 focus-visible:ring-2 focus-visible:ring-white"
               >
                 <a href="/book-a-trial/">
-                  Book a Free Trial{" "}
-                  <ArrowRight className="ml-2 size-4" aria-hidden="true" />
+                  Book a Free Trial <ArrowRight className="ml-2 size-4" aria-hidden="true" />
                 </a>
               </Button>
               <Button
@@ -194,9 +182,7 @@ function HeroSection() {
                 variant="outline"
                 className="border-white text-white hover:bg-white/10 bg-transparent"
               >
-                <a href="/book-a-trial/?subject=general-enquiry">
-                  Send an Enquiry
-                </a>
+                <a href="/book-a-trial/?subject=general-enquiry">Send an Enquiry</a>
               </Button>
             </div>
             <p className="text-small text-brand-cream/80 mt-4 text-sm">
@@ -241,10 +227,9 @@ function WhyProdigySection() {
               The only MultiBall wall in Singapore
             </h3>
             <p className="text-body text-muted-foreground mt-2">
-              Our MultiBall interactive wall turns every sports drill into a
-              reactive, game-like experience. Children who struggle to focus in
-              traditional drills thrive on the wall. Nothing else like it in
-              Singapore.
+              Our MultiBall interactive wall turns every sports drill into a reactive, game-like
+              experience. Children who struggle to focus in traditional drills thrive on the wall.
+              Nothing else like it in Singapore.
             </p>
             <Badge className="bg-brand-green text-white absolute top-3 right-3">
               Singapore&apos;s only
@@ -252,47 +237,37 @@ function WhyProdigySection() {
           </Card>
           {/* Tile 2 */}
           <Card className="p-6">
-            <Trophy
-              className="size-8 text-brand-navy mb-4"
-              aria-hidden="true"
-            />
+            <Trophy className="size-8 text-brand-green mb-4" aria-hidden="true" />
             <h3 className="text-h3 font-display text-foreground text-xl font-semibold">
               Multi-sport, not single-sport
             </h3>
             <p className="text-body text-muted-foreground mt-2">
-              Gymnastics, climbing, parkour, football, basketball, rugby, tennis,
-              dodgeball, and martial arts — all under one roof. Children discover
-              what they love before they commit.
+              Gymnastics, climbing, parkour, football, basketball, rugby, tennis, dodgeball, and
+              martial arts — all under one roof. Children discover what they love before they
+              commit.
             </p>
           </Card>
           {/* Tile 3 */}
           <Card className="p-6">
-            <BadgeCheck
-              className="size-8 text-brand-navy mb-4"
-              aria-hidden="true"
-            />
+            <BadgeCheck className="size-8 text-brand-green mb-4" aria-hidden="true" />
             <h3 className="text-h3 font-display text-foreground text-xl font-semibold">
               A single coaching standard
             </h3>
             <p className="text-body text-muted-foreground mt-2">
-              Every coach completes the ProActiv Sports internal training course.
-              Our team is led by Haikel — Head of Sports with seven-plus years of
-              experience — and supported by Mark and Coach King.
+              Every coach completes the ProActiv Sports internal training course. Our team is led by
+              Haikel — Head of Sports with seven-plus years of experience — and supported by Mark
+              and Coach King.
             </p>
           </Card>
           {/* Tile 4 */}
           <Card className="p-6">
-            <ArrowUpRight
-              className="size-8 text-brand-navy mb-4"
-              aria-hidden="true"
-            />
+            <ArrowUpRight className="size-8 text-brand-green mb-4" aria-hidden="true" />
             <h3 className="text-h3 font-display text-foreground text-xl font-semibold">
               Built for progression
             </h3>
             <p className="text-body text-muted-foreground mt-2">
-              From first forward roll to competitive confidence — three dedicated
-              zones, structured weekly classes, and holiday camps that build on
-              each other term by term.
+              From first forward roll to competitive confidence — three dedicated zones, structured
+              weekly classes, and holiday camps that build on each other term by term.
             </p>
           </Card>
         </div>
@@ -417,7 +392,7 @@ function ThreeZonesSection() {
                 </ul>
                 <a
                   href={zone.href}
-                  className="inline-flex items-center gap-1 mt-4 text-brand-navy font-semibold hover:underline text-sm"
+                  className="inline-flex items-center gap-1 mt-4 text-brand-green font-semibold hover:underline text-sm"
                 >
                   Explore zone <ArrowRight className="size-3" aria-hidden="true" />
                 </a>
@@ -493,9 +468,7 @@ function CampsFeatureSection() {
               />
             </div>
             <div className="p-6 lg:p-8 flex flex-col justify-center">
-              <Badge className="bg-brand-green text-white w-fit mb-4">
-                Next Camp
-              </Badge>
+              <Badge className="bg-brand-green text-white w-fit mb-4">Next Camp</Badge>
               <h3 className="text-h3 font-display text-foreground text-2xl font-bold mb-2">
                 Ninja Warrior Camp
               </h3>
@@ -503,16 +476,16 @@ function CampsFeatureSection() {
                 16–20 June · Ages 5–12
               </p>
               <p className="text-body text-muted-foreground mt-3">
-                Five action-packed days of ninja-themed sport, obstacle courses,
-                MultiBall wall challenges, and gymnastics — all coached by the
-                Prodigy team. Dri-fit T-shirt and camp certificate included.
+                Five action-packed days of ninja-themed sport, obstacle courses, MultiBall wall
+                challenges, and gymnastics — all coached by the Prodigy team. Dri-fit T-shirt and
+                camp certificate included.
               </p>
               <div className="mt-6">
                 <Button
                   asChild
                   size="touch"
                   variant="outline"
-                  className="border-brand-navy text-brand-navy hover:bg-brand-navy/5"
+                  className="border-white/20 text-foreground hover:bg-white/8"
                 >
                   <a href="/prodigy-camps/themed/">Book Camp →</a>
                 </Button>
@@ -542,23 +515,22 @@ function BirthdayPartySection() {
               <li className="flex gap-3 items-start">
                 <span className="text-brand-green font-bold mt-0.5">·</span>
                 <span className="text-body text-muted-foreground">
-                  <strong>2 hours hosted</strong> — venue exclusive use, Party
-                  Room with AV and lighting, decorations sorted
+                  <strong>2 hours hosted</strong> — venue exclusive use, Party Room with AV and
+                  lighting, decorations sorted
                 </span>
               </li>
               <li className="flex gap-3 items-start">
                 <span className="text-brand-green font-bold mt-0.5">·</span>
                 <span className="text-body text-muted-foreground">
-                  <strong>Coach-led activities</strong> — structured sport and
-                  play sessions, so you enjoy the party too
+                  <strong>Coach-led activities</strong> — structured sport and play sessions, so you
+                  enjoy the party too
                 </span>
               </li>
               <li className="flex gap-3 items-start">
                 <span className="text-brand-green font-bold mt-0.5">·</span>
                 <span className="text-body text-muted-foreground">
-                  <strong>MultiBall wall access</strong> — Singapore&apos;s only
-                  interactive training wall, a birthday highlight every child
-                  talks about
+                  <strong>MultiBall wall access</strong> — Singapore&apos;s only interactive
+                  training wall, a birthday highlight every child talks about
                 </span>
               </li>
             </ul>
@@ -568,9 +540,7 @@ function BirthdayPartySection() {
                 size="touch"
                 className="bg-brand-red text-white hover:bg-brand-red/90"
               >
-                <a href="/book-a-trial/?subject=birthday-party">
-                  Send an Enquiry
-                </a>
+                <a href="/book-a-trial/?subject=birthday-party">Send an Enquiry</a>
               </Button>
             </div>
           </div>
@@ -620,12 +590,10 @@ function CoachesSection() {
                 <p className="text-small text-muted-foreground text-sm font-medium mt-0.5 mb-3">
                   {coach.role}
                 </p>
-                <p className="text-body text-muted-foreground text-sm flex-1">
-                  {coach.bio}
-                </p>
+                <p className="text-body text-muted-foreground text-sm flex-1">{coach.bio}</p>
                 <a
                   href={`/coaches/#${slug}`}
-                  className="inline-flex items-center gap-1 mt-4 text-brand-navy font-semibold hover:underline text-sm"
+                  className="inline-flex items-center gap-1 mt-4 text-brand-green font-semibold hover:underline text-sm"
                 >
                   Read bio → <ArrowRight className="size-3" aria-hidden="true" />
                 </a>
@@ -650,29 +618,21 @@ function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <div>
             <h2 className="text-h2 font-display text-foreground mb-4 text-3xl md:text-4xl font-bold">
-              About{" "}
-              <span className="font-accent text-brand-green">Prodigy</span>{" "}
-              Singapore.
+              About <span className="font-accent text-brand-green">Prodigy</span> Singapore.
             </h2>
             <p className="text-body text-muted-foreground">
-              Prodigy is ProActiv Sports&apos; Singapore home — a 2,700 sq ft
-              indoor facility at Katong Point, purpose-built for children aged 2
-              to 12. Three zones, a qualified coaching team, and the only
-              MultiBall interactive wall in Singapore.
+              Prodigy is ProActiv Sports&apos; Singapore home — a 2,700 sq ft indoor facility at
+              Katong Point, purpose-built for children aged 2 to 12. Three zones, a qualified
+              coaching team, and the only MultiBall interactive wall in Singapore.
             </p>
             <p className="text-body text-muted-foreground mt-4">
-              We believe sport should be joyful before it is serious. Our free
-              trial is the first step — a 30-minute session where we learn what
-              your child can do and find the right class for where they are right
-              now.
+              We believe sport should be joyful before it is serious. Our free trial is the first
+              step — a 30-minute session where we learn what your child can do and find the right
+              class for where they are right now.
             </p>
             <p className="text-body text-muted-foreground mt-4">
-              ProActiv Sports has been building children&apos;s sports programmes
-              since 2011.{" "}
-              <a
-                href={hkUrl}
-                className="text-brand-navy font-semibold hover:underline"
-              >
+              ProActiv Sports has been building children&apos;s sports programmes since 2011.{" "}
+              <a href={hkUrl} className="text-brand-green font-semibold hover:underline">
                 14 years in Hong Kong →
               </a>
             </p>
@@ -707,9 +667,9 @@ function BlogSection() {
               New posts coming soon.
             </h2>
             <p className="text-body text-muted-foreground">
-              We&apos;re preparing guides on Singapore&apos;s MultiBall wall,
-              holiday camp planning, and what to expect at a free trial. In the
-              meantime, our coaches are happy to answer any question directly.
+              We&apos;re preparing guides on Singapore&apos;s MultiBall wall, holiday camp planning,
+              and what to expect at a free trial. In the meantime, our coaches are happy to answer
+              any question directly.
             </p>
           </div>
         </ContainerEditorial>
@@ -730,12 +690,10 @@ function BlogSection() {
                 <h3 className="text-h3 font-display text-foreground mt-3 text-xl font-semibold">
                   {p.title}
                 </h3>
-                <p className="text-body text-muted-foreground mt-2">
-                  {p.excerpt}
-                </p>
+                <p className="text-body text-muted-foreground mt-2">{p.excerpt}</p>
                 <p className="text-small text-muted-foreground mt-3 text-sm">
-                  <time dateTime={p.publishedAt}>{p.publishedAt}</time> ·{" "}
-                  {p.readTimeMinutes} min read
+                  <time dateTime={p.publishedAt}>{p.publishedAt}</time> · {p.readTimeMinutes} min
+                  read
                 </p>
               </div>
             </Card>
@@ -793,19 +751,13 @@ function FinalCTASection() {
             Ready to try a free trial at Prodigy?
           </h2>
           <p className="text-body-lg text-brand-cream mb-6 text-base md:text-lg">
-            Free 30-minute assessment, no commitment. Come and see the
-            MultiBall wall, meet the coaches, and find the right class for
-            your child.
+            Free 30-minute assessment, no commitment. Come and see the MultiBall wall, meet the
+            coaches, and find the right class for your child.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button
-              asChild
-              size="touch"
-              className="bg-brand-red text-white hover:bg-brand-red/90"
-            >
+            <Button asChild size="touch" className="bg-brand-red text-white hover:bg-brand-red/90">
               <a href="/book-a-trial/">
-                Book a Free Trial{" "}
-                <ArrowRight className="ml-2 size-4" aria-hidden="true" />
+                Book a Free Trial <ArrowRight className="ml-2 size-4" aria-hidden="true" />
               </a>
             </Button>
             {whatsappSg && (
@@ -819,11 +771,7 @@ function FinalCTASection() {
                   phone={sanitisedWhatsapp}
                   message="Hi Prodigy SG, I'd like to book a free trial."
                 >
-                  Chat on WhatsApp{" "}
-                  <MessageCircle
-                    className="ml-2 size-4"
-                    aria-hidden="true"
-                  />
+                  Chat on WhatsApp <MessageCircle className="ml-2 size-4" aria-hidden="true" />
                 </WhatsAppCTA>
               </Button>
             )}
