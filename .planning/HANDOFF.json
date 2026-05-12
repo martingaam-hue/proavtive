@@ -1,35 +1,39 @@
 {
   "version": "1.0",
-  "timestamp": "2026-05-12T10:17:05.356Z",
+  "timestamp": "2026-05-12T12:02:53Z",
   "phase": null,
-  "phase_name": "dark-theme-design-parity",
+  "phase_name": "sg-homepage-layout-overhaul + build-fixes",
   "phase_dir": null,
   "plan": null,
   "task": null,
-  "total_tasks": 8,
-  "status": "complete",
+  "total_tasks": null,
+  "status": "paused",
   "completed_tasks": [
-    {"id": 1, "name": "Dark theme + Space Grotesk + cinematic hero slider on root homepage", "status": "done", "commit": "ad98a40"},
-    {"id": 2, "name": "Dark nav dropdowns + resolve market image 400s", "status": "done", "commit": "7f05f91"},
-    {"id": 3, "name": "HK/SG nav dark cinematic redesign + cookie escape to root market", "status": "done", "commit": "381c958"},
-    {"id": 4, "name": "Location pages design parity — brand-navy → brand-red/green, outline buttons dark-compatible", "status": "done", "commit": "8954d4b"},
-    {"id": 5, "name": "HK homepage (app/hk/page.tsx) brand-navy parity", "status": "done", "commit": "c319545"},
-    {"id": 6, "name": "SG homepage (app/sg/page.tsx) brand-navy parity", "status": "done", "commit": "c319545"},
-    {"id": 7, "name": "All HK inner pages + components brand-navy → brand-red", "status": "done", "commit": "aaee23a"},
-    {"id": 8, "name": "All SG inner pages + components brand-navy → brand-green", "status": "done", "commit": "aaee23a"}
+    {"id": 1, "name": "SG hero → full-bleed min-h-[92vh] matching HK pattern", "status": "done", "commit": "b3d6040"},
+    {"id": 2, "name": "SG TrustStripSection (navy StatStrip after hero)", "status": "done", "commit": "b3d6040"},
+    {"id": 3, "name": "Overline labels + font-extrabold tracking-tight on all SG h2s", "status": "done", "commit": "b3d6040"},
+    {"id": 4, "name": "SG HighIntentSection (Prodigy Camps + Birthday Parties cards) before FAQ", "status": "done", "commit": "b3d6040"},
+    {"id": 5, "name": "Parties added to FLAT_NAV_LINKS in sg-nav.tsx", "status": "done", "commit": "b3d6040"},
+    {"id": 6, "name": "Fix ESLint no-explicit-any build error in hk/faq + sg/faq pages", "status": "done", "commit": "74fe812"},
+    {"id": 7, "name": "Fix localhost 500 — stale Turbopack .next cache wiped + server restarted", "status": "done", "commit": null}
   ],
   "remaining_tasks": [],
   "blockers": [],
-  "human_actions_pending": [],
+  "human_actions_pending": [
+    {
+      "action": "Verify Vercel build is green on commit 74fe812",
+      "context": "ESLint any[] errors were the build-failure root cause. Fixed and pushed. Check Vercel dashboard.",
+      "blocking": false
+    }
+  ],
   "decisions": [
-    {"decision": "HK accent = text-brand-red (matches HKNav ProActiv HK red)", "rationale": "Mirrors what the nav already ships", "phase": "dark-theme-parity"},
-    {"decision": "SG accent = text-brand-green (matches SGNav Prodigy green)", "rationale": "Mirrors what the nav already ships", "phase": "dark-theme-parity"},
-    {"decision": "Outline buttons → border-white/20 text-foreground hover:bg-white/8 on dark bg", "rationale": "brand-navy was near-invisible on dark"},
-    {"decision": "Hero overlays bg-brand-navy/40 → bg-black/40", "rationale": "Neutral dark for cinematic hero"},
-    {"decision": "bg=navy Section/Footer surfaces left unchanged", "rationale": "brand-navy visually distinct from oklch(0.07) near-black"},
-    {"decision": "sg/katong-point yellow badge left unchanged", "rationale": "bg-brand-yellow text-brand-navy is high-contrast and readable"},
-    {"decision": ".claire/ added to .gitignore", "rationale": "Worktree artifacts should not be tracked"}
+    {"decision": "SG hero full-bleed: section className='relative min-h-[92vh] flex items-center overflow-hidden' — no Section/ContainerEditorial wrapper around video", "rationale": "HK was reference; SG was still using contained pattern with rounded-2xl", "phase": "05"},
+    {"decision": "SG TrustStripSection stats: 2011 / 1 venue (Katong Point) / 3 activity zones / 1 MultiBall wall", "rationale": "SG-specific stats parallel to HK navy strip", "phase": "05"},
+    {"decision": "Overline on navy bg = text-brand-cream/60 text-center; on light bg = text-brand-red", "rationale": "Matches HK page pattern exactly", "phase": "05"},
+    {"decision": "FinalCTASection gets font-extrabold tracking-tight but no overline — matches HK", "rationale": "HK FinalCTASection has no overline; consistency preferred", "phase": "05"},
+    {"decision": "FAQ any[] typed as { _id, question, answer, category }[] — exact shape consumed from sanityFetch result", "rationale": "ESLint hard error; eslint-disable comment was stale after rule tightening", "phase": "06"}
   ],
   "uncommitted_files": [],
-  "next_action": "Dark-theme parity complete. Resume formal GSD pipeline: /gsd-execute-phase 3 proactive (Root Gateway — 5 plans ready, planning artifacts committed)"
+  "next_action": "Check Vercel dashboard for green build on 74fe812. Then decide next milestone: Phase 08 (Analytics/GBP), Phase 09 (Security hardening), or Phase 10 (DNS cutover/launch).",
+  "context_notes": "All phases 00-09 previously shipped. This session: SG homepage brought to full visual parity with HK (full-bleed hero, TrustStrip, overlines, HighIntentSection, Parties nav). Plus ESLint build fix (any[] in FAQ pages) and localhost 500 fix (Turbopack cache). Dev server running healthy on localhost:3000. Git clean, pushed to main."
 }
