@@ -46,11 +46,11 @@ export const metadata: Metadata = {
 };
 
 export default async function KatongPointPage() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data: sanityVenue } = (await sanityFetch({
     query: venueBySlugQuery,
     params: { slug: "katong-point" },
     tags: ["venue"],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   })) as { data: any };
 
   // Graceful fallback: Sanity data takes priority; static data used until venue doc is populated
@@ -172,7 +172,7 @@ export default async function KatongPointPage() {
                   asChild
                   size="touch"
                   variant="outline"
-                  className="border-brand-navy text-brand-navy hover:bg-brand-navy/5"
+                  className="border-white/20 text-foreground hover:bg-white/8"
                 >
                   <a href="/book-a-trial/?subject=katong-point-enquiry">Send an Enquiry</a>
                 </Button>
@@ -220,7 +220,7 @@ export default async function KatongPointPage() {
             <Card className="p-6">
               <h2 className="text-h3 font-display text-foreground mb-4">Visit us</h2>
               <p className="flex items-start gap-2 text-body text-foreground">
-                <MapPin className="size-4 mt-1 text-brand-navy shrink-0" aria-hidden />
+                <MapPin className="size-4 mt-1 text-brand-green shrink-0" aria-hidden />
                 <span>
                   {addressStreet}
                   <br />
@@ -230,13 +230,13 @@ export default async function KatongPointPage() {
               {phoneEnv && (
                 <a
                   href={`https://wa.me/${phoneEnv.replace(/[^0-9]/g, "")}`}
-                  className="mt-3 flex items-center gap-2 text-body text-foreground hover:text-brand-navy"
+                  className="mt-3 flex items-center gap-2 text-body text-foreground hover:text-brand-green"
                 >
-                  <Phone className="size-4 text-brand-navy" aria-hidden /> WhatsApp us
+                  <Phone className="size-4 text-brand-green" aria-hidden /> WhatsApp us
                 </a>
               )}
               <p className="mt-4 text-small text-muted-foreground">
-                <Train className="inline size-4 mr-1 text-brand-navy" aria-hidden />
+                <Train className="inline size-4 mr-1 text-brand-green" aria-hidden />
                 Near Paya Lebar MRT · buses along Joo Chiat Road
               </p>
             </Card>
@@ -249,7 +249,7 @@ export default async function KatongPointPage() {
         <ContainerEditorial width="default">
           <div className="max-w-2xl">
             <h2 className="text-h2 font-display text-foreground mb-6">
-              <Clock className="inline size-6 mr-2 text-brand-navy align-middle" aria-hidden />{" "}
+              <Clock className="inline size-6 mr-2 text-brand-green align-middle" aria-hidden />{" "}
               Opening hours
             </h2>
             <table className="w-full">
@@ -306,7 +306,7 @@ export default async function KatongPointPage() {
                 )}
                 <Link
                   href={zone.href}
-                  className="inline-flex items-center gap-1 mt-3 text-brand-navy font-semibold hover:underline"
+                  className="inline-flex items-center gap-1 mt-3 text-brand-green font-semibold hover:underline"
                 >
                   Learn more <ArrowRight className="size-4" aria-hidden />
                 </Link>

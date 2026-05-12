@@ -55,11 +55,11 @@ export const metadata: Metadata = {
 };
 
 export default async function CyberportPage() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data: sanityVenue } = (await sanityFetch({
     query: venueBySlugQuery,
     params: { slug: "cyberport" },
     tags: ["venue"],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   })) as { data: any };
 
   // Graceful fallback: use Sanity data when available, otherwise hardcoded static data
@@ -133,13 +133,13 @@ export default async function CyberportPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
               <h1 className="text-h1 font-display text-foreground">
-                <span className="font-accent text-brand-navy">ProGym</span> Cyberport
+                <span className="font-accent text-brand-red">ProGym</span> Cyberport
               </h1>
               <p className="text-body-lg text-muted-foreground mt-3">
                 {addressStreet}, {addressLocality}
               </p>
               {FALLBACK_VENUE.sizeNote && (
-                <p className="text-body-lg font-semibold text-brand-navy mt-2">
+                <p className="text-body-lg font-semibold text-brand-red mt-2">
                   {FALLBACK_VENUE.sizeNote} · {FALLBACK_VENUE.openedNote}
                 </p>
               )}
@@ -164,7 +164,7 @@ export default async function CyberportPage() {
                   asChild
                   size="touch"
                   variant="outline"
-                  className="border-brand-navy text-brand-navy hover:bg-brand-navy/5"
+                  className="border-white/20 text-foreground hover:bg-white/8"
                 >
                   <Link href="/contact?market=hk">Send an Enquiry</Link>
                 </Button>
@@ -208,7 +208,7 @@ export default async function CyberportPage() {
             <Card className="p-6">
               <h2 className="text-h3 font-display text-foreground mb-4">Visit us</h2>
               <p className="flex items-start gap-2 text-body text-foreground">
-                <MapPin className="size-4 mt-1 text-brand-navy shrink-0" aria-hidden />
+                <MapPin className="size-4 mt-1 text-brand-red shrink-0" aria-hidden />
                 <span>
                   {addressStreet}
                   <br />
@@ -218,9 +218,9 @@ export default async function CyberportPage() {
               {phoneHk && (
                 <a
                   href={`tel:${phoneHk.replace(/[^0-9+]/g, "")}`}
-                  className="mt-3 flex items-center gap-2 text-body text-foreground hover:text-brand-navy"
+                  className="mt-3 flex items-center gap-2 text-body text-foreground hover:text-brand-red"
                 >
-                  <Phone className="size-4 text-brand-navy" aria-hidden /> {phoneHk}
+                  <Phone className="size-4 text-brand-red" aria-hidden /> {phoneHk}
                 </a>
               )}
             </Card>
@@ -233,7 +233,7 @@ export default async function CyberportPage() {
         <ContainerEditorial width="default">
           <div className="max-w-2xl">
             <h2 className="text-h2 font-display text-foreground mb-6">
-              <Clock className="inline size-6 mr-2 text-brand-navy align-middle" aria-hidden />{" "}
+              <Clock className="inline size-6 mr-2 text-brand-red align-middle" aria-hidden />{" "}
               Opening hours
             </h2>
             <table className="w-full">
@@ -263,7 +263,7 @@ export default async function CyberportPage() {
       <Section size="md" bg="muted">
         <ContainerEditorial width="wide">
           <h2 className="text-h2 font-display text-foreground mb-6">
-            Programmes at <span className="font-accent text-brand-navy">ProGym</span> Cyberport
+            Programmes at <span className="font-accent text-brand-red">ProGym</span> Cyberport
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {VENUE_PROGRAMMES.map((p) => (
@@ -272,7 +272,7 @@ export default async function CyberportPage() {
                 <p className="text-small text-muted-foreground mt-1">{p.ageBand}</p>
                 <Link
                   href={p.href}
-                  className="inline-flex items-center gap-1 mt-3 text-brand-navy font-semibold hover:underline"
+                  className="inline-flex items-center gap-1 mt-3 text-brand-red font-semibold hover:underline"
                 >
                   Learn more <ArrowRight className="size-4" aria-hidden />
                 </Link>
