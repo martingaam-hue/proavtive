@@ -8,7 +8,7 @@
   },
   "packageManager": "pnpm@10.30.3",
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
@@ -71,6 +71,7 @@
     "prettier": "^3.8.3",
     "sharp": "^0.34.5",
     "tailwindcss": "^4",
+    "terser": "^5.47.1",
     "typescript": "^6",
     "vercel": "^52.0.0",
     "vitest": "^4.1.5"
