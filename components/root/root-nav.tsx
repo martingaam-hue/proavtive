@@ -19,7 +19,7 @@ export function RootNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > window.innerHeight * 0.7);
+    const handler = () => setScrolled(window.scrollY > window.innerHeight * 0.95);
     handler();
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
@@ -29,7 +29,7 @@ export function RootNav() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-[#0f206c]/95 backdrop-blur-md border-b border-white/8"
+          ? "bg-[#0a0a0f]/88 backdrop-blur-md border-b border-white/8"
           : "bg-transparent border-b border-transparent"
       }`}
     >

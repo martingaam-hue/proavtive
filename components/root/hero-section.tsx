@@ -200,7 +200,7 @@ export function HeroSection({ hkUrl, sgUrl }: HeroSectionProps) {
               {/* Headline — staggered word reveal */}
               <div aria-label={slide.headline.join(" ")}>
                 {slide.headline.map((word, wi) => (
-                  <div key={`${current}-${wi}`} className="overflow-hidden">
+                  <div key={`${current}-${wi}`} className="overflow-hidden py-[0.06em]">
                     <motion.span
                       initial={{ y: "110%" }}
                       animate={{ y: "0%" }}
@@ -209,10 +209,10 @@ export function HeroSection({ hkUrl, sgUrl }: HeroSectionProps) {
                         duration: 0.7,
                         ease: [0.16, 1, 0.3, 1],
                       }}
-                      className={`block font-display font-extrabold leading-[0.86] tracking-[-0.03em] text-white ${
+                      className={`block font-display font-extrabold leading-[0.9] tracking-[-0.03em] text-white ${
                         slide.headline.length === 1
-                          ? "text-[clamp(2.8rem,5.5vw,6.5rem)]"
-                          : "text-[clamp(2.4rem,4.8vw,5.8rem)]"
+                          ? "text-[clamp(2.2rem,4.2vw,5rem)]"
+                          : "text-[clamp(2rem,3.8vw,4.5rem)]"
                       }`}
                     >
                       {word}
@@ -242,7 +242,7 @@ export function HeroSection({ hkUrl, sgUrl }: HeroSectionProps) {
                   <>
                     <a
                       href={"market" in slide.cta ? getUrl(slide.cta.market) : slide.cta.href}
-                      className="inline-flex items-center gap-2.5 px-8 py-[1rem] font-display font-bold text-[0.68rem] tracking-[0.2em] uppercase text-white bg-brand-red hover:bg-brand-red/85 transition-colors duration-200 w-fit"
+                      className={`inline-flex items-center gap-2.5 px-8 py-[1rem] font-display font-bold text-[0.68rem] tracking-[0.2em] uppercase text-white transition-colors duration-200 w-fit ${slide.id === "prodigy" ? "bg-[#1ab8a0] hover:bg-[#158a78]" : "bg-brand-red hover:bg-brand-red/85"}`}
                     >
                       {slide.cta.label}
                       <span aria-hidden>→</span>
