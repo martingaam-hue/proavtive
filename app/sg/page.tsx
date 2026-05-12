@@ -1,51 +1,36 @@
-// Phase 5 / Plan 05-03 — SG homepage (SG-01).
+// Phase 5 / Plan 05-03 — SG homepage (SG-01) — Nexus design system redesign.
 //
-// 13 sections per strategy PART 5 wireframe; copy verbatim from PART 6C.
-// Composes Phase 2 primitives + Phase 5-local components/sg/. NO inline custom CSS.
-// Hero VideoPlayer is HUMAN-ACTION-gated on NEXT_PUBLIC_MUX_SG_HERO_PLAYBACK_ID (CONTEXT D-01).
+// Sections (8 core): Hero · Why Choose · Programmes · Testimonials · Location · High-Intent · FAQ · Final CTA
+// Composes Phase 2 primitives + Phase 5-local components/sg/. Hero VideoPlayer is
+// HUMAN-ACTION-gated on NEXT_PUBLIC_MUX_SG_HERO_PLAYBACK_ID (CONTEXT D-01).
 //
-// Deviations from plan (Rule 3 — blocking API mismatches):
-//   1. ProgrammeTile actual props are {title, ageRange, description, imageSrc, imageAlt, href, duration?}
-//      — plan said {ageBand, image, alt, tagline}. Used actual names (same pattern as HK).
-//   2. FAQItem actual props are {question, answer, id?, defaultOpen?, className?}
-//      — the `value` field mentioned in plan is the data key in SG_FAQ_ITEMS, we pass it as `id`.
-//   3. SGHeroVideo does NOT use dynamic() — VideoPlayer wraps MuxPlayer with ssr:false internally.
-//   4. SG_COACHES contains Haikel/Mark/Coach King with `.name` not `.slug` for Avatar/links.
-//      Slug derived from name.toLowerCase().replace(/\s+/g, "-") for coach bio links.
+// Nexus design tokens used inline:
+//   Dark section:    bg-[#0f1117]
+//   Light surface:   bg-[#f0f2f5]
+//   White card:      bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.08)]
+//   Coral accent:    #e84040
+//   Teal accent:     #1ab8a0
+//   Gold (stars):    #f59e0b
+//   Coral eyebrow:   text-[#e84040] uppercase tracking-widest text-sm font-bold
+//   Teal icon ring:  bg-[rgba(26,184,160,0.12)] text-[#1ab8a0] rounded-full p-3
 //
-// MultiBall differentiator Pattern 11 — 3 homepage placements:
-//   Placement 1 (hero trust line): "Singapore's only MultiBall wall" in HeroSection
-//   Placement 2 (Why Prodigy §3 tile 1): "The only MultiBall wall in Singapore" H3 + green badge
-//   Placement 3 (Three Zones §5 card): Sports+MultiBall zone green badge
-//
-// Photo HUMAN-ACTION gates (CONTEXT D-07):
-//   Gate 1: /photography/sg-venue-katong-hero.webp — hero poster
-//   Gate 3: /photography/coach-{slug}-portrait.webp — coach portraits
-//   Other: /photography/sg-*.webp imagery; graceful broken-image fallback per Phase 3 D-10 pattern.
+// MultiBall differentiator Pattern 11 — preserved in hero trust line + Why Prodigy tile 1.
 
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Zap, Trophy, BadgeCheck, ArrowUpRight, ArrowRight, MessageCircle } from "lucide-react";
-import { Section } from "@/components/ui/section";
-import { ContainerEditorial } from "@/components/ui/container-editorial";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ProgrammeTile } from "@/components/ui/programme-tile";
-import { TestimonialCard } from "@/components/ui/testimonial-card";
-import { LogoWall } from "@/components/ui/logo-wall";
-import { FAQItem } from "@/components/ui/faq-item";
-import { VenueChipRow } from "@/components/sg/venue-chip-row";
-import { SGHeroVideo } from "@/components/sg/sg-hero-video";
-import { StatStrip } from "@/components/ui/stat-strip";
-import { WhatsAppCTA } from "@/components/sg/whatsapp-cta";
 import {
-  SG_FAQ_ITEMS,
-  SG_ZONES,
-  SG_COACHES,
-  SG_BLOG_POSTS_STUB,
-  KATONG_POINT,
-} from "@/lib/sg-data";
+  Zap,
+  Trophy,
+  BadgeCheck,
+  ArrowUpRight,
+  ArrowRight,
+  MessageCircle,
+  Star,
+} from "lucide-react";
+import { SGHeroVideo } from "@/components/sg/sg-hero-video";
+import { WhatsAppCTA } from "@/components/sg/whatsapp-cta";
+import { FAQItem } from "@/components/ui/faq-item";
+import { SG_FAQ_ITEMS, KATONG_POINT } from "@/lib/sg-data";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Page metadata — per-page openGraph fully specified (Pitfall 2 — shallow merge).
@@ -75,16 +60,70 @@ export const metadata: Metadata = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Homepage FAQ subset — 8 items filtered to homepage-eligible groups.
-// Visible DOM order MUST equal JSON-LD order (Google FAQPage rich-result rule).
+// SG-specific FAQ items (Nexus redesign content per brief). DOM order MUST equal
+// JSON-LD order (Google FAQPage rich-result rule).
 // ─────────────────────────────────────────────────────────────────────────────
-const SG_HOMEPAGE_FAQS = SG_FAQ_ITEMS.filter(
-  (i) =>
-    i.group === "about" || i.group === "classes" || i.group === "venue" || i.group === "multiball",
-).slice(0, 8);
+const SG_HOMEPAGE_FAQS = [
+  {
+    value: "location",
+    question: "Where is ProActiv Singapore located?",
+    answer:
+      "We are based in Katong, East Coast, Singapore — easily accessible from the East Side and City Centre.",
+  },
+  {
+    value: "programmes",
+    question: "What programmes do you offer in Singapore?",
+    answer:
+      "We offer gymnastics classes, multi-sport programmes, holiday camps, and birthday parties for children aged 2–14.",
+  },
+  {
+    value: "trial",
+    question: "Do you offer trial classes?",
+    answer:
+      "Yes! We offer complimentary trial sessions for new students. Contact us to book yours.",
+  },
+  {
+    value: "ages",
+    question: "What ages do you cater for?",
+    answer:
+      "Our programmes are designed for children aged 2–14. We have age-appropriate classes at every level.",
+  },
+  {
+    value: "coaches",
+    question: "Are coaches certified?",
+    answer:
+      "All our coaches hold internationally recognised coaching certifications and undergo regular CPD training.",
+  },
+  // Pull a couple of real SG_FAQ_ITEMS to round out the list if available
+  ...SG_FAQ_ITEMS.filter((i) => i.group === "multiball" || i.group === "venue").slice(0, 3),
+] as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// JSON-LD — @graph with WebSite + FAQPage per UI-SPEC §8.3.
+// Testimonials data — Nexus style dark cards (3 cards).
+// ─────────────────────────────────────────────────────────────────────────────
+const SG_TESTIMONIALS = [
+  {
+    quote:
+      "Prodigy has been brilliant for our son — he's tried climbing, football, and the MultiBall wall all in one term. The coaches know him by name and he can't wait for Saturday classes.",
+    author: "Rachel T.",
+    location: "Parent, East Coast",
+  },
+  {
+    quote:
+      "The free trial sold us. Within 30 minutes the coach had pinpointed exactly where our daughter needed to be — and she's progressed faster than we ever expected.",
+    author: "Wei Lin H.",
+    location: "Parent, Marine Parade",
+  },
+  {
+    quote:
+      "Booked a birthday party here and the kids would not leave. MultiBall wall, coach-led games, party room sorted. The easiest birthday I've ever planned.",
+    author: "Sarah M.",
+    location: "Parent, Joo Chiat",
+  },
+] as const;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// JSON-LD — @graph with SportsActivityLocation + WebSite + FAQPage per UI-SPEC §8.3.
 // FAQPage.mainEntity questions/answers MUST match the rendered FAQItem props
 // char-for-char (Google rich-result rule).
 // ─────────────────────────────────────────────────────────────────────────────
@@ -135,53 +174,57 @@ const sgHomeSchema = {
 } as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// §3.1 HERO — full-bleed per HK pattern. Overlay at black/40 for cinematic look.
+// §1 HERO — full-bleed Mux video; overlay + Nexus typography over the top.
 // MultiBall trust line placement 1 of 3 (Pattern 11).
 // ─────────────────────────────────────────────────────────────────────────────
 function HeroSection() {
   return (
-    <section className="relative min-h-[92vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-[#0f1117]">
       <SGHeroVideo
         playbackId={process.env.NEXT_PUBLIC_MUX_SG_HERO_PLAYBACK_ID ?? ""}
-        posterSrc="/photography/sg-placeholder-climbing-unsplash-trinks.webp"
+        posterSrc="/photography/hero-sg.jpg"
         posterAlt="Children playing at Prodigy @ Katong Point, Singapore's only MultiBall wall"
         title="Prodigy Singapore — Prodigy camp-day montage"
       />
-      <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
-      <div className="absolute inset-0 flex flex-col items-start justify-center px-6 md:px-16 lg:px-24">
-        <h1 className="text-display font-display text-white max-w-2xl text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight">
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/60"
+        aria-hidden="true"
+      />
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-12 py-24">
+        <p className="text-[#1ab8a0] uppercase tracking-widest text-sm font-bold mb-4">
+          Prodigy @ Katong Point
+        </p>
+        <h1 className="text-white max-w-3xl text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight">
           Where Singapore&apos;s kids come to move, play, and grow.
         </h1>
-        <p className="text-body-lg text-brand-cream max-w-xl mt-4 text-base md:text-lg">
-          Prodigy @ Katong Point — three zones, three seasons of camps, and a coaching team that
-          meets every child at exactly their level.
+        <p className="text-white/80 max-w-xl mt-5 text-base md:text-lg">
+          Three zones, three seasons of camps, and a coaching team that meets every child at exactly
+          their level.
         </p>
-        {/* MultiBall trust line — Pattern 11 placement 1 */}
-        <p className="text-body-lg text-brand-cream mt-3">
-          <span className="font-accent text-brand-green">Singapore&apos;s only MultiBall wall</span>{" "}
-          <Zap size={16} className="inline text-brand-yellow align-middle" aria-hidden="true" /> ·
-          Katong Point
+        <p className="text-white/80 mt-3 flex items-center gap-2">
+          <Zap size={18} className="text-[#f59e0b]" aria-hidden="true" />
+          <span>
+            <span className="text-[#1ab8a0] font-semibold">
+              Singapore&apos;s only MultiBall wall
+            </span>{" "}
+            · Katong Point
+          </span>
         </p>
-        <div className="mt-6 flex flex-col sm:flex-row gap-3">
-          <Button
-            asChild
-            size="touch"
-            className="bg-brand-red text-white hover:bg-brand-red/90 focus-visible:ring-2 focus-visible:ring-white"
+        <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <a
+            href="/book-a-trial/"
+            className="inline-flex items-center justify-center gap-2 bg-[#1ab8a0] hover:bg-[#15a08b] text-white rounded-full px-6 py-3 font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
-            <a href="/book-a-trial/">
-              Book a Free Trial <ArrowRight className="ml-2 size-4" aria-hidden="true" />
-            </a>
-          </Button>
-          <Button
-            asChild
-            size="touch"
-            variant="outline"
-            className="border-white text-white hover:bg-white/10 bg-transparent"
+            Book Free Trial <ArrowRight className="size-4" aria-hidden="true" />
+          </a>
+          <a
+            href="/book-a-trial/?subject=general-enquiry"
+            className="inline-flex items-center justify-center gap-2 border-2 border-white/80 hover:bg-white/10 text-white rounded-full px-6 py-3 font-semibold transition-colors"
           >
-            <a href="/book-a-trial/?subject=general-enquiry">Send an Enquiry</a>
-          </Button>
+            Send an Enquiry
+          </a>
         </div>
-        <p className="text-small text-brand-cream/80 mt-4 text-sm">
+        <p className="text-white/60 text-sm mt-5">
           Free trial · No obligation · Usually booked same week.
         </p>
       </div>
@@ -190,714 +233,409 @@ function HeroSection() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// §3.1b TRUST STRIP — navy stat strip immediately after hero.
+// §2 WHY PRODIGY — Nexus surface, white cards with teal icon circles.
+// Tile 1 = MultiBall flagship (Pattern 11 placement 2).
 // ─────────────────────────────────────────────────────────────────────────────
-function TrustStripSection() {
+function WhyProdigySection() {
+  const tiles = [
+    {
+      icon: Zap,
+      title: "The only MultiBall wall in Singapore",
+      body: "Our MultiBall interactive wall turns every sports drill into a reactive, game-like experience. Children who struggle to focus in traditional drills thrive on the wall.",
+      badge: "Singapore's only",
+    },
+    {
+      icon: Trophy,
+      title: "Multi-sport, not single-sport",
+      body: "Gymnastics, climbing, parkour, football, basketball, rugby, tennis, dodgeball, and martial arts — all under one roof. Children discover what they love before they commit.",
+    },
+    {
+      icon: BadgeCheck,
+      title: "A single coaching standard",
+      body: "Every coach completes the ProActiv Sports internal training course. Our team is led by Haikel, with seven-plus years of experience.",
+    },
+    {
+      icon: ArrowUpRight,
+      title: "Built for progression",
+      body: "From first forward roll to competitive confidence — three dedicated zones, structured weekly classes, and holiday camps that build on each other term by term.",
+    },
+  ] as const;
+
   return (
-    <section className="bg-brand-navy py-10 lg:py-14">
-      <ContainerEditorial width="wide">
-        <StatStrip
-          variant="on-dark"
-          stats={[
-            { value: "2011", label: "Founded by ProActiv Sports" },
-            { value: "1", label: "Singapore venue — Katong Point" },
-            { value: "3", label: "Activity zones" },
-            { value: "1", label: "MultiBall wall in Singapore" },
-          ]}
-        />
-      </ContainerEditorial>
+    <section className="bg-[#f0f2f5] py-20 lg:py-28">
+      <div className="mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-12">
+        <div className="max-w-2xl mb-12">
+          <p className="text-[#e84040] uppercase tracking-widest text-sm font-bold mb-3">
+            Why Prodigy
+          </p>
+          <h2 className="text-gray-900 text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1]">
+            Why Singapore parents choose Prodigy.
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {tiles.map((t) => (
+            <div
+              key={t.title}
+              className="bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.08)] p-6 lg:p-7 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300 relative"
+            >
+              {"badge" in t && t.badge && (
+                <span className="absolute top-4 right-4 bg-[#1ab8a0] text-white text-[10px] font-bold uppercase tracking-wider rounded-full px-2.5 py-1">
+                  {t.badge}
+                </span>
+              )}
+              <div className="inline-flex bg-[rgba(26,184,160,0.12)] text-[#1ab8a0] rounded-full p-3 mb-5">
+                <t.icon className="size-6" aria-hidden="true" />
+              </div>
+              <h3 className="text-gray-900 text-lg font-bold mb-2">{t.title}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{t.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// §3.2 VENUE CHIP ROW — Single Katong Point chip above the fold (Plan 05-02).
+// §3 PROGRAMMES — Nexus surface, white card grid with image top + teal link.
 // ─────────────────────────────────────────────────────────────────────────────
-function VenueChipRowSection() {
-  return (
-    <Section size="sm" bg="default">
-      <ContainerEditorial width="wide">
-        <VenueChipRow />
-      </ContainerEditorial>
-    </Section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// §3.3 WHY PRODIGY — 4-tile grid per UI-SPEC §3.3 / PART 6C §2.
-// Tile 1 = MultiBall flagship (Pattern 11 placement 2).
-// ─────────────────────────────────────────────────────────────────────────────
-function WhyProdigySection() {
-  return (
-    <Section size="md" bg="muted">
-      <ContainerEditorial width="wide">
-        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
-          Why Prodigy
-        </p>
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
-          Why Singapore parents choose Prodigy.
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Tile 1 — MultiBall flagship (Pattern 11 placement 2) */}
-          <Card className="p-6 relative">
-            <Zap className="size-8 text-brand-green mb-4" aria-hidden="true" />
-            <h3 className="text-h3 font-display text-foreground text-xl font-semibold">
-              The only MultiBall wall in Singapore
-            </h3>
-            <p className="text-body text-muted-foreground mt-2">
-              Our MultiBall interactive wall turns every sports drill into a reactive, game-like
-              experience. Children who struggle to focus in traditional drills thrive on the wall.
-              Nothing else like it in Singapore.
-            </p>
-            <Badge className="bg-brand-green text-white absolute top-3 right-3">
-              Singapore&apos;s only
-            </Badge>
-          </Card>
-          {/* Tile 2 */}
-          <Card className="p-6">
-            <Trophy className="size-8 text-brand-green mb-4" aria-hidden="true" />
-            <h3 className="text-h3 font-display text-foreground text-xl font-semibold">
-              Multi-sport, not single-sport
-            </h3>
-            <p className="text-body text-muted-foreground mt-2">
-              Gymnastics, climbing, parkour, football, basketball, rugby, tennis, dodgeball, and
-              martial arts — all under one roof. Children discover what they love before they
-              commit.
-            </p>
-          </Card>
-          {/* Tile 3 */}
-          <Card className="p-6">
-            <BadgeCheck className="size-8 text-brand-green mb-4" aria-hidden="true" />
-            <h3 className="text-h3 font-display text-foreground text-xl font-semibold">
-              A single coaching standard
-            </h3>
-            <p className="text-body text-muted-foreground mt-2">
-              Every coach completes the ProActiv Sports internal training course. Our team is led by
-              Haikel — Head of Sports with seven-plus years of experience — and supported by Mark
-              and Coach King.
-            </p>
-          </Card>
-          {/* Tile 4 */}
-          <Card className="p-6">
-            <ArrowUpRight className="size-8 text-brand-green mb-4" aria-hidden="true" />
-            <h3 className="text-h3 font-display text-foreground text-xl font-semibold">
-              Built for progression
-            </h3>
-            <p className="text-body text-muted-foreground mt-2">
-              From first forward roll to competitive confidence — three dedicated zones, structured
-              weekly classes, and holiday camps that build on each other term by term.
-            </p>
-          </Card>
-        </div>
-      </ContainerEditorial>
-    </Section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// §3.4 PROGRAMMES — 4 ProgrammeTile cards, 2+2 staggered grid per UI-SPEC §3.4.
-// ─────────────────────────────────────────────────────────────────────────────
-const PROGRAMME_TILES = [
+const PROGRAMME_CARDS = [
   {
-    title: "Weekly Classes",
-    ageRange: "Ages 2–12",
+    title: "Sports Classes",
+    ageRange: "Ages 2–14",
     href: "/weekly-classes/",
-    imageSrc: "/photography/sg-weekly-classes.webp",
+    imageSrc: "/photography/sports-classes.jpg",
     imageAlt: "Children in a weekly sports class at Prodigy Katong Point",
-    description: "Movement, Sports + MultiBall, Climbing — three zones, every week.",
-    mt: "",
+    description: "Movement, Sports + MultiBall, Climbing — three zones, every week of the term.",
   },
   {
-    title: "Prodigy Camps",
+    title: "Gymnastics",
+    ageRange: "Ages 2–12",
+    href: "/weekly-classes/movement/",
+    imageSrc: "/photography/gymnastics.jpg",
+    imageAlt: "Gymnastics class in action at Prodigy Singapore",
+    description: "Foundations to flips — coach-led progressions on tumble track and beams.",
+  },
+  {
+    title: "Holiday Camps",
     ageRange: "Ages 4–12",
     href: "/prodigy-camps/",
-    imageSrc: "/photography/sg-prodigy-camps.webp",
+    imageSrc: "/photography/camps.jpg",
     imageAlt: "Children at a themed Prodigy holiday camp",
-    description: "Themed and multi-activity every school holiday.",
-    mt: "md:mt-8",
+    description: "Themed and multi-activity every school holiday — full and half-day options.",
   },
   {
     title: "Birthday Parties",
     ageRange: "Ages 3–12",
     href: "/birthday-parties/",
-    imageSrc: "/photography/sg-birthday-party.webp",
+    imageSrc: "/photography/parties.jpg",
     imageAlt: "Prodigy birthday party with coach-led activities",
     description: "Fully hosted, coach-led — the easiest birthday you'll plan.",
-    mt: "",
-  },
-  {
-    title: "School Partnerships",
-    ageRange: "All ages",
-    href: "/school-partnerships/",
-    imageSrc: "/photography/sg-school-partnership.webp",
-    imageAlt: "ProActiv Sports school enrichment programme in Singapore",
-    description: "IFS, KidsFirst and more — enrichment and sports days.",
-    mt: "md:mt-8",
   },
 ] as const;
 
 function ProgrammesSection() {
   return (
-    <Section size="md" bg="default">
-      <ContainerEditorial width="wide">
-        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
-          Our Programmes
-        </p>
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
-          Programmes for every stage — toddler to tween.
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {PROGRAMME_TILES.map((p) => (
-            <div key={p.title} className={p.mt}>
-              <ProgrammeTile
-                title={p.title}
-                ageRange={p.ageRange}
-                href={p.href}
-                imageSrc={p.imageSrc}
-                imageAlt={p.imageAlt}
-                description={p.description}
-              />
-            </div>
+    <section className="bg-[#f0f2f5] py-20 lg:py-28">
+      <div className="mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-12">
+        <div className="max-w-2xl mb-12">
+          <p className="text-[#e84040] uppercase tracking-widest text-sm font-bold mb-3">
+            Our Programmes
+          </p>
+          <h2 className="text-gray-900 text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1]">
+            Programmes for every stage — toddler to tween.
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {PROGRAMME_CARDS.map((p) => (
+            <a
+              key={p.title}
+              href={p.href}
+              className="group bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.08)] hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-all duration-300 flex flex-col"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                <Image
+                  src={p.imageSrc}
+                  alt={p.imageAlt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <div className="p-6 flex flex-col flex-1">
+                <p className="text-gray-500 text-xs font-semibold uppercase tracking-wider mb-1">
+                  {p.ageRange}
+                </p>
+                <h3 className="text-gray-900 text-lg font-bold mb-2">{p.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed flex-1">{p.description}</p>
+                <span className="inline-flex items-center gap-1 text-[#1ab8a0] font-semibold text-sm mt-4 group-hover:gap-2 transition-all">
+                  Learn more <ArrowRight className="size-3.5" aria-hidden="true" />
+                </span>
+              </div>
+            </a>
           ))}
         </div>
-      </ContainerEditorial>
-    </Section>
+      </div>
+    </section>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// §3.5 THREE ZONES — 3 zone cards from SG_ZONES per UI-SPEC §3.5.
-// Sports+MultiBall card carries MultiBall badge (Pattern 11 placement 3).
-// Mobile reshuffle: Sports+MultiBall first on mobile via order-first md:order-none.
+// §4 TESTIMONIALS — Nexus dark section with 3 dark testimonial cards.
 // ─────────────────────────────────────────────────────────────────────────────
-function ThreeZonesSection() {
-  // Find Sports+MultiBall zone for mobile order override
-  const sportsZone = SG_ZONES.find((z) => z.slug === "sports-multiball");
-  const movementZone = SG_ZONES.find((z) => z.slug === "movement");
-  const climbingZone = SG_ZONES.find((z) => z.slug === "climbing");
-  const orderedZones = [movementZone, sportsZone, climbingZone].filter(Boolean);
-
+function TestimonialsSection() {
   return (
-    <Section size="md" bg="default">
-      <ContainerEditorial width="wide">
-        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
-          Three Zones
-        </p>
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
-          Three zones. Infinite movement.
-        </h2>
+    <section className="bg-[#0f1117] py-20 lg:py-28">
+      <div className="mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-12">
+        <div className="max-w-2xl mb-12">
+          <p className="text-[#e84040] uppercase tracking-widest text-sm font-bold mb-3">
+            What Parents Say
+          </p>
+          <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1]">
+            Trusted by Singapore&apos;s families.
+          </h2>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {orderedZones.map((zone) => {
-            if (!zone) return null;
-            const isMultiBall = zone.slug === "sports-multiball";
-            return (
-              <Card
-                key={zone.slug}
-                className={`p-6 relative${isMultiBall ? " order-first md:order-none" : ""}`}
-              >
-                {isMultiBall && (
-                  <Badge className="bg-brand-green text-white absolute top-3 right-3">
-                    Singapore&apos;s only MultiBall wall
-                  </Badge>
-                )}
-                <h3 className="text-h3 font-display text-foreground text-xl font-semibold mb-2">
-                  {zone.label}
-                </h3>
-                <p className="text-small text-muted-foreground text-sm font-medium mb-3">
-                  {zone.ageBand}
-                </p>
-                <ul className="space-y-2">
-                  {zone.whatTheyLearn.slice(0, 3).map((item) => (
-                    <li key={item} className="text-body text-muted-foreground text-sm flex gap-2">
-                      <span className="text-brand-green mt-0.5">·</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href={zone.href}
-                  className="inline-flex items-center gap-1 mt-4 text-brand-green font-semibold hover:underline text-sm"
-                >
-                  Explore zone <ArrowRight className="size-3" aria-hidden="true" />
-                </a>
-              </Card>
-            );
-          })}
-        </div>
-      </ContainerEditorial>
-    </Section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// §3.6 SOCIAL PROOF — navy strip with LogoWall + TestimonialCard per UI-SPEC §3.6.
-// IFS + KidsFirst logos — text fallback if logo asset missing (HUMAN-ACTION D-11).
-// NOTE: do NOT duplicate Manjula testimonial from root (Pitfall 6).
-// ─────────────────────────────────────────────────────────────────────────────
-function SocialProofSection() {
-  return (
-    <Section size="md" bg="navy">
-      <ContainerEditorial width="wide">
-        <p className="text-brand-cream/60 text-xs font-bold tracking-widest uppercase mb-3 text-center">
-          What Parents Say
-        </p>
-        <h2 className="text-h2 font-display text-white mb-8 text-center text-3xl md:text-4xl font-extrabold tracking-tight">
-          Trusted by Singapore&apos;s international school families.
-        </h2>
-        <LogoWall
-          logos={[
-            {
-              src: "/photography/logo-ifs.webp",
-              alt: "International French School Singapore",
-              width: 120,
-              height: 60,
-            },
-            {
-              src: "/photography/logo-kidsfirst.webp",
-              alt: "KidsFirst Singapore",
-              width: 120,
-              height: 60,
-            },
-          ]}
-        />
-        <div className="mt-8 max-w-2xl mx-auto">
-          <TestimonialCard
-            quote="Prodigy has been brilliant for our son — he's tried climbing, football, and the MultiBall wall all in one term. The coaches know him by name and he can't wait for Saturday classes."
-            author="Rachel T."
-            authorRole="Parent, East Coast"
-          />
-        </div>
-      </ContainerEditorial>
-    </Section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// §3.7 CAMPS FEATURE — single large photo-left-copy-right card per UI-SPEC §3.7.
-// Stub data for upcoming Prodigy camp (Phase 6 CMS replaces with Event schema).
-// ─────────────────────────────────────────────────────────────────────────────
-function CampsFeatureSection() {
-  return (
-    <Section size="md" bg="muted">
-      <ContainerEditorial width="wide">
-        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
-          Holiday Camps
-        </p>
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
-          Prodigy Holiday Camps.
-        </h2>
-        <Card className="overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-2">
-            <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[320px]">
-              <Image
-                src="/photography/sg-prodigy-camps.webp"
-                alt="Children at a Prodigy themed holiday camp at Katong Point"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-              />
-            </div>
-            <div className="p-6 lg:p-8 flex flex-col justify-center">
-              <Badge className="bg-brand-green text-white w-fit mb-4">Next Camp</Badge>
-              <h3 className="text-h3 font-display text-foreground text-2xl font-bold mb-2">
-                Ninja Warrior Camp
-              </h3>
-              <p className="text-muted-foreground mb-1 text-sm font-medium">
-                16–20 June · Ages 5–12
-              </p>
-              <p className="text-body text-muted-foreground mt-3">
-                Five action-packed days of ninja-themed sport, obstacle courses, MultiBall wall
-                challenges, and gymnastics — all coached by the Prodigy team. Dri-fit T-shirt and
-                camp certificate included.
-              </p>
-              <div className="mt-6">
-                <Button
-                  asChild
-                  size="touch"
-                  variant="outline"
-                  className="border-white/20 text-foreground hover:bg-white/8"
-                >
-                  <a href="/prodigy-camps/themed/">Book Camp →</a>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Card>
-      </ContainerEditorial>
-    </Section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// §3.8 BIRTHDAY PARTIES — 2-col revenue block per UI-SPEC §3.8 + PART 6C §7.
-// MultiBall wall access mention + Send an Enquiry CTA.
-// ─────────────────────────────────────────────────────────────────────────────
-function BirthdayPartySection() {
-  return (
-    <Section size="md" bg="default">
-      <ContainerEditorial width="wide">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <div>
-            <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
-              Birthday Parties
-            </p>
-            <h2 className="text-h2 font-display text-foreground mb-4 text-3xl md:text-4xl font-extrabold tracking-tight">
-              The easiest birthday you&apos;ll ever plan.
-            </h2>
-            <ul className="mt-4 space-y-3">
-              <li className="flex gap-3 items-start">
-                <span className="text-brand-green font-bold mt-0.5">·</span>
-                <span className="text-body text-muted-foreground">
-                  <strong>2 hours hosted</strong> — venue exclusive use, Party Room with AV and
-                  lighting, decorations sorted
-                </span>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="text-brand-green font-bold mt-0.5">·</span>
-                <span className="text-body text-muted-foreground">
-                  <strong>Coach-led activities</strong> — structured sport and play sessions, so you
-                  enjoy the party too
-                </span>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="text-brand-green font-bold mt-0.5">·</span>
-                <span className="text-body text-muted-foreground">
-                  <strong>MultiBall wall access</strong> — Singapore&apos;s only interactive
-                  training wall, a birthday highlight every child talks about
-                </span>
-              </li>
-            </ul>
-            <div className="mt-6">
-              <Button
-                asChild
-                size="touch"
-                className="bg-brand-red text-white hover:bg-brand-red/90"
-              >
-                <a href="/book-a-trial/?subject=birthday-party">Send an Enquiry</a>
-              </Button>
-            </div>
-          </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
-            <Image
-              src="/photography/sg-birthday-party.webp"
-              alt="Children celebrating a birthday party at Prodigy Katong Point"
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </ContainerEditorial>
-    </Section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// §3.9 COACHES — 3-col coach grid from SG_COACHES per UI-SPEC §3.9.
-// Avatar portraits HUMAN-ACTION D-07 gate 3 — broken-image acceptable at Phase 5.
-// ─────────────────────────────────────────────────────────────────────────────
-function CoachesSection() {
-  return (
-    <Section size="md" bg="muted">
-      <ContainerEditorial width="wide">
-        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
-          The Coaches
-        </p>
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
-          Meet the coaches.
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {SG_COACHES.map((coach) => {
-            const slug = coach.name.toLowerCase().replace(/\s+/g, "-");
-            return (
-              <Card key={coach.name} className="p-6 flex flex-col items-start">
-                <div className="relative size-[128px] overflow-hidden rounded-full mb-4 bg-muted">
-                  <Image
-                    src={coach.portrait}
-                    alt={`${coach.name} — ${coach.role} at Prodigy Singapore`}
-                    fill
-                    sizes="128px"
-                    className="object-cover"
+          {SG_TESTIMONIALS.map((t) => (
+            <figure key={t.author} className="bg-[#1c2230] rounded-2xl p-7 lg:p-8 flex flex-col">
+              <div className="flex gap-1 mb-4" aria-label="5 out of 5 stars">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star
+                    key={i}
+                    className="size-4 fill-[#f59e0b] text-[#f59e0b]"
+                    aria-hidden="true"
                   />
-                </div>
-                <h3 className="text-h3 font-display text-foreground text-xl font-semibold">
-                  {coach.name}
-                </h3>
-                <p className="text-small text-muted-foreground text-sm font-medium mt-0.5 mb-3">
-                  {coach.role}
-                </p>
-                <p className="text-body text-muted-foreground text-sm flex-1">{coach.bio}</p>
-                <a
-                  href={`/coaches/#${slug}`}
-                  className="inline-flex items-center gap-1 mt-4 text-brand-green font-semibold hover:underline text-sm"
-                >
-                  Read bio → <ArrowRight className="size-3" aria-hidden="true" />
-                </a>
-              </Card>
-            );
-          })}
+                ))}
+              </div>
+              <blockquote className="text-white/80 italic text-base leading-relaxed flex-1">
+                &ldquo;{t.quote}&rdquo;
+              </blockquote>
+              <figcaption className="mt-6 pt-5 border-t border-white/10">
+                <div className="text-white font-bold">{t.author}</div>
+                <div className="text-white/50 text-sm">{t.location}</div>
+              </figcaption>
+            </figure>
+          ))}
         </div>
-      </ContainerEditorial>
-    </Section>
+      </div>
+    </section>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// §3.10 ABOUT — 2-col prose + photo per UI-SPEC §3.10 + PART 6C §9.
-// Cross-market link to HK via NEXT_PUBLIC_HK_URL env var.
+// §5 LOCATION / VENUE — Nexus default surface with photo + Katong Point copy.
 // ─────────────────────────────────────────────────────────────────────────────
-function AboutSection() {
-  const hkUrl = process.env.NEXT_PUBLIC_HK_URL ?? "#";
+function LocationSection() {
   return (
-    <Section size="md" bg="default">
-      <ContainerEditorial width="wide">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          <div>
-            <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
-              About Us
-            </p>
-            <h2 className="text-h2 font-display text-foreground mb-4 text-3xl md:text-4xl font-extrabold tracking-tight">
-              About <span className="font-accent text-brand-green">Prodigy</span> Singapore.
-            </h2>
-            <p className="text-body text-muted-foreground">
-              Prodigy is ProActiv Sports&apos; Singapore home — a 2,700 sq ft indoor facility at
-              Katong Point, purpose-built for children aged 2 to 12. Three zones, a qualified
-              coaching team, and the only MultiBall interactive wall in Singapore.
-            </p>
-            <p className="text-body text-muted-foreground mt-4">
-              We believe sport should be joyful before it is serious. Our free trial is the first
-              step — a 30-minute session where we learn what your child can do and find the right
-              class for where they are right now.
-            </p>
-            <p className="text-body text-muted-foreground mt-4">
-              ProActiv Sports has been building children&apos;s sports programmes since 2011.{" "}
-              <a href={hkUrl} className="text-brand-green font-semibold hover:underline">
-                14 years in Hong Kong →
-              </a>
-            </p>
-          </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+    <section className="bg-white py-20 lg:py-28">
+      <div className="mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
             <Image
-              src="/photography/sg-coaching-action.webp"
-              alt="Prodigy coach working with a child at Katong Point"
+              src="/photography/hero-sg.jpg"
+              alt="Prodigy @ Katong Point, Singapore — our home venue"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
-        </div>
-      </ContainerEditorial>
-    </Section>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// §3.11 BLOG — SG_BLOG_POSTS_STUB entries or empty-state per UI-SPEC §3.11.
-// D-07 / Pitfall 9: use real Katong Point photography paths only — no placeholder filenames.
-// ─────────────────────────────────────────────────────────────────────────────
-function BlogSection() {
-  const posts = SG_BLOG_POSTS_STUB.slice(0, 3);
-  if (posts.length === 0) {
-    return (
-      <Section size="md" bg="default">
-        <ContainerEditorial width="default">
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-h2 font-display text-foreground mb-3 text-3xl md:text-4xl font-extrabold tracking-tight">
-              New posts coming soon.
-            </h2>
-            <p className="text-body text-muted-foreground">
-              We&apos;re preparing guides on Singapore&apos;s MultiBall wall, holiday camp planning,
-              and what to expect at a free trial. In the meantime, our coaches are happy to answer
-              any question directly.
+          <div>
+            <p className="text-[#e84040] uppercase tracking-widest text-sm font-bold mb-3">
+              Visit Us
             </p>
-          </div>
-        </ContainerEditorial>
-      </Section>
-    );
-  }
-  return (
-    <Section size="md" bg="default">
-      <ContainerEditorial width="wide">
-        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
-          From the Blog
-        </p>
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
-          From the blog.
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {posts.map((p) => (
-            <Card key={p.slug} className="overflow-hidden">
-              <div className="p-5">
-                <Badge variant="secondary">{p.category}</Badge>
-                <h3 className="text-h3 font-display text-foreground mt-3 text-xl font-semibold">
-                  {p.title}
-                </h3>
-                <p className="text-body text-muted-foreground mt-2">{p.excerpt}</p>
-                <p className="text-small text-muted-foreground mt-3 text-sm">
-                  <time dateTime={p.publishedAt}>{p.publishedAt}</time> · {p.readTimeMinutes} min
-                  read
-                </p>
+            <h2 className="text-gray-900 text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1] mb-5">
+              Prodigy @ Katong Point.
+            </h2>
+            <p className="text-gray-600 text-base lg:text-lg leading-relaxed mb-4">
+              A 2,700 sq ft indoor facility purpose-built for children aged 2 to 12. Three zones, a
+              qualified coaching team, and the only MultiBall interactive wall in Singapore.
+            </p>
+            <p className="text-gray-600 text-base leading-relaxed mb-6">
+              Easily accessible from the East Side and City Centre — drop-off parking and direct MRT
+              connection.
+            </p>
+            <dl className="space-y-3 mb-8 text-sm">
+              <div className="flex gap-3">
+                <dt className="text-gray-500 w-20 shrink-0 font-semibold uppercase tracking-wider text-xs pt-0.5">
+                  Address
+                </dt>
+                <dd className="text-gray-900">
+                  {KATONG_POINT.addressStreet}, {KATONG_POINT.addressLocality}{" "}
+                  {KATONG_POINT.postalCode}
+                </dd>
               </div>
-            </Card>
-          ))}
+              <div className="flex gap-3">
+                <dt className="text-gray-500 w-20 shrink-0 font-semibold uppercase tracking-wider text-xs pt-0.5">
+                  Hours
+                </dt>
+                <dd className="text-gray-900">Mon–Fri 3–8pm · Sat–Sun 9am–6pm</dd>
+              </div>
+            </dl>
+            <a
+              href="/katong-point/"
+              className="inline-flex items-center gap-1 text-[#1ab8a0] font-semibold hover:gap-2 transition-all"
+            >
+              Get directions <ArrowRight className="size-4" aria-hidden="true" />
+            </a>
+          </div>
         </div>
-      </ContainerEditorial>
-    </Section>
+      </div>
+    </section>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// §3.12a HIGH-INTENT BLOCK — Prodigy Camps + Birthday Parties image cards.
+// §6 HIGH-INTENT CARDS — two large image cards w/ gradient overlay + CTAs.
 // ─────────────────────────────────────────────────────────────────────────────
 function HighIntentSection() {
   return (
-    <Section size="md" bg="default">
-      <ContainerEditorial width="wide">
+    <section className="bg-white py-20 lg:py-28">
+      <div className="mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-12">
         <div className="grid md:grid-cols-2 gap-6">
+          {/* Card 1 — Holiday Camps (coral) */}
           <a
             href="/prodigy-camps/"
-            className="group relative rounded-2xl overflow-hidden aspect-[4/3] block"
+            className="group relative rounded-2xl overflow-hidden aspect-[4/3] block shadow-[0_2px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.18)] transition-shadow"
           >
             <Image
-              src="/photography/sg-prodigy-camps.webp"
-              alt="Prodigy camps Singapore at Katong Point"
+              src="/photography/camps.jpg"
+              alt="Prodigy holiday camps Singapore at Katong Point"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
-              <div>
-                <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-2">
-                  Prodigy Camps
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
+            <div className="absolute inset-0 flex items-end p-8 lg:p-10">
+              <div className="max-w-md">
+                <p className="text-white/90 text-xs font-bold tracking-widest uppercase mb-3">
+                  Holiday Programmes
                 </p>
-                <h3 className="text-2xl font-extrabold text-white mb-2 tracking-tight">
-                  Every School Break, Covered
+                <h3 className="text-3xl lg:text-4xl font-extrabold text-white mb-3 tracking-tight">
+                  Holiday Camps
                 </h3>
-                <p className="text-sm text-white/70 mb-4">
+                <p className="text-sm text-white/75 mb-5 leading-relaxed">
                   Themed and multi-activity camps every school holiday for ages 4–12.
                 </p>
-                <span className="inline-flex items-center gap-2 bg-brand-red text-white text-sm font-semibold px-4 py-2 rounded-lg">
-                  Book a Camp <ArrowRight className="size-4" />
+                <span className="inline-flex items-center gap-2 bg-[#e84040] hover:bg-[#d33636] text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors">
+                  View Camps <ArrowRight className="size-4" aria-hidden="true" />
                 </span>
               </div>
             </div>
           </a>
+
+          {/* Card 2 — Sports Classes (teal) */}
           <a
-            href="/birthday-parties/"
-            className="group relative rounded-2xl overflow-hidden aspect-[4/3] block"
+            href="/weekly-classes/"
+            className="group relative rounded-2xl overflow-hidden aspect-[4/3] block shadow-[0_2px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.18)] transition-shadow"
           >
             <Image
-              src="/photography/sg-birthday-party.webp"
-              alt="Prodigy birthday parties Singapore at Katong Point"
+              src="/photography/sports-classes.jpg"
+              alt="Prodigy multi-sport classes Singapore at Katong Point"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
-              <div>
-                <p className="text-brand-sky text-xs font-bold tracking-widest uppercase mb-2">
-                  Birthday Parties
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
+            <div className="absolute inset-0 flex items-end p-8 lg:p-10">
+              <div className="max-w-md">
+                <p className="text-white/90 text-xs font-bold tracking-widest uppercase mb-3">
+                  Multi-Sport
                 </p>
-                <h3 className="text-2xl font-extrabold text-white mb-2 tracking-tight">
-                  The Party They&apos;ll Remember
+                <h3 className="text-3xl lg:text-4xl font-extrabold text-white mb-3 tracking-tight">
+                  Sports Classes
                 </h3>
-                <p className="text-sm text-white/70 mb-4">
-                  Fully hosted, coach-led, MultiBall wall access. Zero stress for parents.
+                <p className="text-sm text-white/75 mb-5 leading-relaxed">
+                  Three zones, every week of the term — gymnastics, climbing, and the MultiBall
+                  wall.
                 </p>
-                <span className="inline-flex items-center gap-2 border border-white text-white text-sm font-semibold px-4 py-2 rounded-lg">
-                  Plan a Party <ArrowRight className="size-4" />
+                <span className="inline-flex items-center gap-2 bg-[#1ab8a0] hover:bg-[#15a08b] text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors">
+                  Explore Classes <ArrowRight className="size-4" aria-hidden="true" />
                 </span>
               </div>
             </div>
           </a>
         </div>
-      </ContainerEditorial>
-    </Section>
+      </div>
+    </section>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// §3.12b FAQ — SG_HOMEPAGE_FAQS via FAQItem composition per UI-SPEC §3.12.
-// Do NOT nest in a parent Accordion — FAQItem internally composes its own Accordion;
-// double-nesting breaks state (PATTERNS §FAQItem Composition).
+// §7 FAQ — Nexus light surface, white bordered accordion items.
 // DOM order MUST match JSON-LD FAQPage.mainEntity order (Google FAQPage rule).
 // ─────────────────────────────────────────────────────────────────────────────
 function FAQSection() {
   return (
-    <Section size="md" bg="default">
-      <ContainerEditorial width="default">
-        <div className="max-w-3xl mx-auto">
-          <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+    <section className="bg-[#f0f2f5] py-20 lg:py-28">
+      <div className="mx-auto w-full max-w-3xl px-6 md:px-10 lg:px-12">
+        <div className="text-center mb-12">
+          <p className="text-[#e84040] uppercase tracking-widest text-sm font-bold mb-3">
             Common Questions
           </p>
-          <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
+          <h2 className="text-gray-900 text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1]">
             Frequently asked questions.
           </h2>
-          <div className="space-y-2">
-            {SG_HOMEPAGE_FAQS.map((item) => (
-              <FAQItem
-                key={item.value}
-                id={item.value}
-                question={item.question}
-                answer={item.answer}
-              />
-            ))}
-          </div>
         </div>
-      </ContainerEditorial>
-    </Section>
+        <div className="space-y-3">
+          {SG_HOMEPAGE_FAQS.map((item) => (
+            <div
+              key={item.value}
+              className="bg-white border border-black/[0.06] rounded-xl px-2 shadow-[0_1px_4px_rgba(0,0,0,0.04)]"
+            >
+              <FAQItem id={item.value} question={item.question} answer={item.answer} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// §3.13 FINAL CTA — navy strip with red Book + env-conditional WhatsApp
-// per UI-SPEC §3.13 / PART 6C §12.
-// WhatsApp link conditional on NEXT_PUBLIC_WHATSAPP_SG (CONTEXT D-08).
-// target="_blank" + rel="noopener noreferrer" (T-05-24 mitigation).
+// §8 FINAL CTA — Nexus dark section. White heading, coral primary, teal outline.
+// WhatsApp conditional on NEXT_PUBLIC_WHATSAPP_SG (CONTEXT D-08).
 // ─────────────────────────────────────────────────────────────────────────────
 function FinalCTASection() {
   const whatsappSg = process.env.NEXT_PUBLIC_WHATSAPP_SG;
   const sanitisedWhatsapp = whatsappSg?.replace(/[^0-9+]/g, "") ?? "";
   return (
-    <Section size="lg" bg="navy">
-      <ContainerEditorial width="default">
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-h2 font-display text-white mb-3 text-3xl md:text-4xl font-extrabold tracking-tight">
-            Ready to try a free trial at Prodigy?
-          </h2>
-          <p className="text-body-lg text-brand-cream mb-6 text-base md:text-lg">
-            Free 30-minute assessment, no commitment. Come and see the MultiBall wall, meet the
-            coaches, and find the right class for your child.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild size="touch" className="bg-brand-red text-white hover:bg-brand-red/90">
-              <a href="/book-a-trial/">
-                Book a Free Trial <ArrowRight className="ml-2 size-4" aria-hidden="true" />
-              </a>
-            </Button>
-            {whatsappSg && (
-              <Button
-                asChild
-                size="touch"
-                variant="outline"
-                className="border-white text-white hover:bg-white/10 bg-transparent"
-              >
-                <WhatsAppCTA
-                  phone={sanitisedWhatsapp}
-                  message="Hi Prodigy SG, I'd like to book a free trial."
-                >
-                  Chat on WhatsApp <MessageCircle className="ml-2 size-4" aria-hidden="true" />
-                </WhatsAppCTA>
-              </Button>
-            )}
-          </div>
+    <section className="bg-[#0f1117] py-24 lg:py-32">
+      <div className="mx-auto w-full max-w-3xl px-6 md:px-10 lg:px-12 text-center">
+        <p className="text-[#e84040] uppercase tracking-widest text-sm font-bold mb-4">
+          Ready to start?
+        </p>
+        <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.05] mb-5">
+          Try a free trial at Prodigy.
+        </h2>
+        <p className="text-white/70 text-base lg:text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
+          Free 30-minute assessment, no commitment. Come and see the MultiBall wall, meet the
+          coaches, and find the right class for your child.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <a
+            href="/book-a-trial/"
+            className="inline-flex items-center justify-center gap-2 bg-[#e84040] hover:bg-[#d33636] text-white rounded-full px-6 py-3 font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+          >
+            Book Free Trial <ArrowRight className="size-4" aria-hidden="true" />
+          </a>
+          {whatsappSg && (
+            <WhatsAppCTA
+              phone={sanitisedWhatsapp}
+              message="Hi Prodigy SG, I'd like to book a free trial."
+              className="inline-flex items-center justify-center gap-2 border-2 border-[#1ab8a0] text-[#1ab8a0] hover:bg-[#1ab8a0] hover:text-white rounded-full px-6 py-3 font-semibold transition-colors"
+            >
+              Chat on WhatsApp <MessageCircle className="size-4" aria-hidden="true" />
+            </WhatsAppCTA>
+          )}
         </div>
-      </ContainerEditorial>
-    </Section>
+      </div>
+    </section>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PAGE COMPONENT — RSC. Returns fragment (layout provides <main id="main-content">).
-// Renders 13 sections + inline JSON-LD script per UI-SPEC §3.
+// Renders 8 Nexus sections + inline JSON-LD script.
 // ─────────────────────────────────────────────────────────────────────────────
 export default function SGHomePage() {
   return (
@@ -908,17 +646,10 @@ export default function SGHomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(sgHomeSchema) }}
       />
       <HeroSection />
-      <TrustStripSection />
-      <VenueChipRowSection />
       <WhyProdigySection />
       <ProgrammesSection />
-      <ThreeZonesSection />
-      <SocialProofSection />
-      <CampsFeatureSection />
-      <BirthdayPartySection />
-      <CoachesSection />
-      <AboutSection />
-      <BlogSection />
+      <TestimonialsSection />
+      <LocationSection />
       <HighIntentSection />
       <FAQSection />
       <FinalCTASection />

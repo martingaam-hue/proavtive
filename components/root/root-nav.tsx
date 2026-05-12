@@ -29,19 +29,21 @@ export function RootNav() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-[#0a0a0f]/93 backdrop-blur-md border-b border-white/8"
+          ? "bg-[#0f206c]/95 backdrop-blur-md border-b border-white/8"
           : "bg-transparent border-b border-transparent"
       }`}
     >
       <div className="mx-auto max-w-[1440px] px-[5%] flex items-center justify-between h-16 lg:h-[4.5rem]">
         {/* Logo */}
-        <Link href="/" aria-label="ProActiv Sports — home" className="flex items-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/assets/logo.svg"
-            alt="ProActiv Sports"
-            className="h-7 lg:h-8 brightness-0 invert"
-          />
+        <Link href="/" aria-label="ProActiv Sports — home" className="flex items-baseline gap-1.5">
+          <span
+            className={`font-extrabold text-xl lg:text-2xl tracking-tight transition-colors duration-500 ${
+              scrolled ? "text-white" : "text-white"
+            }`}
+          >
+            PROACTIV
+          </span>
+          <span className="text-[#ec1c24] text-xs font-bold tracking-wide">SPORTS</span>
         </Link>
 
         {/* Desktop nav */}
@@ -62,15 +64,15 @@ export function RootNav() {
           <div className="flex items-center gap-2 ml-2">
             <a
               href={hkUrl}
-              className="px-5 py-2 font-display font-bold text-[0.68rem] tracking-wide uppercase text-white border border-white/25 hover:border-white/60 hover:bg-white/8 transition-all duration-200"
+              className="bg-[#e84040] text-white rounded-lg px-4 py-2 font-semibold text-sm hover:bg-[#e84040]/90 transition-colors duration-200"
             >
-              Hong Kong
+              HK
             </a>
             <a
               href={sgUrl}
-              className="px-5 py-2 font-display font-bold text-[0.68rem] tracking-wide uppercase text-white bg-brand-red hover:bg-brand-red/85 transition-colors duration-200"
+              className="bg-[#1ab8a0] text-white rounded-lg px-4 py-2 font-semibold text-sm hover:bg-[#1ab8a0]/90 transition-colors duration-200"
             >
-              Singapore
+              SG
             </a>
           </div>
         </nav>

@@ -30,6 +30,17 @@
   --spacing-section-lg: 8rem;
 }
 
+/* ── Nexus design tokens ─────────────────────────────── */
+@theme {
+  --color-surface: #f0f2f5;
+  --color-navy-dark: #0f1117;
+  --color-coral: #e84040;
+  --color-teal-accent: #1ab8a0;
+  --color-gold: #f59e0b;
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.14);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -230,4 +241,64 @@
 @utility animate-slide-progress {
   animation: slide-progress linear forwards;
   transform-origin: left;
+}
+
+/* ── Nexus design system utilities ─────────────────────────────── */
+@layer utilities {
+  .section-dark {
+    background-color: #0f1117;
+    color: #fff;
+  }
+  .section-surface {
+    background-color: #f0f2f5;
+  }
+  .card-nexus {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+  .card-nexus:hover {
+    box-shadow: var(--shadow-elevated);
+    transform: translateY(-2px);
+    transition: all 0.25s ease;
+  }
+  .btn-coral {
+    background-color: #e84040;
+    color: #fff;
+    border-radius: 9999px;
+    padding: 0.625rem 1.5rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .btn-coral:hover {
+    background-color: #c73030;
+  }
+  .btn-teal {
+    background-color: #1ab8a0;
+    color: #fff;
+    border-radius: 9999px;
+    padding: 0.625rem 1.5rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .btn-teal:hover {
+    background-color: #158a78;
+  }
+  .text-coral {
+    color: #e84040;
+  }
+  .text-teal-accent {
+    color: #1ab8a0;
+  }
+  .bg-teal-icon {
+    background-color: rgba(26, 184, 160, 0.12);
+    color: #1ab8a0;
+  }
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
 }

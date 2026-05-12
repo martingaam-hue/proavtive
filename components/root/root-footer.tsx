@@ -1,13 +1,11 @@
-// Phase 3 / Plan 03-01 — RootFooter. Navy 4-column footer with logo, nav links, market links, social icons, copyright.
-// RSC — no interactivity; year auto-updates per build.
+// Phase 3 / Plan 03-01 — RootFooter. Nexus dark footer with logo, 4-column nav,
+// social icons, copyright. RSC — no interactivity; year auto-updates per build.
 //
-// Rule 1 fix: lucide-react@1.8.0 does not export branded social icons (Facebook, Instagram, LinkedIn).
-// Using inline SVG paths sourced from Simple Icons (CC0 / brand-provided paths).
+// Rule 1 fix: lucide-react@1.8.0 does not export branded social icons (Facebook,
+// Instagram, LinkedIn). Using inline SVG paths sourced from Simple Icons
+// (CC0 / brand-provided paths).
 import * as React from "react";
 import Link from "next/link";
-import { Section } from "@/components/ui/section";
-import { ContainerEditorial } from "@/components/ui/container-editorial";
-import { Separator } from "@/components/ui/separator";
 
 // Simple inline social SVG icons (24×24 viewBox, brand standard paths)
 function FacebookIcon({ className }: { className?: string }) {
@@ -34,170 +32,207 @@ function LinkedinIcon({ className }: { className?: string }) {
   );
 }
 
+const COL_ABOUT = [
+  { label: "ProActiv Sports", href: "/brand" },
+  { label: "Our Story", href: "/brand" },
+  { label: "Coaches", href: "/coaching-philosophy" },
+  { label: "Careers", href: "/careers" },
+  { label: "Press", href: "/news" },
+] as const;
+
+const COL_PROGRAMMES = [
+  { label: "Gymnastics", href: "/gymnastics" },
+  { label: "Multi-Sport", href: "/multi-sport" },
+  { label: "Holiday Camps", href: "/holiday-camps" },
+  { label: "Birthday Parties", href: "/birthday-parties" },
+  { label: "Adult Classes", href: "/adult-classes" },
+] as const;
+
 export function RootFooter() {
   const hkUrl = process.env.NEXT_PUBLIC_HK_URL ?? "/?__market=hk";
   const sgUrl = process.env.NEXT_PUBLIC_SG_URL ?? "/?__market=sg";
 
   return (
-    <footer className="bg-[#0a0a0a] text-white border-t border-white/8">
-      <Section size="md" bg="navy">
-        <ContainerEditorial width="wide">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
-            {/* Column 1 — Brand */}
-            <div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/logo.svg" alt="ProActiv Sports" className="h-10" />
-              <p className="text-small text-white/50 mt-4 max-w-xs">
-                Children&apos;s gymnastics and sports in Hong Kong and Singapore. Since 2011.
-              </p>
-            </div>
-
-            {/* Column 2 — Company */}
-            <div>
-              <h4 className="text-small font-semibold uppercase tracking-wide text-white">
-                Company
-              </h4>
-              <ul className="mt-4 space-y-2 text-small text-white/50">
-                <li>
-                  <Link
-                    href="/brand"
-                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
-                  >
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/coaching-philosophy"
-                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
-                  >
-                    Coaching
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/news"
-                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
-                  >
-                    News
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/careers"
-                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
-                  >
-                    Careers
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Column 3 — Markets */}
-            <div>
-              <h4 className="text-small font-semibold uppercase tracking-wide text-white">
-                Markets
-              </h4>
-              <ul className="mt-4 space-y-2 text-small text-white/50">
-                <li>
-                  <a
-                    href={hkUrl}
-                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
-                  >
-                    ProActiv Sports Hong Kong →
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={sgUrl}
-                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
-                  >
-                    Prodigy by ProActiv Sports Singapore →
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Column 4 — Contact + Legal */}
-            <div>
-              <h4 className="text-small font-semibold uppercase tracking-wide text-white">
-                Contact &amp; Legal
-              </h4>
-              <ul className="mt-4 space-y-2 text-small text-white/50">
-                <li>
-                  <Link
-                    href="/contact"
-                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
-                  >
-                    Contact
-                  </Link>
-                </li>
-                <li>
-                  <a
-                    href="mailto:hello@proactivsports.com"
-                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
-                  >
-                    hello@proactivsports.com
-                  </a>
-                </li>
-                <li>
-                  <Link
-                    href="/privacy"
-                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
-                  >
-                    Privacy
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/terms"
-                    className="hover:text-white transition-colors min-h-11 inline-flex items-center"
-                  >
-                    Terms
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <Separator className="my-8 bg-white/20" />
-
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <p className="text-small text-white/50">
-              © {new Date().getFullYear()} ProActiv Sports. All rights reserved.
+    <footer className="bg-[#0f1117] text-white">
+      <div className="mx-auto max-w-[1440px] px-[5%] py-16 lg:py-20">
+        {/* Logo + tagline + columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
+          {/* Brand block — spans 1 col on lg, full row on mobile */}
+          <div className="lg:col-span-1">
+            <Link
+              href="/"
+              aria-label="ProActiv Sports — home"
+              className="flex items-baseline gap-1.5"
+            >
+              <span className="text-white font-extrabold text-2xl tracking-tight">PROACTIV</span>
+              <span className="text-[#e84040] text-xs font-bold tracking-wide">SPORTS</span>
+            </Link>
+            <p className="text-white/50 text-sm mt-4 leading-relaxed max-w-xs">
+              Children&apos;s gymnastics and sports in Hong Kong and Singapore. Since 2011.
             </p>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 mt-6">
               <a
                 href="https://www.facebook.com/proactivsportshk/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow ProActiv Sports on Facebook"
-                className="min-h-11 min-w-11 inline-flex items-center justify-center"
+                className="text-white/50 hover:text-white transition-colors"
               >
-                <FacebookIcon className="size-5 text-white/50 hover:text-white transition-colors" />
+                <FacebookIcon className="size-5" />
               </a>
               <a
                 href="https://www.instagram.com/proactivsports/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow ProActiv Sports on Instagram"
-                className="min-h-11 min-w-11 inline-flex items-center justify-center"
+                className="text-white/50 hover:text-white transition-colors"
               >
-                <InstagramIcon className="size-5 text-white/50 hover:text-white transition-colors" />
+                <InstagramIcon className="size-5" />
               </a>
               <a
                 href="https://www.linkedin.com/company/proactiv-sports/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow ProActiv Sports on LinkedIn"
-                className="min-h-11 min-w-11 inline-flex items-center justify-center"
+                className="text-white/50 hover:text-white transition-colors"
               >
-                <LinkedinIcon className="size-5 text-white/50 hover:text-white transition-colors" />
+                <LinkedinIcon className="size-5" />
               </a>
             </div>
           </div>
-        </ContainerEditorial>
-      </Section>
+
+          {/* Column 1 — About */}
+          <div>
+            <h4 className="text-[#e84040] uppercase tracking-widest text-xs font-bold mb-4">
+              About
+            </h4>
+            <ul>
+              {COL_ABOUT.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className="text-white/60 hover:text-white transition text-sm leading-8"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 2 — Programmes */}
+          <div>
+            <h4 className="text-[#e84040] uppercase tracking-widest text-xs font-bold mb-4">
+              Programmes
+            </h4>
+            <ul>
+              {COL_PROGRAMMES.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className="text-white/60 hover:text-white transition text-sm leading-8"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3 — Locations */}
+          <div>
+            <h4 className="text-[#e84040] uppercase tracking-widest text-xs font-bold mb-4">
+              Locations
+            </h4>
+            <ul>
+              <li>
+                <a
+                  href={hkUrl}
+                  className="text-white/60 hover:text-white transition text-sm leading-8 block"
+                >
+                  Hong Kong — Wan Chai
+                </a>
+              </li>
+              <li>
+                <a
+                  href={hkUrl}
+                  className="text-white/60 hover:text-white transition text-sm leading-8 block"
+                >
+                  Hong Kong — Sai Ying Pun
+                </a>
+              </li>
+              <li>
+                <a
+                  href={sgUrl}
+                  className="text-white/60 hover:text-white transition text-sm leading-8 block"
+                >
+                  Singapore — Katong
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4 — Contact */}
+          <div>
+            <h4 className="text-[#e84040] uppercase tracking-widest text-xs font-bold mb-4">
+              Contact
+            </h4>
+            <ul>
+              <li>
+                <a
+                  href="mailto:hello@proactivsports.com"
+                  className="text-white/60 hover:text-white transition text-sm leading-8"
+                >
+                  hello@proactivsports.com
+                </a>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-white/60 hover:text-white transition text-sm leading-8"
+                >
+                  Phone
+                </Link>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/proactivsports/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/60 hover:text-white transition text-sm leading-8"
+                >
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.facebook.com/proactivsportshk/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/60 hover:text-white transition text-sm leading-8"
+                >
+                  Facebook
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-white/10 mt-12 pt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+          <p className="text-white/30 text-xs">
+            © {new Date().getFullYear()} ProActiv Sports. All rights reserved.
+          </p>
+          <div className="flex items-center gap-5">
+            <Link href="/privacy" className="text-white/30 hover:text-white/60 transition text-xs">
+              Privacy
+            </Link>
+            <Link href="/terms" className="text-white/30 hover:text-white/60 transition text-xs">
+              Terms
+            </Link>
+          </div>
+        </div>
+      </div>
     </footer>
   );
 }

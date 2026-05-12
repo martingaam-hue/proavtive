@@ -9,7 +9,21 @@ interface HeroSectionProps {
   sgUrl: string;
 }
 
-const SLIDES = [
+type CtaMarket = { label: string; market: "hk" | "sg" };
+type CtaHref = { label: string; href: string };
+
+interface Slide {
+  id: string;
+  photo: string;
+  alt: string;
+  eyebrow: string;
+  headline: readonly string[];
+  sub: string;
+  cta: CtaMarket | CtaHref | null;
+  cta2?: { label: string; href: string };
+}
+
+const SLIDES: readonly Slide[] = [
   {
     id: "gateway",
     photo: "/photography/hero-gateway.jpg",
@@ -21,21 +35,23 @@ const SLIDES = [
   },
   {
     id: "gymnastics",
-    photo: "/photography/gymnastics.jpg",
+    photo: "/photography/hero-hk.jpg",
     alt: "ProGym Hong Kong — gymnastics classes Wan Chai and Cyberport",
     eyebrow: "Hong Kong · ProGym Wan Chai · ProGym Cyberport",
-    headline: ["ProGym"],
+    headline: ["ProGym", "Hong Kong"],
     sub: "World-class gymnastics coaching for children aged 2–16.",
-    cta: { label: "Explore Hong Kong", market: "hk" as const },
+    cta: { label: "Explore Hong Kong", href: "/hk" },
+    cta2: { label: "Book Free Trial", href: "/hk#booking" },
   },
   {
-    id: "sports",
-    photo: "/photography/sports-classes.jpg",
+    id: "prodigy",
+    photo: "/photography/hero-sg.jpg",
     alt: "Prodigy Singapore — multi-sport classes at Katong Point",
     eyebrow: "Singapore · Katong Point",
-    headline: ["Prodigy"],
+    headline: ["Prodigy", "Singapore"],
     sub: "Multi-sport · MultiBall · Climbing · Ages 2–16.",
-    cta: { label: "Explore Singapore", market: "sg" as const },
+    cta: { label: "Explore Singapore", href: "/sg" },
+    cta2: { label: "Enquire Now", href: "/sg#contact" },
   },
   {
     id: "camps",
@@ -44,7 +60,7 @@ const SLIDES = [
     eyebrow: "Holiday Programmes",
     headline: ["Camps &", "Clinics"],
     sub: "Intensive holiday camps and skill-building clinics across both cities.",
-    cta: null,
+    cta: { label: "View Camps", href: "/hk#camps" },
   },
   {
     id: "parties",
@@ -53,7 +69,7 @@ const SLIDES = [
     eyebrow: "Birthday Parties",
     headline: ["Celebrate", "Big."],
     sub: "Unforgettable active birthday parties at our dedicated gymnastics facilities.",
-    cta: null,
+    cta: { label: "Plan a Party", href: "/hk#parties" },
   },
 ] as const;
 
@@ -195,8 +211,8 @@ export function HeroSection({ hkUrl, sgUrl }: HeroSectionProps) {
                       }}
                       className={`block font-display font-extrabold leading-[0.86] tracking-[-0.03em] text-white ${
                         slide.headline.length === 1
-                          ? "text-[clamp(4.5rem,10vw,10rem)]"
-                          : "text-[clamp(4rem,9.5vw,9.5rem)]"
+                          ? "text-[clamp(2.8rem,5.5vw,6.5rem)]"
+                          : "text-[clamp(2.4rem,4.8vw,5.8rem)]"
                       }`}
                     >
                       {word}
@@ -223,13 +239,23 @@ export function HeroSection({ hkUrl, sgUrl }: HeroSectionProps) {
                 className="mt-9 lg:mt-11 flex flex-col sm:flex-row gap-3"
               >
                 {slide.cta ? (
-                  <a
-                    href={getUrl(slide.cta.market)}
-                    className="inline-flex items-center gap-2.5 px-8 py-[1rem] font-display font-bold text-[0.68rem] tracking-[0.2em] uppercase text-white bg-brand-red hover:bg-brand-red/85 transition-colors duration-200 w-fit"
-                  >
-                    {slide.cta.label}
-                    <span aria-hidden>→</span>
-                  </a>
+                  <>
+                    <a
+                      href={"market" in slide.cta ? getUrl(slide.cta.market) : slide.cta.href}
+                      className="inline-flex items-center gap-2.5 px-8 py-[1rem] font-display font-bold text-[0.68rem] tracking-[0.2em] uppercase text-white bg-brand-red hover:bg-brand-red/85 transition-colors duration-200 w-fit"
+                    >
+                      {slide.cta.label}
+                      <span aria-hidden>→</span>
+                    </a>
+                    {slide.cta2 && (
+                      <a
+                        href={slide.cta2.href}
+                        className="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition"
+                      >
+                        {slide.cta2.label}
+                      </a>
+                    )}
+                  </>
                 ) : (
                   <>
                     <a
