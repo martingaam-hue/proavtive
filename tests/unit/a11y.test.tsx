@@ -26,7 +26,9 @@ import { JSDOM } from "jsdom";
  */
 function checkHeadingHierarchy(html: string): { valid: boolean; issues: string[] } {
   const dom = new JSDOM(html);
-  const headings = Array.from(dom.window.document.querySelectorAll("h1,h2,h3,h4,h5,h6"));
+  const headings = Array.from(
+    dom.window.document.querySelectorAll("h1,h2,h3,h4,h5,h6"),
+  ) as Element[];
   const issues: string[] = [];
   let prevLevel = 0;
   for (const h of headings) {
@@ -206,7 +208,7 @@ describe("Link purpose — WCAG 2.4.4", () => {
       <a href="/blog/post-2/">Full story: ProGym Cyberport opening</a>
     </body>`;
     const dom = new JSDOM(html);
-    const links = Array.from(dom.window.document.querySelectorAll("a"));
+    const links = Array.from(dom.window.document.querySelectorAll("a")) as Element[];
     const genericWithoutLabel = links.filter((a) => {
       const text = a.textContent?.trim().toLowerCase();
       const isGeneric = text === "read more" || text === "see more" || text === "view more";

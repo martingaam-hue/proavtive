@@ -8,6 +8,7 @@
 //   4. Booking CTA pre-fills venue via ?venue=cyberport query string
 //   5. SportsActivityLocation JSON-LD present
 
+import type { JSX } from "react";
 import { describe, it, expect, vi, beforeAll, afterEach } from "vitest";
 import { render, cleanup } from "@testing-library/react";
 
