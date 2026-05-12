@@ -72,7 +72,7 @@
     "sharp": "^0.34.5",
     "tailwindcss": "^4",
     "terser": "^5.47.1",
-    "typescript": "^6",
+    "typescript": "^5.9.3",
     "vercel": "^52.0.0",
     "vitest": "^4.1.5"
   },
