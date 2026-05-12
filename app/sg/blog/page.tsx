@@ -115,7 +115,7 @@ export default async function SGBlogPage() {
                   asChild
                   variant="outline"
                   size="touch"
-                  className="border-brand-navy text-brand-navy hover:bg-brand-navy/5"
+                  className="border-brand-green text-brand-green hover:bg-brand-green/5"
                 >
                   <a href="/book-a-trial/">Send us a question</a>
                 </Button>

@@ -119,7 +119,7 @@ export default async function HKCampPage({ params }: Props) {
             )}
 
             {camp.venue?.name && (
-              <p className="text-body text-brand-navy font-semibold mt-2">
+              <p className="text-body text-brand-red font-semibold mt-2">
                 {camp.venue.name}
                 {camp.venue.address ? `, ${camp.venue.address}` : ""}
               </p>

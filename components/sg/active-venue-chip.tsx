@@ -19,51 +19,35 @@ export interface ActiveVenueChipProps {
   address: string;
 }
 
-export function ActiveVenueChip({
-  href,
-  label,
-  address,
-}: ActiveVenueChipProps) {
+export function ActiveVenueChip({ href, label, address }: ActiveVenueChipProps) {
   const pathname = usePathname() ?? "";
   const isActive = pathname === href || pathname === href.replace(/\/$/, "");
 
   return (
     <Link
       href={href}
-      className={cn("group block", isActive && "ring-2 ring-brand-navy rounded-lg")}
+      className={cn("group block", isActive && "ring-2 ring-brand-green rounded-lg")}
       aria-current={isActive ? "page" : undefined}
     >
       <Card
         className={cn(
           "px-4 py-3 flex flex-row items-center gap-3 transition-all",
           isActive
-            ? "bg-brand-navy text-white border-brand-navy"
-            : "bg-background border border-brand-navy/20 hover:-translate-y-1 hover:shadow-md"
+            ? "bg-brand-green text-white border-brand-green"
+            : "bg-background border border-brand-green/20 hover:-translate-y-1 hover:shadow-md",
         )}
       >
         <MapPin
-          className={cn(
-            "size-4 shrink-0",
-            isActive ? "text-white" : "text-brand-navy"
-          )}
+          className={cn("size-4 shrink-0", isActive ? "text-white" : "text-brand-green")}
           aria-hidden="true"
         />
         <div>
           <div
-            className={cn(
-              "font-sans font-semibold",
-              isActive ? "text-white" : "text-foreground"
-            )}
+            className={cn("font-sans font-semibold", isActive ? "text-white" : "text-foreground")}
           >
-            <span className="font-accent">Prodigy</span>{" "}
-            {label.replace(/^Prodigy\s*@?\s*/i, "")}
+            <span className="font-accent">Prodigy</span> {label.replace(/^Prodigy\s*@?\s*/i, "")}
           </div>
-          <div
-            className={cn(
-              "text-sm",
-              isActive ? "text-white/80" : "text-muted-foreground"
-            )}
-          >
+          <div className={cn("text-sm", isActive ? "text-white/80" : "text-muted-foreground")}>
             {address}
           </div>
         </div>

@@ -101,9 +101,9 @@ export default function WeeklyClassesPillarPage() {
               Weekly Classes at Prodigy Singapore.
             </h1>
             <p className="text-body-lg text-muted-foreground mt-4">
-              Three activity zones under one roof at Katong Point — Movement,
-              Sports + MultiBall, and Climbing. Small groups, expert coaches,
-              and a free trial to find the right fit for your child.
+              Three activity zones under one roof at Katong Point — Movement, Sports + MultiBall,
+              and Climbing. Small groups, expert coaches, and a free trial to find the right fit for
+              your child.
             </p>
             <div className="mt-6">
               <Button
@@ -131,9 +131,7 @@ export default function WeeklyClassesPillarPage() {
       {/* §3 Zone cards (3 cards) */}
       <Section size="md" bg="muted">
         <ContainerEditorial width="wide">
-          <h2 className="text-h2 font-display text-foreground mb-8">
-            All three zones.
-          </h2>
+          <h2 className="text-h2 font-display text-foreground mb-8">All three zones.</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {SG_ZONES.map((z) => (
               <Card key={z.slug} className="p-5 flex flex-col">
@@ -145,9 +143,7 @@ export default function WeeklyClassesPillarPage() {
                     </Badge>
                   )}
                 </div>
-                <h3 className="text-h3 font-display text-foreground mt-3">
-                  {z.label}
-                </h3>
+                <h3 className="text-h3 font-display text-foreground mt-3">{z.label}</h3>
                 <ul className="text-body text-muted-foreground mt-3 space-y-1 flex-1">
                   {z.whatTheyLearn.slice(0, 3).map((b) => (
                     <li key={b}>· {b}</li>
@@ -155,7 +151,7 @@ export default function WeeklyClassesPillarPage() {
                 </ul>
                 <a
                   href={z.href}
-                  className="inline-flex items-center gap-1 mt-4 text-brand-navy font-semibold hover:underline"
+                  className="inline-flex items-center gap-1 mt-4 text-brand-green font-semibold hover:underline"
                 >
                   Explore zone
                   <ArrowRight className="size-4" aria-hidden />
@@ -174,13 +170,11 @@ export default function WeeklyClassesPillarPage() {
               One venue, three ways to move.
             </h2>
             <p className="text-body text-muted-foreground">
-              Every child aged 2–12 has a home at Prodigy. Toddlers build
-              confidence in the Movement Zone. School-aged children discover
-              their favourite sport — including Singapore&apos;s only MultiBall
-              wall — in the Sports + MultiBall Zone. Climbers of all ages
-              develop problem-solving and upper-body strength on our indoor
-              bouldering routes. All zones run alongside each other so siblings
-              can train at the same time.
+              Every child aged 2–12 has a home at Prodigy. Toddlers build confidence in the Movement
+              Zone. School-aged children discover their favourite sport — including Singapore&apos;s
+              only MultiBall wall — in the Sports + MultiBall Zone. Climbers of all ages develop
+              problem-solving and upper-body strength on our indoor bouldering routes. All zones run
+              alongside each other so siblings can train at the same time.
             </p>
           </div>
         </ContainerEditorial>
@@ -191,9 +185,7 @@ export default function WeeklyClassesPillarPage() {
         <Section size="md" bg="muted">
           <ContainerEditorial width="default">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-h2 font-display text-foreground mb-6">
-                Weekly Classes FAQs
-              </h2>
+              <h2 className="text-h2 font-display text-foreground mb-6">Weekly Classes FAQs</h2>
               <div className="flex flex-col divide-y divide-border">
                 {CLASSES_FAQS.map((item) => (
                   <details
@@ -206,7 +198,7 @@ export default function WeeklyClassesPillarPage() {
                       <span>{item.question}</span>
                       <span
                         aria-hidden
-                        className="shrink-0 text-brand-navy transition-transform group-open:rotate-45"
+                        className="shrink-0 text-brand-green transition-transform group-open:rotate-45"
                       >
                         +
                       </span>
@@ -233,14 +225,10 @@ export default function WeeklyClassesPillarPage() {
               Find your child&apos;s zone — book a free trial.
             </h2>
             <p className="text-body-lg text-cream mb-6">
-              A 30-minute assessment with a coach. We&apos;ll suggest the right
-              zone and class time based on age and current ability.
+              A 30-minute assessment with a coach. We&apos;ll suggest the right zone and class time
+              based on age and current ability.
             </p>
-            <Button
-              asChild
-              size="touch"
-              className="bg-brand-red text-white hover:bg-brand-red/90"
-            >
+            <Button asChild size="touch" className="bg-brand-red text-white hover:bg-brand-red/90">
               <a href="/book-a-trial/?subject=general-enquiry">
                 Book a Free Trial
                 <ArrowRight className="ml-2 size-4" aria-hidden />

@@ -16,9 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { GymPillarNav } from "@/components/hk/gymnastics-pillar-nav";
 import { HK_GYMNASTICS_PROGRAMMES, HK_VENUES } from "@/lib/hk-data";
 
-const PROGRAMME = HK_GYMNASTICS_PROGRAMMES.find(
-  (p) => p.slug === "private",
-)!;
+const PROGRAMME = HK_GYMNASTICS_PROGRAMMES.find((p) => p.slug === "private")!;
 
 export const metadata: Metadata = {
   title: PROGRAMME.metaTitle,
@@ -75,15 +73,11 @@ const subPageSchema = {
 };
 
 export default function PrivateGymPage() {
-  const venuesShown = HK_VENUES.filter((v) =>
-    PROGRAMME.venuesOffered.includes(v.id),
-  );
+  const venuesShown = HK_VENUES.filter((v) => PROGRAMME.venuesOffered.includes(v.id));
   // Booking CTA pre-fill: programmes offered at exactly one venue pre-fill
   // that venue; otherwise "no-preference" lets the booking form choose.
   const bookingVenue =
-    PROGRAMME.venuesOffered.length === 1
-      ? PROGRAMME.venuesOffered[0]
-      : "no-preference";
+    PROGRAMME.venuesOffered.length === 1 ? PROGRAMME.venuesOffered[0] : "no-preference";
 
   return (
     <>
@@ -104,9 +98,7 @@ export default function PrivateGymPage() {
         <ContainerEditorial width="default">
           <div className="max-w-3xl">
             <Badge variant="secondary">{PROGRAMME.ageBand}</Badge>
-            <h1 className="text-h1 font-display text-foreground mt-3">
-              {PROGRAMME.h1}
-            </h1>
+            <h1 className="text-h1 font-display text-foreground mt-3">{PROGRAMME.h1}</h1>
           </div>
         </ContainerEditorial>
       </Section>
@@ -115,15 +107,10 @@ export default function PrivateGymPage() {
       <Section size="md" bg="muted">
         <ContainerEditorial width="default">
           <div className="max-w-3xl">
-            <h2 className="text-h2 font-display text-foreground mb-6">
-              What children learn
-            </h2>
+            <h2 className="text-h2 font-display text-foreground mb-6">What children learn</h2>
             <ul className="space-y-3">
               {PROGRAMME.whatTheyLearn.map((b) => (
-                <li
-                  key={b}
-                  className="text-body text-foreground flex gap-3"
-                >
+                <li key={b} className="text-body text-foreground flex gap-3">
                   <span aria-hidden className="text-brand-red">
                     ·
                   </span>
@@ -139,12 +126,8 @@ export default function PrivateGymPage() {
       <Section size="md" bg="default">
         <ContainerEditorial width="default">
           <div className="max-w-3xl">
-            <h2 className="text-h2 font-display text-foreground mb-4">
-              Class structure
-            </h2>
-            <p className="text-body text-muted-foreground">
-              {PROGRAMME.classStructure}
-            </p>
+            <h2 className="text-h2 font-display text-foreground mb-4">Class structure</h2>
+            <p className="text-body text-muted-foreground">{PROGRAMME.classStructure}</p>
           </div>
         </ContainerEditorial>
       </Section>
@@ -153,20 +136,16 @@ export default function PrivateGymPage() {
       <Section size="sm" bg="muted">
         <ContainerEditorial width="default">
           <div className="max-w-3xl">
-            <h2 className="text-h3 font-display text-foreground mb-4">
-              Available at
-            </h2>
+            <h2 className="text-h3 font-display text-foreground mb-4">Available at</h2>
             <div className="flex flex-wrap gap-3">
               {venuesShown.map((v) => (
                 <a
                   key={v.id}
                   href={`/${v.id}/`}
-                  className="px-4 py-2 rounded-lg bg-background border border-brand-navy/20 hover:border-brand-navy transition-colors"
+                  className="px-4 py-2 rounded-lg bg-background border border-brand-red/20 hover:border-brand-red transition-colors"
                 >
-                  <span className="font-accent text-brand-navy">ProGym</span>{" "}
-                  <span className="font-semibold text-foreground">
-                    {v.nameShort}
-                  </span>
+                  <span className="font-accent text-brand-red">ProGym</span>{" "}
+                  <span className="font-semibold text-foreground">{v.nameShort}</span>
                 </a>
               ))}
             </div>
@@ -182,17 +161,10 @@ export default function PrivateGymPage() {
               Try a {PROGRAMME.label} class — free.
             </h2>
             <p className="text-body-lg text-cream mb-6">
-              A 30-minute trial with a coach who teaches this programme every
-              week. No commitment.
+              A 30-minute trial with a coach who teaches this programme every week. No commitment.
             </p>
-            <Button
-              asChild
-              size="touch"
-              className="bg-brand-red text-white hover:bg-brand-red/90"
-            >
-              <a
-                href={`/book-a-trial/free-assessment/?venue=${bookingVenue}`}
-              >
+            <Button asChild size="touch" className="bg-brand-red text-white hover:bg-brand-red/90">
+              <a href={`/book-a-trial/free-assessment/?venue=${bookingVenue}`}>
                 Book a Free Trial
                 <ArrowRight className="ml-2 size-4" aria-hidden />
               </a>

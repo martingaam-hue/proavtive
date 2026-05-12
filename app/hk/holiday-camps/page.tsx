@@ -100,8 +100,8 @@ const SEASONS = [
 ] as const;
 
 export default async function HolidayCampsPage() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data: camps } = (await sanityFetch({ query: hkCampsQuery, tags: ["camp"] })) as {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any[];
   };
 
@@ -179,7 +179,7 @@ export default async function HolidayCampsPage() {
                       </p>
                     )}
                     {camp.venue?.name && (
-                      <p className="text-small text-brand-navy font-medium mt-1">
+                      <p className="text-small text-brand-red font-medium mt-1">
                         {camp.venue.name}
                       </p>
                     )}
@@ -194,7 +194,7 @@ export default async function HolidayCampsPage() {
                       ) : camp.slug ? (
                         <Link
                           href={`/holiday-camps/${camp.slug}/`}
-                          className="inline-flex items-center text-brand-navy font-semibold hover:underline"
+                          className="inline-flex items-center text-brand-red font-semibold hover:underline"
                         >
                           View details <ArrowRight className="ml-1 size-4" aria-hidden />
                         </Link>

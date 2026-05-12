@@ -15,11 +15,7 @@ export interface ActiveGymNavLinkProps {
   ageBand: string;
 }
 
-export function ActiveGymNavLink({
-  href,
-  label,
-  ageBand,
-}: ActiveGymNavLinkProps) {
+export function ActiveGymNavLink({ href, label, ageBand }: ActiveGymNavLinkProps) {
   const pathname = usePathname() ?? "";
   // Match exact path or path without trailing slash. Comparison MUST NOT
   // include a market-prefix (Pitfall 2 — pathname is the browser URL).
@@ -31,9 +27,7 @@ export function ActiveGymNavLink({
       aria-current={isActive ? "page" : undefined}
       className={cn(
         "flex flex-col items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors min-h-12",
-        isActive
-          ? "bg-brand-navy text-white"
-          : "bg-muted text-foreground hover:bg-brand-navy/10"
+        isActive ? "bg-brand-red text-white" : "bg-muted text-foreground hover:bg-brand-red/10",
       )}
     >
       <span className="font-sans font-semibold">{label}</span>

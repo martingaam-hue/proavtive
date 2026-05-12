@@ -42,8 +42,8 @@ export const metadata: Metadata = {
 };
 
 export default async function ProdigyCampsPillarPage() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data: camps } = (await sanityFetch({ query: sgCampsQuery, tags: ["camp"] })) as {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any[];
   };
 
@@ -169,7 +169,7 @@ export default async function ProdigyCampsPillarPage() {
                     ) : camp.slug ? (
                       <Link
                         href={`/prodigy-camps/${camp.slug}/`}
-                        className="inline-flex items-center text-brand-navy font-semibold hover:underline"
+                        className="inline-flex items-center text-brand-green font-semibold hover:underline"
                       >
                         View details <ArrowRight className="ml-1 size-4" aria-hidden />
                       </Link>
@@ -197,7 +197,7 @@ export default async function ProdigyCampsPillarPage() {
                 </p>
                 <a
                   href={c.href}
-                  className="inline-flex items-center gap-1 mt-4 text-brand-navy font-semibold hover:underline"
+                  className="inline-flex items-center gap-1 mt-4 text-brand-green font-semibold hover:underline"
                 >
                   Explore camp
                   <ArrowRight className="size-4" aria-hidden />
@@ -251,7 +251,7 @@ export default async function ProdigyCampsPillarPage() {
                       <span>{item.question}</span>
                       <span
                         aria-hidden
-                        className="shrink-0 text-brand-navy transition-transform group-open:rotate-45"
+                        className="shrink-0 text-brand-green transition-transform group-open:rotate-45"
                       >
                         +
                       </span>

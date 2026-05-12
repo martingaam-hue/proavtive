@@ -18,18 +18,13 @@ export function VenueChipRow() {
     <div className="flex flex-col sm:flex-row sm:justify-center gap-4 flex-wrap">
       {HK_VENUES.map((v) => (
         <ActiveVenueChip key={v.id} venueId={v.id} href={`/${v.id}/`}>
-          <Card className="px-4 py-3 border border-brand-navy/20 hover:-translate-y-1 hover:shadow-md transition-all flex flex-row items-center gap-3">
-            <MapPin
-              className="size-4 text-brand-navy shrink-0"
-              aria-hidden="true"
-            />
+          <Card className="px-4 py-3 border border-brand-red/20 hover:-translate-y-1 hover:shadow-md transition-all flex flex-row items-center gap-3">
+            <MapPin className="size-4 text-brand-red shrink-0" aria-hidden="true" />
             <div>
               <div className="font-sans font-semibold text-foreground">
                 <span className="font-accent">ProGym</span> {v.nameShort}
               </div>
-              <div className="text-sm text-muted-foreground">
-                {v.addressStreet}
-              </div>
+              <div className="text-sm text-muted-foreground">{v.addressStreet}</div>
             </div>
           </Card>
         </ActiveVenueChip>

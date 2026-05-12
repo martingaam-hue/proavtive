@@ -38,8 +38,8 @@ export const metadata: Metadata = {
 };
 
 export default async function CoachesPage() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data: coaches } = (await sanityFetch({ query: hkCoachesQuery, tags: ["coach"] })) as {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any[];
   };
 
@@ -72,7 +72,7 @@ export default async function CoachesPage() {
         <ContainerEditorial width="default">
           <div className="max-w-3xl">
             <h1 className="text-display font-display text-foreground">
-              Meet the <span className="font-accent text-brand-navy">ProGym</span> Hong Kong team.
+              Meet the <span className="font-accent text-brand-red">ProGym</span> Hong Kong team.
             </h1>
             <p className="text-body-lg text-muted-foreground mt-6">
               One team across Wan Chai and Cyberport. Every coach completes our internal training
@@ -119,7 +119,7 @@ export default async function CoachesPage() {
                   </div>
                   <div className="md:col-span-2">
                     <h2 className="text-h2 font-display text-foreground">{lead.name}</h2>
-                    <p className="text-body-lg text-brand-navy font-semibold mt-2">{lead.role}</p>
+                    <p className="text-body-lg text-brand-red font-semibold mt-2">{lead.role}</p>
                     {lead.bio && (
                       <p className="text-body text-muted-foreground mt-4 leading-relaxed">
                         {lead.bio}
@@ -153,7 +153,7 @@ export default async function CoachesPage() {
                         )}
                       </div>
                       <h3 className="text-h3 font-display text-foreground">{coach.name}</h3>
-                      <p className="text-small text-brand-navy font-semibold mt-1">{coach.role}</p>
+                      <p className="text-small text-brand-red font-semibold mt-1">{coach.role}</p>
                       {coach.venueTag && coach.venueTag !== "both" ? (
                         <Badge variant="secondary" className="mt-2 self-start">
                           Primarily {coach.venueTag === "wan-chai" ? "Wan Chai" : "Cyberport"}

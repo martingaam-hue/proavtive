@@ -15,7 +15,6 @@
 
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRight, MapPin, MessageCircle } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { ContainerEditorial } from "@/components/ui/container-editorial";
@@ -48,14 +47,12 @@ const bookATrialSchema = {
 };
 
 export const metadata: Metadata = {
-  title:
-    "Book a Free Trial — ProActiv Sports Hong Kong | ProGym Wan Chai & Cyberport",
+  title: "Book a Free Trial — ProActiv Sports Hong Kong | ProGym Wan Chai & Cyberport",
   description:
     "Book a free 30-minute assessment at ProGym Wan Chai or Cyberport. Choose your venue, tell us about your child, and we'll confirm within one working day.",
   openGraph: {
     title: "Book a Free Trial — ProActiv Sports Hong Kong",
-    description:
-      "Free 30-minute assessment at ProGym Wan Chai or Cyberport. No commitment.",
+    description: "Free 30-minute assessment at ProGym Wan Chai or Cyberport. No commitment.",
     url: "https://hk.proactivsports.com/book-a-trial/",
     siteName: "ProActiv Sports Hong Kong",
     locale: "en_HK",
@@ -87,13 +84,12 @@ export default function BookATrialHubPage() {
           <div className="max-w-3xl">
             <h1 className="text-h1 font-display text-foreground">
               Your child&apos;s free 30-minute assessment at{" "}
-              <span className="font-accent text-brand-navy">ProGym</span>.
+              <span className="font-accent text-brand-red">ProGym</span>.
             </h1>
             <p className="text-body-lg text-muted-foreground mt-4">
-              No commitment. Choose Wan Chai or Cyberport — or let us suggest
-              based on your location and your child&apos;s age. A coach will
-              guide them through a short assessment so we can recommend the
-              right programme.
+              No commitment. Choose Wan Chai or Cyberport — or let us suggest based on your location
+              and your child&apos;s age. A coach will guide them through a short assessment so we
+              can recommend the right programme.
             </p>
           </div>
         </ContainerEditorial>
@@ -102,9 +98,7 @@ export default function BookATrialHubPage() {
       {/* §2 Venue choice cards (2) */}
       <Section size="md" bg="muted">
         <ContainerEditorial width="wide">
-          <h2 className="text-h2 font-display text-foreground mb-8">
-            Choose your venue.
-          </h2>
+          <h2 className="text-h2 font-display text-foreground mb-8">Choose your venue.</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {HK_VENUES.map((v, i) => {
               // Plan acceptance criterion requires literal venue URLs in the page source
@@ -128,16 +122,10 @@ export default function BookATrialHubPage() {
                   </div>
                   <div className="p-6 flex flex-col flex-1">
                     <h3 className="text-h3 font-display text-foreground">
-                      <span className="font-accent text-brand-navy">
-                        ProGym
-                      </span>{" "}
-                      {v.nameShort}
+                      <span className="font-accent text-brand-red">ProGym</span> {v.nameShort}
                     </h3>
                     <p className="text-small text-muted-foreground mt-1 flex items-start gap-1">
-                      <MapPin
-                        className="size-3.5 mt-0.5 shrink-0 text-brand-navy"
-                        aria-hidden
-                      />
+                      <MapPin className="size-3.5 mt-0.5 shrink-0 text-brand-red" aria-hidden />
                       <span>{v.addressStreet}</span>
                     </p>
                     {v.sizeNote && (
@@ -160,8 +148,7 @@ export default function BookATrialHubPage() {
                       >
                         {/* Plain <a> preserves trailing slash before query — Next <Link> normalises it away. */}
                         <a href={venueHref}>
-                          Book at {v.nameShort}{" "}
-                          <ArrowRight className="ml-2 size-4" aria-hidden />
+                          Book at {v.nameShort} <ArrowRight className="ml-2 size-4" aria-hidden />
                         </a>
                       </Button>
                     </div>
@@ -177,18 +164,16 @@ export default function BookATrialHubPage() {
       <Section size="md" bg="default">
         <ContainerEditorial width="default">
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-h2 font-display text-foreground mb-3">
-              Not sure which venue?
-            </h2>
+            <h2 className="text-h2 font-display text-foreground mb-3">Not sure which venue?</h2>
             <p className="text-body text-muted-foreground mb-6">
-              Tell us where you&apos;re based and we&apos;ll suggest the closest
-              venue + best programme for your child&apos;s age.
+              Tell us where you&apos;re based and we&apos;ll suggest the closest venue + best
+              programme for your child&apos;s age.
             </p>
             <Button
               asChild
               size="touch"
               variant="outline"
-              className="border-brand-navy text-brand-navy hover:bg-brand-navy/5"
+              className="border-brand-red text-brand-red hover:bg-brand-red/5"
             >
               {/* Plain <a> preserves trailing slash before query. */}
               <a href="/book-a-trial/free-assessment/?venue=no-preference">
@@ -204,9 +189,7 @@ export default function BookATrialHubPage() {
         <Section size="md" bg="navy">
           <ContainerEditorial width="default">
             <div className="text-center max-w-2xl mx-auto">
-              <h2 className="text-h2 font-display text-white mb-3">
-                Prefer to chat first?
-              </h2>
+              <h2 className="text-h2 font-display text-white mb-3">Prefer to chat first?</h2>
               <p className="text-body-lg text-cream mb-6">
                 A coach is usually available on WhatsApp within a few hours.
               </p>
@@ -219,15 +202,12 @@ export default function BookATrialHubPage() {
                 <a
                   href={`https://wa.me/${whatsappHk.replace(
                     /[^0-9+]/g,
-                    ""
-                  )}?text=${encodeURIComponent(
-                    "Hi ProActiv HK, I'd like to book a free trial."
-                  )}`}
+                    "",
+                  )}?text=${encodeURIComponent("Hi ProActiv HK, I'd like to book a free trial.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <MessageCircle className="mr-2 size-4" aria-hidden /> Chat on
-                  WhatsApp
+                  <MessageCircle className="mr-2 size-4" aria-hidden /> Chat on WhatsApp
                 </a>
               </Button>
             </div>

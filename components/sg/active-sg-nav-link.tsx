@@ -21,12 +21,7 @@ export interface ActiveSGNavLinkProps {
   badge?: React.ReactNode;
 }
 
-export function ActiveSGNavLink({
-  href,
-  label,
-  ageBand,
-  badge,
-}: ActiveSGNavLinkProps) {
+export function ActiveSGNavLink({ href, label, ageBand, badge }: ActiveSGNavLinkProps) {
   const pathname = usePathname() ?? "";
   // Match exact path or path without trailing slash.
   // MUST use exact match, NOT startsWith (Pitfall 8 — otherwise pillar-root
@@ -40,9 +35,7 @@ export function ActiveSGNavLink({
       aria-current={isActive ? "page" : undefined}
       className={cn(
         "flex flex-col items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors min-h-12",
-        isActive
-          ? "bg-brand-navy text-white"
-          : "bg-muted text-foreground hover:bg-brand-navy/10"
+        isActive ? "bg-brand-green text-white" : "bg-muted text-foreground hover:bg-brand-green/10",
       )}
     >
       <span className="font-sans font-semibold">{label}</span>

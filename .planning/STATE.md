@@ -127,15 +127,22 @@ Items acknowledged and carried forward (from requirements / scope decisions):
 
 ## Session Continuity
 
-Last session: 2026-04-27T11:13:33.267Z
-Stopped at: context exhaustion at 90% (2026-04-27)
+Last session: 2026-05-11T21:45:00Z
+Stopped at: Session resumed, proceeding to /gsd-execute-phase 3
 Resume file: None
+
 Phase 03 (Root Gateway) readiness:
 
   - RESEARCH.md drafted (was pipelined in background during Phase 01 execute)
   - CONTEXT.md + UI-SPEC present
   - 5 plans approved + committed: 03-01 foundation, 03-02 gateway homepage, 03-03 contact backend + UI, 03-04 editorial content pages, 03-05 lighter content pages
   - All planning artifacts already tracked in git (from 2026-04-05 planning session)
+
+Pre-Phase-3 tidy (2026-05-11):
+
+  - Dark theme visual redesign committed (ad98a40): cinematic hero, Space Grotesk, dark palette
+  - Fixed HK/SG nav dropdowns bg-white → bg-card (dark site)
+  - Fixed market-split-section image 400s: hk-venue-wanchai-gymtots + sg-placeholder-climbing
 
 Recent commits (this session):
 

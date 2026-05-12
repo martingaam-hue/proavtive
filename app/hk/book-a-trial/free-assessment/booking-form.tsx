@@ -17,14 +17,8 @@
 
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
-import { trackBookATrial } from '@/lib/analytics'
-import {
-  Loader2,
-  MapPin,
-  CheckCircle2,
-  AlertCircle,
-  MessageCircle,
-} from "lucide-react";
+import { trackBookATrial } from "@/lib/analytics";
+import { Loader2, MapPin, CheckCircle2, AlertCircle, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -58,9 +52,7 @@ const VENUE_OPTIONS: readonly {
 ];
 
 function isVenue(value: string | null): value is Venue {
-  return (
-    value === "wan-chai" || value === "cyberport" || value === "no-preference"
-  );
+  return value === "wan-chai" || value === "cyberport" || value === "no-preference";
 }
 
 export function BookingForm() {
@@ -92,8 +84,7 @@ export function BookingForm() {
       email: formData.get("email"),
       phone: typeof phone === "string" && phone.length > 0 ? phone : undefined,
       childAge: formData.get("childAge"),
-      message:
-        typeof message === "string" && message.length > 0 ? message : undefined,
+      message: typeof message === "string" && message.length > 0 ? message : undefined,
       "bot-trap": formData.get("bot-trap") ?? "",
     };
     try {
@@ -103,7 +94,7 @@ export function BookingForm() {
         body: JSON.stringify(payload),
       });
       if (res.ok) {
-        trackBookATrial('hk', venue)
+        trackBookATrial("hk", venue);
         setStatus("success");
         return;
       }
@@ -123,24 +114,20 @@ export function BookingForm() {
   if (status === "success") {
     return (
       <Card className="p-6 border-2 border-brand-green/30 bg-brand-green/5">
-        <CheckCircle2
-          className="size-8 text-brand-green mb-3"
-          aria-hidden="true"
-        />
+        <CheckCircle2 className="size-8 text-brand-green mb-3" aria-hidden="true" />
         <h2 className="text-h2 font-display text-foreground">
           Thanks — your free assessment request is in.
         </h2>
         <p className="text-body text-muted-foreground mt-3">
-          A member of our HK team will reply within one working day to confirm a
-          time. If you booked for a specific venue, we&apos;ll prepare the right
-          coach and apparatus in advance.
+          A member of our HK team will reply within one working day to confirm a time. If you booked
+          for a specific venue, we&apos;ll prepare the right coach and apparatus in advance.
         </p>
         <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <Button
             asChild
             variant="outline"
             size="touch"
-            className="border-brand-navy text-brand-navy hover:bg-brand-navy/5"
+            className="border-brand-red text-brand-red hover:bg-brand-red/5"
           >
             <a href="/">Back to ProActiv Sports Hong Kong</a>
           </Button>
@@ -148,7 +135,7 @@ export function BookingForm() {
             asChild
             variant="outline"
             size="touch"
-            className="border-brand-navy text-brand-navy hover:bg-brand-navy/5"
+            className="border-brand-red text-brand-red hover:bg-brand-red/5"
           >
             <a href="/blog/">Read the first-class guide</a>
           </Button>
@@ -162,23 +149,18 @@ export function BookingForm() {
       {/* Error banner (UI-SPEC §Copywriting — verbatim submission-failure copy) */}
       {status === "error" && (
         <Card className="p-5 border-2 border-destructive/30 bg-destructive/5">
-          <AlertCircle
-            className="size-6 text-destructive mb-2"
-            aria-hidden="true"
-          />
-          <h2 className="text-h3 font-display text-foreground">
-            Something went wrong on our end.
-          </h2>
+          <AlertCircle className="size-6 text-destructive mb-2" aria-hidden="true" />
+          <h2 className="text-h3 font-display text-foreground">Something went wrong on our end.</h2>
           <p className="text-body text-muted-foreground mt-2">
-            Your message didn&apos;t reach us — please try again, or WhatsApp
-            ProGym directly. We&apos;ll still see it.
+            Your message didn&apos;t reach us — please try again, or WhatsApp ProGym directly.
+            We&apos;ll still see it.
           </p>
           <div className="mt-3 flex flex-wrap gap-3">
             <Button
               type="submit"
               variant="outline"
               size="touch"
-              className="border-brand-navy text-brand-navy hover:bg-brand-navy/5"
+              className="border-brand-red text-brand-red hover:bg-brand-red/5"
             >
               Try sending again
             </Button>
@@ -192,15 +174,14 @@ export function BookingForm() {
                 <a
                   href={`https://wa.me/${whatsappHk.replace(
                     /[^0-9+]/g,
-                    ""
+                    "",
                   )}?text=${encodeURIComponent(
-                    "Hi ProActiv HK, I tried to book a free trial via the website but it failed. Can we chat?"
+                    "Hi ProActiv HK, I tried to book a free trial via the website but it failed. Can we chat?",
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <MessageCircle className="mr-2 size-4" aria-hidden="true" />{" "}
-                  Chat on WhatsApp
+                  <MessageCircle className="mr-2 size-4" aria-hidden="true" /> Chat on WhatsApp
                 </a>
               </Button>
             )}
@@ -227,9 +208,7 @@ export function BookingForm() {
       {/* Venue selector — 3 radio cards. Expose role="radiogroup" on the container
           (matches the Phase 3 contact-form ARIA pattern referenced by the Wave-0 test). */}
       <fieldset>
-        <legend className="text-sm font-semibold text-foreground mb-3">
-          Which venue?
-        </legend>
+        <legend className="text-sm font-semibold text-foreground mb-3">Which venue?</legend>
         <div
           role="radiogroup"
           aria-label="Which venue?"
@@ -243,8 +222,8 @@ export function BookingForm() {
                 className={cn(
                   "flex flex-col gap-1 p-4 rounded-lg border-2 cursor-pointer transition-colors min-h-[3rem]",
                   checked
-                    ? "border-brand-navy bg-brand-navy/5"
-                    : "border-border hover:border-brand-navy/40"
+                    ? "border-brand-red bg-brand-red/5"
+                    : "border-border hover:border-brand-red/40",
                 )}
               >
                 <input
@@ -259,22 +238,15 @@ export function BookingForm() {
                   data-state={checked ? "checked" : "unchecked"}
                 />
                 <span className="font-sans font-semibold text-foreground flex items-start gap-2">
-                  <MapPin
-                    className="size-4 mt-0.5 shrink-0 text-brand-navy"
-                    aria-hidden="true"
-                  />
+                  <MapPin className="size-4 mt-0.5 shrink-0 text-brand-red" aria-hidden="true" />
                   {opt.label}
                 </span>
-                <span className="text-sm text-muted-foreground pl-6">
-                  {opt.sub}
-                </span>
+                <span className="text-sm text-muted-foreground pl-6">{opt.sub}</span>
               </label>
             );
           })}
         </div>
-        {errors.venue && (
-          <p className="text-sm text-destructive mt-2">{errors.venue}</p>
-        )}
+        {errors.venue && <p className="text-sm text-destructive mt-2">{errors.venue}</p>}
       </fieldset>
 
       {/* Name */}
@@ -288,9 +260,7 @@ export function BookingForm() {
           required
           aria-invalid={!!errors.name}
         />
-        {errors.name && (
-          <p className="text-sm text-destructive mt-1">{errors.name}</p>
-        )}
+        {errors.name && <p className="text-sm text-destructive mt-1">{errors.name}</p>}
       </div>
 
       {/* Email */}
@@ -304,20 +274,13 @@ export function BookingForm() {
           required
           aria-invalid={!!errors.email}
         />
-        {errors.email && (
-          <p className="text-sm text-destructive mt-1">{errors.email}</p>
-        )}
+        {errors.email && <p className="text-sm text-destructive mt-1">{errors.email}</p>}
       </div>
 
       {/* Phone (optional) */}
       <div className="space-y-2">
         <Label htmlFor="booking-phone">Phone (optional)</Label>
-        <Input
-          id="booking-phone"
-          name="phone"
-          type="tel"
-          autoComplete="tel"
-        />
+        <Input id="booking-phone" name="phone" type="tel" autoComplete="tel" />
       </div>
 
       {/* Child age */}
@@ -333,16 +296,12 @@ export function BookingForm() {
           inputMode="numeric"
           aria-invalid={!!errors.childAge}
         />
-        {errors.childAge && (
-          <p className="text-sm text-destructive mt-1">{errors.childAge}</p>
-        )}
+        {errors.childAge && <p className="text-sm text-destructive mt-1">{errors.childAge}</p>}
       </div>
 
       {/* Message (optional) */}
       <div className="space-y-2">
-        <Label htmlFor="booking-message">
-          Anything we should know? (optional)
-        </Label>
+        <Label htmlFor="booking-message">Anything we should know? (optional)</Label>
         <Textarea id="booking-message" name="message" rows={3} maxLength={500} />
       </div>
 
@@ -356,8 +315,7 @@ export function BookingForm() {
         >
           {status === "submitting" ? (
             <>
-              <Loader2 className="mr-2 size-4 animate-spin" aria-hidden="true" />{" "}
-              Sending…
+              <Loader2 className="mr-2 size-4 animate-spin" aria-hidden="true" /> Sending…
             </>
           ) : (
             "Book free assessment"

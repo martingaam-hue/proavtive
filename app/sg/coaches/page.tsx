@@ -37,8 +37,8 @@ export const metadata: Metadata = {
 };
 
 export default async function SGCoachesPage() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data: coaches } = (await sanityFetch({ query: sgCoachesQuery, tags: ["coach"] })) as {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any[];
   };
 
@@ -139,7 +139,7 @@ export default async function SGCoachesPage() {
                     )}
                     <a
                       href={`#${coach.name.toLowerCase().replace(/\s+/g, "-")}`}
-                      className="inline-flex items-center gap-1 mt-4 text-brand-navy font-semibold hover:underline text-small"
+                      className="inline-flex items-center gap-1 mt-4 text-brand-green font-semibold hover:underline text-small"
                     >
                       Read full bio <ArrowRight className="size-3" aria-hidden />
                     </a>

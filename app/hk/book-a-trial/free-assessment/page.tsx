@@ -68,22 +68,22 @@ export default function FreeAssessmentPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(freeAssessmentSchema) }}
       />
       <Section size="lg" bg="default">
-      <ContainerEditorial width="default">
-        <div className="max-w-2xl mx-auto">
-          <h1 className="text-h1 font-display text-foreground">
-            Your free 30-minute assessment at{" "}
-            <span className="font-accent text-brand-navy">ProGym</span>.
-          </h1>
-          <p className="text-body-lg text-muted-foreground mt-4 mb-8">
-            Choose a venue, tell us a little about your child, and we&apos;ll
-            confirm a time within one working day.
-          </p>
-          <Suspense fallback={null}>
-            <BookingForm />
-          </Suspense>
-        </div>
-      </ContainerEditorial>
-    </Section>
+        <ContainerEditorial width="default">
+          <div className="max-w-2xl mx-auto">
+            <h1 className="text-h1 font-display text-foreground">
+              Your free 30-minute assessment at{" "}
+              <span className="font-accent text-brand-red">ProGym</span>.
+            </h1>
+            <p className="text-body-lg text-muted-foreground mt-4 mb-8">
+              Choose a venue, tell us a little about your child, and we&apos;ll confirm a time
+              within one working day.
+            </p>
+            <Suspense fallback={null}>
+              <BookingForm />
+            </Suspense>
+          </div>
+        </ContainerEditorial>
+      </Section>
     </>
   );
 }

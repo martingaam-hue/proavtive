@@ -130,7 +130,7 @@ export default async function HKBlogPage() {
                   asChild
                   variant="outline"
                   size="touch"
-                  className="border-brand-navy text-brand-navy hover:bg-brand-navy/5"
+                  className="border-brand-red text-brand-red hover:bg-brand-red/5"
                 >
                   <Link href="/contact?market=hk">Send us a question</Link>
                 </Button>

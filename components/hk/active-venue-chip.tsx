@@ -17,16 +17,13 @@ export interface ActiveVenueChipProps {
   children: React.ReactNode;
 }
 
-export function ActiveVenueChip({
-  href,
-  children,
-}: ActiveVenueChipProps) {
+export function ActiveVenueChip({ href, children }: ActiveVenueChipProps) {
   const pathname = usePathname() ?? "";
   const isActive = pathname === href || pathname.startsWith(href);
   return (
     <Link
       href={href}
-      className={cn("group block", isActive && "ring-2 ring-brand-navy rounded-lg")}
+      className={cn("group block", isActive && "ring-2 ring-brand-red rounded-lg")}
       aria-current={isActive ? "page" : undefined}
     >
       {children}

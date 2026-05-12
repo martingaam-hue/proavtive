@@ -27,8 +27,7 @@ import { HK_GYMNASTICS_PROGRAMMES, HK_FAQ_ITEMS } from "@/lib/hk-data";
 const GYM_FAQS = HK_FAQ_ITEMS.filter((i) => i.group === "gymnastics");
 
 export const metadata: Metadata = {
-  title:
-    "Children's Gymnastics Hong Kong — 8 Levels Toddler to Competitive | ProGym",
+  title: "Children's Gymnastics Hong Kong — 8 Levels Toddler to Competitive | ProGym",
   description:
     "Children's gymnastics in Hong Kong — eight levels from Babies & Toddlers (12mo) through competitive squad. Wan Chai & Cyberport. Book a free trial.",
   openGraph: {
@@ -105,14 +104,12 @@ export default function GymnasticsPillarPage() {
         <ContainerEditorial width="default">
           <div className="max-w-3xl">
             <h1 className="text-h1 font-display text-foreground">
-              Children&apos;s gymnastics in Hong Kong — eight levels, one
-              progression pathway.
+              Children&apos;s gymnastics in Hong Kong — eight levels, one progression pathway.
             </h1>
             <p className="text-body-lg text-muted-foreground mt-4">
-              From a child&apos;s first forward roll to a competitive routine
-              on the beam, our eight gymnastics programmes meet every Hong
-              Kong child at exactly their level. Wan Chai and Cyberport
-              venues; coaches who progress with your child year on year.
+              From a child&apos;s first forward roll to a competitive routine on the beam, our eight
+              gymnastics programmes meet every Hong Kong child at exactly their level. Wan Chai and
+              Cyberport venues; coaches who progress with your child year on year.
             </p>
             <div className="mt-6">
               <Button
@@ -140,18 +137,14 @@ export default function GymnasticsPillarPage() {
       {/* §3 Detailed programme cards (8 cards) */}
       <Section size="md" bg="muted">
         <ContainerEditorial width="wide">
-          <h2 className="text-h2 font-display text-foreground mb-8">
-            All eight programmes.
-          </h2>
+          <h2 className="text-h2 font-display text-foreground mb-8">All eight programmes.</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {HK_GYMNASTICS_PROGRAMMES.map((p) => (
               <Card key={p.slug} className="p-5 flex flex-col">
                 <Badge variant="secondary" className="self-start">
                   {p.ageBand}
                 </Badge>
-                <h3 className="text-h3 font-display text-foreground mt-3">
-                  {p.label}
-                </h3>
+                <h3 className="text-h3 font-display text-foreground mt-3">{p.label}</h3>
                 <ul className="text-body text-muted-foreground mt-3 space-y-1 flex-1">
                   {p.whatTheyLearn.slice(0, 3).map((b) => (
                     <li key={b}>· {b}</li>
@@ -168,7 +161,7 @@ export default function GymnasticsPillarPage() {
                 */}
                 <a
                   href={p.href}
-                  className="inline-flex items-center gap-1 mt-4 text-brand-navy font-semibold hover:underline"
+                  className="inline-flex items-center gap-1 mt-4 text-brand-red font-semibold hover:underline"
                 >
                   Learn more
                   <ArrowRight className="size-4" aria-hidden />
@@ -187,14 +180,12 @@ export default function GymnasticsPillarPage() {
               Your child&apos;s progression pathway.
             </h2>
             <p className="text-body text-muted-foreground">
-              Every child progresses at their own pace — but the structure is
-              consistent. Babies &amp; Toddlers (12mo–3yr) introduces movement
-              fundamentals with a parent. Beginner (4–6yr) and Intermediate
-              (6–9yr) build the foundational gymnastics skills on bar, beam,
-              floor and vault. Advanced (9–12yr) deepens technique.
-              Competitive squad opens at 6+ for children pursuing the
-              competitive route. Rhythmic and Adult programmes run alongside
-              as parallel pathways.
+              Every child progresses at their own pace — but the structure is consistent. Babies
+              &amp; Toddlers (12mo–3yr) introduces movement fundamentals with a parent. Beginner
+              (4–6yr) and Intermediate (6–9yr) build the foundational gymnastics skills on bar,
+              beam, floor and vault. Advanced (9–12yr) deepens technique. Competitive squad opens at
+              6+ for children pursuing the competitive route. Rhythmic and Adult programmes run
+              alongside as parallel pathways.
             </p>
           </div>
         </ContainerEditorial>
@@ -207,9 +198,7 @@ export default function GymnasticsPillarPage() {
         <Section size="md" bg="muted">
           <ContainerEditorial width="default">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-h2 font-display text-foreground mb-6">
-                Gymnastics FAQs
-              </h2>
+              <h2 className="text-h2 font-display text-foreground mb-6">Gymnastics FAQs</h2>
               <div className="flex flex-col divide-y divide-border">
                 {GYM_FAQS.map((item) => (
                   <details
@@ -222,7 +211,7 @@ export default function GymnasticsPillarPage() {
                       <span>{item.question}</span>
                       <span
                         aria-hidden
-                        className="shrink-0 text-brand-navy transition-transform group-open:rotate-45"
+                        className="shrink-0 text-brand-red transition-transform group-open:rotate-45"
                       >
                         +
                       </span>
@@ -249,14 +238,10 @@ export default function GymnasticsPillarPage() {
               Find your child&apos;s level — book a free trial.
             </h2>
             <p className="text-body-lg text-cream mb-6">
-              A 30-minute assessment with a coach. We&apos;ll suggest the
-              right programme + venue based on age and current ability.
+              A 30-minute assessment with a coach. We&apos;ll suggest the right programme + venue
+              based on age and current ability.
             </p>
-            <Button
-              asChild
-              size="touch"
-              className="bg-brand-red text-white hover:bg-brand-red/90"
-            >
+            <Button asChild size="touch" className="bg-brand-red text-white hover:bg-brand-red/90">
               <Link href="/book-a-trial/free-assessment/?venue=no-preference">
                 Book a Free Trial
                 <ArrowRight className="ml-2 size-4" aria-hidden />
