@@ -41,9 +41,8 @@ const GROUP_LABELS: Record<string, string> = {
 const GROUP_ORDER = ["about", "venues", "gymnastics", "camps", "parties", "pricing"] as const;
 
 export default async function HKFAQPage() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data: faqs } = (await sanityFetch({ query: hkFaqQuery, tags: ["faq"] })) as {
-    data: any[];
+    data: { _id: string; question: string; answer: string; category: string }[];
   };
 
   // Group items by `category` field (Sanity field name), preserving GROUP_ORDER.
