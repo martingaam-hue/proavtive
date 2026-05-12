@@ -42,6 +42,7 @@ import { FAQItem } from "@/components/ui/faq-item";
 import { VenueChipRow } from "@/components/hk/venue-chip-row";
 import { HKHeroVideo } from "@/components/hk/hk-hero-video";
 import { WhatsAppCTA } from "@/components/hk/whatsapp-cta";
+import { StatStrip } from "@/components/ui/stat-strip";
 import { HK_VENUES, HK_FAQ_ITEMS, HK_BLOG_POSTS_STUB } from "@/lib/hk-data";
 import { VENUES } from "@/lib/venues";
 
@@ -156,56 +157,73 @@ const hkHomeSchema = {
 // ─────────────────────────────────────────────────────────────────────────────
 function HeroSection() {
   return (
-    <Section size="lg" bg="default">
-      <ContainerEditorial width="wide">
-        <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-2xl">
-          <HKHeroVideo
-            playbackId={process.env.NEXT_PUBLIC_MUX_HK_HERO_PLAYBACK_ID ?? ""}
-            posterSrc="/photography/hk-venue-wanchai-gymtots.webp"
-            posterAlt="Children practising gymnastics at ProGym Wan Chai, Hong Kong"
-            title="ProGym Hong Kong — hero montage"
-          />
-          <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
-          <div className="absolute inset-0 flex flex-col items-start justify-center px-6 md:px-12">
-            <h1 className="text-display font-display text-white max-w-2xl leading-tight text-4xl md:text-5xl lg:text-6xl font-bold">
-              Premium gymnastics and sports programmes for children in Hong Kong.
-            </h1>
-            <p className="text-body-lg text-brand-cream max-w-xl mt-4 text-base md:text-lg">
-              Since 2011 — two dedicated venues in Wan Chai and Cyberport, coaches who complete our
-              training course regardless of prior certification, and a progression pathway from
-              first forward roll to competitive squad.
-            </p>
-            <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              {/* Trailing slash MUST be preserved to match HK-01 SC#1 /
-                  Plan 04-01 Test 3 contract. next/link normalises trailing
-                  slashes (default trailingSlash: false) so we use <a> here
-                  — same pattern as root page cross-subdomain CTAs
-                  (Rule 3 deviation: test contract is binding). */}
-              <Button
-                asChild
-                size="touch"
-                className="bg-brand-red text-white hover:bg-brand-red/90 focus-visible:ring-2 focus-visible:ring-white"
-              >
-                <a href="/book-a-trial/free-assessment/">
-                  Book a Free Trial <ArrowRight className="ml-2 size-4" aria-hidden="true" />
-                </a>
-              </Button>
-              <Button
-                asChild
-                size="touch"
-                variant="outline"
-                className="border-white text-white hover:bg-white/10 bg-transparent"
-              >
-                <Link href="/contact?market=hk">Send an Enquiry</Link>
-              </Button>
-            </div>
-            <p className="text-small text-brand-cream/80 mt-4 text-sm">
-              Free trial · No obligation · Usually booked same week.
-            </p>
-          </div>
+    <section className="relative min-h-[92vh] flex items-center overflow-hidden">
+      <HKHeroVideo
+        playbackId={process.env.NEXT_PUBLIC_MUX_HK_HERO_PLAYBACK_ID ?? ""}
+        posterSrc="/photography/hk-venue-wanchai-gymtots.webp"
+        posterAlt="Children practising gymnastics at ProGym Wan Chai, Hong Kong"
+        title="ProGym Hong Kong — hero montage"
+      />
+      <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
+      <div className="absolute inset-0 flex flex-col items-start justify-center px-6 md:px-16 lg:px-24">
+        <h1 className="text-display font-display text-white max-w-2xl text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight">
+          Premium gymnastics and sports programmes for children in Hong Kong.
+        </h1>
+        <p className="text-body-lg text-brand-cream max-w-xl mt-4 text-base md:text-lg">
+          Since 2011 — two dedicated venues in Wan Chai and Cyberport, coaches who complete our
+          training course regardless of prior certification, and a progression pathway from first
+          forward roll to competitive squad.
+        </p>
+        <div className="mt-6 flex flex-col sm:flex-row gap-3">
+          {/* Trailing slash MUST be preserved to match HK-01 SC#1 /
+              Plan 04-01 Test 3 contract. next/link normalises trailing
+              slashes (default trailingSlash: false) so we use <a> here
+              — same pattern as root page cross-subdomain CTAs
+              (Rule 3 deviation: test contract is binding). */}
+          <Button
+            asChild
+            size="touch"
+            className="bg-brand-red text-white hover:bg-brand-red/90 focus-visible:ring-2 focus-visible:ring-white"
+          >
+            <a href="/book-a-trial/free-assessment/">
+              Book a Free Trial <ArrowRight className="ml-2 size-4" aria-hidden="true" />
+            </a>
+          </Button>
+          <Button
+            asChild
+            size="touch"
+            variant="outline"
+            className="border-white text-white hover:bg-white/10 bg-transparent"
+          >
+            <Link href="/contact?market=hk">Send an Enquiry</Link>
+          </Button>
         </div>
+        <p className="text-small text-brand-cream/80 mt-4 text-sm">
+          Free trial · No obligation · Usually booked same week.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// §3.1b TRUST STRIP — navy stat strip immediately after hero.
+// ─────────────────────────────────────────────────────────────────────────────
+function TrustStripSection() {
+  return (
+    <section className="bg-brand-navy py-10 lg:py-14">
+      <ContainerEditorial width="wide">
+        <StatStrip
+          variant="on-dark"
+          stats={[
+            { value: "2011", label: "Founded in Hong Kong" },
+            { value: "2", label: "ProGym locations" },
+            { value: "8", label: "Gymnastics levels" },
+            { value: "12+", label: "Years coaching children" },
+          ]}
+        />
       </ContainerEditorial>
-    </Section>
+    </section>
   );
 }
 
@@ -253,7 +271,10 @@ function WhyChooseSection() {
   return (
     <Section size="md" bg="muted">
       <ContainerEditorial width="wide">
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-bold">
+        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+          Why ProGym
+        </p>
+        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
           Why Hong Kong parents choose ProActiv.
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -328,7 +349,10 @@ function ProgrammesSection() {
   return (
     <Section size="md" bg="default">
       <ContainerEditorial width="wide">
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-bold">
+        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+          Our Programmes
+        </p>
+        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
           Programmes for every stage — toddler to competitive.
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
@@ -357,7 +381,10 @@ function LocationSplitSection() {
   return (
     <Section size="md" bg="default">
       <ContainerEditorial width="wide">
-        <h2 className="text-h2 font-display text-foreground mb-8 text-center text-3xl md:text-4xl font-bold">
+        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3 text-center">
+          Our Locations
+        </p>
+        <h2 className="text-h2 font-display text-foreground mb-8 text-center text-3xl md:text-4xl font-extrabold tracking-tight">
           Two ProGym venues across Hong Kong.
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -413,7 +440,10 @@ function SocialProofSection() {
   return (
     <Section size="md" bg="navy">
       <ContainerEditorial width="wide">
-        <h2 className="text-h2 font-display text-white mb-8 text-center text-3xl md:text-4xl font-bold">
+        <p className="text-brand-cream/60 text-xs font-bold tracking-widest uppercase mb-3 text-center">
+          What Parents Say
+        </p>
+        <h2 className="text-h2 font-display text-white mb-8 text-center text-3xl md:text-4xl font-extrabold tracking-tight">
           Trusted by Hong Kong&apos;s international school families.
         </h2>
         <LogoWall
@@ -479,7 +509,10 @@ function CoachingMethodSection() {
   return (
     <Section size="md" bg="default">
       <ContainerEditorial width="wide">
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-bold">
+        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+          Our Method
+        </p>
+        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
           How we coach.
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
@@ -590,7 +623,10 @@ function AboutSnapshotSection() {
       <ContainerEditorial width="wide">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <div>
-            <h2 className="text-h2 font-display text-foreground mb-4 text-3xl md:text-4xl font-bold">
+            <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+              About Us
+            </p>
+            <h2 className="text-h2 font-display text-foreground mb-4 text-3xl md:text-4xl font-extrabold tracking-tight">
               About <span className="font-accent text-brand-red">ProGym</span> Hong Kong.
             </h2>
             <p className="text-body text-muted-foreground">
@@ -645,7 +681,10 @@ function BlogSection() {
   return (
     <Section size="md" bg="default">
       <ContainerEditorial width="wide">
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-bold">
+        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+          From the Blog
+        </p>
+        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
           From the blog.
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -692,7 +731,10 @@ function FAQSection() {
     <Section size="md" bg="default">
       <ContainerEditorial width="default">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-bold">
+          <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+            Common Questions
+          </p>
+          <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
             Frequently asked questions.
           </h2>
           <div className="flex flex-col gap-0">
@@ -762,6 +804,74 @@ function FinalCTASection() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// HIGH-INTENT BLOCK — holiday camps + birthday parties image cards.
+// ─────────────────────────────────────────────────────────────────────────────
+function HighIntentSection() {
+  return (
+    <Section size="md" bg="default">
+      <ContainerEditorial width="wide">
+        <div className="grid md:grid-cols-2 gap-6">
+          <a
+            href="/holiday-camps/"
+            className="group relative rounded-2xl overflow-hidden aspect-[4/3] block"
+          >
+            <Image
+              src="/photography/programme-holiday-camp.webp"
+              alt="ProGym holiday camps Hong Kong"
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
+              <div>
+                <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-2">
+                  Holiday Camps
+                </p>
+                <h3 className="text-2xl font-extrabold text-white mb-2 tracking-tight">
+                  Every School Break, Covered
+                </h3>
+                <p className="text-sm text-white/70 mb-4">
+                  Full-day and half-day options during Easter, summer, and Christmas.
+                </p>
+                <span className="inline-flex items-center gap-2 bg-brand-red text-white text-sm font-semibold px-4 py-2 rounded-lg">
+                  Book a Camp <ArrowRight className="size-4" />
+                </span>
+              </div>
+            </div>
+          </a>
+          <a
+            href="/birthday-parties/"
+            className="group relative rounded-2xl overflow-hidden aspect-[4/3] block"
+          >
+            <Image
+              src="/photography/testimonial-birthday-party.webp"
+              alt="ProGym birthday parties Hong Kong"
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
+              <div>
+                <p className="text-brand-sky text-xs font-bold tracking-widest uppercase mb-2">
+                  Birthday Parties
+                </p>
+                <h3 className="text-2xl font-extrabold text-white mb-2 tracking-tight">
+                  The Party They&apos;ll Remember
+                </h3>
+                <p className="text-sm text-white/70 mb-4">
+                  Two hours, coach-led, apparatus stations. Zero stress for parents.
+                </p>
+                <span className="inline-flex items-center gap-2 border border-white text-white text-sm font-semibold px-4 py-2 rounded-lg">
+                  Plan a Party <ArrowRight className="size-4" />
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </ContainerEditorial>
+    </Section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // PAGE COMPONENT — RSC. Returns fragment (layout provides <main id="main-content">).
 // Renders 12 sections + inline JSON-LD script per UI-SPEC §3.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -774,6 +884,7 @@ export default function HKHomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(hkHomeSchema) }}
       />
       <HeroSection />
+      <TrustStripSection />
       <VenueChipSection />
       <WhyChooseSection />
       <ProgrammesSection />
@@ -783,6 +894,7 @@ export default function HKHomePage() {
       <CampsPartiesSection />
       <AboutSnapshotSection />
       <BlogSection />
+      <HighIntentSection />
       <FAQSection />
       <FinalCTASection />
     </>

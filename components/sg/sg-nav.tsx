@@ -26,11 +26,12 @@ import {
 import { SGNavMobile } from "@/components/sg/sg-nav-mobile";
 import { SG_ZONES, SG_CAMP_TYPES } from "@/lib/sg-data";
 
-// 3 flat nav links visible on desktop (right of dropdowns) per CONTEXT D-02.
-// Parties / Schools / Events / Blog are in mobile Sheet only (UI-SPEC §5.1 desktop = 6 items total).
+// 4 flat nav links visible on desktop (right of dropdowns) per CONTEXT D-02.
+// Schools / Events / Blog are in mobile Sheet only (UI-SPEC §5.1 desktop = 6 items total).
 const FLAT_NAV_LINKS = [
   { href: "/katong-point/", label: "Katong Point" },
   { href: "/coaches/", label: "Coaches" },
+  { href: "/birthday-parties/", label: "Parties" },
   { href: "/faq/", label: "FAQ" },
 ] as const;
 

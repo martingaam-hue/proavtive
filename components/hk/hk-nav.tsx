@@ -30,6 +30,7 @@ import { HK_GYMNASTICS_PROGRAMMES, HK_VENUES } from "@/lib/hk-data";
 // are also navigations for keyboard / no-JS users).
 const FLAT_NAV_LINKS = [
   { href: "/holiday-camps/", label: "Camps" },
+  { href: "/birthday-parties/", label: "Parties" },
   { href: "/coaches/", label: "Coaches" },
   { href: "/faq/", label: "FAQ" },
 ] as const;

@@ -37,6 +37,7 @@ import { LogoWall } from "@/components/ui/logo-wall";
 import { FAQItem } from "@/components/ui/faq-item";
 import { VenueChipRow } from "@/components/sg/venue-chip-row";
 import { SGHeroVideo } from "@/components/sg/sg-hero-video";
+import { StatStrip } from "@/components/ui/stat-strip";
 import { WhatsAppCTA } from "@/components/sg/whatsapp-cta";
 import {
   SG_FAQ_ITEMS,
@@ -134,64 +135,78 @@ const sgHomeSchema = {
 } as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
-// §3.1 HERO — per strategy PART 5 §1 + PART 6C §Hero (verbatim H1 + subhead).
-// 21:9 on desktop, 16:9 on mobile. Overlay at black/40 for dark-theme cinematic look.
+// §3.1 HERO — full-bleed per HK pattern. Overlay at black/40 for cinematic look.
 // MultiBall trust line placement 1 of 3 (Pattern 11).
 // ─────────────────────────────────────────────────────────────────────────────
 function HeroSection() {
   return (
-    <Section size="lg" bg="default">
-      <ContainerEditorial width="wide">
-        <div className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-2xl">
-          <SGHeroVideo
-            playbackId={process.env.NEXT_PUBLIC_MUX_SG_HERO_PLAYBACK_ID ?? ""}
-            posterSrc="/photography/sg-venue-katong-hero.webp"
-            posterAlt="Children playing at Prodigy @ Katong Point, Singapore's only MultiBall wall"
-            title="Prodigy Singapore — Prodigy camp-day montage"
-          />
-          <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
-          <div className="absolute inset-0 flex flex-col items-start justify-center px-6 md:px-12">
-            <h1 className="text-display font-display text-white max-w-2xl leading-tight text-4xl md:text-5xl lg:text-6xl font-bold">
-              Where Singapore&apos;s kids come to move, play, and grow.
-            </h1>
-            <p className="text-body-lg text-brand-cream max-w-xl mt-4 text-base md:text-lg">
-              Prodigy @ Katong Point — three zones, three seasons of camps, and a coaching team that
-              meets every child at exactly their level.
-            </p>
-            {/* MultiBall trust line — Pattern 11 placement 1 */}
-            <p className="text-body-lg text-brand-cream mt-3">
-              <span className="font-accent text-brand-green">
-                Singapore&apos;s only MultiBall wall
-              </span>{" "}
-              <Zap size={16} className="inline text-brand-yellow align-middle" aria-hidden="true" />{" "}
-              · Katong Point
-            </p>
-            <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <Button
-                asChild
-                size="touch"
-                className="bg-brand-red text-white hover:bg-brand-red/90 focus-visible:ring-2 focus-visible:ring-white"
-              >
-                <a href="/book-a-trial/">
-                  Book a Free Trial <ArrowRight className="ml-2 size-4" aria-hidden="true" />
-                </a>
-              </Button>
-              <Button
-                asChild
-                size="touch"
-                variant="outline"
-                className="border-white text-white hover:bg-white/10 bg-transparent"
-              >
-                <a href="/book-a-trial/?subject=general-enquiry">Send an Enquiry</a>
-              </Button>
-            </div>
-            <p className="text-small text-brand-cream/80 mt-4 text-sm">
-              Free trial · No obligation · Usually booked same week.
-            </p>
-          </div>
+    <section className="relative min-h-[92vh] flex items-center overflow-hidden">
+      <SGHeroVideo
+        playbackId={process.env.NEXT_PUBLIC_MUX_SG_HERO_PLAYBACK_ID ?? ""}
+        posterSrc="/photography/sg-venue-katong-hero.webp"
+        posterAlt="Children playing at Prodigy @ Katong Point, Singapore's only MultiBall wall"
+        title="Prodigy Singapore — Prodigy camp-day montage"
+      />
+      <div className="absolute inset-0 bg-black/40" aria-hidden="true" />
+      <div className="absolute inset-0 flex flex-col items-start justify-center px-6 md:px-16 lg:px-24">
+        <h1 className="text-display font-display text-white max-w-2xl text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight">
+          Where Singapore&apos;s kids come to move, play, and grow.
+        </h1>
+        <p className="text-body-lg text-brand-cream max-w-xl mt-4 text-base md:text-lg">
+          Prodigy @ Katong Point — three zones, three seasons of camps, and a coaching team that
+          meets every child at exactly their level.
+        </p>
+        {/* MultiBall trust line — Pattern 11 placement 1 */}
+        <p className="text-body-lg text-brand-cream mt-3">
+          <span className="font-accent text-brand-green">Singapore&apos;s only MultiBall wall</span>{" "}
+          <Zap size={16} className="inline text-brand-yellow align-middle" aria-hidden="true" /> ·
+          Katong Point
+        </p>
+        <div className="mt-6 flex flex-col sm:flex-row gap-3">
+          <Button
+            asChild
+            size="touch"
+            className="bg-brand-red text-white hover:bg-brand-red/90 focus-visible:ring-2 focus-visible:ring-white"
+          >
+            <a href="/book-a-trial/">
+              Book a Free Trial <ArrowRight className="ml-2 size-4" aria-hidden="true" />
+            </a>
+          </Button>
+          <Button
+            asChild
+            size="touch"
+            variant="outline"
+            className="border-white text-white hover:bg-white/10 bg-transparent"
+          >
+            <a href="/book-a-trial/?subject=general-enquiry">Send an Enquiry</a>
+          </Button>
         </div>
+        <p className="text-small text-brand-cream/80 mt-4 text-sm">
+          Free trial · No obligation · Usually booked same week.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// §3.1b TRUST STRIP — navy stat strip immediately after hero.
+// ─────────────────────────────────────────────────────────────────────────────
+function TrustStripSection() {
+  return (
+    <section className="bg-brand-navy py-10 lg:py-14">
+      <ContainerEditorial width="wide">
+        <StatStrip
+          variant="on-dark"
+          stats={[
+            { value: "2011", label: "Founded by ProActiv Sports" },
+            { value: "1", label: "Singapore venue — Katong Point" },
+            { value: "3", label: "Activity zones" },
+            { value: "1", label: "MultiBall wall in Singapore" },
+          ]}
+        />
       </ContainerEditorial>
-    </Section>
+    </section>
   );
 }
 
@@ -216,7 +231,10 @@ function WhyProdigySection() {
   return (
     <Section size="md" bg="muted">
       <ContainerEditorial width="wide">
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-bold">
+        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+          Why Prodigy
+        </p>
+        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
           Why Singapore parents choose Prodigy.
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -322,7 +340,10 @@ function ProgrammesSection() {
   return (
     <Section size="md" bg="default">
       <ContainerEditorial width="wide">
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-bold">
+        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+          Our Programmes
+        </p>
+        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
           Programmes for every stage — toddler to tween.
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -359,7 +380,10 @@ function ThreeZonesSection() {
   return (
     <Section size="md" bg="default">
       <ContainerEditorial width="wide">
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-bold">
+        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+          Three Zones
+        </p>
+        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
           Three zones. Infinite movement.
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -414,7 +438,10 @@ function SocialProofSection() {
   return (
     <Section size="md" bg="navy">
       <ContainerEditorial width="wide">
-        <h2 className="text-h2 font-display text-white mb-8 text-center text-3xl md:text-4xl font-bold">
+        <p className="text-brand-cream/60 text-xs font-bold tracking-widest uppercase mb-3 text-center">
+          What Parents Say
+        </p>
+        <h2 className="text-h2 font-display text-white mb-8 text-center text-3xl md:text-4xl font-extrabold tracking-tight">
           Trusted by Singapore&apos;s international school families.
         </h2>
         <LogoWall
@@ -453,7 +480,10 @@ function CampsFeatureSection() {
   return (
     <Section size="md" bg="muted">
       <ContainerEditorial width="wide">
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-bold">
+        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+          Holiday Camps
+        </p>
+        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
           Prodigy Holiday Camps.
         </h2>
         <Card className="overflow-hidden">
@@ -508,7 +538,10 @@ function BirthdayPartySection() {
       <ContainerEditorial width="wide">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <div>
-            <h2 className="text-h2 font-display text-foreground mb-4 text-3xl md:text-4xl font-bold">
+            <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+              Birthday Parties
+            </p>
+            <h2 className="text-h2 font-display text-foreground mb-4 text-3xl md:text-4xl font-extrabold tracking-tight">
               The easiest birthday you&apos;ll ever plan.
             </h2>
             <ul className="mt-4 space-y-3">
@@ -567,7 +600,10 @@ function CoachesSection() {
   return (
     <Section size="md" bg="muted">
       <ContainerEditorial width="wide">
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-bold">
+        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+          The Coaches
+        </p>
+        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
           Meet the coaches.
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -617,7 +653,10 @@ function AboutSection() {
       <ContainerEditorial width="wide">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <div>
-            <h2 className="text-h2 font-display text-foreground mb-4 text-3xl md:text-4xl font-bold">
+            <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+              About Us
+            </p>
+            <h2 className="text-h2 font-display text-foreground mb-4 text-3xl md:text-4xl font-extrabold tracking-tight">
               About <span className="font-accent text-brand-green">Prodigy</span> Singapore.
             </h2>
             <p className="text-body text-muted-foreground">
@@ -663,7 +702,7 @@ function BlogSection() {
       <Section size="md" bg="default">
         <ContainerEditorial width="default">
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-h2 font-display text-foreground mb-3 text-3xl md:text-4xl font-bold">
+            <h2 className="text-h2 font-display text-foreground mb-3 text-3xl md:text-4xl font-extrabold tracking-tight">
               New posts coming soon.
             </h2>
             <p className="text-body text-muted-foreground">
@@ -679,7 +718,10 @@ function BlogSection() {
   return (
     <Section size="md" bg="default">
       <ContainerEditorial width="wide">
-        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-bold">
+        <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+          From the Blog
+        </p>
+        <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
           From the blog.
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -705,7 +747,75 @@ function BlogSection() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// §3.12 FAQ — SG_HOMEPAGE_FAQS via FAQItem composition per UI-SPEC §3.12.
+// §3.12a HIGH-INTENT BLOCK — Prodigy Camps + Birthday Parties image cards.
+// ─────────────────────────────────────────────────────────────────────────────
+function HighIntentSection() {
+  return (
+    <Section size="md" bg="default">
+      <ContainerEditorial width="wide">
+        <div className="grid md:grid-cols-2 gap-6">
+          <a
+            href="/prodigy-camps/"
+            className="group relative rounded-2xl overflow-hidden aspect-[4/3] block"
+          >
+            <Image
+              src="/photography/sg-prodigy-camps.webp"
+              alt="Prodigy camps Singapore at Katong Point"
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
+              <div>
+                <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-2">
+                  Prodigy Camps
+                </p>
+                <h3 className="text-2xl font-extrabold text-white mb-2 tracking-tight">
+                  Every School Break, Covered
+                </h3>
+                <p className="text-sm text-white/70 mb-4">
+                  Themed and multi-activity camps every school holiday for ages 4–12.
+                </p>
+                <span className="inline-flex items-center gap-2 bg-brand-red text-white text-sm font-semibold px-4 py-2 rounded-lg">
+                  Book a Camp <ArrowRight className="size-4" />
+                </span>
+              </div>
+            </div>
+          </a>
+          <a
+            href="/birthday-parties/"
+            className="group relative rounded-2xl overflow-hidden aspect-[4/3] block"
+          >
+            <Image
+              src="/photography/sg-birthday-party.webp"
+              alt="Prodigy birthday parties Singapore at Katong Point"
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
+              <div>
+                <p className="text-brand-sky text-xs font-bold tracking-widest uppercase mb-2">
+                  Birthday Parties
+                </p>
+                <h3 className="text-2xl font-extrabold text-white mb-2 tracking-tight">
+                  The Party They&apos;ll Remember
+                </h3>
+                <p className="text-sm text-white/70 mb-4">
+                  Fully hosted, coach-led, MultiBall wall access. Zero stress for parents.
+                </p>
+                <span className="inline-flex items-center gap-2 border border-white text-white text-sm font-semibold px-4 py-2 rounded-lg">
+                  Plan a Party <ArrowRight className="size-4" />
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </ContainerEditorial>
+    </Section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// §3.12b FAQ — SG_HOMEPAGE_FAQS via FAQItem composition per UI-SPEC §3.12.
 // Do NOT nest in a parent Accordion — FAQItem internally composes its own Accordion;
 // double-nesting breaks state (PATTERNS §FAQItem Composition).
 // DOM order MUST match JSON-LD FAQPage.mainEntity order (Google FAQPage rule).
@@ -715,7 +825,10 @@ function FAQSection() {
     <Section size="md" bg="default">
       <ContainerEditorial width="default">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-bold">
+          <p className="text-brand-red text-xs font-bold tracking-widest uppercase mb-3">
+            Common Questions
+          </p>
+          <h2 className="text-h2 font-display text-foreground mb-8 text-3xl md:text-4xl font-extrabold tracking-tight">
             Frequently asked questions.
           </h2>
           <div className="space-y-2">
@@ -747,7 +860,7 @@ function FinalCTASection() {
     <Section size="lg" bg="navy">
       <ContainerEditorial width="default">
         <div className="text-center max-w-2xl mx-auto">
-          <h2 className="text-h2 font-display text-white mb-3 text-3xl md:text-4xl font-bold">
+          <h2 className="text-h2 font-display text-white mb-3 text-3xl md:text-4xl font-extrabold tracking-tight">
             Ready to try a free trial at Prodigy?
           </h2>
           <p className="text-body-lg text-brand-cream mb-6 text-base md:text-lg">
@@ -795,6 +908,7 @@ export default function SGHomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(sgHomeSchema) }}
       />
       <HeroSection />
+      <TrustStripSection />
       <VenueChipRowSection />
       <WhyProdigySection />
       <ProgrammesSection />
@@ -805,6 +919,7 @@ export default function SGHomePage() {
       <CoachesSection />
       <AboutSection />
       <BlogSection />
+      <HighIntentSection />
       <FAQSection />
       <FinalCTASection />
     </>

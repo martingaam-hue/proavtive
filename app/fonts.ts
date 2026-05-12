@@ -1,14 +1,13 @@
-import { Space_Grotesk, Baloo_2 } from "next/font/google";
+import { Plus_Jakarta_Sans, Baloo_2 } from "next/font/google";
 
-// Single geometric font for the whole site — clean, punchy at all weights.
-export const spaceGrotesk = Space_Grotesk({
+export const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-plus-jakarta",
   display: "swap",
 });
 
-// HK ProGym accent — attached only in app/hk/layout.tsx
+// HK/SG brand wordmark accent — attached only in market layouts
 export const baloo = Baloo_2({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
