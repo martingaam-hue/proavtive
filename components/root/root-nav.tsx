@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 
@@ -35,15 +36,15 @@ export function RootNav() {
     >
       <div className="mx-auto max-w-[1440px] px-[5%] flex items-center justify-between h-16 lg:h-[4.5rem]">
         {/* Logo */}
-        <Link href="/" aria-label="ProActiv Sports — home" className="flex items-baseline gap-1.5">
-          <span
-            className={`font-extrabold text-xl lg:text-2xl tracking-tight transition-colors duration-500 ${
-              scrolled ? "text-white" : "text-white"
-            }`}
-          >
-            PROACTIV
-          </span>
-          <span className="text-[#ec1c24] text-xs font-bold tracking-wide">SPORTS</span>
+        <Link href="/" aria-label="ProActiv Sports — home">
+          <Image
+            src="/logo-white.png"
+            alt="ProActiv Sports"
+            width={160}
+            height={48}
+            className="h-9 w-auto object-contain"
+            priority
+          />
         </Link>
 
         {/* Desktop nav */}

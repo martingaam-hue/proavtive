@@ -11,6 +11,7 @@
 // Cookie fix: rootUrl uses NEXT_PUBLIC_ROOT_URL ?? "/?__market=root" — resets x-market
 // cookie to "root", breaking the loop that traps users on the SG tree.
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -54,10 +55,15 @@ export function SGNav() {
           <Link
             href="/"
             aria-label="Prodigy by ProActiv Sports Singapore — home"
-            className="flex items-baseline gap-1 font-display tracking-tight hover:opacity-80 transition-opacity"
+            className="hover:opacity-80 transition-opacity"
           >
-            <span className="text-[#0f206c] font-extrabold text-xl">PROACTIV</span>
-            <sup className="text-[#ec1c24] text-xs font-bold tracking-wider">SPORTS</sup>
+            <Image
+              src="/logo-white.png"
+              alt="ProActiv Sports"
+              width={160}
+              height={48}
+              className="h-8 w-auto object-contain brightness-0"
+            />
           </Link>
         </div>
 

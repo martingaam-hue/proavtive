@@ -9,6 +9,7 @@
 // sets the x-market cookie to "root" (a valid KNOWN_MARKETS value) and rewrites to /root,
 // breaking the x-market=hk cookie loop that traps users on the HK tree.
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ContainerEditorial } from "@/components/ui/container-editorial";
@@ -50,14 +51,15 @@ export function HKNav() {
           <Link
             href="/"
             aria-label="ProActiv Sports Hong Kong — home"
-            className="inline-flex items-baseline gap-1 group"
+            className="hover:opacity-80 transition-opacity"
           >
-            <span className="font-sans font-extrabold tracking-tight text-xl text-[#0f206c] group-hover:opacity-80 transition-opacity">
-              PROACTIV
-            </span>
-            <span className="font-sans text-[#e84040] text-[0.65rem] font-bold tracking-widest uppercase -translate-y-1.5">
-              Sports
-            </span>
+            <Image
+              src="/logo-white.png"
+              alt="ProActiv Sports"
+              width={160}
+              height={48}
+              className="h-8 w-auto object-contain brightness-0"
+            />
           </Link>
         </div>
 
