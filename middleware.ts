@@ -1,6 +1,9 @@
 // Phase 1 / Plan 01-01 — Subdomain routing middleware.
 //
-// D-01 precedence ladder: Host > cookie (x-market) > query (?__market=) > default root.
+// D-01 precedence ladder: Host > query (?__market=) > cookie (x-market) > default root.
+// NOTE: query param intentionally precedes cookie so explicit market-hop links (e.g. "Enter
+// Hong Kong →" with href="/?__market=hk") always override a stale cookie. Without this order,
+// a cookie set to "root" traps the user on the root page because isKnownMarket("root") is true.
 // D-02: known Host values (hk.*, sg.*) are AUTHORITATIVE and cannot be overridden by cookie/query.
 //       This is the security posture encoded by the Plan 01-04 hostile-request Vitest test.
 // D-03: unknown hosts (plain *.vercel.app, typos, www.*, bot-set headers, plain localhost:3000) route to root.
@@ -62,27 +65,27 @@ export function middleware(req: NextRequest): NextResponse {
     return rewriteToMarket(req, hostMarket);
   }
 
-  // --- D-01 Step 2: cookie fallback (preview bridge) ---
-  const cookieValue = req.cookies.get(MARKET_COOKIE)?.value;
-  if (isKnownMarket(cookieValue)) {
-    return rewriteToMarket(req, cookieValue);
-  }
-
-  // --- D-01 Step 3: query fallback (preview bridge; sets cookie for subsequent requests) ---
+  // --- D-01 Step 2: query param (always wins when present — overrides stale cookie) ---
+  // Must precede cookie check: "root" is a valid KNOWN_MARKET so a root cookie would otherwise
+  // intercept the request before the query param is read, trapping the user on the root page.
   const queryValue = req.nextUrl.searchParams.get(MARKET_QUERY) ?? undefined;
   if (isKnownMarket(queryValue)) {
     const res = rewriteToMarket(req, queryValue);
-    // Claude's Discretion (CONTEXT.md): name=x-market, path=/, SameSite=Lax, Secure only in production.
-    // Session cookie (no maxAge) so preview hopping between markets doesn't linger beyond the tab.
     res.cookies.set({
       name: MARKET_COOKIE,
       value: queryValue,
       path: "/",
       sameSite: "lax",
       secure: process.env.VERCEL_ENV === "production",
-      httpOnly: false, // client-readable is fine; this is a routing hint, not a secret
+      httpOnly: false,
     });
     return res;
+  }
+
+  // --- D-01 Step 3: cookie fallback (persists market across in-session navigation) ---
+  const cookieValue = req.cookies.get(MARKET_COOKIE)?.value;
+  if (isKnownMarket(cookieValue)) {
+    return rewriteToMarket(req, cookieValue);
   }
 
   // --- D-01 Step 4: default root (D-03 unknown-host fallthrough, D-05 plain localhost) ---
