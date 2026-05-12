@@ -9,13 +9,7 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { SG_ZONES, SG_CAMP_TYPES } from "@/lib/sg-data";
 
 // Group 3 flat links visible in mobile Sheet only (Parties / Schools / Events / Blog
@@ -30,7 +24,11 @@ const FLAT_NAV_LINKS = [
   { href: "/faq/", label: "FAQ" },
 ] as const;
 
-export function SGNavMobile() {
+interface SGNavMobileProps {
+  rootUrl: string;
+}
+
+export function SGNavMobile({ rootUrl }: SGNavMobileProps) {
   const [open, setOpen] = React.useState(false);
   const close = () => setOpen(false);
 
@@ -40,7 +38,7 @@ export function SGNavMobile() {
         <Button
           size="icon"
           variant="ghost"
-          className="lg:hidden min-h-11 min-w-11"
+          className="lg:hidden min-h-11 min-w-11 text-white hover:text-white hover:bg-white/10"
           aria-label={open ? "Close navigation menu" : "Open navigation menu"}
         >
           <Menu className="size-5" />
@@ -48,10 +46,10 @@ export function SGNavMobile() {
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="w-full sm:w-80 bg-background overflow-y-auto"
+        className="w-full sm:w-80 bg-[#0a0a0f] border-l border-white/10 overflow-y-auto"
       >
         <SheetHeader>
-          <SheetTitle className="font-display text-lg">Menu</SheetTitle>
+          <SheetTitle className="font-display text-lg text-white">Menu</SheetTitle>
         </SheetHeader>
 
         {/* Sticky red CTA at top of sheet — universal D-05 conversion entry */}
@@ -68,12 +66,9 @@ export function SGNavMobile() {
         </div>
 
         {/* Grouped nav: Weekly Classes / Prodigy Camps / Flat */}
-        <nav
-          aria-label="Mobile primary"
-          className="mt-8 flex flex-col gap-1 px-4"
-        >
+        <nav aria-label="Mobile primary" className="mt-8 flex flex-col gap-1 px-4">
           {/* Group 1 — Weekly Classes (maps SG_ZONES) */}
-          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+          <h3 className="text-xs font-semibold text-white/35 uppercase tracking-wide mb-2">
             Weekly Classes
           </h3>
           {SG_ZONES.map((z) => (
@@ -81,20 +76,17 @@ export function SGNavMobile() {
               key={z.slug}
               href={z.href}
               onClick={close}
-              className="font-sans text-base py-2 min-h-12 text-foreground hover:text-brand-navy transition-colors flex items-center gap-2"
+              className="font-sans text-base py-2 min-h-12 text-white/80 hover:text-white transition-colors flex items-center gap-2"
             >
-              {z.label}{" "}
-              <span className="text-sm text-muted-foreground">{z.ageBand}</span>
+              {z.label} <span className="text-sm text-white/35">{z.ageBand}</span>
               {z.slug === "sports-multiball" && (
-                <Badge className="bg-brand-green text-white text-xs">
-                  Singapore&apos;s only
-                </Badge>
+                <Badge className="bg-brand-green text-white text-xs">Singapore&apos;s only</Badge>
               )}
             </Link>
           ))}
 
           {/* Group 2 — Prodigy Camps (maps SG_CAMP_TYPES) */}
-          <h3 className="mt-6 text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+          <h3 className="mt-6 text-xs font-semibold text-white/35 uppercase tracking-wide mb-2">
             Prodigy Camps
           </h3>
           {SG_CAMP_TYPES.map((c) => (
@@ -102,30 +94,35 @@ export function SGNavMobile() {
               key={c.slug}
               href={c.href}
               onClick={close}
-              className="font-sans text-base py-2 min-h-12 text-foreground hover:text-brand-navy transition-colors"
+              className="font-sans text-base py-2 min-h-12 text-white/80 hover:text-white transition-colors"
             >
-              {c.label}{" "}
-              <span className="text-sm text-muted-foreground">{c.ageBand}</span>
-              {c.tag && (
-                <span className="block text-xs text-muted-foreground mt-0.5">
-                  {c.tag}
-                </span>
-              )}
+              {c.label} <span className="text-sm text-white/35">{c.ageBand}</span>
+              {c.tag && <span className="block text-xs text-white/35 mt-0.5">{c.tag}</span>}
             </Link>
           ))}
 
           {/* Group 3 — flat links (border-separated) */}
-          <div className="mt-6 border-t border-border pt-4 flex flex-col gap-1">
+          <div className="mt-6 border-t border-white/10 pt-4 flex flex-col gap-1">
             {FLAT_NAV_LINKS.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
                 onClick={close}
-                className="font-sans text-base py-2 min-h-12 text-foreground hover:text-brand-navy transition-colors"
+                className="font-sans text-base py-2 min-h-12 text-white/80 hover:text-white transition-colors"
               >
                 {label}
               </Link>
             ))}
+          </div>
+
+          {/* Root escape — back to ProActiv Sports Group master page */}
+          <div className="mt-6 border-t border-white/10 pt-4">
+            <a
+              href={rootUrl}
+              className="font-display text-[0.7rem] tracking-[0.2em] uppercase text-white/35 hover:text-white/70 transition-colors"
+            >
+              ← ProActiv Group
+            </a>
           </div>
         </nav>
 
