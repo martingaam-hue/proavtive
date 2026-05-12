@@ -1,86 +1,35 @@
 {
   "version": "1.0",
-  "timestamp": "2026-05-12T09:37:43.957Z",
+  "timestamp": "2026-05-12T10:17:05.356Z",
   "phase": null,
   "phase_name": "dark-theme-design-parity",
   "phase_dir": null,
   "plan": null,
   "task": null,
-  "total_tasks": null,
-  "status": "paused",
+  "total_tasks": 8,
+  "status": "complete",
   "completed_tasks": [
-    {
-      "id": 1,
-      "name": "Dark theme + Space Grotesk + cinematic hero slider on root homepage",
-      "status": "done",
-      "commit": "ad98a40"
-    },
-    {
-      "id": 2,
-      "name": "Dark nav dropdowns + resolve market image 400s",
-      "status": "done",
-      "commit": "7f05f91"
-    },
-    {
-      "id": 3,
-      "name": "HK/SG nav dark cinematic redesign + cookie escape to root market",
-      "status": "done",
-      "commit": "381c958"
-    },
-    {
-      "id": 4,
-      "name": "Location pages design parity — brand-navy → brand-red/green, outline buttons dark-compatible",
-      "status": "done",
-      "commit": "8954d4b"
-    }
+    {"id": 1, "name": "Dark theme + Space Grotesk + cinematic hero slider on root homepage", "status": "done", "commit": "ad98a40"},
+    {"id": 2, "name": "Dark nav dropdowns + resolve market image 400s", "status": "done", "commit": "7f05f91"},
+    {"id": 3, "name": "HK/SG nav dark cinematic redesign + cookie escape to root market", "status": "done", "commit": "381c958"},
+    {"id": 4, "name": "Location pages design parity — brand-navy → brand-red/green, outline buttons dark-compatible", "status": "done", "commit": "8954d4b"},
+    {"id": 5, "name": "HK homepage (app/hk/page.tsx) brand-navy parity", "status": "done", "commit": "c319545"},
+    {"id": 6, "name": "SG homepage (app/sg/page.tsx) brand-navy parity", "status": "done", "commit": "c319545"},
+    {"id": 7, "name": "All HK inner pages + components brand-navy → brand-red", "status": "done", "commit": "aaee23a"},
+    {"id": 8, "name": "All SG inner pages + components brand-navy → brand-green", "status": "done", "commit": "aaee23a"}
   ],
-  "remaining_tasks": [
-    {
-      "id": 5,
-      "name": "HK homepage (app/hk/page.tsx) design parity audit — still has brand-navy references in CampsPartiesSection outline button and AboutSnapshot heading",
-      "status": "not_started"
-    },
-    {
-      "id": 6,
-      "name": "SG homepage (app/sg/page.tsx) design parity audit — similar brand-navy references likely present",
-      "status": "not_started"
-    },
-    {
-      "id": 7,
-      "name": "Other HK pages (coaches, gymnastics pillar, camps, parties, booking hub) — not yet audited for brand-navy dark-theme clashes",
-      "status": "not_started"
-    },
-    {
-      "id": 8,
-      "name": "Other SG pages (weekly classes, camps, coaches, parties, schools) — not yet audited",
-      "status": "not_started"
-    }
-  ],
+  "remaining_tasks": [],
   "blockers": [],
   "human_actions_pending": [],
   "decisions": [
-    {
-      "decision": "HK accent = text-brand-red (matches HKNav ProActiv HK red), SG accent = text-brand-green (matches SGNav Prodigy green)",
-      "rationale": "Mirrors what the nav already ships; creates consistent per-market identity",
-      "phase": "dark-theme-parity"
-    },
-    {
-      "decision": "Outline buttons → border-white/20 text-foreground hover:bg-white/8 on dark bg",
-      "rationale": "Previous border-brand-navy was near-invisible on oklch(0.07) dark background",
-      "phase": "dark-theme-parity"
-    },
-    {
-      "decision": "Yellow badge bg-brand-yellow text-brand-navy on Katong Point left unchanged",
-      "rationale": "Navy on yellow is high-contrast and readable; badge has its own background",
-      "phase": "dark-theme-parity"
-    },
-    {
-      "decision": "bg=navy Section CTA strips left unchanged",
-      "rationale": "brand-navy (#0f206c) is visibly distinct from oklch(0.07) near-black; creates intentional section break",
-      "phase": "dark-theme-parity"
-    }
+    {"decision": "HK accent = text-brand-red (matches HKNav ProActiv HK red)", "rationale": "Mirrors what the nav already ships", "phase": "dark-theme-parity"},
+    {"decision": "SG accent = text-brand-green (matches SGNav Prodigy green)", "rationale": "Mirrors what the nav already ships", "phase": "dark-theme-parity"},
+    {"decision": "Outline buttons → border-white/20 text-foreground hover:bg-white/8 on dark bg", "rationale": "brand-navy was near-invisible on dark"},
+    {"decision": "Hero overlays bg-brand-navy/40 → bg-black/40", "rationale": "Neutral dark for cinematic hero"},
+    {"decision": "bg=navy Section/Footer surfaces left unchanged", "rationale": "brand-navy visually distinct from oklch(0.07) near-black"},
+    {"decision": "sg/katong-point yellow badge left unchanged", "rationale": "bg-brand-yellow text-brand-navy is high-contrast and readable"},
+    {"decision": ".claire/ added to .gitignore", "rationale": "Worktree artifacts should not be tracked"}
   ],
   "uncommitted_files": [],
-  "next_action": "Audit app/hk/page.tsx and app/sg/page.tsx for remaining brand-navy references using grep, then apply same red/green parity pattern",
-  "context_notes": "This was an ad-hoc design parity session, not a formal GSD phase. The dark cinematic redesign (ad98a40 through 381c958) was applied to homepages + nav but location pages were missed. Location pages are now fixed. HK/SG homepages and inner pages likely have the same brand-navy issues and should be audited next."
+  "next_action": "Dark-theme parity complete. Resume formal GSD pipeline: /gsd-execute-phase 3 proactive (Root Gateway — 5 plans ready, planning artifacts committed)"
 }
