@@ -1,39 +1,97 @@
 {
   "version": "1.0",
-  "timestamp": "2026-05-12T12:02:53Z",
+  "timestamp": "2026-05-12T13:04:30Z",
   "phase": null,
-  "phase_name": "sg-homepage-layout-overhaul + build-fixes",
+  "phase_name": "bug-fix — middleware navigation + vercel CI diagnosis",
   "phase_dir": null,
   "plan": null,
   "task": null,
   "total_tasks": null,
   "status": "paused",
   "completed_tasks": [
-    {"id": 1, "name": "SG hero → full-bleed min-h-[92vh] matching HK pattern", "status": "done", "commit": "b3d6040"},
-    {"id": 2, "name": "SG TrustStripSection (navy StatStrip after hero)", "status": "done", "commit": "b3d6040"},
-    {"id": 3, "name": "Overline labels + font-extrabold tracking-tight on all SG h2s", "status": "done", "commit": "b3d6040"},
-    {"id": 4, "name": "SG HighIntentSection (Prodigy Camps + Birthday Parties cards) before FAQ", "status": "done", "commit": "b3d6040"},
-    {"id": 5, "name": "Parties added to FLAT_NAV_LINKS in sg-nav.tsx", "status": "done", "commit": "b3d6040"},
-    {"id": 6, "name": "Fix ESLint no-explicit-any build error in hk/faq + sg/faq pages", "status": "done", "commit": "74fe812"},
-    {"id": 7, "name": "Fix localhost 500 — stale Turbopack .next cache wiped + server restarted", "status": "done", "commit": null}
+    {
+      "id": 1,
+      "name": "Diagnosed middleware cookie-trap bug (root cookie blocks HK/SG query param)",
+      "status": "done",
+      "commit": null
+    },
+    {
+      "id": 2,
+      "name": "Fixed middleware: query param now precedes cookie in precedence ladder",
+      "status": "done",
+      "commit": "ebc4929"
+    },
+    {
+      "id": 3,
+      "name": "Diagnosed Vercel CI failure: missing Sanity env vars (not ESLint)",
+      "status": "done",
+      "commit": null
+    },
+    {
+      "id": 4,
+      "name": "Confirmed CSS token system is correct (all dark; --accent, --card etc. verified)",
+      "status": "done",
+      "commit": null
+    }
   ],
-  "remaining_tasks": [],
+  "remaining_tasks": [
+    {
+      "id": 5,
+      "name": "User adds Sanity env vars to Vercel → trigger redeploy → verify CI green",
+      "status": "not_started"
+    },
+    {
+      "id": 6,
+      "name": "Verify navigation buttons work after user clears cookies + redeploy",
+      "status": "not_started"
+    },
+    {
+      "id": 7,
+      "name": "Verify design consistency after Sanity data loads on Vercel",
+      "status": "not_started"
+    },
+    {
+      "id": 8,
+      "name": "Decide next milestone: Phase 08 (Analytics/GBP), Phase 09 (Security), or Phase 10 (DNS cutover)",
+      "status": "not_started"
+    }
+  ],
   "blockers": [],
   "human_actions_pending": [
     {
-      "action": "Verify Vercel build is green on commit 74fe812",
-      "context": "ESLint any[] errors were the build-failure root cause. Fixed and pushed. Check Vercel dashboard.",
+      "action": "Add Sanity env vars to Vercel project → Settings → Environment Variables",
+      "context": "NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET, SANITY_API_READ_TOKEN (Viewer token), SANITY_REVALIDATE_SECRET. These are missing on Vercel — root cause of all CI build failures. Local .env.local has them, so local builds pass.",
+      "blocking": true
+    },
+    {
+      "action": "Trigger a Vercel redeploy after adding env vars",
+      "context": "Any push or manual redeploy will do. Build should go green once Sanity is reachable.",
+      "blocking": true
+    },
+    {
+      "action": "Clear browser cookies (x-market) and test HK/SG navigation buttons",
+      "context": "Middleware fix is live (ebc4929). Browser may still have old stale cookie. Clear cookies then click Enter Hong Kong / Enter Singapore on root page.",
       "blocking": false
     }
   ],
   "decisions": [
-    {"decision": "SG hero full-bleed: section className='relative min-h-[92vh] flex items-center overflow-hidden' — no Section/ContainerEditorial wrapper around video", "rationale": "HK was reference; SG was still using contained pattern with rounded-2xl", "phase": "05"},
-    {"decision": "SG TrustStripSection stats: 2011 / 1 venue (Katong Point) / 3 activity zones / 1 MultiBall wall", "rationale": "SG-specific stats parallel to HK navy strip", "phase": "05"},
-    {"decision": "Overline on navy bg = text-brand-cream/60 text-center; on light bg = text-brand-red", "rationale": "Matches HK page pattern exactly", "phase": "05"},
-    {"decision": "FinalCTASection gets font-extrabold tracking-tight but no overline — matches HK", "rationale": "HK FinalCTASection has no overline; consistency preferred", "phase": "05"},
-    {"decision": "FAQ any[] typed as { _id, question, answer, category }[] — exact shape consumed from sanityFetch result", "rationale": "ESLint hard error; eslint-disable comment was stale after rule tightening", "phase": "06"}
+    {
+      "decision": "Middleware precedence changed from Host>cookie>query to Host>query>cookie",
+      "rationale": "root is a KNOWN_MARKET so a cookie=root trapped users on root page permanently; query param must override stale cookie to allow market-hopping",
+      "phase": "bug-fix"
+    },
+    {
+      "decision": "Vercel CI failure is NOT ESLint — local pnpm lint shows only warnings, 0 errors",
+      "rationale": "All any[] usages have working eslint-disable-next-line comments. True cause: missing SANITY env vars on Vercel prevent build-time data fetching for SSG pages.",
+      "phase": "bug-fix"
+    },
+    {
+      "decision": "Design inconsistency likely caused by Sanity empty states on Vercel, not CSS bugs",
+      "rationale": "CSS token system verified: --accent oklch(0.14 0 0), --card oklch(0.11 0 0), --muted oklch(0.13 0 0) — all dark. No bg-white/bg-gray in page files. Once Sanity loads real data on Vercel the pages should look correct.",
+      "phase": "bug-fix"
+    }
   ],
   "uncommitted_files": [],
-  "next_action": "Check Vercel dashboard for green build on 74fe812. Then decide next milestone: Phase 08 (Analytics/GBP), Phase 09 (Security hardening), or Phase 10 (DNS cutover/launch).",
-  "context_notes": "All phases 00-09 previously shipped. This session: SG homepage brought to full visual parity with HK (full-bleed hero, TrustStrip, overlines, HighIntentSection, Parties nav). Plus ESLint build fix (any[] in FAQ pages) and localhost 500 fix (Turbopack cache). Dev server running healthy on localhost:3000. Git clean, pushed to main."
+  "next_action": "Confirm user has added Sanity env vars to Vercel and redeploy is green. Then verify navigation and design. Then pick next milestone.",
+  "context_notes": "All phases 00-09 previously shipped. This session: diagnosed and fixed middleware cookie-trap bug preventing HK/SG navigation. Identified Vercel CI failures as missing Sanity env vars (not code bugs). Dev server not running — user should restart with `pnpm dev` if needed. Git clean, pushed to main."
 }
