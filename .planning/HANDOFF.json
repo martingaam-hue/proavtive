@@ -1,8 +1,8 @@
 {
   "version": "1.0",
-  "timestamp": "2026-05-12T13:04:30Z",
+  "timestamp": "2026-05-12T14:47:05Z",
   "phase": null,
-  "phase_name": "bug-fix — middleware navigation + vercel CI diagnosis",
+  "phase_name": "bug-fix — Vercel CI + local dev server",
   "phase_dir": null,
   "plan": null,
   "task": null,
@@ -11,25 +11,25 @@
   "completed_tasks": [
     {
       "id": 1,
-      "name": "Diagnosed middleware cookie-trap bug (root cookie blocks HK/SG query param)",
+      "name": "Fixed local dev 500: removed --turbopack from dev script (Sentry 10.49.0 crashes in Next.js 15.5.15 Turbopack edge runtime)",
       "status": "done",
-      "commit": null
+      "commit": "e401e8d"
     },
     {
       "id": 2,
-      "name": "Fixed middleware: query param now precedes cookie in precedence ladder",
+      "name": "Added terser as devDependency (minify-sanity.mjs postinstall failed with 'command not found' on Vercel)",
       "status": "done",
-      "commit": "ebc4929"
+      "commit": "e401e8d"
     },
     {
       "id": 3,
-      "name": "Diagnosed Vercel CI failure: missing Sanity env vars (not ESLint)",
+      "name": "Pinned TypeScript back to ^5 (pnpm add terser unlocked TS 5.9.3→6.0.3; TS6 breaks CSS side-effect imports under moduleResolution:bundler)",
       "status": "done",
-      "commit": null
+      "commit": "e6f3af3"
     },
     {
       "id": 4,
-      "name": "Confirmed CSS token system is correct (all dark; --accent, --card etc. verified)",
+      "name": "Added Sanity env vars to Vercel (Production + Preview) via Vercel UI — previous CLI attempts stored corrupt base64 values",
       "status": "done",
       "commit": null
     }
@@ -37,61 +37,67 @@
   "remaining_tasks": [
     {
       "id": 5,
-      "name": "User adds Sanity env vars to Vercel → trigger redeploy → verify CI green",
+      "name": "Fix Vercel pnpm install --frozen-lockfile failure (exits 1 — likely Node version mismatch: local v24 vs Vercel v22, or lockfile regenerated with wrong Node)",
       "status": "not_started"
     },
     {
       "id": 6,
-      "name": "Verify navigation buttons work after user clears cookies + redeploy",
+      "name": "Verify Vercel build goes green",
       "status": "not_started"
     },
     {
       "id": 7,
-      "name": "Verify design consistency after Sanity data loads on Vercel",
+      "name": "Clear browser cookies (x-market) and test HK/SG navigation buttons",
       "status": "not_started"
     },
     {
       "id": 8,
+      "name": "Verify design consistency once Sanity data loads on Vercel",
+      "status": "not_started"
+    },
+    {
+      "id": 9,
       "name": "Decide next milestone: Phase 08 (Analytics/GBP), Phase 09 (Security), or Phase 10 (DNS cutover)",
       "status": "not_started"
     }
   ],
-  "blockers": [],
+  "blockers": [
+    {
+      "description": "pnpm install --frozen-lockfile exits with 1 on Vercel. Full error not visible via CLI — only exit code shown. Root cause likely: lockfile regenerated locally with Node v24 but Vercel uses Node 22.",
+      "type": "technical",
+      "workaround": "Check full build log in Vercel UI. Likely fix: add .node-version file with '22', or run pnpm install on Node 22 to regenerate lockfile, or broaden engines.node range."
+    }
+  ],
   "human_actions_pending": [
     {
-      "action": "Add Sanity env vars to Vercel project → Settings → Environment Variables",
-      "context": "NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET, SANITY_API_READ_TOKEN (Viewer token), SANITY_REVALIDATE_SECRET. These are missing on Vercel — root cause of all CI build failures. Local .env.local has them, so local builds pass.",
+      "action": "Check Vercel build logs for exact pnpm install error (vercel.com/scr1/proavtive-c325 → latest deployment → Build Logs)",
+      "context": "CLI shows only exit code 1. Full log in Vercel UI shows which package fails.",
       "blocking": true
-    },
-    {
-      "action": "Trigger a Vercel redeploy after adding env vars",
-      "context": "Any push or manual redeploy will do. Build should go green once Sanity is reachable.",
-      "blocking": true
-    },
-    {
-      "action": "Clear browser cookies (x-market) and test HK/SG navigation buttons",
-      "context": "Middleware fix is live (ebc4929). Browser may still have old stale cookie. Clear cookies then click Enter Hong Kong / Enter Singapore on root page.",
-      "blocking": false
     }
   ],
   "decisions": [
     {
-      "decision": "Middleware precedence changed from Host>cookie>query to Host>query>cookie",
-      "rationale": "root is a KNOWN_MARKET so a cookie=root trapped users on root page permanently; query param must override stale cookie to allow market-hopping",
+      "decision": "Removed --turbopack from dev script only (kept in build script)",
+      "rationale": "Sentry 10.49.0 crashes in Next.js 15.5.15 Turbopack edge runtime. Webpack dev works fine.",
       "phase": "bug-fix"
     },
     {
-      "decision": "Vercel CI failure is NOT ESLint — local pnpm lint shows only warnings, 0 errors",
-      "rationale": "All any[] usages have working eslint-disable-next-line comments. True cause: missing SANITY env vars on Vercel prevent build-time data fetching for SSG pages.",
+      "decision": "Added terser as explicit devDependency",
+      "rationale": "minify-sanity.mjs postinstall runs npx terser which fails on Vercel without terser in node_modules.",
       "phase": "bug-fix"
     },
     {
-      "decision": "Design inconsistency likely caused by Sanity empty states on Vercel, not CSS bugs",
-      "rationale": "CSS token system verified: --accent oklch(0.14 0 0), --card oklch(0.11 0 0), --muted oklch(0.13 0 0) — all dark. No bg-white/bg-gray in page files. Once Sanity loads real data on Vercel the pages should look correct.",
+      "decision": "Pinned typescript to ^5",
+      "rationale": "^6 range pulled in TS 6.0.3 which breaks CSS side-effect imports under moduleResolution:bundler.",
+      "phase": "bug-fix"
+    },
+    {
+      "decision": "Never use Vercel CLI to set env vars — use Vercel UI or REST API with type:plain",
+      "rationale": "CLI stored corrupt base64-encoded blobs for env var values instead of plain strings.",
       "phase": "bug-fix"
     }
   ],
   "uncommitted_files": [],
-  "next_action": "Confirm user has added Sanity env vars to Vercel and redeploy is green. Then verify navigation and design. Then pick next milestone.",
-  "context_notes": "All phases 00-09 previously shipped. This session: diagnosed and fixed middleware cookie-trap bug preventing HK/SG navigation. Identified Vercel CI failures as missing Sanity env vars (not code bugs). Dev server not running — user should restart with `pnpm dev` if needed. Git clean, pushed to main."
+  "next_action": "Check Vercel UI build logs for exact pnpm install error. Most likely fix: add .node-version file pinned to 22 or regenerate lockfile on Node 22.",
+  "context_notes": "Local dev server works at http://localhost:3000 (webpack). Three fixes pushed (e401e8d, e6f3af3). Sanity env vars correctly set in Vercel UI for Production + Preview. Only remaining blocker is pnpm install on Vercel. Dependabot PRs are noise — security update PRs on GitHub, do not merge."
 }
