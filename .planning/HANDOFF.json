@@ -1,51 +1,86 @@
 {
   "version": "1.0",
-  "timestamp": "2026-05-11T21:35:56Z",
+  "timestamp": "2026-05-12T09:37:43.957Z",
   "phase": null,
-  "phase_name": "ad-hoc visual redesign",
+  "phase_name": "dark-theme-design-parity",
   "phase_dir": null,
   "plan": null,
   "task": null,
   "total_tasks": null,
   "status": "paused",
   "completed_tasks": [
-    {"id": 1, "name": "Cinematic hero slider (5 slides, nav embedded, Ken Burns)", "status": "done"},
-    {"id": 2, "name": "Font: Syne+DM Sans → Space Grotesk (single font system)", "status": "done"},
-    {"id": 3, "name": "Dark palette in globals.css (black bg, white fg, red primary)", "status": "done"},
-    {"id": 4, "name": "Dark theme applied to all 7 root section components", "status": "done"},
-    {"id": 5, "name": "Footer: bg-brand-navy → #0a0a0a, text-cream → white/50", "status": "done"},
-    {"id": 6, "name": "Nav: tracking reduced, scroll threshold raised to 70vh", "status": "done"}
+    {
+      "id": 1,
+      "name": "Dark theme + Space Grotesk + cinematic hero slider on root homepage",
+      "status": "done",
+      "commit": "ad98a40"
+    },
+    {
+      "id": 2,
+      "name": "Dark nav dropdowns + resolve market image 400s",
+      "status": "done",
+      "commit": "7f05f91"
+    },
+    {
+      "id": 3,
+      "name": "HK/SG nav dark cinematic redesign + cookie escape to root market",
+      "status": "done",
+      "commit": "381c958"
+    },
+    {
+      "id": 4,
+      "name": "Location pages design parity — brand-navy → brand-red/green, outline buttons dark-compatible",
+      "status": "done",
+      "commit": "8954d4b"
+    }
   ],
   "remaining_tasks": [
-    {"id": 7, "name": "COMMIT all 12 modified files + 7 new photography assets", "status": "not_started"},
-    {"id": 8, "name": "Fix 2 missing market images: hk-progym-wan-chai.webp + sg-prodigy-katong.webp (pre-existing 400 errors)", "status": "not_started"},
-    {"id": 9, "name": "Verify HK and SG sub-pages also dark (hk/layout.tsx, sg/layout.tsx)", "status": "not_started"},
-    {"id": 10, "name": "Resume Phase 3 execution: /gsd-execute-phase 3 /Users/martin/Projects/proactive", "status": "not_started"}
+    {
+      "id": 5,
+      "name": "HK homepage (app/hk/page.tsx) design parity audit — still has brand-navy references in CampsPartiesSection outline button and AboutSnapshot heading",
+      "status": "not_started"
+    },
+    {
+      "id": 6,
+      "name": "SG homepage (app/sg/page.tsx) design parity audit — similar brand-navy references likely present",
+      "status": "not_started"
+    },
+    {
+      "id": 7,
+      "name": "Other HK pages (coaches, gymnastics pillar, camps, parties, booking hub) — not yet audited for brand-navy dark-theme clashes",
+      "status": "not_started"
+    },
+    {
+      "id": 8,
+      "name": "Other SG pages (weekly classes, camps, coaches, parties, schools) — not yet audited",
+      "status": "not_started"
+    }
   ],
-  "blockers": [
-    {"description": "Missing market images: /photography/hk-progym-wan-chai.webp and /photography/sg-prodigy-katong.webp cause 400s", "type": "human_action", "workaround": "Market split panels fall back to black background — non-blocking visually"}
-  ],
-  "human_actions_pending": [
-    {"action": "Provide or rename real photos for hk-progym-wan-chai.webp and sg-prodigy-katong.webp", "context": "MarketSplitSection uses these image paths; 400 errors in console", "blocking": false}
-  ],
+  "blockers": [],
+  "human_actions_pending": [],
   "decisions": [
-    {"decision": "Space Grotesk as single font (display + body)", "rationale": "User wanted clean, punchy font; single-font system avoids pairing friction"},
-    {"decision": "Dark palette via :root tokens, not per-component", "rationale": "One globals.css change cascades everywhere via --background/--foreground"},
-    {"decision": "Nav stays in layout.tsx (not moved inside hero)", "rationale": "Fixed nav overlays hero when spacer removed — visually embedded without moving DOM"},
-    {"decision": "Tracking reduced from ~0.35em to 0.08-0.1em on all uppercase labels", "rationale": "User said fonts felt too spaced"}
+    {
+      "decision": "HK accent = text-brand-red (matches HKNav ProActiv HK red), SG accent = text-brand-green (matches SGNav Prodigy green)",
+      "rationale": "Mirrors what the nav already ships; creates consistent per-market identity",
+      "phase": "dark-theme-parity"
+    },
+    {
+      "decision": "Outline buttons → border-white/20 text-foreground hover:bg-white/8 on dark bg",
+      "rationale": "Previous border-brand-navy was near-invisible on oklch(0.07) dark background",
+      "phase": "dark-theme-parity"
+    },
+    {
+      "decision": "Yellow badge bg-brand-yellow text-brand-navy on Katong Point left unchanged",
+      "rationale": "Navy on yellow is high-contrast and readable; badge has its own background",
+      "phase": "dark-theme-parity"
+    },
+    {
+      "decision": "bg=navy Section CTA strips left unchanged",
+      "rationale": "brand-navy (#0f206c) is visibly distinct from oklch(0.07) near-black; creates intentional section break",
+      "phase": "dark-theme-parity"
+    }
   ],
-  "uncommitted_files": [
-    "app/fonts.ts", "app/globals.css", "app/layout.tsx",
-    "components/root/faq-numbered-section.tsx", "components/root/final-cta-section.tsx",
-    "components/root/hero-section.tsx", "components/root/leadership-editorial-section.tsx",
-    "components/root/market-split-section.tsx", "components/root/programme-list-section.tsx",
-    "components/root/root-footer.tsx", "components/root/root-nav.tsx",
-    "components/root/story-stats-section.tsx", "components/root/trust-cinematic-section.tsx",
-    "public/photography/camps.jpg", "public/photography/gymnastics.jpg",
-    "public/photography/hero-gateway.jpg", "public/photography/hero-hk.jpg",
-    "public/photography/hero-sg.jpg", "public/photography/parties.jpg",
-    "public/photography/sports-classes.jpg"
-  ],
-  "next_action": "git add + commit all modified files, then resume Phase 3: /gsd-execute-phase 3 /Users/martin/Projects/proactive",
-  "context_notes": "Dev server running on localhost:3000. Visual work is complete — dark theme looks correct on full page. Missing market images are pre-existing (Phase 3 plan 03-02 has placeholder image paths). Phase 3 has 5 approved plans ready to execute."
+  "uncommitted_files": [],
+  "next_action": "Audit app/hk/page.tsx and app/sg/page.tsx for remaining brand-navy references using grep, then apply same red/green parity pattern",
+  "context_notes": "This was an ad-hoc design parity session, not a formal GSD phase. The dark cinematic redesign (ad98a40 through 381c958) was applied to homepages + nav but location pages were missed. Location pages are now fixed. HK/SG homepages and inner pages likely have the same brand-navy issues and should be audited next."
 }
