@@ -6,6 +6,7 @@
 // Cross-market links use absolute <a href={env}> per Pitfall 7 carry-forward.
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
 import { ContainerEditorial } from "@/components/ui/container-editorial";
@@ -66,15 +67,16 @@ export function HKFooter() {
           <div>
             <Link
               href="/"
-              className="inline-flex items-baseline gap-1 group mb-5"
+              className="inline-block mb-5 hover:opacity-80 transition-opacity"
               aria-label="ProActiv Sports Hong Kong — home"
             >
-              <span className="font-sans font-extrabold tracking-tight text-xl text-white group-hover:opacity-80 transition-opacity">
-                PROACTIV
-              </span>
-              <span className="font-sans text-[#e84040] text-[0.65rem] font-bold tracking-widest uppercase -translate-y-1.5">
-                Sports
-              </span>
+              <Image
+                src="/logo-white.png"
+                alt="ProActiv Sports"
+                width={160}
+                height={48}
+                className="h-10 w-auto object-contain"
+              />
             </Link>
             <p className="mt-3 text-sm text-white/60 leading-relaxed">
               Premium gymnastics and sports programmes for children in Hong Kong since 2011.

@@ -5,6 +5,7 @@
 // Instagram, LinkedIn). Using inline SVG paths sourced from Simple Icons
 // (CC0 / brand-provided paths).
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 // Simple inline social SVG icons (24×24 viewBox, brand standard paths)
@@ -62,10 +63,15 @@ export function RootFooter() {
             <Link
               href="/"
               aria-label="ProActiv Sports — home"
-              className="flex items-baseline gap-1.5"
+              className="inline-block hover:opacity-80 transition-opacity"
             >
-              <span className="text-white font-extrabold text-2xl tracking-tight">PROACTIV</span>
-              <span className="text-[#e84040] text-xs font-bold tracking-wide">SPORTS</span>
+              <Image
+                src="/logo-white.png"
+                alt="ProActiv Sports"
+                width={160}
+                height={48}
+                className="h-10 w-auto object-contain"
+              />
             </Link>
             <p className="text-white/50 text-sm mt-4 leading-relaxed max-w-xs">
               Children&apos;s gymnastics and sports in Hong Kong and Singapore. Since 2011.
