@@ -1,17 +1,13 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import nextTypescript from "eslint-config-next/typescript";
 import prettier from "eslint-config-prettier/flat";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...nextCoreWebVitals,
+  ...nextTypescript,
+  // eslint-plugin-react@7 calls context.getFilename() which was removed in ESLint 10.
+  // Setting version explicitly skips the auto-detect that triggers the crash.
+  { settings: { react: { version: "19" } } },
   prettier,
   {
     // Sanity Studio files are excluded from TypeScript compilation (tsconfig.json excludes array)

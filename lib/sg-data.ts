@@ -33,28 +33,28 @@ export interface KatongPointVenueHours {
 
 export interface KatongPointVenue {
   id: "katong-point";
-  nameShort: string;       // "Katong Point"
-  nameFull: string;        // "Prodigy @ Katong Point"
-  addressStreet: string;   // "451 Joo Chiat Road, Level 3"
+  nameShort: string; // "Katong Point"
+  nameFull: string; // "Prodigy @ Katong Point"
+  addressStreet: string; // "451 Joo Chiat Road, Level 3"
   addressLocality: string; // "Katong"
-  addressRegion: string;   // "Singapore"
+  addressRegion: string; // "Singapore"
   addressCountry: "SG";
-  postalCode: string;      // "427664"
+  postalCode: string; // "427664"
   geo: { lat: number; lng: number };
   hours: KatongPointVenueHours[];
-  phoneEnvVar: string;     // "NEXT_PUBLIC_WHATSAPP_SG"
-  mapEmbedEnvVar: string;  // "NEXT_PUBLIC_MAP_EMBED_KATONG_POINT"
-  heroImage: string;       // "/photography/sg-venue-katong-hero.webp"
+  phoneEnvVar: string; // "NEXT_PUBLIC_WHATSAPP_SG"
+  mapEmbedEnvVar: string; // "NEXT_PUBLIC_MAP_EMBED_KATONG_POINT"
+  heroImage: string; // "/photography/sg-venue-katong-hero.webp"
   serviceArea: readonly string[];
   apparatus: readonly string[];
-  sizeNote: string;        // "2,700 sq ft"
+  sizeNote: string; // "2,700 sq ft"
 }
 
 export interface SGCoach {
   name: string;
   role: string;
   bio: string;
-  portrait: string;   // "/photography/coach-haikel-portrait.webp"
+  portrait: string; // "/photography/coach-haikel-portrait.webp"
 }
 
 export interface SGBlogPost {
@@ -68,7 +68,7 @@ export interface SGBlogPost {
 }
 
 export interface SGFAQItem {
-  value: string;  // accordion item id — kebab-case
+  value: string; // accordion item id — kebab-case
   question: string;
   answer: string;
   group: "about" | "venue" | "classes" | "camps" | "multiball" | "parties" | "schools";
@@ -79,7 +79,7 @@ export interface SGZone {
   href: `/weekly-classes/${string}/`;
   label: string;
   ageBand: string;
-  tag?: string;            // "Singapore's only" differentiator badge (sports-multiball only)
+  tag?: string; // "Singapore's only" differentiator badge (sports-multiball only)
   metaTitle: string;
   metaDescription: string;
   h1: string;
@@ -92,7 +92,7 @@ export interface SGCampType {
   href: `/prodigy-camps/${string}/`;
   label: string;
   ageBand: string;
-  tag?: string;            // theme tags e.g. "Ninja · Pokémon · Superhero · LEGO · STEAM"
+  tag?: string; // theme tags e.g. "Ninja · Pokémon · Superhero · LEGO · STEAM"
   metaTitle: string;
   metaDescription: string;
   h1: string;
@@ -124,7 +124,7 @@ export const KATONG_POINT: KatongPointVenue = {
   phoneEnvVar: "NEXT_PUBLIC_WHATSAPP_SG",
   mapEmbedEnvVar: "NEXT_PUBLIC_MAP_EMBED_KATONG_POINT",
   // HUMAN-ACTION D-07 gate 1 — SG hero poster photo; drop real shot → pnpm photos:process
-  heroImage: "/photography/sg-venue-katong-hero.webp",
+  heroImage: "/photography/sg-placeholder-climbing-unsplash-trinks.webp",
   serviceArea: [
     "Katong",
     "Marine Parade",
@@ -133,12 +133,7 @@ export const KATONG_POINT: KatongPointVenue = {
     "Kembangan",
     "Tanjong Katong",
   ],
-  apparatus: [
-    "MultiBall wall",
-    "Climbing wall",
-    "Movement floor",
-    "Sports court",
-  ],
+  apparatus: ["MultiBall wall", "Climbing wall", "Movement floor", "Sports court"],
   sizeNote: "2,700 sq ft",
 };
 
@@ -303,8 +298,7 @@ export const SG_FAQ_ITEMS: readonly SGFAQItem[] = [
 
 export const SG_BLOG_POSTS_STUB: readonly SGBlogPost[] = [
   {
-    title:
-      "What makes MultiBall different — interactive sport for kids in Singapore",
+    title: "What makes MultiBall different — interactive sport for kids in Singapore",
     slug: "what-makes-multiball-different-interactive-sport-singapore",
     excerpt:
       "Prodigy @ Katong Point is home to Singapore's only MultiBall interactive wall. Here's how the technology works and why kids who struggle to focus in traditional drills thrive on the wall.",
@@ -312,7 +306,7 @@ export const SG_BLOG_POSTS_STUB: readonly SGBlogPost[] = [
     category: "Sport & Development",
     readTimeMinutes: 5,
     // HUMAN-ACTION D-07 — needs real Katong Point photography
-    heroImage: "/photography/sg-venue-katong-hero.webp",
+    heroImage: "/photography/sg-placeholder-climbing-unsplash-trinks.webp",
   },
 ];
 
@@ -330,8 +324,7 @@ export const SG_ZONES: readonly SGZone[] = [
     href: "/weekly-classes/movement/",
     label: "Movement Zone",
     ageBand: "Ages 2–5",
-    metaTitle:
-      "Movement Zone for Early Years (Ages 2–5) | Prodigy @ Katong Point, Singapore",
+    metaTitle: "Movement Zone for Early Years (Ages 2–5) | Prodigy @ Katong Point, Singapore",
     metaDescription:
       "Early-years gymnastics and fundamental movement for children aged 2–5 at Prodigy @ Katong Point. Padded, parent-friendly, confidence-first. Free trial available.",
     h1: "Movement Zone — Ages 2–5 at Prodigy Singapore.",
@@ -352,8 +345,7 @@ export const SG_ZONES: readonly SGZone[] = [
     ageBand: "Ages 5–12",
     // Differentiator badge — only the sports-multiball zone carries this
     tag: "Singapore's only",
-    metaTitle:
-      "Sports + MultiBall Zone (Ages 5–12) | Singapore's Only MultiBall Wall | Prodigy",
+    metaTitle: "Sports + MultiBall Zone (Ages 5–12) | Singapore's Only MultiBall Wall | Prodigy",
     metaDescription:
       "Multi-sport weekly classes for children aged 5–12 at Prodigy @ Katong Point — football, basketball, rugby, martial arts, and Singapore's only MultiBall interactive wall.",
     h1: "Sports + MultiBall Zone — with Singapore's Only Wall.",
@@ -372,8 +364,7 @@ export const SG_ZONES: readonly SGZone[] = [
     href: "/weekly-classes/climbing/",
     label: "Climbing",
     ageBand: "All ages",
-    metaTitle:
-      "Climbing Zone for Kids — Rock & Boulder | Prodigy @ Katong Point, Singapore",
+    metaTitle: "Climbing Zone for Kids — Rock & Boulder | Prodigy @ Katong Point, Singapore",
     metaDescription:
       "Kids' climbing classes for all ages at Prodigy @ Katong Point, Singapore. Rock climbing, bouldering, resilience-building, and problem-solving in a safe coached environment.",
     h1: "Climbing Zone — Rock + Boulder for All Ages.",
@@ -426,8 +417,7 @@ export const SG_CAMP_TYPES: readonly SGCampType[] = [
     href: "/prodigy-camps/multi-activity/",
     label: "Multi-Activity",
     ageBand: "Ages 4–12",
-    metaTitle:
-      "Multi-Activity Holiday Camps Singapore (Ages 4–12) | Prodigy @ Katong Point",
+    metaTitle: "Multi-Activity Holiday Camps Singapore (Ages 4–12) | Prodigy @ Katong Point",
     metaDescription:
       "Multi-sport and multi-activity school holiday camps at Prodigy @ Katong Point. Climbing, gymnastics, soccer, basketball, and the MultiBall wall. Ages 4–12.",
     h1: "Multi-Activity Prodigy Camps — Sport Across Every Zone.",
@@ -446,8 +436,7 @@ export const SG_CAMP_TYPES: readonly SGCampType[] = [
     href: "/prodigy-camps/gymnastics/",
     label: "Gymnastics",
     ageBand: "Ages 4–12",
-    metaTitle:
-      "Gymnastics Holiday Camps Singapore (Ages 4–12) | Prodigy @ Katong Point",
+    metaTitle: "Gymnastics Holiday Camps Singapore (Ages 4–12) | Prodigy @ Katong Point",
     metaDescription:
       "Gymnastics-focused school holiday camps at Prodigy @ Katong Point, Singapore. Fundamentals through to intermediate skills, coached by ProActiv Sports team. Ages 4–12.",
     h1: "Gymnastics Prodigy Camps — Movement Foundation for Every Child.",

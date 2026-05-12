@@ -143,7 +143,7 @@ function HeroSection() {
     <section className="relative min-h-[92vh] flex items-center overflow-hidden">
       <SGHeroVideo
         playbackId={process.env.NEXT_PUBLIC_MUX_SG_HERO_PLAYBACK_ID ?? ""}
-        posterSrc="/photography/sg-venue-katong-hero.webp"
+        posterSrc="/photography/sg-placeholder-climbing-unsplash-trinks.webp"
         posterAlt="Children playing at Prodigy @ Katong Point, Singapore's only MultiBall wall"
         title="Prodigy Singapore — Prodigy camp-day montage"
       />

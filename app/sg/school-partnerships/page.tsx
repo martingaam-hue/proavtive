@@ -6,7 +6,6 @@
 
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRight, BookOpen, Trophy, School } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { ContainerEditorial } from "@/components/ui/container-editorial";
@@ -106,14 +105,12 @@ export default function SGSchoolPartnershipsPage() {
             <div>
               <h1 className="text-display font-display text-foreground">
                 School Partnerships with{" "}
-                <span className="font-accent text-brand-green">Prodigy</span>{" "}
-                Singapore.
+                <span className="font-accent text-brand-green">Prodigy</span> Singapore.
               </h1>
               <p className="text-body-lg text-muted-foreground mt-6">
-                Prodigy partners with international schools in Singapore to
-                deliver multi-sport programmes — term-time enrichment, holiday
-                camps, and sports days. Every programme runs to the same coaching
-                standard as our weekly classes at Katong Point.
+                Prodigy partners with international schools in Singapore to deliver multi-sport
+                programmes — term-time enrichment, holiday camps, and sports days. Every programme
+                runs to the same coaching standard as our weekly classes at Katong Point.
               </p>
               <div className="mt-8">
                 <Button
@@ -122,15 +119,14 @@ export default function SGSchoolPartnershipsPage() {
                   className="bg-brand-red text-white hover:bg-brand-red/90"
                 >
                   <a href="/book-a-trial/?subject=school-partnership">
-                    Send an Enquiry{" "}
-                    <ArrowRight className="ml-2 size-4" aria-hidden />
+                    Send an Enquiry <ArrowRight className="ml-2 size-4" aria-hidden />
                   </a>
                 </Button>
               </div>
             </div>
             <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
               <Image
-                src="/photography/sg-venue-katong-hero.webp"
+                src="/photography/sg-placeholder-climbing-unsplash-trinks.webp"
                 alt="Children in a school sports programme at Prodigy Singapore"
                 fill
                 priority
@@ -153,9 +149,7 @@ export default function SGSchoolPartnershipsPage() {
               <h2 className="text-h2 font-display text-foreground">
                 Featured partner: International French School (IFS).
               </h2>
-              <p className="text-body-lg mt-4 text-muted-foreground">
-                {IFS_PARTNERSHIP_COPY}
-              </p>
+              <p className="text-body-lg mt-4 text-muted-foreground">{IFS_PARTNERSHIP_COPY}</p>
               <Button
                 asChild
                 className="mt-6 bg-brand-red text-white hover:bg-brand-red/90"
@@ -186,13 +180,10 @@ export default function SGSchoolPartnershipsPage() {
       {/* Partner schools (text-only — logos optional per D-11) */}
       <Section size="md" bg="default">
         <ContainerEditorial width="wide">
-          <h2 className="text-h2 font-display text-foreground mb-3">
-            Partner schools
-          </h2>
+          <h2 className="text-h2 font-display text-foreground mb-3">Partner schools</h2>
           <p className="text-body text-muted-foreground mb-8 max-w-2xl">
-            We work with a range of international and community schools in
-            Singapore. Real logos and case studies appear as partnerships are
-            confirmed for publication.
+            We work with a range of international and community schools in Singapore. Real logos and
+            case studies appear as partnerships are confirmed for publication.
           </p>
           <ul className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {[
@@ -210,12 +201,8 @@ export default function SGSchoolPartnershipsPage() {
                   <Badge variant="outline" className="mb-3">
                     Partner
                   </Badge>
-                  <h3 className="text-h3 font-display text-foreground">
-                    {school.name}
-                  </h3>
-                  <p className="text-small text-muted-foreground mt-2">
-                    {school.note}
-                  </p>
+                  <h3 className="text-h3 font-display text-foreground">{school.name}</h3>
+                  <p className="text-small text-muted-foreground mt-2">{school.note}</p>
                 </Card>
               </li>
             ))}
@@ -234,9 +221,7 @@ export default function SGSchoolPartnershipsPage() {
               <Card key={opt.title} className="p-6 lg:p-8">
                 <CardHeader className="p-0 pb-3">
                   <opt.icon className="size-8 text-brand-red" aria-hidden />
-                  <h3 className="text-h3 font-display text-foreground mt-3">
-                    {opt.title}
-                  </h3>
+                  <h3 className="text-h3 font-display text-foreground mt-3">{opt.title}</h3>
                 </CardHeader>
                 <CardContent className="p-0">
                   <p className="text-body text-muted-foreground">{opt.body}</p>
@@ -255,18 +240,11 @@ export default function SGSchoolPartnershipsPage() {
               Talking to us about a school programme?
             </h2>
             <p className="text-body-lg text-brand-cream mb-8">
-              We tailor every partnership to the school&apos;s age range,
-              curriculum, and timetable. Tell us about your school and we&apos;ll
-              be in touch.
+              We tailor every partnership to the school&apos;s age range, curriculum, and timetable.
+              Tell us about your school and we&apos;ll be in touch.
             </p>
-            <Button
-              asChild
-              size="touch"
-              className="bg-brand-red text-white hover:bg-brand-red/90"
-            >
-              <a href="/book-a-trial/?subject=school-partnership">
-                Send an Enquiry
-              </a>
+            <Button asChild size="touch" className="bg-brand-red text-white hover:bg-brand-red/90">
+              <a href="/book-a-trial/?subject=school-partnership">Send an Enquiry</a>
             </Button>
           </div>
         </ContainerEditorial>

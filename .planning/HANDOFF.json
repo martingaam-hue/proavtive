@@ -34,17 +34,21 @@
       "commit": null
     }
   ],
-  "remaining_tasks": [
+  "completed_tasks_2": [
     {
       "id": 5,
-      "name": "Fix Vercel pnpm install --frozen-lockfile failure (exits 1 — likely Node version mismatch: local v24 vs Vercel v22, or lockfile regenerated with wrong Node)",
-      "status": "not_started"
+      "name": "Fix Vercel pnpm install --frozen-lockfile failure — root cause was prepare:lefthook install failing in CI. Fix: LEFTHOOK=0 in vercel.json installCommand + .node-version=22",
+      "status": "done",
+      "commit": "d74fc5e"
     },
     {
       "id": 6,
-      "name": "Verify Vercel build goes green",
-      "status": "not_started"
-    },
+      "name": "Verified Vercel build goes green — deployment 5pmlgkslf is ● Ready (Production, 2m duration)",
+      "status": "done",
+      "commit": "d74fc5e"
+    }
+  ],
+  "remaining_tasks": [
     {
       "id": 7,
       "name": "Clear browser cookies (x-market) and test HK/SG navigation buttons",
@@ -61,20 +65,8 @@
       "status": "not_started"
     }
   ],
-  "blockers": [
-    {
-      "description": "pnpm install --frozen-lockfile exits with 1 on Vercel. Full error not visible via CLI — only exit code shown. Root cause likely: lockfile regenerated locally with Node v24 but Vercel uses Node 22.",
-      "type": "technical",
-      "workaround": "Check full build log in Vercel UI. Likely fix: add .node-version file with '22', or run pnpm install on Node 22 to regenerate lockfile, or broaden engines.node range."
-    }
-  ],
-  "human_actions_pending": [
-    {
-      "action": "Check Vercel build logs for exact pnpm install error (vercel.com/scr1/proavtive-c325 → latest deployment → Build Logs)",
-      "context": "CLI shows only exit code 1. Full log in Vercel UI shows which package fails.",
-      "blocking": true
-    }
-  ],
+  "blockers": [],
+  "human_actions_pending": [],
   "decisions": [
     {
       "decision": "Removed --turbopack from dev script only (kept in build script)",
@@ -98,6 +90,6 @@
     }
   ],
   "uncommitted_files": [],
-  "next_action": "Check Vercel UI build logs for exact pnpm install error. Most likely fix: add .node-version file pinned to 22 or regenerate lockfile on Node 22.",
-  "context_notes": "Local dev server works at http://localhost:3000 (webpack). Three fixes pushed (e401e8d, e6f3af3). Sanity env vars correctly set in Vercel UI for Production + Preview. Only remaining blocker is pnpm install on Vercel. Dependabot PRs are noise — security update PRs on GitHub, do not merge."
+  "next_action": "Tasks 7–9: clear x-market cookie and test HK/SG nav, verify Sanity data on Vercel, decide next phase.",
+  "context_notes": "Vercel build is now ● Ready (commit d74fc5e). Root cause of CI failure was prepare:lefthook install trying to write git hooks in Vercel's CI environment. Fix: LEFTHOOK=0 in installCommand. Local dev at http://localhost:3000 (webpack). Sanity env vars set. Dependabot PRs are noise — do not merge."
 }
