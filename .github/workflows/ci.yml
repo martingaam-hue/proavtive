@@ -90,7 +90,7 @@ jobs:
 
       # --- Required check 5 (D-02 / D-07): gitleaks — layer 3 of the four-layer defense ---
       - name: Gitleaks
-        uses: gitleaks/gitleaks-action@v2
+        uses: gitleaks/gitleaks-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
